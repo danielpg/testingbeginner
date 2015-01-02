@@ -24,4 +24,7 @@
   <feature name="http://api.phonegap.com/1.0/camera"/>
   <feature name="http://api.phonegap.com/1.0/network"/>
 
+
+   <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.0" />
+
 </widget>

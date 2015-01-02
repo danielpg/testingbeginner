@@ -10,7 +10,18 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
+
+	var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
+
+	db.transaction(function(tx) {
+		tx.executeSql("select bar from foo;", [], function(tx, res) {
+			$("#test2").append("res.rows.length: " + res.rows.length + "<br>" );
+			$("#test2").append("res.rows.item(0): " + res.rows.item(0) + "<br>" );
+		});
+	});
+
 }
+
  
 function clearCache() {
     navigator.camera.cleanup();
@@ -43,8 +54,7 @@ function onCapturePhoto(fileURI) {
     options.mimeType = "image/jpeg";
     options.params = {}; // if we need to send parameters to the server request
     var ft = new FileTransfer();
-    //
-ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
+    //ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
 }
  
 function capturePhoto() {
@@ -91,7 +101,7 @@ function onError_gps(error) {
 <body>
 <input type="button" onclick="capturePhoto();" value="Foto" name="Foto" /><br>
 <input type="button" onclick="get_gps();" value="GPS" name="GPS" /><br>
-<input type="button" onclick="capturePhoto();" value="Save File" name="Save File" /><br>
+<input type="button"  value="Save File" name="Save File" /><br>
 <div id="test1"></div>
 <div id="test2"></div>
 <div id="test3"></div>
