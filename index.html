@@ -61,7 +61,7 @@ function onFail(message) {
 
  function get_gps() {
 		alert("get_gps");
-        navigator.geolocation.getCurrentPosition(onSuccess_gps, onError);
+        navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
     }
 
     // onSuccess Geolocation
@@ -78,6 +78,12 @@ function onSuccess_gps(position) {
                         'Speed: '              + position.coords.speed                 + '<br />' +
                         'Timestamp: '          +                                   position.timestamp          + '<br />';
 }
+
+function onError_gps(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
 </script>
 </head>
 <style>
