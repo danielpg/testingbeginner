@@ -1,28 +1,91 @@
 <html>
 <head>
+<script src="js/jquery-2.1.3.min.js"></script>
+<script>
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+ 
+document.addEventListener("deviceready", onDeviceReady, false);
+ 
+function onDeviceReady() {
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+}
+ 
+function clearCache() {
+    navigator.camera.cleanup();
+}
+ 
+var retries = 0;
+function onCapturePhoto(fileURI) {
+    var win = function (r) {
+        clearCache();
+        retries = 0;
+        alert('Done!');
+    }
+ 
+    var fail = function (error) {
+        if (retries == 0) {
+            retries ++
+            setTimeout(function() {
+                onCapturePhoto(fileURI)
+            }, 1000)
+        } else {
+            retries = 0;
+            clearCache();
+            alert('Ups. Something wrong happens!');
+        }
+    }
+ 
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
+    options.params = {}; // if we need to send parameters to the server request
+    var ft = new FileTransfer();
+    ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
+}
+ 
+function capturePhoto() {
+    navigator.camera.getPicture(onCapturePhoto, onFail, {
+        quality: 100,
+        destinationType: destinationType.FILE_URI
+    });
+}
+ 
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
+
+ function get_gps() {
+        navigator.geolocation.getCurrentPosition(onSuccess_gps, onError);
+    }
+
+    // onSuccess Geolocation
+    //
+function onSuccess_gps(position) {
+    var element = document.getElementById('test1');
+    element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
+                        'Longitude: '          + position.coords.longitude             + '<br />' +
+                        'Altitude: '           + position.coords.altitude              + '<br />' +
+                        'Accuracy: '           + position.coords.accuracy              + '<br />' +
+                        'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
+                        'Heading: '            + position.coords.heading               + '<br />' +
+                        'Speed: '              + position.coords.speed                 + '<br />' +
+                        'Timestamp: '          +                                   position.timestamp          + '<br />';
+}
+</script>
 </head>
 <style>
-.fcolor0{background:#F0EB6D}
-.fcolor1{background:#0B27A1}
-.fcolor2{background:#025C43}
-.fcolor3{background:#D93B0B}
-.fcolor4{background:#F6D703}
-.fcolor5{background:#720159}
-.fcolor6{background:#903F00}
-.fcolor7{background:#000000}
-.fcolor8{background:#65676C}
-.fcolor9{background:#FFFFFF}
 </style>
 <body>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor0"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor2"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor1"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor9"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor8"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor7"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor6"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor4"></div>
-<div style="float:left;width:33%;background#;height:33%" class="fcolor3"></div>
+<input type="button" onclick="capturePhoto();" value="Foto" name="Foto" /><br>
+<input type="button" onclick="capturePhoto();" value="GPS" name="GPS" /><br>
+<input type="button" onclick="capturePhoto();" value="Save File" name="Save File" /><br>
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<div id="test4"></div>
 
 </body>
 </html>
