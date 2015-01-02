@@ -29,10 +29,10 @@ function onDeviceReady() {
 			alert("readdsqlwhite");
 			$("#test2").append("res.rows: " + res.rows.item(0).bar + "<br>" );
 			//$("#test2").append("res.rows.item(0): " + res.rows.item(0) + "<br>" );
-		},function(e){
+		},function(tx,e){
       alert("Errora " + e.message);
 	});
-	},function(e){
+	},function(tx,e){
       alert("Errorb " + e.message);
 	});
 
