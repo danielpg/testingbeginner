@@ -10,13 +10,13 @@ var destinationType; // sets the format of returned value
  
 document.addEventListener("deviceready", onDeviceReady, false);
  
-function onDeviceReady2() {
+function onDeviceReady() {
 		alert("onDeviceReady");
 
     //pictureSource = navigator.camera.PictureSourceType;
     //destinationType = navigator.camera.DestinationType;
 
-	/*var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
+	var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
 	
 	//db.transaction(populateDB, errorCB, successCB);
 	db.transaction(function(tx) {
@@ -27,13 +27,13 @@ function onDeviceReady2() {
 
 		tx.executeSql("select bar from foo;", [], function(tx, res) {
 			alert("readdsqlwhite");
-			$("#test2").append("res.rows.length: " + res.rows.length + "<br>" );
+			$("#test2").append("res.rows: " + res.rows.item(0).bar + "<br>" );
 			//$("#test2").append("res.rows.item(0): " + res.rows.item(0) + "<br>" );
 		});
 	});
-*/
-}
 
+}
+/*
  function onDeviceReady() {
         var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
 
@@ -57,7 +57,7 @@ function onDeviceReady2() {
           });
         });
 }
- 
+ */
 function clearCache() {
     navigator.camera.cleanup();
 }
