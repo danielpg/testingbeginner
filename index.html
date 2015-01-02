@@ -1,6 +1,6 @@
 <html>
 <head>
-<script src="cordova.js"></script>
+<script type="text/javascript"  src="cordova.js"></script>
 <script src="js/jquery-2.1.3.min.js"></script>
 <script>
 var pictureSource;   // picture source
@@ -9,9 +9,11 @@ var destinationType; // sets the format of returned value
 document.addEventListener("deviceready", onDeviceReady, false);
  
 function onDeviceReady() {
-    pictureSource = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
 		alert("onDeviceReady");
+
+    //pictureSource = navigator.camera.PictureSourceType;
+    //destinationType = navigator.camera.DestinationType;
+
 	/*var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
 	
 	//db.transaction(populateDB, errorCB, successCB);
