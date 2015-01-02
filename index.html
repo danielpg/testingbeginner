@@ -43,10 +43,12 @@ function onCapturePhoto(fileURI) {
     options.mimeType = "image/jpeg";
     options.params = {}; // if we need to send parameters to the server request
     var ft = new FileTransfer();
-    //ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
+    //
+ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
 }
  
 function capturePhoto() {
+		alert("f_capture_photo");
     navigator.camera.getPicture(onCapturePhoto, onFail, {
         quality: 100,
         destinationType: destinationType.FILE_URI
@@ -58,12 +60,14 @@ function onFail(message) {
 }
 
  function get_gps() {
+		alert("get_gps");
         navigator.geolocation.getCurrentPosition(onSuccess_gps, onError);
     }
 
     // onSuccess Geolocation
     //
 function onSuccess_gps(position) {
+		alert("onsuccess_gps");
     var element = document.getElementById('test1');
     element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
                         'Longitude: '          + position.coords.longitude             + '<br />' +
