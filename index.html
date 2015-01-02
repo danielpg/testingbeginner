@@ -19,6 +19,10 @@ function onDeviceReady() {
 	//db.transaction(populateDB, errorCB, successCB);
 	db.transaction(function(tx) {
 		alert("transaction");
+
+		$("#test3").append("qqq" );
+		$("#test3").append("xxxx" );
+
 		tx.executeSql("select bar from foo;", [], function(tx, res) {
 			alert("readdsqlwhite");
 			$("#test2").append("res.rows.length: " + res.rows.length + "<br>" );
