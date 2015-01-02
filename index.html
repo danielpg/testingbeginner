@@ -30,6 +30,8 @@ function onDeviceReady() {
 			$("#test2").append("res.rows: " + res.rows.item(0).bar + "<br>" );
 			//$("#test2").append("res.rows.item(0): " + res.rows.item(0) + "<br>" );
 		});
+	},function(tx,err){
+      alert("Error " + err.message);
 	});
 
 }
