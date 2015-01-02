@@ -11,9 +11,9 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
     pictureSource = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
-
-	var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
-			alert("onDeviceReady");
+		alert("onDeviceReady");
+	/*var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
+	
 	//db.transaction(populateDB, errorCB, successCB);
 	db.transaction(function(tx) {
 		tx.executeSql("select bar from foo;", [], function(tx, res) {
@@ -21,7 +21,7 @@ function onDeviceReady() {
 			$("#test2").append("res.rows.length: " + res.rows.length + "<br>" );
 			$("#test2").append("res.rows.item(0): " + res.rows.item(0) + "<br>" );
 		});
-	});
+	});*/
 
 }
 
