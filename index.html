@@ -113,7 +113,44 @@ function onFail(message) {
     alert('Failed because: ' + message);
 }
 
- function get_gps() {
+
+
+function onError_gps(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+}
+
+function save_encuesta(){
+	//read all inputs from encuesta
+
+	//save to file all values
+
+	//save status to localstorage
+
+}
+
+function load_encuesta(){
+	//read file 
+
+	//load values to forms
+
+}
+
+function list_encuestas(){
+	//list files directory
+
+	//compare filenames(ids) to localstorage array status saved
+}
+
+function download_encuesta(){
+
+}
+
+function upload_encuesta(){
+
+}
+
+function get_gps() {
 		alert("get_gps");
         navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
     }
@@ -132,12 +169,6 @@ function onSuccess_gps(position) {
                         'Speed: '              + position.coords.speed                 + '<br />' +
                         'Timestamp: '          +                                   position.timestamp          + '<br />';
 }
-
-function onError_gps(error) {
-    alert('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
-}
-
 </script>
 </head>
 <style>
@@ -146,13 +177,13 @@ function onError_gps(error) {
 .cred{color:red}
 </style>
 <body>
-<input type="button" onclick="capturePhoto();" value="Foto" name="Foto" /><br>
+<!--input type="button" onclick="capturePhoto();" value="Foto" name="Foto" /><br>
 <input type="button" onclick="get_gps();" value="GPS" name="GPS" /><br>
 <input type="button"  value="Save File" name="Save File" /><br>
 <div id="test1"></div>
 <div id="test2"></div>
 <div id="test3"></div>
-<div id="test4"></div>
+<div id="test4"></div-->
 
 	<div data-role="page" id="jqm-home" >
 		<div data-role="header" id="hpage1"  data-theme="b">
@@ -191,52 +222,97 @@ function onError_gps(error) {
 			<h1 role="heading">Sistema de Monitoreo</h1>
 		</div>
 
-      <div data-role="fieldcontain">
-        <label for="name-c">Text Input:</label>
+	<div data-role="content">
+
+	<div class="ui-corner-all custom-corners">
+		<div class="ui-bar ui-bar-a">
+			<h3>18.II Modulos Prefabricados </h3>
+		</div>
+
+		<div class="ui-body ui-body-a">
+
+		<p>1. El aula cuenta con recursos informaticos ? </p>
+        <label for="name-c" class="ui-hidden-accessible">Text Input:</label>
         <input type="text" name="name" id="name-c" value="" />
-      </div>
+ 
+		<p>2. El aula cuenta con recursos informaticos ? </p>
+
+   		<fieldset data-role="controlgroup" data-type="horizontal">
+          <input type="checkbox" name="checkbox-nnc" id="checkbox-nnc" class="custom" />
+          <label for="checkbox-nnc">Bueno</label>
+          <input type="checkbox" name="checkbox-nn2c" id="checkbox-nn2c" class="custom" />
+          <label for="checkbox-nn2c"><em>Regular</em>
+          </label>
+        </fieldset>
+   
+	<p>3. El aula cuenta con recursos informaticos ? </p>
 
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" data-type="horizontal">
           <legend>Font styling:</legend>
           <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" />
           <label for="checkbox-6c">Bueno</label>
-
           <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom" />
-          <label for="checkbox-7c"><em>Regular</em>
-          </label>
-
+          <label for="checkbox-7c"><em>Regular</em>    </label>
           <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom" />
-          <label for="checkbox-8c">Malo</label>
-        </fieldset>
+          <label for="checkbox-8c">Malo</label>   </fieldset>
       </div>
 
       <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>Font styling:</legend>
+          <input type="checkbox" name="checkbox-f6c" id="checkbox-f6c" class="custom" />
+          <label for="checkbox-f6c">Bueno</label>
+          <input type="checkbox" name="checkbox-f7c" id="checkbox-f7c" class="custom" />
+          <label for="checkbox-f7c"><em>Regular</em>    </label>
+          <input type="checkbox" name="checkbox-f8c" id="checkbox-f8c" class="custom" />
+          <label for="checkbox-f8c">Malo</label>   </fieldset>
+      </div>
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>Font styling:</legend>
+          <input type="checkbox" name="checkbox-c6c" id="checkbox-c6c" class="custom" />
+          <label for="checkbox-c6c">Bueno</label>
+          <input type="checkbox" name="checkbox-v7c" id="checkbox-v7c" class="custom" />
+          <label for="checkbox-v7c"><em>Regular</em>    </label>
+          <input type="checkbox" name="checkbox-a8c" id="checkbox-a8c" class="custom" />
+          <label for="checkbox-a8c">Malo</label>   </fieldset>
+      </div>
+
+
+	<p>4. El aula cuenta con recursos informaticos ? </p>
+
+      <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
-          <legend>Choose a pet:</legend>
           <input type="radio" name="radio-choice-1" id="radio-choice-1c" value="choice-1" />
           <label for="radio-choice-1c">Cat</label>
-
           <input type="radio" name="radio-choice-1" id="radio-choice-2c" value="choice-2" />
           <label for="radio-choice-2c">Dog</label>
-
           <input type="radio" name="radio-choice-1" id="radio-choice-3c" value="choice-3" />
           <label for="radio-choice-3c">Hamster</label>
-
           <input type="radio" name="radio-choice-1" id="radio-choice-4c" value="choice-4" />
           <label for="radio-choice-4c">Lizard</label>
         </fieldset>
       </div>
 
+	<p>5. El aula cuenta con recursos informaticos ? </p>
+
       <div data-role="fieldcontain">
-        <label for="select-choice-c" class="select">Choose shipping method:</label>
-        <select name="select-choice-c" id="select-choice-c">
+          <select name="select-choice-c" id="select-choice-c">
           <option value="standard">Standard: 7 day</option>
           <option value="rush">Rush: 3 days</option>
           <option value="express">Express: next day</option>
           <option value="overnight">Overnight</option>
         </select>
       </div>
+	</div>
+	</div>
+
+
+	<a href="#encuesta2" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+
+	</div>
+
 
 	</div>
 
@@ -245,52 +321,36 @@ function onError_gps(error) {
 			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
 			<h1 role="heading">Sistema de Monitoreo</h1>
 		</div>
-      <div data-role="fieldcontain">
-        <label for="name-c">Text Input:</label>
-        <input type="text" name="name" id="name-c" value="" />
-      </div>
 
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-type="horizontal">
-          <legend>Font styling:</legend>
-          <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" />
-          <label for="checkbox-6c">Bueno</label>
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>23.IV Modulos Prefabricados </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd1" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd2" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd3" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd4" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd5" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd6" value="" />
+				</div>
+			</div>
+			<a href="#encuesta1" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+		</div>
 
-          <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom" />
-          <label for="checkbox-7c"><em>Regular</em>
-          </label>
-
-          <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom" />
-          <label for="checkbox-8c">Malo</label>
-        </fieldset>
-      </div>
-
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
-          <legend>Choose a pet:</legend>
-          <input type="radio" name="radio-choice-1" id="radio-choice-1c" value="choice-1" />
-          <label for="radio-choice-1c">Cat</label>
-
-          <input type="radio" name="radio-choice-1" id="radio-choice-2c" value="choice-2" />
-          <label for="radio-choice-2c">Dog</label>
-
-          <input type="radio" name="radio-choice-1" id="radio-choice-3c" value="choice-3" />
-          <label for="radio-choice-3c">Hamster</label>
-
-          <input type="radio" name="radio-choice-1" id="radio-choice-4c" value="choice-4" />
-          <label for="radio-choice-4c">Lizard</label>
-        </fieldset>
-      </div>
-
-      <div data-role="fieldcontain">
-        <label for="select-choice-c" class="select">Choose shipping method:</label>
-        <select name="select-choice-c" id="select-choice-c">
-          <option value="standard">Standard: 7 day</option>
-          <option value="rush">Rush: 3 days</option>
-          <option value="express">Express: next day</option>
-          <option value="overnight">Overnight</option>
-        </select>
-      </div>
 	</div>
 
 	<div data-role="page" id="listado1">
@@ -299,7 +359,16 @@ function onError_gps(error) {
 			<h1 role="heading">Sistema de Monitoreo</h1>
 		</div>
 
-<table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke ui-table ui-table-columntoggle">
+	<div data-role="content">
+
+	<div class="ui-corner-all custom-corners">
+		<div class="ui-bar ui-bar-a">
+			<h3>Estado de Encuestas</h3>
+		</div>
+
+		<div class="ui-body ui-body-a">
+
+			<table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke ui-table ui-table-columntoggle">
 	              <thead>
 	                <tr>
 	                  <th data-priority="2" data-colstart="1" class="ui-table-priority-2">Centro Educativo</th>
@@ -353,7 +422,9 @@ function onError_gps(error) {
 
 	              </tbody>
 	            </table>
-
+			</div>
+		</div>
+	</div>
 	</div>
 
 </body>
