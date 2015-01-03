@@ -1,6 +1,7 @@
 <html>
 <head>
 
+<link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
 <link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>
 <!--script type="text/javascript"  src="cordova.js"></script-->
 
@@ -141,6 +142,8 @@ function onError_gps(error) {
 </head>
 <style>
 .ui-page #hpage1{background:url('images/logo_ministerio_educacion.png') no-repeat;background-color:#58585a;background-position:40px 0px}
+.cgreen{color:green}
+.cred{color:red}
 </style>
 <body>
 <input type="button" onclick="capturePhoto();" value="Foto" name="Foto" /><br>
@@ -153,49 +156,205 @@ function onError_gps(error) {
 
 	<div data-role="page" id="jqm-home" >
 		<div data-role="header" id="hpage1"  data-theme="b">
-		  <a href="http://www.mobilizetoday.com/preview/jqmobile/" data-icon="home" data-iconpos="notext">Inicio</a>
-		  <h1 role="heading">Sistema de Monitoreo</h1>
+			<a href="#jqm-home"  data-transition="fade" data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo </h1>
 		</div>
 		<div data-role="content">
-		  <div class="right">
-			<ul data-role="listview" data-inset="true">
-			  <li>
-				<a href=""  data-transition="slide">
-				       <h3>Iniciar Encuesta</h3>
-			
-				  <div></div>
-				</a>
-			  </li>
-			  <li>
-				<a href=""  data-transition="slide">
-				        <h3>Preguntas por Nivel Educativo</h3>
-		
-				  <div></div>
-				</a>
-			  </li>
-			  <li>
-				<a href=""  data-transition="slide">
-				  <h3>Estado de Encuestas</h3>
-		
-				  <div></div>
-				</a>
-			  </li>
-			</ul>
-		  </div>
+			<div class="right">
+				<ul data-role="listview" data-inset="true">
+				  <li>
+					<a href="#encuesta1"  data-transition="slide">
+						   <h3>Iniciar Encuesta</h3>
+						  <div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="#encuesta2"  data-transition="slide">
+							<h3>Preguntas por Nivel Educativo</h3>
+							  <div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="#listado1"  data-transition="slide">
+					  <h3>Estado de Encuestas</h3>
+					  <div></div>
+					</a>
+				  </li>
+				</ul>
+			</div>
 		</div>
 	</div>
 
-<div data-role="page" id="encuesta1">
-  <div data-role="main" class="ui-content">
-    <a href="#pagetwo">Go to Page Two</a>
-  </div>
-</div>
+	<div data-role="page" id="encuesta1">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
 
-<div data-role="page" id="pagetwo">
-  <div data-role="main" class="ui-content">
-    <a href="#pageone">Go to Page One</a>
-  </div>
-</div>
+      <div data-role="fieldcontain">
+        <label for="name-c">Text Input:</label>
+        <input type="text" name="name" id="name-c" value="" />
+      </div>
+
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>Font styling:</legend>
+          <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" />
+          <label for="checkbox-6c">Bueno</label>
+
+          <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom" />
+          <label for="checkbox-7c"><em>Regular</em>
+          </label>
+
+          <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom" />
+          <label for="checkbox-8c">Malo</label>
+        </fieldset>
+      </div>
+
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+          <legend>Choose a pet:</legend>
+          <input type="radio" name="radio-choice-1" id="radio-choice-1c" value="choice-1" />
+          <label for="radio-choice-1c">Cat</label>
+
+          <input type="radio" name="radio-choice-1" id="radio-choice-2c" value="choice-2" />
+          <label for="radio-choice-2c">Dog</label>
+
+          <input type="radio" name="radio-choice-1" id="radio-choice-3c" value="choice-3" />
+          <label for="radio-choice-3c">Hamster</label>
+
+          <input type="radio" name="radio-choice-1" id="radio-choice-4c" value="choice-4" />
+          <label for="radio-choice-4c">Lizard</label>
+        </fieldset>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="select-choice-c" class="select">Choose shipping method:</label>
+        <select name="select-choice-c" id="select-choice-c">
+          <option value="standard">Standard: 7 day</option>
+          <option value="rush">Rush: 3 days</option>
+          <option value="express">Express: next day</option>
+          <option value="overnight">Overnight</option>
+        </select>
+      </div>
+
+	</div>
+
+	<div data-role="page" id="encuesta2">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+      <div data-role="fieldcontain">
+        <label for="name-c">Text Input:</label>
+        <input type="text" name="name" id="name-c" value="" />
+      </div>
+
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>Font styling:</legend>
+          <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" />
+          <label for="checkbox-6c">Bueno</label>
+
+          <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom" />
+          <label for="checkbox-7c"><em>Regular</em>
+          </label>
+
+          <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom" />
+          <label for="checkbox-8c">Malo</label>
+        </fieldset>
+      </div>
+
+      <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup">
+          <legend>Choose a pet:</legend>
+          <input type="radio" name="radio-choice-1" id="radio-choice-1c" value="choice-1" />
+          <label for="radio-choice-1c">Cat</label>
+
+          <input type="radio" name="radio-choice-1" id="radio-choice-2c" value="choice-2" />
+          <label for="radio-choice-2c">Dog</label>
+
+          <input type="radio" name="radio-choice-1" id="radio-choice-3c" value="choice-3" />
+          <label for="radio-choice-3c">Hamster</label>
+
+          <input type="radio" name="radio-choice-1" id="radio-choice-4c" value="choice-4" />
+          <label for="radio-choice-4c">Lizard</label>
+        </fieldset>
+      </div>
+
+      <div data-role="fieldcontain">
+        <label for="select-choice-c" class="select">Choose shipping method:</label>
+        <select name="select-choice-c" id="select-choice-c">
+          <option value="standard">Standard: 7 day</option>
+          <option value="rush">Rush: 3 days</option>
+          <option value="express">Express: next day</option>
+          <option value="overnight">Overnight</option>
+        </select>
+      </div>
+	</div>
+
+	<div data-role="page" id="listado1">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+<table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke ui-table ui-table-columntoggle">
+	              <thead>
+	                <tr>
+	                  <th data-priority="2" data-colstart="1" class="ui-table-priority-2">Centro Educativo</th>
+	                  <th data-colstart="2">Progreso</th>
+	                  <th data-priority="3" data-colstart="3" class="ui-table-priority-3 ui-table-cell-visible">GPS</th>
+	                  <th data-priority="1" data-colstart="4" class="ui-table-priority-1"><abbr title="Rotten Tomato Rating">Foto</abbr></th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <th class="ui-table-priority-2">I.E Abelino Caceres</th>
+	                  <td>80%</td>
+	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
+	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
+	                </tr>
+
+	                <tr>
+	                  <th class="ui-table-priority-2">I.E Sagrado Corazon</th>
+	                  <td>14%</td>
+	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
+	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
+	                </tr>
+
+	                <tr>
+	                  <th class="ui-table-priority-2">I.E Juan Velasco</th>
+	                  <td>78%</td>
+	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-times-circle fa-lg cred" ></i> </td>
+	                  <td class="ui-table-priority-1"><i class="fa fa-check-circle fa-lg cgreen"></i></td>
+	                </tr>
+
+	                <tr>
+	                  <th class="ui-table-priority-2">I.E 503454</th>
+	                  <td>90%</td>
+	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-times-circle fa-lg cred" ></i> </td>
+	                  <td class="ui-table-priority-1"><i class="fa fa-check-circle fa-lg cgreen"></i></td>
+	                </tr>
+
+	                <tr>
+	                  <th class="ui-table-priority-2">I.E 123123</th>
+	                  <td>100%</td>
+	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-times-circle fa-lg cred" ></i> </td>
+	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
+	                </tr>
+
+	                <tr>
+	                  <th class="ui-table-priority-2">I.E Clorinda Matto</th>
+	                  <td>74%</td>
+	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
+	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
+	                </tr>
+
+	              </tbody>
+	            </table>
+
+	</div>
 
 </body>
 </html>
