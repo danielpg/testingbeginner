@@ -23,11 +23,14 @@
 	<feature name="http://api.phonegap.com/1.0/network"/>
 
 	<gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.0" />
-	<gap:plugin name="org.apache.cordova.camera" version="0.2.3" />
+	<!--gap:plugin name="org.apache.cordova.camera" version="0.3.2" /-->
 
 	<gap:splash src="splash.png" />
 	<icon src="icon.png" />
 
+	<feature name="Camera">
+		<param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+	</feature>
 
 	<access origin="http://adostelecom.com" />
 
