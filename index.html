@@ -7,16 +7,29 @@
 
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
-
+<script src="js/main.js"></script>
 <!--script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script-->
 <script>
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
  
 //document.addEventListener("deviceready", onDeviceReady, false);
+
+function swipeleftHandler( event ){
+
+}
+
+function swiperightHandler( event ){
+
+}
+
  
 function onDeviceReady() {
 		alert("onDeviceReady");
+
+	$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
+ 	$( "#encuesta1" ).on( "swiperight", swiperightHandler );
+ 
 
     //pictureSource = navigator.camera.PictureSourceType;
     //destinationType = navigator.camera.DestinationType;
@@ -138,7 +151,6 @@ function load_encuesta(){
 
 function list_encuestas(){
 	//list files directory
-
 	//compare filenames(ids) to localstorage array status saved
 }
 
@@ -147,13 +159,46 @@ function download_encuesta(){
 }
 
 function upload_encuesta(){
+	//$.mobile.changePage("#finish_encuesta");
+	//$.mobile.loading("show");
+	//$.mobile.loading("hide");
 
+	$.ajax({ url:"adostelecom.com?action=add&market=",
+			 type: "POST",
+			 data:"",
+			 crossDomain: true,
+			 cache: false,
+			 contentType: "application/x-www-form-urlencoded; charset=utf-8"
+	}).done(function(html) {
+		if(html.status == 1){
+			//window.location = "index.php";
+		} else {
+			//$("#buzz_form_error").html(html.message);							
+		}
+	});
+}
+
+
+
+function save_form(){
+	data = $( "#form1" ).serialize();
+	localStorage.setItem("formdata", data );
+}
+
+function clear_form(){
+	$('#form1')[0].reset();
+}
+
+function load_form(){
+	data = localStorage.getItem("formdata");
+	$("#form1").unserialize(data);
 }
 
 function get_gps() {
 		alert("get_gps");
         navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
     }
+
 
     // onSuccess Geolocation
     //
@@ -168,7 +213,12 @@ function onSuccess_gps(position) {
                         'Heading: '            + position.coords.heading               + '<br />' +
                         'Speed: '              + position.coords.speed                 + '<br />' +
                         'Timestamp: '          +                                   position.timestamp          + '<br />';
+
+
+
 }
+
+
 </script>
 </head>
 <style>
@@ -211,12 +261,20 @@ function onSuccess_gps(position) {
 					  <div></div>
 					</a>
 				  </li>
+				  <li>
+					<a href="camera.html"  data-transition="slide">
+					  <h3>Camara</h3>
+					  <div></div>
+					</a>
+				  </li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	<div data-role="page" id="encuesta1">
+		<form id="form1">
+
 		<div data-role="header" id="hpage1"  data-theme="b">
 			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
 			<h1 role="heading">Sistema de Monitoreo</h1>
@@ -232,15 +290,15 @@ function onSuccess_gps(position) {
 		<div class="ui-body ui-body-a">
 
 		<p>1. El aula cuenta con recursos informaticos ? </p>
-        <label for="name-c" class="ui-hidden-accessible">Text Input:</label>
-        <input type="text" name="name" id="name-c" value="" />
+        <label for="p1a" class="ui-hidden-accessible">Text Input:</label>
+        <input type="text" name="p1" id="p1a" value="" />
  
 		<p>2. El aula cuenta con recursos informaticos ? </p>
 
    		<fieldset data-role="controlgroup" data-type="horizontal">
-          <input type="checkbox" name="checkbox-nnc" id="checkbox-nnc" class="custom" />
+          <input type="checkbox" name="p2" id="checkbox-nnc" class="custom" value="1" />
           <label for="checkbox-nnc">Bueno</label>
-          <input type="checkbox" name="checkbox-nn2c" id="checkbox-nn2c" class="custom" />
+          <input type="checkbox" name="p3" id="checkbox-nn2c" class="custom" value="1"  />
           <label for="checkbox-nn2c"><em>Regular</em>
           </label>
         </fieldset>
@@ -250,47 +308,46 @@ function onSuccess_gps(position) {
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" data-type="horizontal">
           <legend>Font styling:</legend>
-          <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" />
+          <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" value="1"  />
           <label for="checkbox-6c">Bueno</label>
-          <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom" />
+          <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom"  value="1" />
           <label for="checkbox-7c"><em>Regular</em>    </label>
-          <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom" />
+          <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom"  value="1" />
           <label for="checkbox-8c">Malo</label>   </fieldset>
       </div>
 
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" data-type="horizontal">
           <legend>Font styling:</legend>
-          <input type="checkbox" name="checkbox-f6c" id="checkbox-f6c" class="custom" />
+          <input type="checkbox" name="checkbox-f6c" id="checkbox-f6c" class="custom" value="1"  />
           <label for="checkbox-f6c">Bueno</label>
-          <input type="checkbox" name="checkbox-f7c" id="checkbox-f7c" class="custom" />
+          <input type="checkbox" name="checkbox-f7c" id="checkbox-f7c" class="custom" value="1"  />
           <label for="checkbox-f7c"><em>Regular</em>    </label>
-          <input type="checkbox" name="checkbox-f8c" id="checkbox-f8c" class="custom" />
+          <input type="checkbox" name="checkbox-f8c" id="checkbox-f8c" class="custom" value="1"  />
           <label for="checkbox-f8c">Malo</label>   </fieldset>
       </div>
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup" data-type="horizontal">
           <legend>Font styling:</legend>
-          <input type="checkbox" name="checkbox-c6c" id="checkbox-c6c" class="custom" />
+          <input type="checkbox" name="checkbox-c6c" id="checkbox-c6c" class="custom" value="1"  />
           <label for="checkbox-c6c">Bueno</label>
-          <input type="checkbox" name="checkbox-v7c" id="checkbox-v7c" class="custom" />
+          <input type="checkbox" name="checkbox-v7c" id="checkbox-v7c" class="custom" value="1" />
           <label for="checkbox-v7c"><em>Regular</em>    </label>
-          <input type="checkbox" name="checkbox-a8c" id="checkbox-a8c" class="custom" />
+          <input type="checkbox" name="checkbox-a8c" id="checkbox-a8c" class="custom"  value="1" />
           <label for="checkbox-a8c">Malo</label>   </fieldset>
       </div>
-
 
 	<p>4. El aula cuenta con recursos informaticos ? </p>
 
       <div data-role="fieldcontain">
         <fieldset data-role="controlgroup">
-          <input type="radio" name="radio-choice-1" id="radio-choice-1c" value="choice-1" />
+          <input type="radio" name="p8" id="radio-choice-1c" value="choice-1" />
           <label for="radio-choice-1c">Cat</label>
-          <input type="radio" name="radio-choice-1" id="radio-choice-2c" value="choice-2" />
+          <input type="radio" name="p8" id="radio-choice-2c" value="choice-2" />
           <label for="radio-choice-2c">Dog</label>
-          <input type="radio" name="radio-choice-1" id="radio-choice-3c" value="choice-3" />
+          <input type="radio" name="p8" id="radio-choice-3c" value="choice-3" />
           <label for="radio-choice-3c">Hamster</label>
-          <input type="radio" name="radio-choice-1" id="radio-choice-4c" value="choice-4" />
+          <input type="radio" name="p8" id="radio-choice-4c" value="choice-4" />
           <label for="radio-choice-4c">Lizard</label>
         </fieldset>
       </div>
@@ -298,7 +355,7 @@ function onSuccess_gps(position) {
 	<p>5. El aula cuenta con recursos informaticos ? </p>
 
       <div data-role="fieldcontain">
-          <select name="select-choice-c" id="select-choice-c">
+          <select name="p9" id="select-choice-c">
           <option value="standard">Standard: 7 day</option>
           <option value="rush">Rush: 3 days</option>
           <option value="express">Express: next day</option>
@@ -306,6 +363,9 @@ function onSuccess_gps(position) {
         </select>
       </div>
 	</div>
+
+	</form>	
+
 	</div>
 
 
