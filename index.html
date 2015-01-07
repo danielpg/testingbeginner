@@ -1,491 +1,116 @@
+<!DOCTYPE html>
 <html>
-<head>
+  <head>
+    <title>Capture Photo</title>
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
+    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
 
-<link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
-<link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>
-<script type="text/javascript"  src="cordova.js"></script>
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value 
 
-<script src="js/jquery-2.1.3.min.js"></script>
-<script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
-<script src="js/main.js"></script>
-<!--script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script-->
-<script>
-var pictureSource;   // picture source
-var destinationType; // sets the format of returned value
- 
-//document.addEventListener("deviceready", onDeviceReady, false);
-
-function swipeleftHandler( event ){
-
-}
-
-function swiperightHandler( event ){
-
-}
-
- 
-function onDeviceReady() {
-		alert("onDeviceReady");
-
-	$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
- 	$( "#encuesta1" ).on( "swiperight", swiperightHandler );
- 
-
-    //pictureSource = navigator.camera.PictureSourceType;
-    //destinationType = navigator.camera.DestinationType;
-
-	var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
-	
-	//db.transaction(populateDB, errorCB, successCB);
-	db.transaction(function(tx) {
-		alert("transaction");
-
-		$("#test3").append("qqq" );
-		$("#test3").append("xxxx" );
-
-		tx.executeSql("select bar from foo;", [], function(tx, res) {
-			alert("readdsqlwhite");
-			$("#test2").append("res.rows: " + res.rows.item(0).bar + "<br>" );
-			//$("#test2").append("res.rows.item(0): " + res.rows.item(0) + "<br>" );
-		},function(tx,e){
-      alert("Errora " + e.message);
-	});
-	},function(tx,e){
-      alert("Errorb " + e.message);
-	});
-
-}
-/*
- function onDeviceReady() {
-        var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
-
-        db.transaction(function(tx) {
-          tx.executeSql('DROP TABLE IF EXISTS test_table');
-          tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-
-          tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-          console.log("insertId: " + res.insertId + " -- probably 1"); // check #18/#38 is fixed
-          alert("insertId: " + res.insertId + " -- should be valid");
-
-            db.transaction(function(tx) {
-              tx.executeSql("SELECT data_num from test_table;", [], function(tx, res) {
-                console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-                alert("res.rows.item(0).data_num: " + res.rows.item(0).data_num + " -- should be 100");
-              });
-            });
-
-          }, function(e) {
-            console.log("ERROR: " + e.message);
-          });
-        });
-}
- */
-function clearCache() {
-    navigator.camera.cleanup();
-}
- 
-var retries = 0;
-function onCapturePhoto(fileURI) {
-    var win = function (r) {
-        clearCache();
-        retries = 0;
-        alert('Done!');
-    }
- 
-    var fail = function (error) {
-        if (retries == 0) {
-            retries ++
-            setTimeout(function() {
-                onCapturePhoto(fileURI)
-            }, 1000)
-        } else {
-            retries = 0;
-            clearCache();
-            alert('Ups. Something wrong happens!');
-        }
-    }
- 
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
-    options.mimeType = "image/jpeg";
-    options.params = {}; // if we need to send parameters to the server request
-    var ft = new FileTransfer();
-    //ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
-}
- 
-function capturePhoto() {
-		alert("f_capture_photo");
-    navigator.camera.getPicture(onCapturePhoto, onFail, {
-        quality: 100,
-        destinationType: destinationType.FILE_URI
-    });
-}
- 
-function onFail(message) {
-    alert('Failed because: ' + message);
-}
-
-
-
-function onError_gps(error) {
-    alert('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
-}
-
-function save_encuesta(){
-	//read all inputs from encuesta
-
-	//save to file all values
-
-	//save status to localstorage
-
-}
-
-function load_encuesta(){
-	//read file 
-
-	//load values to forms
-
-}
-
-function list_encuestas(){
-	//list files directory
-	//compare filenames(ids) to localstorage array status saved
-}
-
-function download_encuesta(){
-
-}
-
-function upload_encuesta(){
-	//$.mobile.changePage("#finish_encuesta");
-	//$.mobile.loading("show");
-	//$.mobile.loading("hide");
-
-	$.ajax({ url:"adostelecom.com?action=add&market=",
-			 type: "POST",
-			 data:"",
-			 crossDomain: true,
-			 cache: false,
-			 contentType: "application/x-www-form-urlencoded; charset=utf-8"
-	}).done(function(html) {
-		if(html.status == 1){
-			//window.location = "index.php";
-		} else {
-			//$("#buzz_form_error").html(html.message);							
-		}
-	});
-}
-
-
-
-function save_form(){
-	data = $( "#form1" ).serialize();
-	localStorage.setItem("formdata", data );
-}
-
-function clear_form(){
-	$('#form1')[0].reset();
-}
-
-function load_form(){
-	data = localStorage.getItem("formdata");
-	$("#form1").unserialize(data);
-}
-
-function get_gps() {
-		alert("get_gps");
-        navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
-    }
-
-
-    // onSuccess Geolocation
+    // Wait for PhoneGap to connect with the device
     //
-function onSuccess_gps(position) {
-		alert("onsuccess_gps");
-    var element = document.getElementById('test1');
-    element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-                        'Longitude: '          + position.coords.longitude             + '<br />' +
-                        'Altitude: '           + position.coords.altitude              + '<br />' +
-                        'Accuracy: '           + position.coords.accuracy              + '<br />' +
-                        'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-                        'Heading: '            + position.coords.heading               + '<br />' +
-                        'Speed: '              + position.coords.speed                 + '<br />' +
-                        'Timestamp: '          +                                   position.timestamp          + '<br />';
+    document.addEventListener("deviceready",onDeviceReady,false);
 
+    // PhoneGap is ready to be used!
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
 
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
 
-}
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
 
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
+    
+	// Called when a photo is successfully retrieved
+    //
+    function onPhotoFileSuccess(imageData) {
+      // Get image handle
+      console.log(JSON.stringify(imageData));
+      
+   	  // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
 
-</script>
-</head>
-<style>
-.ui-page #hpage1{background:url('images/logo_ministerio_educacion.png') no-repeat;background-color:#58585a;background-position:40px 0px}
-.cgreen{color:green}
-.cred{color:red}
-</style>
-<body>
-<!--input type="button" onclick="capturePhoto();" value="Foto" name="Foto" /><br>
-<input type="button" onclick="get_gps();" value="GPS" name="GPS" /><br>
-<input type="button"  value="Save File" name="Save File" /><br>
-<div id="test1"></div>
-<div id="test2"></div>
-<div id="test3"></div>
-<div id="test4"></div-->
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
 
-	<div data-role="page" id="jqm-home" >
-		<div data-role="header" id="hpage1"  data-theme="b">
-			<a href="#jqm-home"  data-transition="fade" data-icon="home" data-iconpos="notext">Inicio</a>
-			<h1 role="heading">Sistema de Monitoreo </h1>
-		</div>
-		<div data-role="content">
-			<div class="right">
-				<ul data-role="listview" data-inset="true">
-				  <li>
-					<a href="#encuesta1"  data-transition="slide">
-						   <h3>Iniciar Encuesta</h3>
-						  <div></div>
-					</a>
-				  </li>
-				  <li>
-					<a href="#encuesta2"  data-transition="slide">
-							<h3>Preguntas por Nivel Educativo</h3>
-							  <div></div>
-					</a>
-				  </li>
-				  <li>
-					<a href="#listado1"  data-transition="slide">
-					  <h3>Estado de Encuestas</h3>
-					  <div></div>
-					</a>
-				  </li>
-				  <li>
-					<a href="camera.html"  data-transition="slide">
-					  <h3>Camara</h3>
-					  <div></div>
-					</a>
-				  </li>
-				</ul>
-			</div>
-		</div>
-	</div>
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = imageData;
+    }
 
-	<div data-role="page" id="encuesta1">
-		<form id="form1">
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI 
+      // console.log(imageURI);
 
-		<div data-role="header" id="hpage1"  data-theme="b">
-			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
-			<h1 role="heading">Sistema de Monitoreo</h1>
-		</div>
+      // Get image handle
+      //
+      var largeImage = document.getElementById('largeImage');
 
-	<div data-role="content">
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
 
-	<div class="ui-corner-all custom-corners">
-		<div class="ui-bar ui-bar-a">
-			<h3>18.II Modulos Prefabricados </h3>
-		</div>
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
 
-		<div class="ui-body ui-body-a">
+    // A button will call this function
+    //
+    function capturePhotoWithData() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+    }
 
-		<p>1. El aula cuenta con recursos informaticos ? </p>
-        <label for="p1a" class="ui-hidden-accessible">Text Input:</label>
-        <input type="text" name="p1" id="p1a" value="" />
- 
-		<p>2. El aula cuenta con recursos informaticos ? </p>
+    function capturePhotoWithFile() {
+        navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+    }
+    
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+        navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
 
-   		<fieldset data-role="controlgroup" data-type="horizontal">
-          <input type="checkbox" name="p2" id="checkbox-nnc" class="custom" value="1" />
-          <label for="checkbox-nnc">Bueno</label>
-          <input type="checkbox" name="p3" id="checkbox-nn2c" class="custom" value="1"  />
-          <label for="checkbox-nn2c"><em>Regular</em>
-          </label>
-        </fieldset>
-   
-	<p>3. El aula cuenta con recursos informaticos ? </p>
+    // Called if something bad happens.
+    // 
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
 
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-type="horizontal">
-          <legend>Font styling:</legend>
-          <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" value="1"  />
-          <label for="checkbox-6c">Bueno</label>
-          <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom"  value="1" />
-          <label for="checkbox-7c"><em>Regular</em>    </label>
-          <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom"  value="1" />
-          <label for="checkbox-8c">Malo</label>   </fieldset>
-      </div>
-
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-type="horizontal">
-          <legend>Font styling:</legend>
-          <input type="checkbox" name="checkbox-f6c" id="checkbox-f6c" class="custom" value="1"  />
-          <label for="checkbox-f6c">Bueno</label>
-          <input type="checkbox" name="checkbox-f7c" id="checkbox-f7c" class="custom" value="1"  />
-          <label for="checkbox-f7c"><em>Regular</em>    </label>
-          <input type="checkbox" name="checkbox-f8c" id="checkbox-f8c" class="custom" value="1"  />
-          <label for="checkbox-f8c">Malo</label>   </fieldset>
-      </div>
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup" data-type="horizontal">
-          <legend>Font styling:</legend>
-          <input type="checkbox" name="checkbox-c6c" id="checkbox-c6c" class="custom" value="1"  />
-          <label for="checkbox-c6c">Bueno</label>
-          <input type="checkbox" name="checkbox-v7c" id="checkbox-v7c" class="custom" value="1" />
-          <label for="checkbox-v7c"><em>Regular</em>    </label>
-          <input type="checkbox" name="checkbox-a8c" id="checkbox-a8c" class="custom"  value="1" />
-          <label for="checkbox-a8c">Malo</label>   </fieldset>
-      </div>
-
-	<p>4. El aula cuenta con recursos informaticos ? </p>
-
-      <div data-role="fieldcontain">
-        <fieldset data-role="controlgroup">
-          <input type="radio" name="p8" id="radio-choice-1c" value="choice-1" />
-          <label for="radio-choice-1c">Cat</label>
-          <input type="radio" name="p8" id="radio-choice-2c" value="choice-2" />
-          <label for="radio-choice-2c">Dog</label>
-          <input type="radio" name="p8" id="radio-choice-3c" value="choice-3" />
-          <label for="radio-choice-3c">Hamster</label>
-          <input type="radio" name="p8" id="radio-choice-4c" value="choice-4" />
-          <label for="radio-choice-4c">Lizard</label>
-        </fieldset>
-      </div>
-
-	<p>5. El aula cuenta con recursos informaticos ? </p>
-
-      <div data-role="fieldcontain">
-          <select name="p9" id="select-choice-c">
-          <option value="standard">Standard: 7 day</option>
-          <option value="rush">Rush: 3 days</option>
-          <option value="express">Express: next day</option>
-          <option value="overnight">Overnight</option>
-        </select>
-      </div>
-	</div>
-
-	</form>	
-
-	</div>
-
-
-	<a href="#encuesta2" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-
-	</div>
-
-
-	</div>
-
-	<div data-role="page" id="encuesta2">
-		<div data-role="header" id="hpage1"  data-theme="b">
-			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
-			<h1 role="heading">Sistema de Monitoreo</h1>
-		</div>
-
-		<div data-role="content">
-			<div class="ui-corner-all custom-corners">
-				<div class="ui-bar ui-bar-a">
-					<h3>23.IV Modulos Prefabricados </h3>
-				</div>
-				<div class="ui-body ui-body-a">
-					<p>1. El aula cuenta con recursos informaticos ? </p>
-					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
-					<input type="text" name="name" id="name-cd1" value="" />
-					<p>1. El aula cuenta con recursos informaticos ? </p>
-					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
-					<input type="text" name="name" id="name-cd2" value="" />
-					<p>1. El aula cuenta con recursos informaticos ? </p>
-					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
-					<input type="text" name="name" id="name-cd3" value="" />
-					<p>1. El aula cuenta con recursos informaticos ? </p>
-					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
-					<input type="text" name="name" id="name-cd4" value="" />
-					<p>1. El aula cuenta con recursos informaticos ? </p>
-					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
-					<input type="text" name="name" id="name-cd5" value="" />
-					<p>1. El aula cuenta con recursos informaticos ? </p>
-					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
-					<input type="text" name="name" id="name-cd6" value="" />
-				</div>
-			</div>
-			<a href="#encuesta1" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-		</div>
-
-	</div>
-
-	<div data-role="page" id="listado1">
-		<div data-role="header" id="hpage1"  data-theme="b">
-			<a href="#jqm-home" data-icon="home" data-iconpos="notext">Inicio</a>
-			<h1 role="heading">Sistema de Monitoreo</h1>
-		</div>
-
-	<div data-role="content">
-
-	<div class="ui-corner-all custom-corners">
-		<div class="ui-bar ui-bar-a">
-			<h3>Estado de Encuestas</h3>
-		</div>
-
-		<div class="ui-body ui-body-a">
-
-			<table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke ui-table ui-table-columntoggle">
-	              <thead>
-	                <tr>
-	                  <th data-priority="2" data-colstart="1" class="ui-table-priority-2">Centro Educativo</th>
-	                  <th data-colstart="2">Progreso</th>
-	                  <th data-priority="3" data-colstart="3" class="ui-table-priority-3 ui-table-cell-visible">GPS</th>
-	                  <th data-priority="1" data-colstart="4" class="ui-table-priority-1"><abbr title="Rotten Tomato Rating">Foto</abbr></th>
-	                </tr>
-	              </thead>
-	              <tbody>
-	                <tr>
-	                  <th class="ui-table-priority-2">I.E Abelino Caceres</th>
-	                  <td>80%</td>
-	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
-	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
-	                </tr>
-
-	                <tr>
-	                  <th class="ui-table-priority-2">I.E Sagrado Corazon</th>
-	                  <td>14%</td>
-	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
-	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
-	                </tr>
-
-	                <tr>
-	                  <th class="ui-table-priority-2">I.E Juan Velasco</th>
-	                  <td>78%</td>
-	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-times-circle fa-lg cred" ></i> </td>
-	                  <td class="ui-table-priority-1"><i class="fa fa-check-circle fa-lg cgreen"></i></td>
-	                </tr>
-
-	                <tr>
-	                  <th class="ui-table-priority-2">I.E 503454</th>
-	                  <td>90%</td>
-	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-times-circle fa-lg cred" ></i> </td>
-	                  <td class="ui-table-priority-1"><i class="fa fa-check-circle fa-lg cgreen"></i></td>
-	                </tr>
-
-	                <tr>
-	                  <th class="ui-table-priority-2">I.E 123123</th>
-	                  <td>100%</td>
-	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-times-circle fa-lg cred" ></i> </td>
-	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
-	                </tr>
-
-	                <tr>
-	                  <th class="ui-table-priority-2">I.E Clorinda Matto</th>
-	                  <td>74%</td>
-	                  <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
-	                  <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
-	                </tr>
-
-	              </tbody>
-	            </table>
-			</div>
-		</div>
-	</div>
-	</div>
-
-</body>
+    </script>
+  </head>
+  <body>
+    <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
+    <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+  </body>
 </html>
