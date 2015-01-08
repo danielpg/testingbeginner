@@ -4,77 +4,60 @@
     <title>Capture Photo</title>
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+<script src="js/jquery-2.1.3.min.js"></script>
+<script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
+<script src="js/main.js"></script>
+
     <script type="text/javascript" charset="utf-8">
 
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value 
 
-    // Wait for PhoneGap to connect with the device
-    //
     document.addEventListener("deviceready",onDeviceReady,false);
 
-    // PhoneGap is ready to be used!
-    //
     function onDeviceReady() {
         pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
     }
 
     // Called when a photo is successfully retrieved
-    //
     function onPhotoDataSuccess(imageData) {
-      // Get image handle
-      //
       var smallImage = document.getElementById('smallImage');
-
-      // Unhide image elements
-      //
       smallImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
-      //
       smallImage.src = "data:image/jpeg;base64," + imageData;
+	 	$("#test1").html(imageData);
     }
     
 	// Called when a photo is successfully retrieved
-    //
     function onPhotoFileSuccess(imageData) {
-      // Get image handle
       console.log(JSON.stringify(imageData));
-      
-   	  // Get image handle
-      //
       var smallImage = document.getElementById('smallImage');
 
       // Unhide image elements
-      //
       smallImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
-      //
       smallImage.src = imageData;
+	 	$("#test1").html(imageData);
     }
 
     // Called when a photo is successfully retrieved
-    //
     function onPhotoURISuccess(imageURI) {
       // Uncomment to view the image file URI 
       // console.log(imageURI);
-
       // Get image handle
-      //
       var largeImage = document.getElementById('largeImage');
-
-      // Unhide image elements
-      //
       largeImage.style.display = 'block';
 
       // Show the captured photo
       // The inline CSS rules are used to resize the image
-      //
       largeImage.src = imageURI;
+	 	$("#test1").html(imageURI);
     }
 
     // A button will call this function
@@ -112,5 +95,6 @@
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
+	<div id="test1">asdasdasd</div>
   </body>
 </html>
