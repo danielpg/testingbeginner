@@ -26,20 +26,18 @@ function swiperightHandler( event ){
 		nextpage_encuesta(current_enc_page + 1);
 	}
 }
-
  
 function onDeviceReady() {
 	$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
  	$( "#encuesta1" ).on( "swiperight", swiperightHandler );
 
 	login_status = localStorage.getItem("login_status");	
-	if(login_status != 1){
+	if((login_status == null) || (login_status == 0)){
 		$.mobile.changePage("#login");
 	}
- 
 
-    //pictureSource = navigator.camera.PictureSourceType;
-    //destinationType = navigator.camera.DestinationType;
+    pictureSource   = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
 
 	/*var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
 	
@@ -374,19 +372,46 @@ function load_form(){
 	$("#form1").unserialize(data);
 }
 
+function show_camara(){
+	$.mobile.changePage("#test_camara");
+}
+
+function show_gps(){
+	$.mobile.changePage("#test_gps");
+	$.mobile.loading("show");
+	get_gps();
+}
+
 function get_gps() {
         navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
 }
 
+
 function onSuccess_gps(position) {
-    var element = document.getElementById('test1');
-    element.innerHTML = "Latitude:"  + position.coords.latitude    + "<br >" +
+   $("#test_gps_res").html ("Latitude:"  + position.coords.latitude    + "<br >" +
                         'Longitude: '  + position.coords.longitude + '<br >' +
-                        'Timestamp: '  + position.timestamp        + '<br >';
+                        'Timestamp: '  + position.timestamp        + '<br >');
+	$.mobile.loading("hide");
 }
 
 function onError_gps(error) {
-    alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+	$.mobile.loading("hide");
+    alert('Error GPS: code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+}
+
+function capturePhotoWithFile() {
+    navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 10, destinationType: Camera.DestinationType.FILE_URI });
+}
+
+function onPhotoFileSuccess(imageData) {
+  var smallImage = document.getElementById('smallImage');
+  smallImage.style.display = 'block';
+  smallImage.src = imageData;
+  //$("#test1").html(imageData);
+}
+
+function onFail(message) {
+	alert('Failed because: ' + message);
 }
 
 </script>
@@ -427,8 +452,14 @@ function onError_gps(error) {
 					</a>
 				  </li>
 				  <li>
-					<a href="new_camera.html"  data-transition="slide">
-					  <h3>Camara</h3>
+					<a href="#" onclick="return show_camara();"  data-transition="slide">
+					  <h3>Test de Camara</h3>
+					  <div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="#" onclick="return show_gps();"  data-transition="slide">
+					  <h3>Test de GPS</h3>
 					  <div></div>
 					</a>
 				  </li>
@@ -674,6 +705,44 @@ function onError_gps(error) {
 					<p>Ahora debe subir el archivo al servidor</p>
 					<a href="#" onclick="return save_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Save</a>
 					<a href="#" onclick="return upload_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Upload</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="test_gps">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>Test de GPS </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<p id="test_gps_res"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="test_camara">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>Test de Camara </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+					<img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+					<img style="display:none;" id="largeImage" src="" />
+
 				</div>
 			</div>
 		</div>
