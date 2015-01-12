@@ -69,28 +69,29 @@ jQuery.fn.unserialize = function(parm){
 						for (var i2 in parts[1]){
 							var val = ""+parts[1][i2];
 							if (coso.attr("value") == decodeURIComponent(val.replace(/\+/g," "))){
-								coso.prop("checked",true).checkboxradio( "refresh" );
+								coso.prop("checked",true);
+								if(form_refresh)coso.checkboxradio( "refresh" );
 							} else {
 								if (!$.inArray(coso.val(),parts[1])){
-									coso.prop("checked",false).checkboxradio( "refresh" );
+									coso.prop("checked",false);
+									if(form_refresh)coso.checkboxradio( "refresh" );
 								}
 							}
 						}
 					} else {
 						val = "" + parts[1];
 						if (coso.attr("value") == decodeURIComponent(val.replace(/\+/g," "))){
-							coso.prop("checked",true).checkboxradio( "refresh" );
+							coso.prop("checked",true);
 						} else {
-							coso.prop("checked",false).checkboxradio( "refresh" );
+							coso.prop("checked",false);
 						}
-						//coso.attr("checked","checked");
-						//alert("ad");
+						if(form_refresh)coso.checkboxradio( "refresh" );
 					}
 				 });
 			} else if (obj.length > 0 && obj[0].tagName == "SELECT" && parts[1] instanceof Array && obj.prop("multiple")){
 				//Here, i have an array for a multi-select.
-				obj.val(parts[1]).selectmenu( "refresh" );
-			
+				obj.val(parts[1]);
+				if(form_refresh)obj.selectmenu( "refresh" );			
 			} else {
 				//When the value is an array, we join without delimiter
 				var val = (parts[1] instanceof Array) ? parts[1].join("") : parts[1];
@@ -99,7 +100,7 @@ jQuery.fn.unserialize = function(parm){
 				
 				obj.val(decodeURIComponent(val.replace(/\+/g," ")))
 				if(parts[1] == "overnight"){
-					obj.selectmenu( "refresh" );
+					if(form_refresh)obj.selectmenu( "refresh" );			
 				}
 				//alert(parts[1]);
 

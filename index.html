@@ -1,100 +1,725 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Capture Photo</title>
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+<head>
+<meta charset='utf-8'>
+<link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
+<link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>
+<!--script type="text/javascript"  src="cordova.js"></script-->
 
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
 <script src="js/main.js"></script>
+<!--script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script-->
+<script>
+var pictureSource;   // picture source
+var destinationType; // sets the format of returned value
+ 
+//document.addEventListener("deviceready", onDeviceReady, false);
 
-    <script type="text/javascript" charset="utf-8">
+function swipeleftHandler( event ){
+	/*if(current_page > 0){
+		nextpage_encuesta(current_page - 1);
+	}*/
+}
 
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value 
+function swiperightHandler( event ){
+	/*if(current_page > 0){
+		nextpage_encuesta(current_page + 1);
+	}*/
+}
 
-    document.addEventListener("deviceready",onDeviceReady,false);
+ 
+function onDeviceReady() {
+	$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
+ 	$( "#encuesta1" ).on( "swiperight", swiperightHandler );
 
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
+	login_status = localStorage.getItem("login_status");	
+	if(login_status != 1){
+		$.mobile.changePage("#login");
+	}
+ 
+
+    //pictureSource = navigator.camera.PictureSourceType;
+    //destinationType = navigator.camera.DestinationType;
+
+	/*var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
+	
+	//db.transaction(populateDB, errorCB, successCB);
+	db.transaction(function(tx) {
+		alert("transaction");
+
+		$("#test3").append("qqq" );
+		$("#test3").append("xxxx" );
+
+		tx.executeSql("select bar from foo;", [], function(tx, res) {
+			alert("readdsqlwhite");
+			$("#test2").append("res.rows: " + res.rows.item(0).bar + "<br>" );
+			//$("#test2").append("res.rows.item(0): " + res.rows.item(0) + "<br>" );
+		},function(tx,e){
+      alert("Errora " + e.message);
+	});
+	},function(tx,e){
+      alert("Errorb " + e.message);
+	});*/
+
+}
+/*
+ function onDeviceReady() {
+        var db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
+
+        db.transaction(function(tx) {
+          tx.executeSql('DROP TABLE IF EXISTS test_table');
+          tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
+
+          tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
+          console.log("insertId: " + res.insertId + " -- probably 1"); // check #18/#38 is fixed
+          alert("insertId: " + res.insertId + " -- should be valid");
+
+            db.transaction(function(tx) {
+              tx.executeSql("SELECT data_num from test_table;", [], function(tx, res) {
+                console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+                alert("res.rows.item(0).data_num: " + res.rows.item(0).data_num + " -- should be 100");
+              });
+            });
+
+          }, function(e) {
+            console.log("ERROR: " + e.message);
+          });
+        });
+}
+ */
+function clearCache() {
+    navigator.camera.cleanup();
+}
+ 
+var retries = 0;
+function onCapturePhoto(fileURI) {
+    var win = function (r) {
+        clearCache();
+        retries = 0;
+        alert('Done!');
     }
-
-    // Called when a photo is successfully retrieved
-    function onPhotoDataSuccess(imageData) {
-      var smallImage = document.getElementById('smallImage');
-      smallImage.style.display = 'block';
-
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-	 	$("#test1").html(imageData);
+ 
+    var fail = function (error) {
+        if (retries == 0) {
+            retries ++
+            setTimeout(function() {
+                onCapturePhoto(fileURI)
+            }, 1000)
+        } else {
+            retries = 0;
+            clearCache();
+            alert('Ups. Something wrong happens!');
+        }
     }
-    
-	// Called when a photo is successfully retrieved
-    function onPhotoFileSuccess(imageData) {
-      console.log(JSON.stringify(imageData));
-      var smallImage = document.getElementById('smallImage');
+ 
+    var options = new FileUploadOptions();
+    options.fileKey = "file";
+    options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+    options.mimeType = "image/jpeg";
+    options.params = {}; // if we need to send parameters to the server request
+    var ft = new FileTransfer();
+    //ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
+}
+ 
+function capturePhoto() {
+		alert("f_capture_photo");
+    navigator.camera.getPicture(onCapturePhoto, onFail, {
+        quality: 100,
+        destinationType: destinationType.FILE_URI
+    });
+}
+ 
+function onFail(message) {
+    alert('Failed because: ' + message);
+}
 
-      // Unhide image elements
-      smallImage.style.display = 'block';
+function nextpage_encuesta( i ){
+	current_enc_page = i;
+	if( i > ultimate_page )ultimate_page = i;
+	save_encuesta();
+	$.mobile.changePage("#encuesta" + i);	
+	return false;
+}
 
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      smallImage.src = imageData;
-	 	$("#test1").html(imageData);
-    }
+function init_home(){
+	current_page = 0;
+	$.mobile.changePage("#jqm-home");
+	return false;
+}
 
-    // Called when a photo is successfully retrieved
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI 
-      // console.log(imageURI);
-      // Get image handle
-      var largeImage = document.getElementById('largeImage');
-      largeImage.style.display = 'block';
 
-      // Show the captured photo
-      // The inline CSS rules are used to resize the image
-      largeImage.src = imageURI;
-	 	$("#test1").html(imageURI);
-    }
+function check_encuesta(){
+	$.mobile.changePage("#encuesta_select");
+	return false;
+}
 
-    // A button will call this function
-    //
-    function capturePhotoWithData() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
-    }
 
-    function capturePhotoWithFile() {
-        navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
-    }
-    
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-        navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
+var formpages = 4;	
+function save_encuesta(){
+	
+	//read all inputs from encuesta
+	
+	//save to file all values
 
-    // Called if something bad happens.
-    // 
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
+	//save status to localstorage
+	serial = "";
+	for(i = 1; i < formpages; i++){
+		serial += $( "#encuesta" + i + " form" ).serialize();	
+		serial += "&";
+	}
+	serial = serial.slice(0,-1);
 
-    </script>
-  </head>
-  <body>
-    <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
-    <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
-	<div id="test1">asdasdasd</div>
-  </body>
+	current_enc.formdata = serial;
+	current_enc.page = current_enc_page;
+	localStorage.setItem("encobj" + current_enc.id, JSON.stringify(current_enc) );
+}
+
+function show_end_encuesta(){
+	save_encuesta();
+	$.mobile.changePage("#encuesta_final");
+	return false;
+}
+
+function confirm_login(){
+	sys_username = "admin";
+	sys_password = "1234";
+
+	tmp_u = $("#username").val();
+	tmp_p = $("#password").val();
+	if((tmp_u == sys_username ) && (tmp_p == sys_password)){
+		localStorage.setItem("login_status",1);
+		$.mobile.changePage("#jqm-home");
+	} else {
+		$("#login_error").html("Usuario y/o Contraseña incorrectos.");
+	}
+}
+
+function logout(){
+	localStorage.setItem("login_status",0);
+}
+
+function load_encuesta( id ){
+	current_enc = JSON.parse( localStorage.getItem("encobj" + id ) );
+	data = current_enc.formdata;
+	for(i = 1; i < formpages; i++){
+		if(i <= ultimate_page){
+			form_refresh = 1;
+		} else {
+			form_refresh = 0;
+		}
+
+		$( "#encuesta" + i + " form" ).unserialize(data);
+	}
+	//$("#form1").unserialize(data);
+
+	if(current_enc.page > 0){
+		$.mobile.changePage("#encuesta" + current_enc.page);
+		current_enc_page = current_enc.page;
+	} else {
+		$.mobile.changePage("#encuesta1");
+		current_enc_page = 1;
+	}
+	return false;
+}
+
+var current_enc_page;
+var current_enc;
+var enc_status = [];
+var form_refresh = 0;
+var ultimate_page = 0;
+
+function encuesta_counter(){
+	cc = localStorage.getItem("enc_counter");
+	if(cc == null){
+		cc = -1;
+	}
+	cc++;
+	localStorage.setItem("enc_counter",cc);
+	return cc;
+}
+
+function create_id(){
+	tmp = localStorage.getItem("list_ids");
+	if(tmp == null){
+		list_ids = [];
+	} else {
+		list_ids = JSON.parse(tmp);
+	}
+	tmpid = Math.floor((Math.random() * 1000000) + 100000);
+	list_ids.push(tmpid);
+	localStorage.setItem("list_ids", JSON.stringify(list_ids) );
+	return tmpid;
+}
+
+function delete_obj(id){
+	list_ids = JSON.parse(localStorage.getItem("list_ids"));
+	index = list_ids.indexOf(id);
+	if (index > -1) {
+		list_ids.splice(index, 1);
+	}
+	localStorage.setItem("list_ids",list_ids);
+	localStorage.removeItem("encobj" + id);
+}
+
+function new_encuesta(){
+	tmpid = create_id();
+	//tmpid = 1;
+	//tmpid = encuesta_counter();
+	enc = {};
+	enc.id = tmpid;
+	enc.formdata = "";
+	enc.status = 1;
+	enc.page = 1;
+	localStorage.setItem( "encobj" + tmpid , JSON.stringify(enc) );
+	current_enc = enc;
+	$.mobile.changePage("#encuesta1");
+	current_enc_page = 1;
+	return false;
+}
+
+function load_last_encuesta(){
+	tmp = localStorage.getItem("list_ids");
+	if(tmp != null){
+		list_ids = JSON.parse(tmp);
+		len = list_ids.length;
+		if(len > 0){
+			id = list_ids[len - 1];
+			load_encuesta(id);
+		}
+	} else {
+
+	}
+	return false;
+}
+
+function list_encuestas(){
+	tmp = localStorage.getItem("list_ids");
+	html = "";
+	
+	if(tmp != null){
+		list_ids = JSON.parse(tmp);
+		len = list_ids.length;
+		for( i = 0; i < len ; i++ ){
+			id = list_ids[i];
+			//obj = localStorage.getItem("encobj" + id);
+			html += " <tr>" + "<td class='ui-table-priority-2'>"
+			+  list_ids[i]
+			+ "</td><td>80</td>    "
+			 + '<td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>'
+			 + '<td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>'
+			 + "</tr>";
+		}
+	}
+
+	 $("#html_table_enc tbody").html( html )
+								.closest( "table#table-reflow" )
+								.table( "refresh" )
+								.trigger( "create" );
+	$.mobile.changePage("#listado1");
+	//list files directory
+	//compare filenames(ids) to localstorage array status saved
+	return false;
+}
+
+function download_encuesta(){
+
+}
+
+function upload_encuesta(id){
+	//$.mobile.changePage("#finish_encuesta");
+	$.mobile.loading("show");
+
+	obj = JSON.parse(localStorage.getItem("encobj" + id));
+	
+	$.ajax({ url:"adostelecom.com?action=add&market=",
+			 type: "POST",
+			 data: obj.formdata,
+			 crossDomain: true,
+			 cache: false,
+			 contentType: "application/x-www-form-urlencoded; charset=utf-8"
+	}).done(function(html) {
+		if(html.status == 1){
+			//obj.upload = 1;
+			//localStorage.setItem("encobj" + id , JSON.stringify(obj) );
+
+			//window.location = "index.php";
+		} else {
+			//$("#buzz_form_error").html(html.message);							
+		}
+	});
+
+	$.mobile.loading("hide");
+	return false;
+}
+
+
+
+function save_form(){
+	data = $( "#form1" ).serialize();
+	localStorage.setItem("formdata", data );
+}
+
+function clear_form(){
+	for(i = 1; i < formpages; i++){
+		$("#encuesta" + i + " form")[0].reset();
+	}
+}
+
+function load_form(){
+	data = localStorage.getItem("formdata");
+	$("#form1").unserialize(data);
+}
+
+function get_gps() {
+        navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
+}
+
+function onSuccess_gps(position) {
+    var element = document.getElementById('test1');
+    element.innerHTML = "Latitude:"  + position.coords.latitude    + "<br >" +
+                        'Longitude: '  + position.coords.longitude + '<br >' +
+                        'Timestamp: '  + position.timestamp        + '<br >';
+}
+
+function onError_gps(error) {
+    alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+}
+
+</script>
+</head>
+<style>
+.ui-page #hpage1{background:url('images/logo_ministerio_educacion.png') no-repeat;background-color:#58585a;background-position:40px 0px}
+.cgreen{color:green}
+.cred{color:red}
+#login_error{color:red}
+</style>
+<body>
+<!--input type="button" onclick="capturePhoto();" value="Foto" name="Foto" /><br>
+<input type="button" onclick="get_gps();" value="GPS" name="GPS" /><br>
+<input type="button"  value="Save File" name="Save File" /><br>
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+<div id="test4"></div-->
+
+	<div data-role="page" id="jqm-home" >
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();" data-transition="fade" data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo </h1>
+		</div>
+		<div data-role="content">
+			<div class="right">
+				<ul data-role="listview" data-inset="true">
+				  <li>
+					<a href="#" onclick="return check_encuesta();"  data-transition="slide">
+					   <h3>Iniciar Encuesta</h3>
+					   <div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="#encuesta2"  data-transition="slide">
+						<h3>Preguntas por Nivel Educativo</h3>
+						<div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="#" onclick="return list_encuestas();"   data-transition="slide">
+					  <h3>Estado de Encuestas</h3>
+					  <div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="camera.html"  data-transition="slide">
+					  <h3>Camara</h3>
+					  <div></div>
+					</a>
+				  </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="encuesta_select" >
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();" data-transition="fade" data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo </h1>
+		</div>
+		<div data-role="content">
+			<div class="right">
+				<ul data-role="listview" data-inset="true">
+				  <li>
+					<a href="#" onclick="return new_encuesta();"  data-transition="slide">
+						 <h3>Nueva Encuesta</h3>
+						 <div></div>
+					</a>
+				  </li>
+				  <li id="div_ultima">
+					<a href="#" onclick="return load_last_encuesta();"  data-transition="slide">
+						<h3>Continuar Ultima Encuesta</h3>
+						<div></div>
+					</a>
+				  </li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	
+	<div data-role="page" id="encuesta1">
+		<form>
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+		<div data-role="content">
+
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>18.II Modulos Prefabricados </h3>
+				</div>
+
+				<div class="ui-body ui-body-a">
+
+						<p>1. El aula cuenta con recursos informaticos ? </p>
+						<label for="p1a" class="ui-hidden-accessible">Text Input:</label>
+						<input type="text" name="p1" id="p1a" value="" />
+				 
+						<p>2. El aula cuenta con recursos informaticos ? </p>
+
+				   		<fieldset data-role="controlgroup" data-type="horizontal">
+						  <input type="checkbox" name="p2" id="checkbox-nnc" class="custom" value="1" />
+						  <label for="checkbox-nnc">Bueno</label>
+						  <input type="checkbox" name="p3" id="checkbox-nn2c" class="custom" value="1"  />
+						  <label for="checkbox-nn2c"><em>Regular</em>
+						  </label>
+						</fieldset>
+				   
+						<p>3. El aula cuenta con recursos informaticos ? </p>
+
+					  <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+						  <legend>Font styling:</legend>
+						  <input type="checkbox" name="checkbox-6c" id="checkbox-6c" class="custom" value="1"  />
+						  <label for="checkbox-6c">Bueno</label>
+						  <input type="checkbox" name="checkbox-7c" id="checkbox-7c" class="custom"  value="1" />
+						  <label for="checkbox-7c"><em>Regular</em>    </label>
+						  <input type="checkbox" name="checkbox-8c" id="checkbox-8c" class="custom"  value="1" />
+						  <label for="checkbox-8c">Malo</label>   </fieldset>
+					  </div>
+
+					  <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+						  <legend>Font styling:</legend>
+						  <input type="checkbox" name="checkbox-f6c" id="checkbox-f6c" class="custom" value="1"  />
+						  <label for="checkbox-f6c">Bueno</label>
+						  <input type="checkbox" name="checkbox-f7c" id="checkbox-f7c" class="custom" value="1"  />
+						  <label for="checkbox-f7c"><em>Regular</em>    </label>
+						  <input type="checkbox" name="checkbox-f8c" id="checkbox-f8c" class="custom" value="1"  />
+						  <label for="checkbox-f8c">Malo</label>   </fieldset>
+					  </div>
+					  <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+						  <legend>Font styling:</legend>
+						  <input type="checkbox" name="checkbox-c6c" id="checkbox-c6c" class="custom" value="1"  />
+						  <label for="checkbox-c6c">Bueno</label>
+						  <input type="checkbox" name="checkbox-v7c" id="checkbox-v7c" class="custom" value="1" />
+						  <label for="checkbox-v7c"><em>Regular</em>    </label>
+						  <input type="checkbox" name="checkbox-a8c" id="checkbox-a8c" class="custom"  value="1" />
+						  <label for="checkbox-a8c">Malo</label>   </fieldset>
+					  </div>
+
+					  <p>4. El aula cuenta con recursos informaticos ? </p>
+
+					  <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+						  <input type="radio" name="p8" id="radio-choice-1c" value="choice-1" />
+						  <label for="radio-choice-1c">Cat</label>
+						  <input type="radio" name="p8" id="radio-choice-2c" value="choice-2" />
+						  <label for="radio-choice-2c">Dog</label>
+						  <input type="radio" name="p8" id="radio-choice-3c" value="choice-3" />
+						  <label for="radio-choice-3c">Hamster</label>
+						  <input type="radio" name="p8" id="radio-choice-4c" value="choice-4" />
+						  <label for="radio-choice-4c">Lizard</label>
+						</fieldset>
+					   </div>
+
+						<p>5. El aula cuenta con recursos informaticos ? </p>
+
+						<div data-role="fieldcontain">
+						  <select name="p9" id="select-choice-c">
+						  <option value="standard">Standard: 7 day</option>
+						  <option value="rush">Rush: 3 days</option>
+						  <option value="express">Express: next day</option>
+						  <option value="overnight">Overnight</option>
+						</select>
+						</div>
+				</div>
+
+			</div>
+
+			<a href="#" onclick="return nextpage_encuesta(2);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+		</div>
+		</form>
+	</div>
+
+
+	<div data-role="page" id="encuesta2">
+		<form>
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>23.IV Modulos Prefabricados </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd1" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd1" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd2" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd2" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd3" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd3" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd4" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd4" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd5" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd5" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd6" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd6" value="" />
+				</div>
+			</div>
+			<a  href="#" onclick="return nextpage_encuesta(3);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+		</div>
+		</form>
+	</div>
+
+	<div data-role="page" id="encuesta3">
+		<form>
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>45.Lorem Ipsum Veritas </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd11" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd11" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd12" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd12" value="" />
+					<p>1. El aula cuenta con recursos informaticos ? </p>
+					<label for="name-cd13" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="name" id="name-cd13" value="" />
+				</div>
+			</div>
+			<a  href="#" onclick="return show_end_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+		</div>
+		</form>
+	</div>
+
+
+
+	<div data-role="page" id="login">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>Iniciar Sesión </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<p id="login_error"></p>
+
+					<p>Nombre de Usuario </p>
+					<label for="username" class="ui-hidden-accessible">Text Input:</label>
+					<input type="text" name="username" id="username" value="" />
+					<p>Contraseña</p>
+					<label for="password" class="ui-hidden-accessible">Text Input:</label>
+					<input type="password" name="password" id="password" value="" />
+
+				</div>
+			</div>
+			<a href="#" onclick="return confirm_login();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Continuar</a>
+		</div>
+		</form>
+	</div>
+
+	<div data-role="page" id="encuesta_final">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>45. Fin </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<p>Ahora debe subir el archivo al servidor</p>
+					<a href="#" onclick="return save_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Save</a>
+					<a href="#" onclick="return upload_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Upload</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div data-role="page" id="listado1">
+		<div data-role="header" id="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+
+		<div data-role="content">
+
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>Estado de Encuestas</h3>
+				</div>
+
+				<div class="ui-body ui-body-a">
+
+					<table data-role="table" id="html_table_enc" class="ui-responsive table-stroke ui-table">
+					      <thead>
+					        <tr>
+					          <th data-priority="2" data-colstart="1" class="ui-table-priority-2">Centro Educativo</th>
+					          <th data-colstart="2">Progreso</th>
+					          <th data-priority="3" data-colstart="3" class="ui-table-priority-3 ui-table-cell-visible">GPS</th>
+					          <th data-priority="1" data-colstart="4" class="ui-table-priority-1"><abbr title="Rotten Tomato Rating">Foto</abbr></th>
+					        </tr>
+					      </thead>
+					      <tbody>
+					        <!--tr>
+					          <th class="ui-table-priority-2">I.E Abelino Caceres</th>
+					          <td>80%</td>
+					          <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
+					          <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
+					        </tr-->
+
+					      </tbody>
+					    </table>
+					</div>
+				</div>
+		</div>
+	</div>
+
+</body>
 </html>
