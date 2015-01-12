@@ -193,6 +193,8 @@ function confirm_login(){
 
 function logout(){
 	localStorage.setItem("login_status",0);
+	$.mobile.changePage("#login");
+	return false;
 }
 
 function load_encuesta( id ){
@@ -451,6 +453,9 @@ function onFail(message) {
 		<div data-role="header" id="hpage1"  data-theme="b">
 			<a href="#"  onclick="return init_home();" data-transition="fade" data-icon="home" data-iconpos="notext">Inicio</a>
 			<h1 role="heading">Sistema de Monitoreo </h1>
+
+			<a href="#" onclick="return logout();" class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-delete ui-btn-icon-notext ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Navigation </a>
+
 		</div>
 		<div data-role="content">
 			<div class="right">
