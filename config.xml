@@ -10,11 +10,11 @@
 	<name>Encuesta Test</name>
 
 	<description>
-	   Mood tester for tablets and phones.
+		Encuesta TEst
 	</description>
 
-	<author href="https://build.phonegap.com" email="support@phonegap.com">
-		Hardeep Shoker 
+	<author href="http://aynitech.com" email="dperales@aynitech.com">
+		Daniel Perales
 	</author>
 
 	<feature name="http://api.phonegap.com/1.0/file"/>
