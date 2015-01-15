@@ -502,32 +502,7 @@ function onFail(message) {
 		</div>
 	</div>
 
-	<div data-role="page" id="encuesta_select" >
-		<div data-role="header" id="hpage1"  data-theme="b">
-			<a href="#"  onclick="return init_home();" data-transition="fade" data-icon="home" data-iconpos="notext">Inicio</a>
-			<h1 role="heading">Sistema de Monitoreo </h1>
-		</div>
-		<div data-role="content">
-			<div class="right">
-				<ul data-role="listview" data-inset="true">
-				  <li>
-					<a href="#" onclick="return new_encuesta();"  data-transition="slide">
-						 <h3>Nueva Encuesta</h3>
-						 <div></div>
-					</a>
-				  </li>
-				  <li id="div_ultima">
-					<a href="#" onclick="return load_last_encuesta();"  data-transition="slide">
-						<h3>Continuar Ultima Encuesta</h3>
-						<div></div>
-					</a>
-				  </li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-			
+				
 	<div data-role="page" id="encuesta1">
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
@@ -1404,6 +1379,27 @@ function onFail(message) {
 		</form>
 	</div>
  
+	<div data-role="page" id="encuesta22">
+		<form>
+		<div data-role="header" class="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>INICIAR ENCUESTAS POR NIVELES </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"><legend>Nivel</legend><input type="radio" name="10001" id="1000101" value="0"><label for="1000101">INICIAL</label><input type="radio" name="10001" id="1000102" value="1"><label for="1000102">PRIMARIA</label><input type="radio" name="10001" id="1000103" value="2"><label for="1000103">SECUNDARIA</label></fieldset></div><div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"><legend>Turno</legend><input type="radio" name="10002" id="1000201" value="0"><label for="1000201">MAÑANA</label><input type="radio" name="10002" id="1000202" value="1"><label for="1000202">TARDE</label><input type="radio" name="10002" id="1000203" value="2"><label for="1000203">NOCHE</label></fieldset></div><div data-role="fieldcontain"><label for="10003"   >Grado</label><input type="text" name="10003" id="10003" value=""></div><div data-role="fieldcontain"><label for="10004"   >Sección</label><input type="text" name="10004" id="10004" value=""></div>
+					<a href="#encuesta23" xonclick="return nextpage_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a>
+				</div>				
+			</div>
+			<a href="#" onclick="return show_end_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
+		</div>
+		</form>
+	</div>
+ 
 	<div data-role="page" id="encuesta23">
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
@@ -1504,35 +1500,6 @@ function onFail(message) {
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta28">
-		<form>
-		<div data-role="header" class="hpage1"  data-theme="b">
-			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
-			<h1 role="heading">Sistema de Monitoreo</h1>
-		</div>
-		<div data-role="content">
-			<div class="ui-corner-all custom-corners">
-				<div class="ui-bar ui-bar-a">
-					<h3>XVI. OBSERVACION DE LAS RESPUESTAS DEL DIRECTOR Y VERIFICACION </h3>
-				</div>
-				<div class="ui-body ui-body-a">
-					<p>Indique la siguiente informacion:</p><table data-role="table"  class="ui-responsive table-stroke" ><thead><tr><th>Nivel Educativo</th><th>Tipo de IIEE</th>
-						<th>Nombre IIEE</th><th>Tipo</th><th>Cantidad aulas</th></tr></thead><tbody><tr><td>Inicial</td><td><label for='200101'  class="ui-hidden-accessible" ></label><select name='200101'><option value='0'>Razon A</option><option value='1'>Razon B</option></select></td>
-<td><label for="200102"  class="ui-hidden-accessible" ></label><input type="text" name="200102" id="200102" value=""></td>
-<td><label for='200103'  class="ui-hidden-accessible" ></label><select name='200103'><option value='0'>Razon A</option><option value='1'>Razon B</option></select></td>
-<td><label for="200104"  class="ui-hidden-accessible" ></label><input type="number" pattern="[0-9]*" name="200104" id="200104" value=""></td>
-</tr><tr><td>Primaria</td><td><label for='200201'  class="ui-hidden-accessible" ></label><select name='200201'><option value='0'>Razon A</option><option value='1'>Razon B</option></select></td>
-<td><label for="200202"  class="ui-hidden-accessible" ></label><input type="text" name="200202" id="200202" value=""></td>
-<td><label for='200203'  class="ui-hidden-accessible" ></label><select name='200203'><option value='0'>Razon A</option><option value='1'>Razon B</option></select></td>
-<td><label for="200204"  class="ui-hidden-accessible" ></label><input type="number" pattern="[0-9]*" name="200204" id="200204" value=""></td>
-</tr></tbody></table>
-				</div>				
-			</div>
-			<a href="#" onclick="return nextpage_encuesta(29);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-		</div>
-		</form>
-	</div>
- 
 	<div data-role="page" id="jqm-home" >
 		<div data-role="header" id="hpage1"  data-theme="b">
 			<a href="#"  onclick="return init_home();" data-transition="fade" data-icon="home" data-iconpos="notext">Inicio</a>
@@ -1584,6 +1551,7 @@ function onFail(message) {
 		</div>
 	</div>
 	
+
 
 
 
