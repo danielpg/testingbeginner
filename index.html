@@ -750,14 +750,16 @@ function show_gps(){
 }
 
 function get_gps() {
-        navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
+	$.mobile.loading("show");
+    navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
+	return false;
 }
 
 function onSuccess_gps(position) {
   /* $("#test_gps_res").html ("Latitude:"  + position.coords.latitude    + "<br >" +
                         'Longitude: '  + position.coords.longitude + '<br >' +
                         'Timestamp: '  + position.timestamp        + '<br >');*/
-	$("#00001900").val(position.coords.latitude    + "," + position.coords.longitude );
+	$("#00001900").val( position.coords.latitude + "," + position.coords.longitude  );
 	$.mobile.loading("hide");
 }
 
@@ -779,13 +781,14 @@ var imageid = "";
 function capturePhotoWithFile(imagenumber) {
 	imageid = imagenumber;
     navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 10, destinationType: Camera.DestinationType.FILE_URI });
+	return false;
 }
 
 function onPhotoFileSuccess(imageData) {
-  var smallImage = document.getElementById('smallImage');
-  smallImage.style.display = 'block';
-  smallImage.src = imageData;
-  //$("#test1").html(imageData);
+	/* var smallImage = document.getElementById('smallImage');
+	smallImage.style.display = 'block';
+	smallImage.src = imageData;*/
+    //$("#test1").html(imageData);
 	$("#foto" + imageid).val(imageData);
 	$("#fotoimage" + imageid).attr("src",imageData);
 }
@@ -1140,14 +1143,14 @@ function encuesta_events(){
 					<div id="div00001000" > <div data-role="fieldcontain"><label for='00001000'   >Departamento</label><select name='00001000' id='00001000'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001100" > <div data-role="fieldcontain"><label for='00001100'   >Provincia</label><select name='00001100' id='00001100'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001200" > <div data-role="fieldcontain"><label for='00001200'   >Distrito</label><select name='00001200' id='00001200'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001300" > <div data-role="fieldcontain"><label for='00001300'   >Centro Poblado</label><select name='00001300' id='00001300'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001400" > <div data-role="fieldcontain"><label for='00001400'   >DRE</label><select name='00001400' id='00001400'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001500" > <div data-role="fieldcontain"><label for='00001500'   >UGEL</label><select name='00001500' id='00001500'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001600"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Area</legend><input type="radio" name="00001600" id="0000160001" value="0"><label for="0000160001">URBANO</label><input type="radio" name="00001600" id="0000160002" value="1"><label for="0000160002">RURAL</label></fieldset></div></div><div id="div00001700"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Region</legend><input type="radio" name="00001700" id="0000170001" value="0"><label for="0000170001">COSTA</label><input type="radio" name="00001700" id="0000170002" value="1"><label for="0000170002">SIERRA</label><input type="radio" name="00001700" id="0000170003" value="2"><label for="0000170003">SELVA</label></fieldset></div></div><div id="div00001800"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Zona Priorizada</legend><input type="radio" name="00001800" id="0000180001" value="0"><label for="0000180001">FRONTERA</label><input type="radio" name="00001800" id="0000180002" value="1"><label for="0000180002">VRAEM</label><input type="radio" name="00001800" id="0000180003" value="2"><label for="0000180003">NINGUNO</label></fieldset></div></div><div id="div00001900" data-role="fieldcontain">
 			<label for="00001900" >GPS</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				<button onclick="get_gps();">Obtener Coordenadas</button>
+				<button onclick="return get_gps();">Obtener Coordenadas</button>
 				<input id="00001900"  type="text" name="00001900" data-wrapper-class="textgroup ui-btn" >
 			</div>
 		</div><div id="div00001901" >
 			<div style="float:left;width:20%;margin: .5em 2% 0 0;">Fotos</div>
 			<div style="float:left;width:70%">
-				<button class="ui-btn ui-btn-inline" onclick="capturePhotoWithFile('1');">TOMAR FOTO DEL FRONTIS DEL LOCAL ESCOLAR</button> <img id="fotoimage1" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
-				<button class="ui-btn ui-btn-inline" onclick="capturePhotoWithFile('2');">TOMAR FOTO DEL FRONTIS DE L.E. CON EL ENCUESTADOR</button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('1');">TOMAR FOTO DEL FRONTIS DEL LOCAL ESCOLAR</button> <img id="fotoimage1" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('2');">TOMAR FOTO DEL FRONTIS DE L.E. CON EL ENCUESTADOR</button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
 		</div><input type="hidden" name="foto1" id="foto1" value=""><input type="hidden" name="foto2" id="foto2"  value="">
