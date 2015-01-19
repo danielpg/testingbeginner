@@ -13,7 +13,7 @@
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
  
-//document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady, false);
 
 function swipeleftHandler( event ){
 	if(current_enc_page > 0){
@@ -39,7 +39,368 @@ function onDeviceReady() {
     pictureSource   = navigator.camera.PictureSourceType;
     destinationType = navigator.camera.DestinationType;
 
-	encuesta_events();
+	$( "input[name=000016]" ).change(function() {
+	  var radioValue = $('input[name=000016]:checked').val();   
+	  //alert(radioValue); 
+	});
+
+	if(false){
+		//esconder todas las iniciales, primaria
+
+	}
+
+	//$( "input[name=00000100]" ).change(function() {
+	$('#00000100').bind('click', function(){
+		if( $(this).val() == 1 ){		
+			newvar = ["Mes 1","Mes 2","Mes 3","Mes 4","Mes 5"];	
+		}else if( $(this).val() == 2 ) {
+			newvar = ["Mes 1A","Mes 2A","Mes 3A","Mes 4A","Mes 5A"];	
+		}else if( $(this).val() == 3 ) {
+			newvar = ["Mes 1B","Mes 2B","Mes 3B","Mes 4B","Mes 5B"];	
+		}else if( $(this).val() == 4 ) {
+			newvar = ["Mes 1C","Mes 2C","Mes 3C","Mes 4C","Mes 5C"];	
+		}
+
+		newop = makeoptions(newvar);
+		console.log(newvar);
+		console.log(newop);
+		$( "#00000200" ).html(newop).selectmenu("refresh");
+	});
+
+
+	//$( "input[name=00000100]" ).change(function() {
+	$('#00000400').bind('click', function(){
+		if( $(this).val() == 1 ){		
+			newvar = [{codigo:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"},
+				{codigo:"55444",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Antonio Maza"},
+				{codigo:"55444",nivel:"Secundaria",nivel_id : 3, nombre : "Colegio Antonio Maza"}];
+		}else if( $(this).val() == 2 ) {
+			newvar = [{codigo:"1234",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"},
+				{codigo:"1234",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Antonio Maza"}	];
+		}else if( $(this).val() == 3 ) {
+			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"}	];
+		}
+
+		show_inicial = true;
+		show_primaria = true;
+		show_secundaria = true;
+
+		len = newvar.length;
+		for( i = 0; i < len ; i++ ){
+			$("#activenivel_" + newvar[i].nivel_id).val(1);
+
+			if(newvar[i].nivel_id == 1)show_inicial = false;
+			if(newvar[i].nivel_id == 2)show_primaria = false;
+			if(newvar[i].nivel_id == 3)show_secundaria = false;
+		}
+
+
+		$("#div00000401").hide();
+		$("#div00000402").hide();
+		$("#div00000403").hide();
+
+		if(show_inicial)$("#div00000401").show();
+		if(show_primaria)$("#div00000402").show();
+		if(show_secundaria)$("#div00000403").show();
+
+		newop = makerows(newvar);
+		$( "#tniveles tbody" ).html(newop);
+	});
+
+	$("#div00000401").hide();
+	$("#div00000402").hide();
+	$("#div00000403").hide();
+	$( "#div12010100" ).hide();
+	$( "#div23010100" ).hide();
+	$( "#div24010100" ).hide();
+	$( "#div31010100" ).hide();
+	$( "#div32010100" ).hide();
+	$( "#div43010100" ).hide();
+	$( "#div49010100" ).hide();
+	$( "#div51010100" ).hide();
+	$( "#div52010100" ).hide();
+	$( "#div90050100" ).hide();
+	$( "#div90070100" ).hide();
+	$( "#div90110100").hide();
+	$( "#div90140100").hide();
+	$( "#div90260101").hide();
+	$( "input[name=01010000]" ).change(function() {
+		if( $(this).val() == "SI"){
+			$( "#div02010000,#div03010000" ).hide();
+		} else {
+
+		}
+	});
+
+	$( "input[name=12010000]" ).change(function() {
+		if( $(this).val() == "OTRO"){
+			$( "#div12010100" ).show();
+		} else {
+			$( "#div12010100").hide();
+			$( "#12010100").val("");
+		}
+	});
+
+	$( "#2301000005" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div23010100" ).show();
+		} else {
+			$( "#div23010100").hide();
+			$( "#23010100").val("");
+		}
+	});
+
+	$( "#2401000007" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div24010100" ).show();
+		} else {
+			$( "#div24010100").hide();
+			$( "#24010100").val("");
+		}
+	});
+	$( "#3101000004" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div31010100" ).show();
+		} else {
+			$( "#div31010100").hide();
+			$( "#31010100").val("");
+		}
+	});
+	$( "#3201000003" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div32010100" ).show();
+		} else {
+			$( "#div32010100").hide();
+			$( "#32010100").val("");
+		}
+	});
+	$( "input[name=43010000]" ).change(function() {
+		if( $(this).val() == "Otros" ){
+			$( "#div43010100" ).show();
+		} else {
+			$( "#div43010100").hide();
+			$( "#43010100").val("");
+		}
+	});
+	$( "#4901000005" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div49010100" ).show();
+		} else {
+			$( "#div49010100").hide();
+			$( "#49010100").val("");
+		}
+	});
+	$( "#5101000004" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div51010100" ).show();
+		} else {
+			$( "#div51010100").hide();
+			$( "#51010100").val("");
+		}
+	});
+	$( "#5201000004" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div52010100" ).show();
+		} else {
+			$( "#div52010100").hide();
+			$( "#52010100").val("");
+		}
+	});
+	$( "input[name=90050000]" ).change(function() {
+		console.log(  $(this).val() );
+		if( $(this).val() == "OTRO" ){
+			$( "#div90050100" ).show();
+		} else {
+			$( "#div90050100").hide();
+			$( "#90050100").val("");
+		}
+	});
+	$( "input[name=90070000]" ).change(function() {
+		if( $(this).val() == "OTRO" ){
+			$( "#div90070100" ).show();
+		} else {
+			$( "#div90070100").hide();
+			$( "#90070100").val("");
+		}
+	});
+	$( "input[name=90110000]" ).change(function() {
+		if( $(this).val() == "OTRO" ){
+			$( "#div90110100" ).show();
+		} else {
+			$( "#div90110100").hide();
+			$( "#90110100").val("");
+		}
+	});
+	$( "#9014000005" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div90140100" ).show();
+		} else {
+			$( "#div90140100").hide();
+			$( "#90140100").val("");
+		}
+	});
+	$( "#9026010004" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div90260101" ).show();
+		} else {
+			$( "#div90260101").hide();
+			$( "#90260101").val("");
+		}
+	});
+	$( "input[name=04010000]" ).change(function() {
+		if( $(this).val() == "NIVEL EDUCATIVO"){
+			$( "#div05010000" ).hide();
+			$( "#div06010000" ).hide();
+			$( "#div07010000" ).hide();
+			$( "#div08010000" ).hide();
+
+			$( "#div11000000" ).hide();//11
+			$( "#div11020000" ).hide();//1.b
+
+		} else {
+			$( "#div09010000" ).hide();
+			$( "#div10010000" ).hide();
+			$( "#div11010000" ).hide();
+			$( "#div11030000" ).hide();
+		}
+	});
+
+	$( "input[name=22010000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$( "#div23010000,#div24010000,#div25010000" ).hide();
+		} else {
+			//$( "#div09010000" ).hide();
+		}
+	});
+	$( "input[name=54010000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$( "#div55010000" ).hide();
+		} else {
+			//$( "#div09010000" ).hide();
+		}
+	});
+	$( "input[name=56010000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$( "#div57010000" ).hide();
+			$( "#div58010000" ).hide();
+			$( "#div59010000" ).hide();
+		} else {
+			//$( "#div09010000" ).hide();
+		}
+	});
+	$( "input[name=57010000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$( "#div58010000" ).hide();
+			$( "#div59010000" ).hide();
+		} else {
+			//$( "#div09010000" ).hide();
+		}
+	});
+
+	$( "input[name=00000401]" ).change(function() {
+			//alert("adasd");
+		if( $(this).val() == "SI"){
+			$("#tnewniveles").show();
+			$( ".tnewnivel1" ).show();
+			$("#activenivel_1"  ).val(1);
+		} else {
+			$( ".tnewnivel1" ).hide();
+			$("#activenivel_1"  ).val(0);
+		}
+	});
+
+	$( "input[name=00000402]" ).change(function() {
+		if( $(this).val() == "SI"){
+			$("#tnewniveles").show();
+			$( ".tnewnivel2" ).show();
+			$("#activenivel_2" + nivel ).val(1);
+		} else {
+			$( ".tnewnivel2" ).hide();
+			$("#activenivel_" + nivel ).val(0);
+		}
+	});
+	$( "input[name=90010000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90020000,#90030000").hide();
+			$("#90040000,#90050000,#90060000,#90070000,#90080000,#90090000").hide();
+			$("#90100000,#90110000,#90120000,#90130000,#90140000,#90150000").hide();
+			$("#90160000").hide();
+		} else {
+
+		}
+	});
+	$( "input[name=90030000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90040000,#90050000,#90060000,#90070000,#90080000,#90090000").hide();
+			$("#90100000,#90110000,#90120000,#90130000,#90140000,#90150000").hide();
+			$("#90160000").hide();
+		} else {
+
+		}
+	});
+	$( "input[name=90060000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90070000").hide();
+		} else {
+
+		}
+	});
+	$( "input[name=90080000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90090000").hide();
+		} else {
+
+		}
+	});
+	$( "input[name=90100000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90110000").hide();
+		} else {
+
+		}
+	});
+	$( "input[name=90130000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90140000").hide();
+			$("#90150000" ).hide();
+		} else {
+
+		}
+	});
+	$( "input[name=90200000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90210000").hide();
+			$("#90220000").hide();
+			$("#90230000").hide();
+			$("#90240000").hide();
+			$("#90250000").hide();
+		} else {
+
+		}
+	});
+
+	$( "input[name=90250000]" ).change(function() {
+		if( $(this).val() == "NO"){
+			$("#90260000").hide();
+		} else {
+
+		}
+	});
+
+
+
+	$( "input[name=00000403]" ).change(function() {
+		if( $(this).val() == "SI"){
+			$("#tnewniveles").show();
+			$( ".tnewnivel3" ).show();
+			$("#activenivel_3"  ).val(1);
+		} else {
+			$( ".tnewnivel3" ).hide();
+			$("#activenivel_3"  ).val(0);
+		}
+	});
+
+	//encuesta_events();
 	/*var db = window.sqlitePlugin.openDatabase({name: "mysqlitedb.db"});
 	
 	//db.transaction(populateDB, errorCB, successCB);
@@ -569,366 +930,7 @@ function hideinitnivel(nivel){
 
 
 function encuesta_events(){
-	$( "input[name=000016]" ).change(function() {
-	  var radioValue = $('input[name=000016]:checked').val();   
-	  //alert(radioValue); 
-	});
 
-	if(false){
-		//esconder todas las iniciales, primaria
-
-	}
-
-	//$( "input[name=00000100]" ).change(function() {
-	$('#00000100').bind('click', function(){
-		if( $(this).val() == 1 ){		
-			newvar = ["Mes 1","Mes 2","Mes 3","Mes 4","Mes 5"];	
-		}else if( $(this).val() == 2 ) {
-			newvar = ["Mes 1A","Mes 2A","Mes 3A","Mes 4A","Mes 5A"];	
-		}else if( $(this).val() == 3 ) {
-			newvar = ["Mes 1B","Mes 2B","Mes 3B","Mes 4B","Mes 5B"];	
-		}else if( $(this).val() == 4 ) {
-			newvar = ["Mes 1C","Mes 2C","Mes 3C","Mes 4C","Mes 5C"];	
-		}
-
-		newop = makeoptions(newvar);
-		console.log(newvar);
-		console.log(newop);
-		$( "#00000200" ).html(newop).selectmenu("refresh");
-	});
-
-
-	//$( "input[name=00000100]" ).change(function() {
-	$('#00000400').bind('click', function(){
-		if( $(this).val() == 1 ){		
-			newvar = [{codigo:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"},
-				{codigo:"55444",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Antonio Maza"},
-				{codigo:"55444",nivel:"Secundaria",nivel_id : 3, nombre : "Colegio Antonio Maza"}];
-		}else if( $(this).val() == 2 ) {
-			newvar = [{codigo:"1234",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"},
-				{codigo:"1234",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Antonio Maza"}	];
-		}else if( $(this).val() == 3 ) {
-			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"}	];
-		}
-
-		show_inicial = true;
-		show_primaria = true;
-		show_secundaria = true;
-
-		len = newvar.length;
-		for( i = 0; i < len ; i++ ){
-			$("#activenivel_" + newvar[i].nivel_id).val(1);
-
-			if(newvar[i].nivel_id == 1)show_inicial = false;
-			if(newvar[i].nivel_id == 2)show_primaria = false;
-			if(newvar[i].nivel_id == 3)show_secundaria = false;
-		}
-
-
-		$("#div00000401").hide();
-		$("#div00000402").hide();
-		$("#div00000403").hide();
-
-		if(show_inicial)$("#div00000401").show();
-		if(show_primaria)$("#div00000402").show();
-		if(show_secundaria)$("#div00000403").show();
-
-		newop = makerows(newvar);
-		$( "#tniveles tbody" ).html(newop);
-	});
-
-	$("#div00000401").hide();
-	$("#div00000402").hide();
-	$("#div00000403").hide();
-	$( "#div12010100" ).hide();
-	$( "#div23010100" ).hide();
-	$( "#div24010100" ).hide();
-	$( "#div31010100" ).hide();
-	$( "#div32010100" ).hide();
-	$( "#div43010100" ).hide();
-	$( "#div49010100" ).hide();
-	$( "#div51010100" ).hide();
-	$( "#div52010100" ).hide();
-	$( "#div90050100" ).hide();
-	$( "#div90070100" ).hide();
-	$( "#div90110100").hide();
-	$( "#div90140100").hide();
-	$( "#div90260101").hide();
-	$( "input[name=01010000]" ).change(function() {
-		if( $(this).val() == "SI"){
-			$( "#div02010000,#div03010000" ).hide();
-		} else {
-
-		}
-	});
-
-	$( "input[name=12010000]" ).change(function() {
-		if( $(this).val() == "OTRO"){
-			$( "#div12010100" ).show();
-		} else {
-			$( "#div12010100").hide();
-			$( "#12010100").val("");
-		}
-	});
-
-	$( "#2301000005" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div23010100" ).show();
-		} else {
-			$( "#div23010100").hide();
-			$( "#23010100").val("");
-		}
-	});
-
-	$( "#2401000007" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div24010100" ).show();
-		} else {
-			$( "#div24010100").hide();
-			$( "#24010100").val("");
-		}
-	});
-	$( "#3101000004" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div31010100" ).show();
-		} else {
-			$( "#div31010100").hide();
-			$( "#31010100").val("");
-		}
-	});
-	$( "#3201000003" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div32010100" ).show();
-		} else {
-			$( "#div32010100").hide();
-			$( "#32010100").val("");
-		}
-	});
-	$( "input[name=43010000]" ).change(function() {
-		if( $(this).val() == "Otros" ){
-			$( "#div43010100" ).show();
-		} else {
-			$( "#div43010100").hide();
-			$( "#43010100").val("");
-		}
-	});
-	$( "#4901000005" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div49010100" ).show();
-		} else {
-			$( "#div49010100").hide();
-			$( "#49010100").val("");
-		}
-	});
-	$( "#5101000004" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div51010100" ).show();
-		} else {
-			$( "#div51010100").hide();
-			$( "#51010100").val("");
-		}
-	});
-	$( "#5201000004" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div52010100" ).show();
-		} else {
-			$( "#div52010100").hide();
-			$( "#52010100").val("");
-		}
-	});
-	$( "input[name=90050000]" ).change(function() {
-		console.log(  $(this).val() );
-		if( $(this).val() == "OTRO" ){
-			$( "#div90050100" ).show();
-		} else {
-			$( "#div90050100").hide();
-			$( "#90050100").val("");
-		}
-	});
-	$( "input[name=90070000]" ).change(function() {
-		if( $(this).val() == "OTRO" ){
-			$( "#div90070100" ).show();
-		} else {
-			$( "#div90070100").hide();
-			$( "#90070100").val("");
-		}
-	});
-	$( "input[name=90110000]" ).change(function() {
-		if( $(this).val() == "OTRO" ){
-			$( "#div90110100" ).show();
-		} else {
-			$( "#div90110100").hide();
-			$( "#90110100").val("");
-		}
-	});
-	$( "#9014000005" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div90140100" ).show();
-		} else {
-			$( "#div90140100").hide();
-			$( "#90140100").val("");
-		}
-	});
-	$( "#9026010004" ).change(function() {
-		if( $(this).is(":checked") ){
-			$( "#div90260101" ).show();
-		} else {
-			$( "#div90260101").hide();
-			$( "#90260101").val("");
-		}
-	});
-	$( "input[name=04010000]" ).change(function() {
-		if( $(this).val() == "NIVEL EDUCATIVO"){
-			$( "#div05010000" ).hide();
-			$( "#div06010000" ).hide();
-			$( "#div07010000" ).hide();
-			$( "#div08010000" ).hide();
-
-			$( "#div11000000" ).hide();//11
-			$( "#div11020000" ).hide();//1.b
-
-		} else {
-			$( "#div09010000" ).hide();
-			$( "#div10010000" ).hide();
-			$( "#div11010000" ).hide();
-			$( "#div11030000" ).hide();
-		}
-	});
-
-	$( "input[name=22010000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$( "#div23010000,#div24010000,#div25010000" ).hide();
-		} else {
-			//$( "#div09010000" ).hide();
-		}
-	});
-	$( "input[name=54010000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$( "#div55010000" ).hide();
-		} else {
-			//$( "#div09010000" ).hide();
-		}
-	});
-	$( "input[name=56010000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$( "#div57010000" ).hide();
-			$( "#div58010000" ).hide();
-			$( "#div59010000" ).hide();
-		} else {
-			//$( "#div09010000" ).hide();
-		}
-	});
-	$( "input[name=57010000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$( "#div58010000" ).hide();
-			$( "#div59010000" ).hide();
-		} else {
-			//$( "#div09010000" ).hide();
-		}
-	});
-
-	$( "input[name=00000401]" ).change(function() {
-			//alert("adasd");
-		if( $(this).val() == "SI"){
-			$("#tnewniveles").show();
-			$( ".tnewnivel1" ).show();
-			$("#activenivel_1"  ).val(1);
-		} else {
-			$( ".tnewnivel1" ).hide();
-			$("#activenivel_1"  ).val(0);
-		}
-	});
-
-	$( "input[name=00000402]" ).change(function() {
-		if( $(this).val() == "SI"){
-			$("#tnewniveles").show();
-			$( ".tnewnivel2" ).show();
-			$("#activenivel_2" + nivel ).val(1);
-		} else {
-			$( ".tnewnivel2" ).hide();
-			$("#activenivel_" + nivel ).val(0);
-		}
-	});
-	$( "input[name=90010000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90020000,#90030000").hide();
-			$("#90040000,#90050000,#90060000,#90070000,#90080000,#90090000").hide();
-			$("#90100000,#90110000,#90120000,#90130000,#90140000,#90150000").hide();
-			$("#90160000").hide();
-		} else {
-
-		}
-	});
-	$( "input[name=90030000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90040000,#90050000,#90060000,#90070000,#90080000,#90090000").hide();
-			$("#90100000,#90110000,#90120000,#90130000,#90140000,#90150000").hide();
-			$("#90160000").hide();
-		} else {
-
-		}
-	});
-	$( "input[name=90060000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90070000").hide();
-		} else {
-
-		}
-	});
-	$( "input[name=90080000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90090000").hide();
-		} else {
-
-		}
-	});
-	$( "input[name=90100000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90110000").hide();
-		} else {
-
-		}
-	});
-	$( "input[name=90130000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90140000").hide();
-			$("#90150000" ).hide();
-		} else {
-
-		}
-	});
-	$( "input[name=90200000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90210000").hide();
-			$("#90220000").hide();
-			$("#90230000").hide();
-			$("#90240000").hide();
-			$("#90250000").hide();
-		} else {
-
-		}
-	});
-
-	$( "input[name=90250000]" ).change(function() {
-		if( $(this).val() == "NO"){
-			$("#90260000").hide();
-		} else {
-
-		}
-	});
-
-
-
-	$( "input[name=00000403]" ).change(function() {
-		if( $(this).val() == "SI"){
-			$("#tnewniveles").show();
-			$( ".tnewnivel3" ).show();
-			$("#activenivel_3"  ).val(1);
-		} else {
-			$( ".tnewnivel3" ).hide();
-			$("#activenivel_3"  ).val(0);
-		}
-	});
 
 };
 
