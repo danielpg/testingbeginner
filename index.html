@@ -18,7 +18,9 @@ function show_gps(){
 }
 
 function get_gps() {
-        navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps);
+	$("#test").html ("Cargando");
+	var options = { timeout: 11000, enableHighAccuracy: true };
+    navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps,options);
 	return false;
 }
 
