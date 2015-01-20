@@ -3,7 +3,7 @@
 <meta charset='utf-8'>
 <link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
 <link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>
-<script type="text/javascript"  src="cordova.js"></script>
+<!--script type="text/javascript"  src="cordova.js"></script-->
 
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
@@ -13,7 +13,8 @@
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
  
-document.addEventListener("deviceready", onDeviceReady, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
+$(function(){ onDeviceReady(); });
 
 function swipeleftHandler( event ){
 	if(current_enc_page > 0){
@@ -25,9 +26,19 @@ function swiperightHandler( event ){
 	if(current_enc_page > 0){
 		nextpage_encuesta(current_enc_page + 1);
 	}
-}
+}	
+
+$(document).on('pagecontainershow', function(e, ui) {
+	pageId = $('body').pagecontainer('getActivePage').prop('id');
+	if(pageId == "#encuesta22"){
+		draw_niveles_estados();
+	}
+});
  
 function onDeviceReady() {
+
+
+
 	$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
  	$( "#encuesta1" ).on( "swiperight", swiperightHandler );
 
@@ -36,8 +47,8 @@ function onDeviceReady() {
 		$.mobile.changePage("#login");
 	}
 
-    pictureSource   = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
+   // pictureSource   = navigator.camera.PictureSourceType;
+ //   destinationType = navigator.camera.DestinationType;
 
 	$( "input[name=000016]" ).change(function() {
 	  var radioValue = $('input[name=000016]:checked').val();   
@@ -321,69 +332,72 @@ function onDeviceReady() {
 	});
 	$( "input[name=90010000]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90020000,#90030000").hide();
-			$("#90040000,#90050000,#90060000,#90070000,#90080000,#90090000").hide();
-			$("#90100000,#90110000,#90120000,#90130000,#90140000,#90150000").hide();
-			$("#90160000").hide();
+			$("#div90020000,#div90030000").hide();
+			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
+			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
+			$("#div90160000").hide();
 		} else {
 
 		}
 	});
 	$( "input[name=90030000]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90040000,#90050000,#90060000,#90070000,#90080000,#90090000").hide();
-			$("#90100000,#90110000,#90120000,#90130000,#90140000,#90150000").hide();
-			$("#90160000").hide();
+			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
+			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
+			$("#div90160000").hide();
 		} else {
 
 		}
 	});
 	$( "input[name=90060000]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90070000").hide();
+			$("#div90070000").hide();
 		} else {
 
 		}
 	});
 	$( "input[name=90080000]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90090000").hide();
+			$("#div90090000").hide();
 		} else {
-
+			$("#div90090000").show();
 		}
 	});
 	$( "input[name=90100000]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90110000").hide();
+			$("#div90110000").hide();
 		} else {
-
+			$("#div90110000").show();
 		}
 	});
 	$( "input[name=90130000]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90140000").hide();
-			$("#90150000" ).hide();
+			$("#div90140000").hide();
+			$("#div90150000" ).hide();
 		} else {
-
+			$("#div90140000").show();
+			$("#div90150000" ).show();
 		}
 	});
-	$( "input[name=90200000]" ).change(function() {
+	$( "input[name=90200100]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90210000").hide();
-			$("#90220000").hide();
-			$("#90230000").hide();
-			$("#90240000").hide();
-			$("#90250000").hide();
+			$("#div90210100").hide();
+			$("#div90220000").hide();
+			$("#div90230000").hide();
+			$("#div90240100").hide();
 		} else {
-
+			$("#div90210100").show();
+			$("#div90220000").show();
+			$("#div90230000").show();
+			$("#div90240100").show();
 		}
 	});
 
-	$( "input[name=90250000]" ).change(function() {
+	$( "input[name=90250100]" ).change(function() {
 		if( $(this).val() == "NO"){
-			$("#90260000").hide();
+			$("#div90260100").hide();
 		} else {
-
+			$("#div90260100").show();
 		}
 	});
 
@@ -475,12 +489,12 @@ function onCapturePhoto(fileURI) {
         }
     }
  
-    var options = new FileUploadOptions();
+  /*  var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
     options.mimeType = "image/jpeg";
     options.params = {}; // if we need to send parameters to the server request
-    var ft = new FileTransfer();
+    var ft = new FileTransfer();*/
     //ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
 }
  
@@ -525,7 +539,7 @@ function save_encuesta(){
 
 	//save status to localstorage
 	serial = "";
-	for(i = 1; i < formpages; i++){
+	for(i = 1; i < nivelespage_start; i++){
 		serial += $( "#encuesta" + i + " form" ).serialize();	
 		serial += "&";
 	}
@@ -630,13 +644,16 @@ function delete_obj(id){
 }
 
 function new_encuesta(){
+	restore_encuesta();
 	clear_form();
+	clear_niveles();
 	tmpid = create_id();
 	//tmpid = 1;
 	//tmpid = encuesta_counter();
 	enc = {};
 	enc.id = tmpid;
 	enc.formdata = "";
+	enc.nivelesdata = [];
 	enc.status = 1;
 	enc.page = 1;
 	localStorage.setItem( "encobj" + tmpid , JSON.stringify(enc) );
@@ -644,6 +661,14 @@ function new_encuesta(){
 	$.mobile.changePage("#encuesta1");
 	current_enc_page = 1;
 	return false;
+}
+
+function update_system(){
+	
+}
+
+function restore_encuesta(){
+
 }
 
 function load_last_encuesta(){
@@ -670,20 +695,16 @@ function list_encuestas(){
 		len = list_ids.length;
 		for( i = 0; i < len ; i++ ){
 			id = list_ids[i];
-			html += " <tr>" + "<td class='ui-table-priority-2'>"
+			html += " <tr>" + "<td>"
 			+  list_ids[i]
 			+ "</td><td>80</td>    "
-			 + '<td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>'
-			// + '<td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>'
-			 + '<td class="ui-table-priority-1"><a href="#" onclick="return load_encuesta(' +list_ids[i] + ');" class="ui-btn ui-btn-inline">Editar</a></td>'
+			 + '<td><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>'
+			 + '<td><a href="#" onclick="return load_encuesta(' +list_ids[i] + ');" class="ui-btn ui-btn-inline" data-mini="true">Enviar datos a la red</a></td>'
 			 + "</tr>";
 		}
 	}
-
-	 $("#html_table_enc tbody").html( html )
-								.closest( "table#table-reflow" )
-								.table( "refresh" )
-								.trigger( "create" );
+	//console.log(html);
+	 $("#html_table_enc tbody").html( html );
 	$.mobile.changePage("#listado1");
 	//list files directory
 	//compare filenames(ids) to localstorage array status saved
@@ -721,15 +742,13 @@ function upload_encuesta(id){
 	return false;
 }
 
-
-
 function save_form(){
 	data = $( "#form1" ).serialize();
 	localStorage.setItem("formdata", data );
 }
 
 function clear_form(){
-	for(i = 1; i < formpages; i++){
+	for(i = 1; i < nivelespage_start; i++){
 		$("#encuesta" + i + " form")[0].reset();
 	}
 }
@@ -741,6 +760,121 @@ function load_form(){
 
 function show_camara(){
 	$.mobile.changePage("#test_camara");
+}
+
+function clear_niveles(){
+	for(i = nivelespage_start; i <= nivelespage_end; i++){
+		$("#encuesta" + i + " form")[0].reset();
+	}
+}
+
+function validate_niveles(){
+		tmp1 = $("input[name=90000001]").val() ;
+		tmp2 =  $("input[name=90000002]").val() ;
+		tmp3 = $("#90000003").val() ;
+		tmp4 =  $("#90000004").val() ;
+
+	for(i = 0; i < len; i++){
+		if( (current_enc.nivelesdata[i].nivel == tmp1 ) &
+		( current_enc.nivelesdata[i].turno == tmp2 )&
+		( current_enc.nivelesdata[i].grado ==  tmp3 )&
+		( current_enc.nivelesdata[i].seccion == tmp4 ) ){
+			alert("No se puede repetir los mismos parametros de encuesta");
+			return false;
+		}
+
+	}		
+
+	nextpage_encuesta(nivelespage_start + 1);
+	return false;
+}
+
+function draw_niveles_estados(){
+	var len = current_enc.nivelesdata.length;
+	var html = "";
+	for(i = 0; i < len; i++){
+		html += "<tr>";
+		html += "<td>" + current_enc.nivelesdata[i].nivel + "</td>";
+		html += "<td>" + current_enc.nivelesdata[i].turno + "</td>";
+		html += "<td>" + current_enc.nivelesdata[i].grado + "</td>";
+		html += "<td>" + current_enc.nivelesdata[i].seccion + "</td>";
+		if( (current_enc.nivelesdata[i].presentes == "NO") && (current_enc.nivelesdata[i].finalizado == 0) ){
+			html += "<td><button class='ui-btn ui-mini' onclick='return form_ausentes(" + i + ");'>Encuesta Ausentes</button></td>";
+		} else {
+			html += "<td><i class='fa fa-check-square-o'></i> </td>";
+		}
+		html += "</tr>";
+	}
+	
+	$("#nivelestable tbody").html(html);
+}
+
+var	nivelespage_start = 22;
+var	nivelespage_end = 27;
+var current_nivel;
+var current_nivel_id;
+
+function form_ausentes(i){
+		content =  current_enc.nivelesdata[i].nivel + ", ";
+		content += current_enc.nivelesdata[i].turno + ", ";
+		content += current_enc.nivelesdata[i].grado + ", ";
+		content += current_enc.nivelesdata[i].seccion;
+	$("#enivelestitle").html(content);
+	current_nivel_id = i;
+	current_nivel = current_enc.nivelesdata[i];
+	$.mobile.changePage("#ausentes");
+	return false;
+}
+
+function end_ausentes(){
+	serial = $( "#ausentes form" ).serialize();
+	current_nivel.data +=  "&" + serial;
+	current_nivel.finalizado =  1;
+
+	current_enc.nivelesdata[current_nivel_id] = current_nivel;
+	$("#ausentes form")[0].reset();
+	$.mobile.changePage("#encuesta" + nivelespage_start);
+	return false;
+}
+
+function save_niveles(){
+	serial = "";
+	for(i = nivelespage_start; i <= nivelespage_end; i++){
+		serial += $( "#encuesta" + i + " form" ).serialize();	
+		serial += "&";
+	}
+	serial = serial.slice(0,-1);
+
+	termino = 0;
+	tmpre = "NO";
+	if($( "#9020010001" ).is(":checked")){
+		termino = 1;
+		tmpre = "SI";
+	}
+	newnivel = {
+		nivel : $("input[name=90000001]").val() ,
+		turno : $("input[name=90000002]").val() ,
+		grado : $("#90000003").val() , 
+		seccion    : $("#90000004").val() ,
+		presentes  : tmpre ,
+		finalizado : termino ,
+		data : serial
+	};
+
+	clear_niveles();
+
+	current_enc.nivelesdata.push(newnivel);
+	current_enc.page = current_enc_page;
+	localStorage.setItem("encobj" + current_enc.id, JSON.stringify(current_enc) );
+
+	draw_niveles_estados();
+
+	$.mobile.changePage("#encuesta" + nivelespage_start);
+	return false;
+}
+
+function nextpage_niveles(){
+
 }
 
 function show_gps(){
@@ -756,11 +890,13 @@ function get_gps() {
 	return false;
 }
 
+function myround(number, decimals) { return +(Math.round(number + "e+" + decimals) + "e-" + decimals) };
+
 function onSuccess_gps(position) {
   /* $("#test_gps_res").html ("Latitude:"  + position.coords.latitude    + "<br >" +
                         'Longitude: '  + position.coords.longitude + '<br >' +
                         'Timestamp: '  + position.timestamp        + '<br >');*/
-	$("#00001900").val( position.coords.latitude + "," + position.coords.longitude  );
+	$("#00001900").val( myround(position.coords.latitude,6) + "," + myround(position.coords.longitude,6)  );
 	$.mobile.loading("hide");
 }
 
@@ -1052,9 +1188,8 @@ function encuesta_events(){
 					<h3>45. Fin </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<p>Ahora debe subir el archivo al servidor</p>
-					<a href="#" onclick="return save_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Save</a>
-					<a href="#" onclick="return upload_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Upload</a>
+					<a href="#jqm-home" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Ir al menu principal</a>
+					<a href="#" onclick="return upload_encuesta();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Enviar datos a la red MINEDU</a>
 				</div>
 			</div>
 		</div>
@@ -1075,13 +1210,13 @@ function encuesta_events(){
 
 				<div class="ui-body ui-body-a">
 
-					<table data-role="table" id="html_table_enc" class="ui-responsive table-stroke ui-table">
+					<table class="ts1" id="html_table_enc" width="100%">
 					      <thead>
 					        <tr>
-					          <th data-priority="2" data-colstart="1" class="ui-table-priority-2">Centro Educativo</th>
-					          <th data-colstart="2">Progreso</th>
-					          <th data-priority="3" data-colstart="3" class="ui-table-priority-3 ui-table-cell-visible">GPS</th>
-					          <th data-priority="1" data-colstart="4" class="ui-table-priority-1"><abbr title="Rotten Tomato Rating">Foto</abbr></th>
+					          <th >Centro Educativo</th>
+					          <th>Progreso</th>
+					          <th >GPS</th>
+					          <th></th>
 					        </tr>
 					      </thead>
 					      <tbody>
@@ -1141,17 +1276,17 @@ function encuesta_events(){
 					<h3>I. UBICACION GEOGRAFICA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div00001000" > <div data-role="fieldcontain"><label for='00001000'   >Departamento</label><select name='00001000' id='00001000'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001100" > <div data-role="fieldcontain"><label for='00001100'   >Provincia</label><select name='00001100' id='00001100'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001200" > <div data-role="fieldcontain"><label for='00001200'   >Distrito</label><select name='00001200' id='00001200'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001300" > <div data-role="fieldcontain"><label for='00001300'   >Centro Poblado</label><select name='00001300' id='00001300'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001400" > <div data-role="fieldcontain"><label for='00001400'   >DRE</label><select name='00001400' id='00001400'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001500" > <div data-role="fieldcontain"><label for='00001500'   >UGEL</label><select name='00001500' id='00001500'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001600"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Area</legend><input type="radio" name="00001600" id="0000160001" value="0"><label for="0000160001">URBANO</label><input type="radio" name="00001600" id="0000160002" value="1"><label for="0000160002">RURAL</label></fieldset></div></div><div id="div00001700"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Region</legend><input type="radio" name="00001700" id="0000170001" value="0"><label for="0000170001">COSTA</label><input type="radio" name="00001700" id="0000170002" value="1"><label for="0000170002">SIERRA</label><input type="radio" name="00001700" id="0000170003" value="2"><label for="0000170003">SELVA</label></fieldset></div></div><div id="div00001800"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Zona Priorizada</legend><input type="radio" name="00001800" id="0000180001" value="0"><label for="0000180001">FRONTERA</label><input type="radio" name="00001800" id="0000180002" value="1"><label for="0000180002">VRAEM</label><input type="radio" name="00001800" id="0000180003" value="2"><label for="0000180003">NINGUNO</label></fieldset></div></div><div id="div00001900" data-role="fieldcontain">
+					<div id="div00001000" > <div data-role="fieldcontain"><label for='00001000'   >Departamento</label><select name='00001000' id='00001000'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001100" > <div data-role="fieldcontain"><label for='00001100'   >Provincia</label><select name='00001100' id='00001100'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001200" > <div data-role="fieldcontain"><label for='00001200'   >Distrito</label><select name='00001200' id='00001200'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001300" > <div data-role="fieldcontain"><label for='00001300'   >Centro Poblado</label><select name='00001300' id='00001300'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001400" > <div data-role="fieldcontain"><label for='00001400'   >DRE</label><select name='00001400' id='00001400'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001500" > <div data-role="fieldcontain"><label for='00001500'   >UGEL</label><select name='00001500' id='00001500'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001600"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Area</legend><input type="radio" name="00001600" id="0000160001" value="URBANO"><label for="0000160001">URBANO</label><input type="radio" name="00001600" id="0000160002" value="RURAL"><label for="0000160002">RURAL</label></fieldset></div></div><div id="div00001700"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Region</legend><input type="radio" name="00001700" id="0000170001" value="COSTA"><label for="0000170001">COSTA</label><input type="radio" name="00001700" id="0000170002" value="SIERRA"><label for="0000170002">SIERRA</label><input type="radio" name="00001700" id="0000170003" value="SELVA"><label for="0000170003">SELVA</label></fieldset></div></div><div id="div00001800"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Zona Priorizada</legend><input type="radio" name="00001800" id="0000180001" value="FRONTERA"><label for="0000180001">FRONTERA</label><input type="radio" name="00001800" id="0000180002" value="VRAEM"><label for="0000180002">VRAEM</label><input type="radio" name="00001800" id="0000180003" value="NINGUNO"><label for="0000180003">NINGUNO</label></fieldset></div></div><div id="div00001900" data-role="fieldcontain">
 			<label for="00001900" >GPS</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 				<button onclick="return get_gps();">Obtener Coordenadas</button>
-				<input id="00001900"  type="text" name="00001900" data-wrapper-class="textgroup ui-btn" >
+				<input id="00001900"  type="text" name="00001900" data-wrapper-class="textgroup ui-btn" style="width:400px" >
 			</div>
 		</div><div id="div00001901" >
 			<div style="float:left;width:20%;margin: .5em 2% 0 0;">Fotos</div>
 			<div style="float:left;width:70%">
-				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('1');">TOMAR FOTO DEL FRONTIS DEL LOCAL ESCOLAR</button> <img id="fotoimage1" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
-				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('2');">TOMAR FOTO DEL FRONTIS DE L.E. CON EL ENCUESTADOR</button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('1');">Tomar foto del frontis del local escolar</button> <img id="fotoimage1" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('2');">Tomar foto del frontis de L.E. con el encuestador</button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
 		</div><input type="hidden" name="foto1" id="foto1" value=""><input type="hidden" name="foto2" id="foto2"  value="">
@@ -1174,7 +1309,7 @@ function encuesta_events(){
 					<h3>RESULTADO DE LA ENCUESTA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div00002100" > <div data-role="fieldcontain"><label for='00002100'   >Visita</label><select name='00002100' id='00002100'  ><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select></div></div><div id="div00002200"  class=""  > <div data-role="fieldcontain"><label for="00002200"   >Fecha</label><input  type="text" name="00002200" id="00002200" value=""></div></div><div id="div00002300" > <div data-role="fieldcontain"><label for='00002300'   >Resultado</label><select name='00002300' id='00002300'  ><option value='0'>Completo</option><option value='1'>Incompleto</option><option value='2'>Rechazo</option><option value='3'>Local Cerrado</option><option value='4'>Local escolar inactivo sin justificación Local Cerrado</option><option value='5'>Local escolar inactivo con justificación</option><option value='6'>Otro</option></select></div></div>
+					<div id="div00002100" > <div data-role="fieldcontain"><label for='00002100'   >Visita</label><select name='00002100' id='00002100'  ><option value='0'>0</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option></select></div></div><div id="div00002200"  class=""  > <div data-role="fieldcontain"><label for="00002200"   >Fecha</label><input  type="text" name="00002200" id="00002200" value=""></div></div><h3  class="ui-bar ui-bar-a ui-corner-all">En el caso de no poder continuar con la encuesta, indique la razón: <h3><div id="div00002300"  class=""  > <fieldset data-role="controlgroup"  ><legend></legend><input type="radio" name="00002300" id="0000230001" value="0"><label for="0000230001">Rechazo</label><input type="radio" name="00002300" id="0000230002" value="1"><label for="0000230002">Local Cerrado</label><input type="radio" name="00002300" id="0000230003" value="2"><label for="0000230003">Local escolar inactivo sin justificación Local Cerrado</label><input type="radio" name="00002300" id="0000230004" value="3"><label for="0000230004">Local escolar inactivo con justificación</label><input type="radio" name="00002300" id="0000230005" value="4"><label for="0000230005">Otro</label></fieldset></div><div id="div00002301"  class=""  > <div data-role="fieldcontain"><label for="00002301"   >Observaciones:</label><textarea  name="00002301" id="00002301"></textarea></div></div><a href="#jqm-home" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(4);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -1203,12 +1338,12 @@ function encuesta_events(){
 </tr><tr class='efs'><td>1012356</td>
 <td>Secundaria</td>
 <td><div id="div00002403"  class=""  > <label for="00002403"  class="ui-hidden-accessible" ></label><input  type="text" name="00002403" id="00002403" value="Colegio Antonio Maza"></div></td>
-</tr></tbody></table><div id="div00002500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>Tipo de Vía</legend><input type="radio" name="00002500" id="0000250001" value="0"><label for="0000250001">AVENIDA</label><input type="radio" name="00002500" id="0000250002" value="1"><label for="0000250002">JIRON</label><input type="radio" name="00002500" id="0000250003" value="2"><label for="0000250003">CALLE</label><input type="radio" name="00002500" id="0000250004" value="3"><label for="0000250004">PASAJE</label><input type="radio" name="00002500" id="0000250005" value="4"><label for="0000250005">CARRETERA</label></fieldset></div><div id="div00002600"  class=""  > <label for="00002600"   >Nombre de la vía</label><input  type="text" name="00002600" id="00002600" value=""></div><p>1.E Detalle dirección y teléfono</p><table  class="ts1"><thead><tr><th class=''>Nro de puerta</th><th class=''>Piso</th><th class=''>Manzana</th><th class=''>Lote</th><th class=''>Teléfono</th></tr></thead><tbody><tr class=''><td><div id="div00002700"  class=""  > <label for="00002700"  class="ui-hidden-accessible" ></label><input  type="text" name="00002700" id="00002700" value=""></div></td>
+</tr></tbody></table><div id="div00002500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>Tipo de Vía</legend><input type="radio" name="00002500" id="0000250001" value="AVENIDA"><label for="0000250001">AVENIDA</label><input type="radio" name="00002500" id="0000250002" value="JIRON"><label for="0000250002">JIRON</label><input type="radio" name="00002500" id="0000250003" value="CALLE"><label for="0000250003">CALLE</label><input type="radio" name="00002500" id="0000250004" value="PASAJE"><label for="0000250004">PASAJE</label><input type="radio" name="00002500" id="0000250005" value="CARRETERA"><label for="0000250005">CARRETERA</label></fieldset></div><div id="div00002600"  class=""  > <label for="00002600"   >Nombre de la vía</label><input  type="text" name="00002600" id="00002600" value=""></div><p>1.E Detalle dirección y teléfono</p><table  class="ts1"><thead><tr><th class=''>Nro de puerta</th><th class=''>Piso</th><th class=''>Manzana</th><th class=''>Lote</th><th class=''>Teléfono</th></tr></thead><tbody><tr class=''><td><div id="div00002700"  class=""  > <label for="00002700"  class="ui-hidden-accessible" ></label><input  type="text" name="00002700" id="00002700" value=""></div></td>
 <td><div id="div00002800"  class=""  > <label for="00002800"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="00002800" id="00002800" value=""></div></td>
 <td><div id="div00002900"  class=""  > <label for="00002900"  class="ui-hidden-accessible" ></label><input  type="text" name="00002900" id="00002900" value=""></div></td>
 <td><div id="div00003000"  class=""  > <label for="00003000"  class="ui-hidden-accessible" ></label><input  type="text" name="00003000" id="00003000" value=""></div></td>
 <td><div id="div00003100"  class=""  > <label for="00003100"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="00003100" id="00003100" value=""></div></td>
-</tr></tbody></table><div id="div00003200"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>El local escolar es de:</legend><input type="radio" name="00003200" id="0000320001" value="0"><label for="0000320001">HOMBRES</label><input type="radio" name="00003200" id="0000320002" value="1"><label for="0000320002">MUJERES</label><input type="radio" name="00003200" id="0000320003" value="2"><label for="0000320003">MIXTO</label></fieldset></div>
+</tr></tbody></table><div id="div00003200"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>El local escolar es de:</legend><input type="radio" name="00003200" id="0000320001" value="HOMBRES"><label for="0000320001">HOMBRES</label><input type="radio" name="00003200" id="0000320002" value="MUJERES"><label for="0000320002">MUJERES</label><input type="radio" name="00003200" id="0000320003" value="MIXTO"><label for="0000320003">MIXTO</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(5);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -1261,7 +1396,7 @@ function encuesta_events(){
 				</div>
 				<div class="ui-body ui-body-a">
 					<p>10. Por nivel educativo ¿El local escolar cuenta con un espacio físico para las direcciones de:</p><div id="div10010000"  class="efi"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="10010000" id="1001000001" value="SI"><label for="1001000001">SI</label><input type="radio" name="10010000" id="1001000002" value="NO"><label for="1001000002">NO</label></fieldset></div></div><div id="div10020000"  class="efp"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="10020000" id="1002000001" value="SI"><label for="1002000001">SI</label><input type="radio" name="10020000" id="1002000002" value="NO"><label for="1002000002">NO</label></fieldset></div></div><div id="div10030000"  class="efs"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Secundaria</legend><input type="radio" name="10030000" id="1003000001" value="SI"><label for="1003000001">SI</label><input type="radio" name="10030000" id="1003000002" value="NO"><label for="1003000002">NO</label></fieldset></div></div><div id="div11000000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>11. Considera usted que las condiciones de trabajo son:</legend><input type="radio" name="11000000" id="1100000001" value="MUY BUENAS"><label for="1100000001">MUY BUENAS</label><input type="radio" name="11000000" id="1100000002" value="BUENAS"><label for="1100000002">BUENAS</label><input type="radio" name="11000000" id="1100000003" value="REGULAR"><label for="1100000003">REGULAR</label><input type="radio" name="11000000" id="1100000004" value="MALO"><label for="1100000004">MALO</label><input type="radio" name="11000000" id="1100000005" value="MUY MALO"><label for="1100000005">MUY MALO</label></fieldset></div><div class='div11010000'><p>11.A. ¿Considera usted que las condiciones de su trabajo son:</p><table  class="ts1"><thead><tr><th class='efi'>Inicial</th><th class='efp'>Primaria</th><th class='efs'>Secundaria</th></tr></thead><tbody><tr><td class="efi"><div id="div11010001"  class=""  > <fieldset data-role="controlgroup"  ><legend></legend><input type="radio" name="11010001" id="1101000101" value="MUY BUENAS"><label for="1101000101">MUY BUENAS</label><input type="radio" name="11010001" id="1101000102" value="BUENAS"><label for="1101000102">BUENAS</label><input type="radio" name="11010001" id="1101000103" value="REGULAR"><label for="1101000103">REGULAR</label><input type="radio" name="11010001" id="1101000104" value="MALO"><label for="1101000104">MALO</label><input type="radio" name="11010001" id="1101000105" value="MUY MALO"><label for="1101000105">MUY MALO</label></fieldset></div></td><td class="efp"><div id="div11010002"  class=""  > <fieldset data-role="controlgroup"  ><legend></legend><input type="radio" name="11010002" id="1101000201" value="MUY BUENAS"><label for="1101000201">MUY BUENAS</label><input type="radio" name="11010002" id="1101000202" value="BUENAS"><label for="1101000202">BUENAS</label><input type="radio" name="11010002" id="1101000203" value="REGULAR"><label for="1101000203">REGULAR</label><input type="radio" name="11010002" id="1101000204" value="MALO"><label for="1101000204">MALO</label><input type="radio" name="11010002" id="1101000205" value="MUY MALO"><label for="1101000205">MUY MALO</label></fieldset></div></td><td class="efs"><div id="div11010003"  class=""  > <fieldset data-role="controlgroup"  ><legend></legend><input type="radio" name="11010003" id="1101000301" value="MUY BUENAS"><label for="1101000301">MUY BUENAS</label><input type="radio" name="11010003" id="1101000302" value="BUENAS"><label for="1101000302">BUENAS</label><input type="radio" name="11010003" id="1101000303" value="REGULAR"><label for="1101000303">REGULAR</label><input type="radio" name="11010003" id="1101000304" value="MALO"><label for="1101000304">MALO</label><input type="radio" name="11010003" id="1101000305" value="MUY MALO"><label for="1101000305">MUY MALO</label></fieldset></div></td></tr></tbody></table></div><div id="div11020000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>11.B Que tan satisfecho se encuentra Ud con su trabajo como director?</legend><input type="radio" name="11020000" id="1102000001" value="MUY SATISFECHO"><label for="1102000001">MUY SATISFECHO</label><input type="radio" name="11020000" id="1102000002" value="SATISFECHO"><label for="1102000002">SATISFECHO</label><input type="radio" name="11020000" id="1102000003" value="POCO SATISFECHO"><label for="1102000003">POCO SATISFECHO</label><input type="radio" name="11020000" id="1102000004" value="NADA SATISFECHO"><label for="1102000004">NADA SATISFECHO</label></fieldset></div><div class='11030000'><p>11.C. ¿Que tan satisfecho se encuentra Ud con su trabajo como director?</p><table  class="ts1"><thead><tr><th class='efi'>Inicial</th><th class='efp'>Primaria</th><th class='efs'>Secundaria</th></tr></thead><tbody><tr><td class="efi"><div id="div11030001"  class=""  > <fieldset data-role="controlgroup"  ><legend></legend><input type="radio" name="11030001" id="1103000101" value="MUY SATISFECHO"><label for="1103000101">MUY SATISFECHO</label><input type="radio" name="11030001" id="1103000102" value="SATISFECHO"><label for="1103000102">SATISFECHO</label><input type="radio" name="11030001" id="1103000103" value="POCO SATISFECHO"><label for="1103000103">POCO SATISFECHO</label><input type="radio" name="11030001" id="1103000104" value="NADA SATISFECHO"><label for="1103000104">NADA SATISFECHO</label></fieldset></div></td><td class="efp"><div id="div11030002"  class=""  > <fieldset data-role="controlgroup"  ><legend></legend><input type="radio" name="11030002" id="1103000201" value="MUY SATISFECHO"><label for="1103000201">MUY SATISFECHO</label><input type="radio" name="11030002" id="1103000202" value="SATISFECHO"><label for="1103000202">SATISFECHO</label><input type="radio" name="11030002" id="1103000203" value="POCO SATISFECHO"><label for="1103000203">POCO SATISFECHO</label><input type="radio" name="11030002" id="1103000204" value="NADA SATISFECHO"><label for="1103000204">NADA SATISFECHO</label></fieldset></div></td><td class="efs"><div id="div11030003"  class=""  > <fieldset data-role="controlgroup"  ><legend></legend><input type="radio" name="11030003" id="1103000301" value="MUY SATISFECHO"><label for="1103000301">MUY SATISFECHO</label><input type="radio" name="11030003" id="1103000302" value="SATISFECHO"><label for="1103000302">SATISFECHO</label><input type="radio" name="11030003" id="1103000303" value="POCO SATISFECHO"><label for="1103000303">POCO SATISFECHO</label><input type="radio" name="11030003" id="1103000304" value="NADA SATISFECHO"><label for="1103000304">NADA SATISFECHO</label></fieldset></div></td></tr></tbody></table></div><div id="div12010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>12. Cual es el idioma principal en el que se  dictan las clases en el local escolar?</legend><input type="radio" name="12010000" id="1201000001" value="CASTELLANO"><label for="1201000001">CASTELLANO</label><input type="radio" name="12010000" id="1201000002" value="QUECHUA"><label for="1201000002">QUECHUA</label><input type="radio" name="12010000" id="1201000003" value="OTRO"><label for="1201000003">OTRO</label></fieldset></div><div id="div12010100"  class=""  > <div data-role="fieldcontain"><label for="12010100"   >Especificar:</label><input  type="text" name="12010100" id="12010100" value=""></div></div><p>13. Por nivel educativo, indique usted:</p><table  class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Tipo de IE</th><th class=''>Categoria</th><th class=''>Nro Aulas Pedagogicas</th></tr></thead><tbody><tr class='efi'><td>Inicial</td>
-<td><div id="div13010001"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="13010001" id="1301000101" value="0"><label for="1301000101">IE-MONOLINGUE</label><input type="radio" name="13010001" id="1301000102" value="1"><label for="1301000102">IE-EIB</label></fieldset></div></td>
+<td><div id="div13010001"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="13010001" id="1301000101" value="IE-MONOLINGUE"><label for="1301000101">IE-MONOLINGUE</label><input type="radio" name="13010001" id="1301000102" value="IE-EIB"><label for="1301000102">IE-EIB</label></fieldset></div></td>
 <td><div id="div13020001" > <label for='13020001'  class="ui-hidden-accessible" ></label><select name='13020001' id='13020001'  data-mini="true"   ><option value='MULTIEDAD'>MULTIEDAD</option><option value='UNIDOCENTE'>UNIDOCENTE</option><option value='POLIDOCENTE'>POLIDOCENTE</option></select></div></td>
 <td>
 		<div id="div13030001" data-role="fieldcontain" class="">
@@ -1273,7 +1408,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class='efp'><td>Primaria</td>
-<td><div id="div130100002"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="130100002" id="13010000201" value="0"><label for="13010000201">IE-MONOLINGUE</label><input type="radio" name="130100002" id="13010000202" value="1"><label for="13010000202">IE-EIB</label></fieldset></div></td>
+<td><div id="div130100002"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="130100002" id="13010000201" value="IE-MONOLINGUE"><label for="13010000201">IE-MONOLINGUE</label><input type="radio" name="130100002" id="13010000202" value="IE-EIB"><label for="13010000202">IE-EIB</label></fieldset></div></td>
 <td><div id="div13020002" > <label for='13020002'  class="ui-hidden-accessible" ></label><select name='13020002' id='13020002'  data-mini="true"   ><option value='MULTIEDAD'>MULTIEDAD</option><option value='UNIDOCENTE'>UNIDOCENTE</option><option value='POLIDOCENTE'>POLIDOCENTE</option></select></div></td>
 <td>
 		<div id="div13030002" data-role="fieldcontain" class="">
@@ -1285,7 +1420,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class='efs'><td>Secundaria</td>
-<td><div id="div13010003"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="13010003" id="1301000301" value="0"><label for="1301000301">IE-MONOLINGUE</label></fieldset></div></td>
+<td><div id="div13010003"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="13010003" id="1301000301" value="IE-MONOLINGUE"><label for="1301000301">IE-MONOLINGUE</label></fieldset></div></td>
 <td><div id="div13020003" > <label for='13020003'  class="ui-hidden-accessible" ></label><select name='13020003' id='13020003'  data-mini="true"   ><option value='MULTIEDAD'>MULTIEDAD</option><option value='UNIDOCENTE'>UNIDOCENTE</option><option value='POLIDOCENTE'>POLIDOCENTE</option><option value='MULTIGRADO'>MULTIGRADO</option></select></div></td>
 <td>
 		<div id="div13030003" data-role="fieldcontain" class="">
@@ -1603,43 +1738,43 @@ function encuesta_events(){
 				</div>
 				<div class="ui-body ui-body-a">
 					<div id="div26010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>26. El local escolar cuenta con al menos una estanteria de biblioteca?</legend><input type="radio" name="26010000" id="2601000001" value="SI"><label for="2601000001">SI</label><input type="radio" name="26010000" id="2601000002" value="NO"><label for="2601000002">NO</label></fieldset></div><div id="div27010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>27. Durante el 2015, el Ministerio de Educación ha repuesto al menos una estantería de biblioteca?</legend><input type="radio" name="27010000" id="2701000001" value="0"><label for="2701000001">SI</label><input type="radio" name="27010000" id="2701000002" value="1"><label for="2701000002">NO</label><input type="radio" name="27010000" id="2701000003" value="2"><label for="2701000003">NO SABE</label></fieldset></div><div id="div28010000"  class=""  > <label for="28010000"   >28. Cuantas estanterías han sido repuestas?</label><input type="number"   pattern="[0-9]*" name="28010000" id="28010000" value=""></div><div id="div29010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>29. La estantería se ha instalado?</legend><input type="radio" name="29010000" id="2901000001" value="0"><label for="2901000001">SI</label><input type="radio" name="29010000" id="2901000002" value="1"><label for="2901000002">NO</label><input type="radio" name="29010000" id="2901000003" value="2"><label for="2901000003">NO SABE</label></fieldset></div><div id="div30010000"  class=""  > <label for="30010000"   >30. Cuántas estanterías repuestas se han instalado?</label><input type="number"   pattern="[0-9]*" name="30010000" id="30010000" value=""></div><div id="div31010000"  class=""  > <fieldset data-role="controlgroup"    ><legend>31. Donde se ha instalado la estantería?</legend><input type="checkbox" name="31010000[]" id="3101000001" value="EN LA OFICINA DE DIRECCION"><label for="3101000001" >EN LA OFICINA DE DIRECCION</label><input type="checkbox" name="31010000[]" id="3101000002" value="EN LA BIBLIOTECA"><label for="3101000002" >EN LA BIBLIOTECA</label><input type="checkbox" name="31010000[]" id="3101000003" value="EN LAS AULAS"><label for="3101000003" >EN LAS AULAS</label><input type="checkbox" name="31010000[]" id="3101000004" value="OTRO"><label for="3101000004" >OTRO</label></fieldset></div><div id="div31010100"  class=""  > <div data-role="fieldcontain"><label for="31010100"   >Especificar:</label><input  type="text" name="31010100" id="31010100" value=""></div></div><div id="div32010000"  class=""  > <fieldset data-role="controlgroup"    ><legend>32. Que hizo con los estantes anteriores?</legend><input type="checkbox" name="32010000[]" id="3201000001" value="SE GUARDO"><label for="3201000001" >SE GUARDO</label><input type="checkbox" name="32010000[]" id="3201000002" value="SE DONO"><label for="3201000002" >SE DONO</label><input type="checkbox" name="32010000[]" id="3201000003" value="OTRO"><label for="3201000003" >OTRO</label></fieldset></div><div id="div32010100"  class=""  > <div data-role="fieldcontain"><label for="32010100"   >Especificar:</label><input  type="text" name="32010100" id="32010100" value=""></div></div><p>33. Por niveles  (inicial,primaria,secundaria) indicar la siguiente información sobre el mobiliario repuesto:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>33.A Durante el 2015, a través del Ministerio de Educación, <br> se repuso la siguiente lista de mobiliario del Local Escolar</th><th class=''>33.B ¿En qué mes se repuso el mobiliario?</th><th class=''>33.C ¿Cuántos mobiliario fueron repuestos?</th></tr></thead><tbody><tr class=''><td>Escritorios del docente</td>
-<td><div id="div33010100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33010100" id="3301010001" value="0"><label for="3301010001">SI</label><input type="radio" name="33010100" id="3301010002" value="1"><label for="3301010002">NO</label><input type="radio" name="33010100" id="3301010003" value="2"><label for="3301010003">NO SABE</label></fieldset></div></td>
+<td><div id="div33010100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33010100" id="3301010001" value="0"><label for="3301010001">SI</label><input type="radio" name="33010100" id="3301010002" value="1"><label for="3301010002">NO</label><input type="radio" name="33010100" id="3301010003" value="2"><label for="3301010003">NO SABE</label></fieldset></div></td>
 <td><div id="div33020100"  class=""  > <label for="33020100"  class="ui-hidden-accessible" ></label><input  type="text" name="33020100" id="33020100" value=""></div></td>
 <td><div id="div33030100"  class=""  > <label for="33030100"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33030100" id="33030100" value=""></div></td>
 </tr><tr class=''><td>Sillas del docente</td>
-<td><div id="div33010200"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33010200" id="3301020001" value="0"><label for="3301020001">SI</label><input type="radio" name="33010200" id="3301020002" value="1"><label for="3301020002">NO</label><input type="radio" name="33010200" id="3301020003" value="2"><label for="3301020003">NO SABE</label></fieldset></div></td>
+<td><div id="div33010200"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33010200" id="3301020001" value="0"><label for="3301020001">SI</label><input type="radio" name="33010200" id="3301020002" value="1"><label for="3301020002">NO</label><input type="radio" name="33010200" id="3301020003" value="2"><label for="3301020003">NO SABE</label></fieldset></div></td>
 <td><div id="div33020200"  class=""  > <label for="33020200"  class="ui-hidden-accessible" ></label><input  type="text" name="33020200" id="33020200" value=""></div></td>
 <td><div id="div33030200"  class=""  > <label for="33030200"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33030200" id="33030200" value=""></div></td>
 </tr><tr class=''><td>Carpetas de alumnos</td>
-<td><div id="div33010300"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33010300" id="3301030001" value="0"><label for="3301030001">SI</label><input type="radio" name="33010300" id="3301030002" value="1"><label for="3301030002">NO</label><input type="radio" name="33010300" id="3301030003" value="2"><label for="3301030003">NO SABE</label></fieldset></div></td>
+<td><div id="div33010300"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33010300" id="3301030001" value="0"><label for="3301030001">SI</label><input type="radio" name="33010300" id="3301030002" value="1"><label for="3301030002">NO</label><input type="radio" name="33010300" id="3301030003" value="2"><label for="3301030003">NO SABE</label></fieldset></div></td>
 <td><div id="div33020300"  class=""  > <label for="33020300"  class="ui-hidden-accessible" ></label><input  type="text" name="33020300" id="33020300" value=""></div></td>
 <td><div id="div33030300"  class=""  > <label for="33030300"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33030300" id="33030300" value=""></div></td>
 </tr><tr class=''><td>Sillas de alumnos</td>
-<td><div id="div33010400"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33010400" id="3301040001" value="0"><label for="3301040001">SI</label><input type="radio" name="33010400" id="3301040002" value="1"><label for="3301040002">NO</label><input type="radio" name="33010400" id="3301040003" value="2"><label for="3301040003">NO SABE</label></fieldset></div></td>
+<td><div id="div33010400"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33010400" id="3301040001" value="0"><label for="3301040001">SI</label><input type="radio" name="33010400" id="3301040002" value="1"><label for="3301040002">NO</label><input type="radio" name="33010400" id="3301040003" value="2"><label for="3301040003">NO SABE</label></fieldset></div></td>
 <td><div id="div33020400"  class=""  > <label for="33020400"  class="ui-hidden-accessible" ></label><input  type="text" name="33020400" id="33020400" value=""></div></td>
 <td><div id="div33030400"  class=""  > <label for="33030400"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33030400" id="33030400" value=""></div></td>
 </tr><tr class=''><td>Pizarras</td>
-<td><div id="div33010500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33010500" id="3301050001" value="0"><label for="3301050001">SI</label><input type="radio" name="33010500" id="3301050002" value="1"><label for="3301050002">NO</label><input type="radio" name="33010500" id="3301050003" value="2"><label for="3301050003">NO SABE</label></fieldset></div></td>
+<td><div id="div33010500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33010500" id="3301050001" value="0"><label for="3301050001">SI</label><input type="radio" name="33010500" id="3301050002" value="1"><label for="3301050002">NO</label><input type="radio" name="33010500" id="3301050003" value="2"><label for="3301050003">NO SABE</label></fieldset></div></td>
 <td><div id="div33020500"  class=""  > <label for="33020500"  class="ui-hidden-accessible" ></label><input  type="text" name="33020500" id="33020500" value=""></div></td>
 <td><div id="div33030500"  class=""  > <label for="33030500"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33030500" id="33030500" value=""></div></td>
 </tr></tbody></table><table  class="ts1"><thead><tr><th class=''></th><th class=''>33.D ¿Se han instalado en las aulas?</th><th class=''>33.E ¿Cuántos mobiliarios repuestos se instalaron?</th><th class=''>33.F ¿Qué hizo con el mobiliario anterior?</th></tr></thead><tbody><tr class=''><td>Escritorios del docente</td>
-<td><div id="div33040100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33040100" id="3304010001" value="0"><label for="3304010001">SI</label><input type="radio" name="33040100" id="3304010002" value="1"><label for="3304010002">NO</label><input type="radio" name="33040100" id="3304010003" value="2"><label for="3304010003">NO SABE</label></fieldset></div></td>
+<td><div id="div33040100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33040100" id="3304010001" value="0"><label for="3304010001">SI</label><input type="radio" name="33040100" id="3304010002" value="1"><label for="3304010002">NO</label><input type="radio" name="33040100" id="3304010003" value="2"><label for="3304010003">NO SABE</label></fieldset></div></td>
 <td><div id="div33050100"  class=""  > <label for="33050100"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33050100" id="33050100" value=""></div></td>
 <td><div id="div33060100"  class=""  > <label for="33060100"  class="ui-hidden-accessible" ></label><input  type="text" name="33060100" id="33060100" value=""></div></td>
 </tr><tr class=''><td>Sillas del docente</td>
-<td><div id="div33040200"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33040200" id="3304020001" value="0"><label for="3304020001">SI</label><input type="radio" name="33040200" id="3304020002" value="1"><label for="3304020002">NO</label><input type="radio" name="33040200" id="3304020003" value="2"><label for="3304020003">NO SABE</label></fieldset></div></td>
+<td><div id="div33040200"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33040200" id="3304020001" value="0"><label for="3304020001">SI</label><input type="radio" name="33040200" id="3304020002" value="1"><label for="3304020002">NO</label><input type="radio" name="33040200" id="3304020003" value="2"><label for="3304020003">NO SABE</label></fieldset></div></td>
 <td><div id="div33050200"  class=""  > <label for="33050200"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33050200" id="33050200" value=""></div></td>
 <td><div id="div33060200"  class=""  > <label for="33060200"  class="ui-hidden-accessible" ></label><input  type="text" name="33060200" id="33060200" value=""></div></td>
 </tr><tr class=''><td>Carpetas de alumnos</td>
-<td><div id="div33040300"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33040300" id="3304030001" value="0"><label for="3304030001">SI</label><input type="radio" name="33040300" id="3304030002" value="1"><label for="3304030002">NO</label><input type="radio" name="33040300" id="3304030003" value="2"><label for="3304030003">NO SABE</label></fieldset></div></td>
+<td><div id="div33040300"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33040300" id="3304030001" value="0"><label for="3304030001">SI</label><input type="radio" name="33040300" id="3304030002" value="1"><label for="3304030002">NO</label><input type="radio" name="33040300" id="3304030003" value="2"><label for="3304030003">NO SABE</label></fieldset></div></td>
 <td><div id="div33050300"  class=""  > <label for="33050300"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33050300" id="33050300" value=""></div></td>
 <td><div id="div33060300"  class=""  > <label for="33060300"  class="ui-hidden-accessible" ></label><input  type="text" name="33060300" id="33060300" value=""></div></td>
 </tr><tr class=''><td>Sillas de alumnos</td>
-<td><div id="div33040400"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33040400" id="3304040001" value="0"><label for="3304040001">SI</label><input type="radio" name="33040400" id="3304040002" value="1"><label for="3304040002">NO</label><input type="radio" name="33040400" id="3304040003" value="2"><label for="3304040003">NO SABE</label></fieldset></div></td>
+<td><div id="div33040400"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33040400" id="3304040001" value="0"><label for="3304040001">SI</label><input type="radio" name="33040400" id="3304040002" value="1"><label for="3304040002">NO</label><input type="radio" name="33040400" id="3304040003" value="2"><label for="3304040003">NO SABE</label></fieldset></div></td>
 <td><div id="div33050400"  class=""  > <label for="33050400"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33050400" id="33050400" value=""></div></td>
 <td><div id="div33060400"  class=""  > <label for="33060400"  class="ui-hidden-accessible" ></label><input  type="text" name="33060400" id="33060400" value=""></div></td>
 </tr><tr class=''><td>Pizarras</td>
-<td><div id="div33040500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="33040500" id="3304050001" value="0"><label for="3304050001">SI</label><input type="radio" name="33040500" id="3304050002" value="1"><label for="3304050002">NO</label><input type="radio" name="33040500" id="3304050003" value="2"><label for="3304050003">NO SABE</label></fieldset></div></td>
+<td><div id="div33040500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33040500" id="3304050001" value="0"><label for="3304050001">SI</label><input type="radio" name="33040500" id="3304050002" value="1"><label for="3304050002">NO</label><input type="radio" name="33040500" id="3304050003" value="2"><label for="3304050003">NO SABE</label></fieldset></div></td>
 <td><div id="div33050500"  class=""  > <label for="33050500"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="33050500" id="33050500" value=""></div></td>
 <td><div id="div33060500"  class=""  > <label for="33060500"  class="ui-hidden-accessible" ></label><input  type="text" name="33060500" id="33060500" value=""></div></td>
 </tr></tbody></table>
@@ -2005,7 +2140,15 @@ function encuesta_events(){
 <td class='efi' ><div id="div65030001"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="65030001" id="6503000101" value="SI"><label for="6503000101">SI</label><input type="radio" name="65030001" id="6503000102" value="NO"><label for="6503000102">NO</label></fieldset></div></td>
 <td class='efp' ><div id="div65030002"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="65030002" id="6503000201" value="SI"><label for="6503000201">SI</label><input type="radio" name="65030002" id="6503000202" value="NO"><label for="6503000202">NO</label></fieldset></div></td>
 <td class='efs' ><div id="div65030003"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="65030003" id="6503000301" value="SI"><label for="6503000301">SI</label><input type="radio" name="65030003" id="6503000302" value="NO"><label for="6503000302">NO</label></fieldset></div></td>
-</tr></tbody></table><div id="div66010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>66. ¿Encuestador, observa la resolución que indica la constitución del comité de tutoría?</legend><input type="radio" name="66010000" id="6601000001" value="SI"><label for="6601000001">SI</label><input type="radio" name="66010000" id="6601000002" value="NO"><label for="6601000002">NO</label></fieldset></div><p>67. ¿De qué material son los módulos prefabricados?</p><div id="div67010000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="67010000" id="6701000001" value="TRIPLAY"><label for="6701000001">TRIPLAY</label><input type="radio" name="67010000" id="6701000002" value="MADERA"><label for="6701000002">MADERA</label><input type="radio" name="67010000" id="6701000003" value="METALICO"><label for="6701000003">METALICO</label></fieldset></div></div><div id="div67020000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="67020000" id="6702000001" value="TRIPLAY"><label for="6702000001">TRIPLAY</label><input type="radio" name="67020000" id="6702000002" value="MADERA"><label for="6702000002">MADERA</label><input type="radio" name="67020000" id="6702000003" value="METALICO"><label for="6702000003">METALICO</label></fieldset></div></div><div id="div67030000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="67030000" id="6703000001" value="TRIPLAY"><label for="6703000001">TRIPLAY</label><input type="radio" name="67030000" id="6703000002" value="MADERA"><label for="6703000002">MADERA</label><input type="radio" name="67030000" id="6703000003" value="METALICO"><label for="6703000003">METALICO</label></fieldset></div></div><div id="div67040000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="67040000" id="6704000001" value="TRIPLAY"><label for="6704000001">TRIPLAY</label><input type="radio" name="67040000" id="6704000002" value="MADERA"><label for="6704000002">MADERA</label><input type="radio" name="67040000" id="6704000003" value="METALICO"><label for="6704000003">METALICO</label></fieldset></div></div><div id="div67050000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="67050000" id="6705000001" value="TRIPLAY"><label for="6705000001">TRIPLAY</label><input type="radio" name="67050000" id="6705000002" value="MADERA"><label for="6705000002">MADERA</label><input type="radio" name="67050000" id="6705000003" value="METALICO"><label for="6705000003">METALICO</label></fieldset></div></div><div id="div67060000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="67060000" id="6706000001" value="TRIPLAY"><label for="6706000001">TRIPLAY</label><input type="radio" name="67060000" id="6706000002" value="MADERA"><label for="6706000002">MADERA</label><input type="radio" name="67060000" id="6706000003" value="METALICO"><label for="6706000003">METALICO</label></fieldset></div></div><div id="div67070000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="67070000" id="6707000001" value="TRIPLAY"><label for="6707000001">TRIPLAY</label><input type="radio" name="67070000" id="6707000002" value="MADERA"><label for="6707000002">MADERA</label><input type="radio" name="67070000" id="6707000003" value="METALICO"><label for="6707000003">METALICO</label></fieldset></div></div></tbody></table><p>68. ¿Cuál es el estado de los módulos prefabricados?</p><div id="div68010000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="68010000" id="6801000001" value="BUENO"><label for="6801000001">BUENO</label><input type="radio" name="68010000" id="6801000002" value="REGULAR"><label for="6801000002">REGULAR</label><input type="radio" name="68010000" id="6801000003" value="MALO"><label for="6801000003">MALO</label></fieldset></div></div><div id="div68020000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="68020000" id="6802000001" value="BUENO"><label for="6802000001">BUENO</label><input type="radio" name="68020000" id="6802000002" value="REGULAR"><label for="6802000002">REGULAR</label><input type="radio" name="68020000" id="6802000003" value="MALO"><label for="6802000003">MALO</label></fieldset></div></div><div id="div68030000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="68030000" id="6803000001" value="BUENO"><label for="6803000001">BUENO</label><input type="radio" name="68030000" id="6803000002" value="REGULAR"><label for="6803000002">REGULAR</label><input type="radio" name="68030000" id="6803000003" value="MALO"><label for="6803000003">MALO</label></fieldset></div></div><div id="div68040000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="68040000" id="6804000001" value="BUENO"><label for="6804000001">BUENO</label><input type="radio" name="68040000" id="6804000002" value="REGULAR"><label for="6804000002">REGULAR</label><input type="radio" name="68040000" id="6804000003" value="MALO"><label for="6804000003">MALO</label></fieldset></div></div><div id="div68050000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="68050000" id="6805000001" value="BUENO"><label for="6805000001">BUENO</label><input type="radio" name="68050000" id="6805000002" value="REGULAR"><label for="6805000002">REGULAR</label><input type="radio" name="68050000" id="6805000003" value="MALO"><label for="6805000003">MALO</label></fieldset></div></div><div id="div68060000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="68060000" id="6806000001" value="BUENO"><label for="6806000001">BUENO</label><input type="radio" name="68060000" id="6806000002" value="REGULAR"><label for="6806000002">REGULAR</label><input type="radio" name="68060000" id="6806000003" value="MALO"><label for="6806000003">MALO</label></fieldset></div></div><div id="div68070000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="68070000" id="6807000001" value="BUENO"><label for="6807000001">BUENO</label><input type="radio" name="68070000" id="6807000002" value="REGULAR"><label for="6807000002">REGULAR</label><input type="radio" name="68070000" id="6807000003" value="MALO"><label for="6807000003">MALO</label></fieldset></div></div></tbody></table><p>Encuestador, tome una foto frontal al exterior, lateral e interior de algún módulo prefabricado</p><div id="div9900345"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="9900345" id="990034501" value="0"><label for="990034501">Foto Frontal</label><input type="radio" name="9900345" id="990034502" value="1"><label for="990034502">Foto Lateral</label><input type="radio" name="9900345" id="990034503" value="2"><label for="990034503">Foto Interior</label></fieldset></div><div id="div69010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>69. ¿Observa la estantería repuesta instalada en el lugar indicado?</legend><input type="radio" name="69010000" id="6901000001" value="SI"><label for="6901000001">SI</label><input type="radio" name="69010000" id="6901000002" value="NO"><label for="6901000002">NO</label></fieldset></div><div id='div70000000'><p>70. Observe y registre la siguiente información:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>Nro de computadoras</th><th class=''>Nro de computadoras operativos</th></tr></thead><tbody><tr class=''><td>Laboratorio de cómputo</td>
+</tr></tbody></table><div id="div66010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>66. ¿Encuestador, observa la resolución que indica la constitución del comité de tutoría?</legend><input type="radio" name="66010000" id="6601000001" value="SI"><label for="6601000001">SI</label><input type="radio" name="66010000" id="6601000002" value="NO"><label for="6601000002">NO</label></fieldset></div><p>67. ¿De qué material son los módulos prefabricados?</p><div id="div67010000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="67010000" id="6701000001" value="TRIPLAY"><label for="6701000001">TRIPLAY</label><input type="radio" name="67010000" id="6701000002" value="MADERA"><label for="6701000002">MADERA</label><input type="radio" name="67010000" id="6701000003" value="METALICO"><label for="6701000003">METALICO</label></fieldset></div></div><div id="div67020000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="67020000" id="6702000001" value="TRIPLAY"><label for="6702000001">TRIPLAY</label><input type="radio" name="67020000" id="6702000002" value="MADERA"><label for="6702000002">MADERA</label><input type="radio" name="67020000" id="6702000003" value="METALICO"><label for="6702000003">METALICO</label></fieldset></div></div><div id="div67030000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="67030000" id="6703000001" value="TRIPLAY"><label for="6703000001">TRIPLAY</label><input type="radio" name="67030000" id="6703000002" value="MADERA"><label for="6703000002">MADERA</label><input type="radio" name="67030000" id="6703000003" value="METALICO"><label for="6703000003">METALICO</label></fieldset></div></div><div id="div67040000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="67040000" id="6704000001" value="TRIPLAY"><label for="6704000001">TRIPLAY</label><input type="radio" name="67040000" id="6704000002" value="MADERA"><label for="6704000002">MADERA</label><input type="radio" name="67040000" id="6704000003" value="METALICO"><label for="6704000003">METALICO</label></fieldset></div></div><div id="div67050000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="67050000" id="6705000001" value="TRIPLAY"><label for="6705000001">TRIPLAY</label><input type="radio" name="67050000" id="6705000002" value="MADERA"><label for="6705000002">MADERA</label><input type="radio" name="67050000" id="6705000003" value="METALICO"><label for="6705000003">METALICO</label></fieldset></div></div><div id="div67060000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="67060000" id="6706000001" value="TRIPLAY"><label for="6706000001">TRIPLAY</label><input type="radio" name="67060000" id="6706000002" value="MADERA"><label for="6706000002">MADERA</label><input type="radio" name="67060000" id="6706000003" value="METALICO"><label for="6706000003">METALICO</label></fieldset></div></div><div id="div67070000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="67070000" id="6707000001" value="TRIPLAY"><label for="6707000001">TRIPLAY</label><input type="radio" name="67070000" id="6707000002" value="MADERA"><label for="6707000002">MADERA</label><input type="radio" name="67070000" id="6707000003" value="METALICO"><label for="6707000003">METALICO</label></fieldset></div></div></tbody></table><p>68. ¿Cuál es el estado de los módulos prefabricados?</p><div id="div68010000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="68010000" id="6801000001" value="BUENO"><label for="6801000001">BUENO</label><input type="radio" name="68010000" id="6801000002" value="REGULAR"><label for="6801000002">REGULAR</label><input type="radio" name="68010000" id="6801000003" value="MALO"><label for="6801000003">MALO</label></fieldset></div></div><div id="div68020000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="68020000" id="6802000001" value="BUENO"><label for="6802000001">BUENO</label><input type="radio" name="68020000" id="6802000002" value="REGULAR"><label for="6802000002">REGULAR</label><input type="radio" name="68020000" id="6802000003" value="MALO"><label for="6802000003">MALO</label></fieldset></div></div><div id="div68030000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="68030000" id="6803000001" value="BUENO"><label for="6803000001">BUENO</label><input type="radio" name="68030000" id="6803000002" value="REGULAR"><label for="6803000002">REGULAR</label><input type="radio" name="68030000" id="6803000003" value="MALO"><label for="6803000003">MALO</label></fieldset></div></div><div id="div68040000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="68040000" id="6804000001" value="BUENO"><label for="6804000001">BUENO</label><input type="radio" name="68040000" id="6804000002" value="REGULAR"><label for="6804000002">REGULAR</label><input type="radio" name="68040000" id="6804000003" value="MALO"><label for="6804000003">MALO</label></fieldset></div></div><div id="div68050000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="68050000" id="6805000001" value="BUENO"><label for="6805000001">BUENO</label><input type="radio" name="68050000" id="6805000002" value="REGULAR"><label for="6805000002">REGULAR</label><input type="radio" name="68050000" id="6805000003" value="MALO"><label for="6805000003">MALO</label></fieldset></div></div><div id="div68060000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="68060000" id="6806000001" value="BUENO"><label for="6806000001">BUENO</label><input type="radio" name="68060000" id="6806000002" value="REGULAR"><label for="6806000002">REGULAR</label><input type="radio" name="68060000" id="6806000003" value="MALO"><label for="6806000003">MALO</label></fieldset></div></div><div id="div68070000"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="68070000" id="6807000001" value="BUENO"><label for="6807000001">BUENO</label><input type="radio" name="68070000" id="6807000002" value="REGULAR"><label for="6807000002">REGULAR</label><input type="radio" name="68070000" id="6807000003" value="MALO"><label for="6807000003">MALO</label></fieldset></div></div></tbody></table><p>Encuestador, tome una foto frontal al exterior, lateral e interior de algún módulo prefabricado</p><div id="div99009900" >
+			<div style="float:left;width:20%;margin: .5em 2% 0 0;">Fotos</div>
+			<div style="float:left;width:70%">
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('10');">Foto Frontal</button> <img id="fotoimage10" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('11');">Foto Lateral</button> <img id="fotoimage11" src="" style="width:60px;height:60px;"  align="absmiddle"  /><br/>
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('12');">Foto Interior</button> <img id="fotoimage12" src="" style="width:60px;height:60px;"  align="absmiddle"  />    
+			</div>
+			<div style="clear:both"></div>
+		</div><input type="hidden" name="99009901" id="foto10" value=""><input type="hidden" name="99009902" id="foto11"  value=""><input type="hidden" name="99009903" id="foto12"  value=""><div id="div69010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>69. ¿Observa la estantería repuesta instalada en el lugar indicado?</legend><input type="radio" name="69010000" id="6901000001" value="SI"><label for="6901000001">SI</label><input type="radio" name="69010000" id="6901000002" value="NO"><label for="6901000002">NO</label></fieldset></div><div id='div70000000'><p>70. Observe y registre la siguiente información:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>Nro de computadoras</th><th class=''>Nro de computadoras operativos</th></tr></thead><tbody><tr class=''><td>Laboratorio de cómputo</td>
 <td><div id="div70010000"  class=""  > <label for="70010000"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="70010000" id="70010000" value=""></div></td>
 <td><div id="div70020000"  class=""  > <label for="70020000"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="70020000" id="70020000" value=""></div></td>
 </tr></tbody></table></div><div id="div71010000"  class=""  > <fieldset data-role="controlgroup"    ><legend>71. La acción de mantenimiento 'Reperación de Techos' cumple con:</legend><input type="checkbox" name="71010000[]" id="7101000001" value="No presentar fisuras ni grietas superficiales"><label for="7101000001" >No presentar fisuras ni grietas superficiales</label><input type="checkbox" name="71010000[]" id="7101000002" value="No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siuen desprendiendo?"><label for="7101000002" >No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siuen desprendiendo?</label><input type="checkbox" name="71010000[]" id="7101000003" value="No existen agujeros y/o aberturas entre las coberturas que permiten el ingreso de las aguas de lluvia a los ambientes"><label for="7101000003" >No existen agujeros y/o aberturas entre las coberturas que permiten el ingreso de las aguas de lluvia a los ambientes</label></fieldset></div><div id="div72010000"  class=""  > <fieldset data-role="controlgroup"    ><legend>72. La reparación de instalaciones sanitarias cumple con:</legend><input type="checkbox" name="72010000[]" id="7201000001" value="Cortar con sistema de agua y desague"><label for="7201000001" >Cortar con sistema de agua y desague</label><input type="checkbox" name="72010000[]" id="7201000002" value="No presentar fugas"><label for="7201000002" >No presentar fugas</label><input type="checkbox" name="72010000[]" id="7201000003" value="No existen aparatos sanitarios en mal estado"><label for="7201000003" >No existen aparatos sanitarios en mal estado</label></fieldset></div><div id="div73010000"  class=""  > <fieldset data-role="controlgroup"    ><legend>73. La acción de mantenimiento Reparación de pisos cumple con:</legend><input type="checkbox" name="73010000[]" id="7301000001" value="No existen ambientes sin piso o tiene un piso incompleto en su ejecución"><label for="7301000001" >No existen ambientes sin piso o tiene un piso incompleto en su ejecución</label><input type="checkbox" name="73010000[]" id="7301000002" value="No existen grietas u hoyos en el piso"><label for="7301000002" >No existen grietas u hoyos en el piso</label><input type="checkbox" name="73010000[]" id="7301000003" value="No son un peligro para el alumnado y comunidad educativa en general"><label for="7301000003" >No son un peligro para el alumnado y comunidad educativa en general</label></fieldset></div><div id="div74010000"  class=""  > <fieldset data-role="controlgroup"    ><legend>74. La acción reparación de muros/paredes cumple con:</legend><input type="checkbox" name="74010000[]" id="7401000001" value="No existen fisuras o grietas"><label for="7401000001" >No existen fisuras o grietas</label><input type="checkbox" name="74010000[]" id="7401000002" value="No existen problemas de humedad"><label for="7401000002" >No existen problemas de humedad</label><input type="checkbox" name="74010000[]" id="7401000003" value="No tiene problemas de erosión de ningún tipo"><label for="7401000003" >No tiene problemas de erosión de ningún tipo</label></fieldset></div><div id="div75010000"  class=""  > <fieldset data-role="controlgroup"    ><legend>75. La acción de mantenimiento de reparación de puertas cumple con:</legend><input type="checkbox" name="75010000[]" id="7501000001" value="No presentan daños ni rajaduras"><label for="7501000001" >No presentan daños ni rajaduras</label><input type="checkbox" name="75010000[]" id="7501000002" value="No estan descolgadas o descuadradas"><label for="7501000002" >No estan descolgadas o descuadradas</label><input type="checkbox" name="75010000[]" id="7501000003" value="No existen puertas sin chapas o chapas sin funcionamiento"><label for="7501000003" >No existen puertas sin chapas o chapas sin funcionamiento</label></fieldset></div>
@@ -2233,8 +2376,7 @@ function encuesta_events(){
 					<h3>INICIAR ENCUESTAS POR NIVELES </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div10001"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="10001" id="1000101" value="INICIAL"><label for="1000101">INICIAL</label><input type="radio" name="10001" id="1000102" value="PRIMARIA"><label for="1000102">PRIMARIA</label><input type="radio" name="10001" id="1000103" value="SECUNDARIA"><label for="1000103">SECUNDARIA</label></fieldset></div></div><div id="div10002"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="10002" id="1000201" value="MAÑANA"><label for="1000201">MAÑANA</label><input type="radio" name="10002" id="1000202" value="TARDE"><label for="1000202">TARDE</label><input type="radio" name="10002" id="1000203" value="NOCHE"><label for="1000203">NOCHE</label></fieldset></div></div><div id="div10003"  class=""  > <div data-role="fieldcontain"><label for="10003"   >Grado</label><input  type="text" name="10003" id="10003" value=""></div></div><div id="div10004"  class=""  > <div data-role="fieldcontain"><label for="10004"   >Sección</label><input  type="text" name="10004" id="10004" value=""></div></div>
-					<a href="#encuesta23" xonclick="return nextpage_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a>
+					<h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado</th><th class=''>Sección</th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
 				</div>				
 			</div>
 			<a href="#" onclick="return show_end_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
@@ -2251,7 +2393,7 @@ function encuesta_events(){
 		<div data-role="content">
 			<div class="ui-corner-all custom-corners">
 				<div class="ui-bar ui-bar-a">
-					<h3>I. PREGUNTAS AL DECENTE </h3>
+					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
 					<div id="div90010000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Encuestador, el docente está presen en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id="div90020000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Encuestador, el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id="div90040000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. Cual es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050000"  class=""  > <fieldset data-role="controlgroup"  ><legend>5. Cual es su especialidad?</legend><input type="radio" name="90050000" id="9005000001" value="EDUCACION INICIAL"><label for="9005000001">EDUCACION INICIAL</label><input type="radio" name="90050000" id="9005000002" value="EDUCACION PRIMARIA"><label for="9005000002">EDUCACION PRIMARIA</label><input type="radio" name="90050000" id="9005000003" value="E.P INTERCULTURAL BILINGUE"><label for="9005000003">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050000" id="9005000004" value="OTRO"><label for="9005000004">OTRO</label></fieldset></div><div id="div90050100"  class=""  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  type="text" name="90050100" id="90050100" value=""></div></div><div id="div90060000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=""  > <fieldset data-role="controlgroup"  ><legend>7. Cual es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="E.P INTERCULTURAL BILINGUE"><label for="9007000003">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000004" value="OTRO"><label for="9007000004">OTRO</label></fieldset></div><div id="div90070100"  class=""  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  type="text" name="90070100" id="90070100" value=""></div></div><div id="div90080000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. En los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div>
@@ -2271,7 +2413,7 @@ function encuesta_events(){
 		<div data-role="content">
 			<div class="ui-corner-all custom-corners">
 				<div class="ui-bar ui-bar-a">
-					<h3>I. PREGUNTAS AL DECENTE </h3>
+					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
 					<div id="div90090000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. Le parece útil la capacitación?</legend><input type="radio" name="90090000" id="9009000001" value="SI"><label for="9009000001">SI</label><input type="radio" name="90090000" id="9009000002" value="NO"><label for="9009000002">NO</label></fieldset></div><div id="div90100000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>10. Utiliza una sesión de aprendizaje (guía del docente) específico para el desarrollo de la clase?</legend><input type="radio" name="90100000" id="9010000001" value="SI"><label for="9010000001">SI</label><input type="radio" name="90100000" id="9010000002" value="NO"><label for="9010000002">NO</label></fieldset></div><div id="div90110000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>11. La sesión de aprendizaje (guía del docente) es:</legend><input type="radio" name="90110000" id="9011000001" value="ENTREGADO POR EL MINEDU"><label for="9011000001">ENTREGADO POR EL MINEDU</label><input type="radio" name="90110000" id="9011000002" value="ELABORADO POR EL DOCENTE"><label for="9011000002">ELABORADO POR EL DOCENTE</label><input type="radio" name="90110000" id="9011000003" value="OTRO"><label for="9011000003">OTRO</label></fieldset></div><div id="div90110100"  class=""  > <div data-role="fieldcontain"><label for="90110100"   >Especificar:</label><input  type="text" name="90110100" id="90110100" value=""></div></div><div id="div90120000"  class=""  > <label for="90120000"   >12. En este momento, qué clase está desarrollando?</label><input  type="text" name="90120000" id="90120000" value=""></div><div id="div90130000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>13. En los últimos 6 meses, ha recibido usted visitas de acompañamiento pedagógico?</legend><input type="radio" name="90130000" id="9013000001" value="SI"><label for="9013000001">SI</label><input type="radio" name="90130000" id="9013000002" value="NO"><label for="9013000002">NO</label></fieldset></div><div id="div90140000"  class=""  > <fieldset data-role="controlgroup"    ><legend>14. A través de que institución ha recibido usted visitas de acompañamiento?</legend><input type="checkbox" name="90140000[]" id="9014000001" value="MINEDU"><label for="9014000001" >MINEDU</label><input type="checkbox" name="90140000[]" id="9014000002" value="DRE/UGEL"><label for="9014000002" >DRE/UGEL</label><input type="checkbox" name="90140000[]" id="9014000003" value="PELA"><label for="9014000003" >PELA</label><input type="checkbox" name="90140000[]" id="9014000004" value="ONGS O EMPRESA PRIVADA"><label for="9014000004" >ONGS O EMPRESA PRIVADA</label><input type="checkbox" name="90140000[]" id="9014000005" value="OTROS"><label for="9014000005" >OTROS</label></fieldset></div><div id="div90140100"  class=""  > <div data-role="fieldcontain"><label for="90140100"   >Especificar:</label><input  type="text" name="90140100" id="90140100" value=""></div></div><div id="div90150000"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>15. Le parece útil la las visitas de acompañamiento?</legend><input type="radio" name="90150000" id="9015000001" value="SI"><label for="9015000001">SI</label><input type="radio" name="90150000" id="9015000002" value="NO"><label for="9015000002">NO</label></fieldset></div><div id="div90160000"  class=""  > <fieldset data-role="controlgroup"  ><legend>16. Qué tan satisfecho se encuentra usted con ser docente?</legend><input type="radio" name="90160000" id="9016000001" value="MUY SATISFECHO"><label for="9016000001">MUY SATISFECHO</label><input type="radio" name="90160000" id="9016000002" value="SATISFECHO"><label for="9016000002">SATISFECHO</label><input type="radio" name="90160000" id="9016000003" value="POCO SATISFECHO"><label for="9016000003">POCO SATISFECHO</label><input type="radio" name="90160000" id="9016000004" value="NADA SATISFECHO"><label for="9016000004">NADA SATISFECHO</label></fieldset></div>
@@ -2294,7 +2436,7 @@ function encuesta_events(){
 					<h3>II. OBSERVACION EN EL AULA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90170000"  class=""  > <fieldset data-role="controlgroup"    ><legend>17. Encuestador, con qué mobiliario cuenta el aula?</legend><input type="checkbox" name="90170000[]" id="9017000001" value="ESCRITORIO DEL DOCENTE"><label for="9017000001" >ESCRITORIO DEL DOCENTE</label><input type="checkbox" name="90170000[]" id="9017000002" value="SILLA DEL DOCENTE"><label for="9017000002" >SILLA DEL DOCENTE</label><input type="checkbox" name="90170000[]" id="9017000003" value="CARPETAS PARA ESTUDIANTES"><label for="9017000003" >CARPETAS PARA ESTUDIANTES</label><input type="checkbox" name="90170000[]" id="9017000004" value="SILLAS PARA ESTUDIANTES"><label for="9017000004" >SILLAS PARA ESTUDIANTES</label><input type="checkbox" name="90170000[]" id="9017000005" value="MESAS PARA ESTUDIANTES"><label for="9017000005" >MESAS PARA ESTUDIANTES</label><input type="checkbox" name="90170000[]" id="9017000006" value="PIZARRA"><label for="9017000006" >PIZARRA</label></fieldset></div><p>18. Cuál es el estado del mobiliario del aula?</p><div id="div90180100"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>ESCRITORIO DEL DOCENTE</legend><input type="radio" name="90180100" id="9018010001" value="BUENO"><label for="9018010001">BUENO</label><input type="radio" name="90180100" id="9018010002" value="REGULAR"><label for="9018010002">REGULAR</label><input type="radio" name="90180100" id="9018010003" value="MALO"><label for="9018010003">MALO</label></fieldset></div></div><div id="div90180200"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLA DEL DOCENTE</legend><input type="radio" name="90180200" id="9018020001" value="BUENO"><label for="9018020001">BUENO</label><input type="radio" name="90180200" id="9018020002" value="REGULAR"><label for="9018020002">REGULAR</label><input type="radio" name="90180200" id="9018020003" value="MALO"><label for="9018020003">MALO</label></fieldset></div></div><div id="div90180300"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>CARPETAS PARA ESTUDIANTES</legend><input type="radio" name="90180300" id="9018030001" value="BUENO"><label for="9018030001">BUENO</label><input type="radio" name="90180300" id="9018030002" value="REGULAR"><label for="9018030002">REGULAR</label><input type="radio" name="90180300" id="9018030003" value="MALO"><label for="9018030003">MALO</label></fieldset></div></div><div id="div90180400"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLAS PARA ESTUDIANTES</legend><input type="radio" name="90180400" id="9018040001" value="BUENO"><label for="9018040001">BUENO</label><input type="radio" name="90180400" id="9018040002" value="REGULAR"><label for="9018040002">REGULAR</label><input type="radio" name="90180400" id="9018040003" value="MALO"><label for="9018040003">MALO</label></fieldset></div></div><div id="div90180500"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>MESAS PARA ESTUDIANTES</legend><input type="radio" name="90180500" id="9018050001" value="BUENO"><label for="9018050001">BUENO</label><input type="radio" name="90180500" id="9018050002" value="REGULAR"><label for="9018050002">REGULAR</label><input type="radio" name="90180500" id="9018050003" value="MALO"><label for="9018050003">MALO</label></fieldset></div></div><div id="div90180600"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>PIZARRA</legend><input type="radio" name="90180600" id="9018060001" value="BUENO"><label for="9018060001">BUENO</label><input type="radio" name="90180600" id="9018060002" value="REGULAR"><label for="9018060002">REGULAR</label><input type="radio" name="90180600" id="9018060003" value="MALO"><label for="9018060003">MALO</label></fieldset></div></div><p>19. El mobiliario que observó es el repuesto?</p><div id="div90190100"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>ESCRITORIO DEL DOCENTE</legend><input type="radio" name="90190100" id="9019010001" value="SI"><label for="9019010001">SI</label><input type="radio" name="90190100" id="9019010002" value="NO"><label for="9019010002">NO</label></fieldset></div></div><div id="div90190200"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLA DEL DOCENTE</legend><input type="radio" name="90190200" id="9019020001" value="SI"><label for="9019020001">SI</label><input type="radio" name="90190200" id="9019020002" value="NO"><label for="9019020002">NO</label></fieldset></div></div><div id="div90190300"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>CARPETAS PARA ESTUDIANTES</legend><input type="radio" name="90190300" id="9019030001" value="SI"><label for="9019030001">SI</label><input type="radio" name="90190300" id="9019030002" value="NO"><label for="9019030002">NO</label></fieldset></div></div><div id="div90190400"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLAS PARA ESTUDIANTES</legend><input type="radio" name="90190400" id="9019040001" value="SI"><label for="9019040001">SI</label><input type="radio" name="90190400" id="9019040002" value="NO"><label for="9019040002">NO</label></fieldset></div></div><div id="div90190500"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>MESAS PARA ESTUDIANTES</legend><input type="radio" name="90190500" id="9019050001" value="SI"><label for="9019050001">SI</label><input type="radio" name="90190500" id="9019050002" value="NO"><label for="9019050002">NO</label></fieldset></div></div><div id="div90190600"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>PIZARRA</legend><input type="radio" name="90190600" id="9019060001" value="SI"><label for="9019060001">SI</label><input type="radio" name="90190600" id="9019060002" value="NO"><label for="9019060002">NO</label></fieldset></div></div><div id="div90200100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>20. Encuestador, ¿observa estudiantes en el aula?</legend><input type="radio" name="90200100" id="9020010001" value="SI"><label for="9020010001">SI</label><input type="radio" name="90200100" id="9020010002" value="NO"><label for="9020010002">NO</label></fieldset></div><div id="div90210100"  class=""  > <label for="90210100"   >21. ¿Cuantos estudiantes observa?</label><input type="number"   pattern="[0-9]*" name="90210100" id="90210100" value=""></div><p>22. Registre el número de estudiantes por género.</p><div id="div90220100"  class=""  > <div data-role="fieldcontain"><label for="90220100"   >Hombres</label><input type="number"   pattern="[0-9]*" name="90220100" id="90220100" value=""></div></div><div id="div90220200"  class=""  > <div data-role="fieldcontain"><label for="90220200"   >Mujeres</label><input type="number"   pattern="[0-9]*" name="90220200" id="90220200" value=""></div></div><p>23. Con relación a los mobiliarios disponibles para el uso de los estudiantes del aula ¿Qué cantidad de estudiantes no cuentan con mobiliario para escribir y/o sentarse?</p><div id="div90230100"  class=""  > <div data-role="fieldcontain"><label for="90230100"   >Número de estudiantes sin mobiliario para escribir</label><input type="number"   pattern="[0-9]*" name="90230100" id="90230100" value=""></div></div><div id="div90230200"  class=""  > <div data-role="fieldcontain"><label for="90230200"   >Número de estudiantes sin mobiliario para sentarse</label><input type="number"   pattern="[0-9]*" name="90230200" id="90230200" value=""></div></div><div id="div90240100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>24. ¿El docente está dictando la clase en español?</legend><input type="radio" name="90240100" id="9024010001" value="SI"><label for="9024010001">SI</label><input type="radio" name="90240100" id="9024010002" value="NO"><label for="9024010002">NO</label></fieldset></div>
+					<div id="div90170000"  class=""  > <fieldset data-role="controlgroup"    ><legend>17. Encuestador, con qué mobiliario cuenta el aula?</legend><input type="checkbox" name="90170000[]" id="9017000001" value="ESCRITORIO DEL DOCENTE"><label for="9017000001" >ESCRITORIO DEL DOCENTE</label><input type="checkbox" name="90170000[]" id="9017000002" value="SILLA DEL DOCENTE"><label for="9017000002" >SILLA DEL DOCENTE</label><input type="checkbox" name="90170000[]" id="9017000003" value="CARPETAS PARA ESTUDIANTES"><label for="9017000003" >CARPETAS PARA ESTUDIANTES</label><input type="checkbox" name="90170000[]" id="9017000004" value="SILLAS PARA ESTUDIANTES"><label for="9017000004" >SILLAS PARA ESTUDIANTES</label><input type="checkbox" name="90170000[]" id="9017000005" value="MESAS PARA ESTUDIANTES"><label for="9017000005" >MESAS PARA ESTUDIANTES</label><input type="checkbox" name="90170000[]" id="9017000006" value="PIZARRA"><label for="9017000006" >PIZARRA</label></fieldset></div><p>18. Cuál es el estado del mobiliario del aula?</p><div id="div90180100"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>ESCRITORIO DEL DOCENTE</legend><input type="radio" name="90180100" id="9018010001" value="BUENO"><label for="9018010001">BUENO</label><input type="radio" name="90180100" id="9018010002" value="REGULAR"><label for="9018010002">REGULAR</label><input type="radio" name="90180100" id="9018010003" value="MALO"><label for="9018010003">MALO</label></fieldset></div></div><div id="div90180200"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLA DEL DOCENTE</legend><input type="radio" name="90180200" id="9018020001" value="BUENO"><label for="9018020001">BUENO</label><input type="radio" name="90180200" id="9018020002" value="REGULAR"><label for="9018020002">REGULAR</label><input type="radio" name="90180200" id="9018020003" value="MALO"><label for="9018020003">MALO</label></fieldset></div></div><div id="div90180300"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>CARPETAS PARA ESTUDIANTES</legend><input type="radio" name="90180300" id="9018030001" value="BUENO"><label for="9018030001">BUENO</label><input type="radio" name="90180300" id="9018030002" value="REGULAR"><label for="9018030002">REGULAR</label><input type="radio" name="90180300" id="9018030003" value="MALO"><label for="9018030003">MALO</label></fieldset></div></div><div id="div90180400"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLAS PARA ESTUDIANTES</legend><input type="radio" name="90180400" id="9018040001" value="BUENO"><label for="9018040001">BUENO</label><input type="radio" name="90180400" id="9018040002" value="REGULAR"><label for="9018040002">REGULAR</label><input type="radio" name="90180400" id="9018040003" value="MALO"><label for="9018040003">MALO</label></fieldset></div></div><div id="div90180500"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>MESAS PARA ESTUDIANTES</legend><input type="radio" name="90180500" id="9018050001" value="BUENO"><label for="9018050001">BUENO</label><input type="radio" name="90180500" id="9018050002" value="REGULAR"><label for="9018050002">REGULAR</label><input type="radio" name="90180500" id="9018050003" value="MALO"><label for="9018050003">MALO</label></fieldset></div></div><div id="div90180600"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>PIZARRA</legend><input type="radio" name="90180600" id="9018060001" value="BUENO"><label for="9018060001">BUENO</label><input type="radio" name="90180600" id="9018060002" value="REGULAR"><label for="9018060002">REGULAR</label><input type="radio" name="90180600" id="9018060003" value="MALO"><label for="9018060003">MALO</label></fieldset></div></div><p>19. El mobiliario que observó es el repuesto?</p><div id="div90190100"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>ESCRITORIO DEL DOCENTE</legend><input type="radio" name="90190100" id="9019010001" value="SI"><label for="9019010001">SI</label><input type="radio" name="90190100" id="9019010002" value="NO"><label for="9019010002">NO</label></fieldset></div></div><div id="div90190200"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLA DEL DOCENTE</legend><input type="radio" name="90190200" id="9019020001" value="SI"><label for="9019020001">SI</label><input type="radio" name="90190200" id="9019020002" value="NO"><label for="9019020002">NO</label></fieldset></div></div><div id="div90190300"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>CARPETAS PARA ESTUDIANTES</legend><input type="radio" name="90190300" id="9019030001" value="SI"><label for="9019030001">SI</label><input type="radio" name="90190300" id="9019030002" value="NO"><label for="9019030002">NO</label></fieldset></div></div><div id="div90190400"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>SILLAS PARA ESTUDIANTES</legend><input type="radio" name="90190400" id="9019040001" value="SI"><label for="9019040001">SI</label><input type="radio" name="90190400" id="9019040002" value="NO"><label for="9019040002">NO</label></fieldset></div></div><div id="div90190500"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>MESAS PARA ESTUDIANTES</legend><input type="radio" name="90190500" id="9019050001" value="SI"><label for="9019050001">SI</label><input type="radio" name="90190500" id="9019050002" value="NO"><label for="9019050002">NO</label></fieldset></div></div><div id="div90190600"  class=""  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>PIZARRA</legend><input type="radio" name="90190600" id="9019060001" value="SI"><label for="9019060001">SI</label><input type="radio" name="90190600" id="9019060002" value="NO"><label for="9019060002">NO</label></fieldset></div></div><div id="div90200100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>20. Encuestador, ¿observa estudiantes en el aula?</legend><input type="radio" name="90200100" id="9020010001" value="SI"><label for="9020010001">SI</label><input type="radio" name="90200100" id="9020010002" value="NO"><label for="9020010002">NO</label></fieldset></div><div id="div90210100"  class=""  > <label for="90210100"   >21. ¿Cuantos estudiantes observa?</label><input type="number"   pattern="[0-9]*" name="90210100" id="90210100" value=""></div><div id='div90220000'><p>22. Registre el número de estudiantes por género.</p><div id="div90220100"  class=""  > <div data-role="fieldcontain"><label for="90220100"   >Hombres</label><input type="number"   pattern="[0-9]*" name="90220100" id="90220100" value=""></div></div><div id="div90220200"  class=""  > <div data-role="fieldcontain"><label for="90220200"   >Mujeres</label><input type="number"   pattern="[0-9]*" name="90220200" id="90220200" value=""></div></div></div><div id='div90230000'><p>23. Con relación a los mobiliarios disponibles para el uso de los estudiantes del aula ¿Qué cantidad de estudiantes no cuentan con mobiliario para escribir y/o sentarse?</p><div id="div90230100"  class=""  > <div data-role="fieldcontain"><label for="90230100"   >Número de estudiantes sin mobiliario para escribir</label><input type="number"   pattern="[0-9]*" name="90230100" id="90230100" value=""></div></div><div id="div90230200"  class=""  > <div data-role="fieldcontain"><label for="90230200"   >Número de estudiantes sin mobiliario para sentarse</label><input type="number"   pattern="[0-9]*" name="90230200" id="90230200" value=""></div></div></div><div id="div90240100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>24. ¿El docente está dictando la clase en español?</legend><input type="radio" name="90240100" id="9024010001" value="SI"><label for="9024010001">SI</label><input type="radio" name="90240100" id="9024010002" value="NO"><label for="9024010002">NO</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(26);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -2337,7 +2479,27 @@ function encuesta_events(){
 					<div id="div90270100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>27. Las paredes del aula se encuentran en:</legend><input type="radio" name="90270100" id="9027010001" value="BUEN ESTADO"><label for="9027010001">BUEN ESTADO</label><input type="radio" name="90270100" id="9027010002" value="ESTADO REGULAR"><label for="9027010002">ESTADO REGULAR</label><input type="radio" name="90270100" id="9027010003" value="MAL ESTADO"><label for="9027010003">MAL ESTADO</label></fieldset></div><div id="div90280100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>28. Respecto a la pintura, las paredes del aula están:</legend><input type="radio" name="90280100" id="9028010001" value="PINTADAS Y LIMPIAS"><label for="9028010001">PINTADAS Y LIMPIAS</label><input type="radio" name="90280100" id="9028010002" value="PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS"><label for="9028010002">PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS</label><input type="radio" name="90280100" id="9028010003" value="NO ESTAN PINTADAS"><label for="9028010003">NO ESTAN PINTADAS</label></fieldset></div><div id="div90290100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>29. El techo del aula se encuentra en:</legend><input type="radio" name="90290100" id="9029010001" value="BUEN ESTADO"><label for="9029010001">BUEN ESTADO</label><input type="radio" name="90290100" id="9029010002" value="ESTADO REGULAR"><label for="9029010002">ESTADO REGULAR</label><input type="radio" name="90290100" id="9029010003" value="MAL ESTADO"><label for="9029010003">MAL ESTADO</label></fieldset></div><div id="div90300100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>30. Respecto a la pintura, el techo del aula está:</legend><input type="radio" name="90300100" id="9030010001" value="PINTADAS Y LIMPIAS"><label for="9030010001">PINTADAS Y LIMPIAS</label><input type="radio" name="90300100" id="9030010002" value="PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS"><label for="9030010002">PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS</label><input type="radio" name="90300100" id="9030010003" value="NO ESTAN PINTADAS"><label for="9030010003">NO ESTAN PINTADAS</label></fieldset></div><div id="div90310100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>31. Las ventanas del aula se encuentra en:</legend><input type="radio" name="90310100" id="9031010001" value="BUEN ESTADO"><label for="9031010001">BUEN ESTADO</label><input type="radio" name="90310100" id="9031010002" value="ESTADO REGULAR"><label for="9031010002">ESTADO REGULAR</label><input type="radio" name="90310100" id="9031010003" value="MAL ESTADO"><label for="9031010003">MAL ESTADO</label></fieldset></div><div id="div90320100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>32. La(s) puerta(s) del aula se encuentran en:</legend><input type="radio" name="90320100" id="9032010001" value="BUEN ESTADO"><label for="9032010001">BUEN ESTADO</label><input type="radio" name="90320100" id="9032010002" value="ESTADO REGULAR"><label for="9032010002">ESTADO REGULAR</label><input type="radio" name="90320100" id="9032010003" value="MAL ESTADO"><label for="9032010003">MAL ESTADO</label></fieldset></div><div id="div90330100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>33. Respecto a la pintura, la(s) puertas está(n):</legend><input type="radio" name="90330100" id="9033010001" value="PINTADAS Y LIMPIAS"><label for="9033010001">PINTADAS Y LIMPIAS</label><input type="radio" name="90330100" id="9033010002" value="PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS"><label for="9033010002">PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS</label><input type="radio" name="90330100" id="9033010003" value="NO ESTAN PINTADAS"><label for="9033010003">NO ESTAN PINTADAS</label></fieldset></div><div id="div90340100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>34. El piso del aula se encuentran en:</legend><input type="radio" name="90340100" id="9034010001" value="BUEN ESTADO"><label for="9034010001">BUEN ESTADO</label><input type="radio" name="90340100" id="9034010002" value="ESTADO REGULAR"><label for="9034010002">ESTADO REGULAR</label><input type="radio" name="90340100" id="9034010003" value="MAL ESTADO"><label for="9034010003">MAL ESTADO</label></fieldset></div>
 				</div>				
 			</div>
-			<a href="#" onclick="return nextpage_encuesta(22);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+			<a href="#" onclick="return save_niveles();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+		</div>
+		</form>
+	</div>
+ 
+	<div data-role="page" id="ausentes">
+		<form>
+		<div data-role="header" class="hpage1"  data-theme="b">
+			<a href="#"  onclick="return init_home();"data-icon="home" data-iconpos="notext">Inicio</a>
+			<h1 role="heading">Sistema de Monitoreo</h1>
+		</div>
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>IX. AULAS SIN ESTUDIANTES </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<h3  class='ui-bar ui-bar-a ui-corner-all' id='enivelestitle'></h3><div id="div90350100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Los estudiantes se encuentran fuera del aula por la inasistencia del docente?</legend><input type="radio" name="90350100" id="9035010001" value="SI"><label for="9035010001">SI</label><input type="radio" name="90350100" id="9035010002" value="NO"><label for="9035010002">NO</label></fieldset></div><div id="div90360100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Los estudiantes se encuentran realizando otra actividad académica dentro del local escolar?</legend><input type="radio" name="90360100" id="9036010001" value="SI"><label for="9036010001">SI</label><input type="radio" name="90360100" id="9036010002" value="NO"><label for="9036010002">NO</label></fieldset></div><div id="div90370100"  class=""  > <label for="90370100"   >3. ¿Qué actividad académica están realizando los alumnos dentro del local escolar?</label><input  type="text" name="90370100" id="90370100" value=""></div><div id="div90380100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Observa a los alumnos realizando la actividad académica indicada dentro del local escolar?</legend><input type="radio" name="90380100" id="9038010001" value="SI"><label for="9038010001">SI</label><input type="radio" name="90380100" id="9038010002" value="NO"><label for="9038010002">NO</label></fieldset></div><div id="div90390100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>5. ¿Los alumnos tienen autorización para estar fuera del local escolar?</legend><input type="radio" name="90390100" id="9039010001" value="SI"><label for="9039010001">SI</label><input type="radio" name="90390100" id="9039010002" value="NO"><label for="9039010002">NO</label></fieldset></div>
+				</div>				
+			</div>
+			<a href="#" onclick="return end_ausentes();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
 		</div>
 		</form>
 	</div>
