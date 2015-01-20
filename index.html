@@ -3,7 +3,7 @@
 <meta charset='utf-8'>
 <link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
 <link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>
-<!--script type="text/javascript"  src="cordova.js"></script-->
+<script type="text/javascript"  src="cordova.js"></script>
 
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
@@ -13,8 +13,8 @@
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
  
-//document.addEventListener("deviceready", onDeviceReady, false);
-$(function(){ onDeviceReady(); });
+document.addEventListener("deviceready", onDeviceReady, false);
+//$(function(){ onDeviceReady(); });
 
 function swipeleftHandler( event ){
 	if(current_enc_page > 0){
@@ -28,16 +28,16 @@ function swiperightHandler( event ){
 	}
 }	
 
-$(document).on('pagecontainershow', function(e, ui) {
-	pageId = $('body').pagecontainer('getActivePage').prop('id');
-	if(pageId == "#encuesta22"){
-		draw_niveles_estados();
-	}
-});
  
 function onDeviceReady() {
 
 
+	$(document).on('pagecontainershow', function(e, ui) {
+		pageId = $('body').pagecontainer('getActivePage').prop('id');
+		if(pageId == "#encuesta22"){
+			draw_niveles_estados();
+		}
+	});
 
 	$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
  	$( "#encuesta1" ).on( "swiperight", swiperightHandler );
@@ -47,8 +47,8 @@ function onDeviceReady() {
 		$.mobile.changePage("#login");
 	}
 
-   // pictureSource   = navigator.camera.PictureSourceType;
- //   destinationType = navigator.camera.DestinationType;
+    pictureSource   = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
 
 	$( "input[name=000016]" ).change(function() {
 	  var radioValue = $('input[name=000016]:checked').val();   
@@ -1338,7 +1338,7 @@ function encuesta_events(){
 </tr><tr class='efs'><td>1012356</td>
 <td>Secundaria</td>
 <td><div id="div00002403"  class=""  > <label for="00002403"  class="ui-hidden-accessible" ></label><input  type="text" name="00002403" id="00002403" value="Colegio Antonio Maza"></div></td>
-</tr></tbody></table><div id="div00002500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>Tipo de Vía</legend><input type="radio" name="00002500" id="0000250001" value="AVENIDA"><label for="0000250001">AVENIDA</label><input type="radio" name="00002500" id="0000250002" value="JIRON"><label for="0000250002">JIRON</label><input type="radio" name="00002500" id="0000250003" value="CALLE"><label for="0000250003">CALLE</label><input type="radio" name="00002500" id="0000250004" value="PASAJE"><label for="0000250004">PASAJE</label><input type="radio" name="00002500" id="0000250005" value="CARRETERA"><label for="0000250005">CARRETERA</label></fieldset></div><div id="div00002600"  class=""  > <label for="00002600"   >Nombre de la vía</label><input  type="text" name="00002600" id="00002600" value=""></div><p>1.E Detalle dirección y teléfono</p><table  class="ts1"><thead><tr><th class=''>Nro de puerta</th><th class=''>Piso</th><th class=''>Manzana</th><th class=''>Lote</th><th class=''>Teléfono</th></tr></thead><tbody><tr class=''><td><div id="div00002700"  class=""  > <label for="00002700"  class="ui-hidden-accessible" ></label><input  type="text" name="00002700" id="00002700" value=""></div></td>
+</tr></tbody></table><div id="div00002500"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>Tipo de Vía</legend><input type="radio" name="00002500" id="0000250001" value="AVENIDA"><label for="0000250001">AVENIDA</label><input type="radio" name="00002500" id="0000250002" value="JIRON"><label for="0000250002">JIRON</label><input type="radio" name="00002500" id="0000250003" value="CALLE"><label for="0000250003">CALLE</label><input type="radio" name="00002500" id="0000250004" value="PASAJE"><label for="0000250004">PASAJE</label><input type="radio" name="00002500" id="0000250005" value="CARRETERA"><label for="0000250005">CARRETERA</label></fieldset></div><div id="div00002600"  class=""  > <label for="00002600"   >Nombre de la vía</label><input  type="text" name="00002600" id="00002600" value=""></div><p>Detalle dirección y teléfono</p><table  class="ts1"><thead><tr><th class=''>Nro de puerta</th><th class=''>Piso</th><th class=''>Manzana</th><th class=''>Lote</th><th class=''>Teléfono</th></tr></thead><tbody><tr class=''><td><div id="div00002700"  class=""  > <label for="00002700"  class="ui-hidden-accessible" ></label><input  type="text" name="00002700" id="00002700" value=""></div></td>
 <td><div id="div00002800"  class=""  > <label for="00002800"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="00002800" id="00002800" value=""></div></td>
 <td><div id="div00002900"  class=""  > <label for="00002900"  class="ui-hidden-accessible" ></label><input  type="text" name="00002900" id="00002900" value=""></div></td>
 <td><div id="div00003000"  class=""  > <label for="00003000"  class="ui-hidden-accessible" ></label><input  type="text" name="00003000" id="00003000" value=""></div></td>
@@ -1555,7 +1555,7 @@ function encuesta_events(){
 				</div>
 				<div class="ui-body ui-body-a">
 					<p>21. Señale si el local escolar tiene los siguientes ambientes e indique la cantidad:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''></th><th class=''>Cantidad</th></tr></thead><tbody><tr class=''><td>Laboratorios</td>
-<td><div id="div21010100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21010100" id="2101010001" value="SI"><label for="2101010001">SI</label><input type="radio" name="21010100" id="2101010002" value="NO"><label for="2101010002">NO</label></fieldset></div></td>
+<td><div id="div21010100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21010100" id="2101010001" value="SI"><label for="2101010001">SI</label><input type="radio" name="21010100" id="2101010002" value="NO"><label for="2101010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21010200" data-role="fieldcontain" class="">
 			<label for="21010200" class="ui-hidden-accessible" ></label>
@@ -1566,7 +1566,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Auditorio</td>
-<td><div id="div21020100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21020100" id="2102010001" value="SI"><label for="2102010001">SI</label><input type="radio" name="21020100" id="2102010002" value="NO"><label for="2102010002">NO</label></fieldset></div></td>
+<td><div id="div21020100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21020100" id="2102010001" value="SI"><label for="2102010001">SI</label><input type="radio" name="21020100" id="2102010002" value="NO"><label for="2102010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21020200" data-role="fieldcontain" class="">
 			<label for="21020200" class="ui-hidden-accessible" ></label>
@@ -1577,7 +1577,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Salas multiusos</td>
-<td><div id="div21030100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21030100" id="2103010001" value="SI"><label for="2103010001">SI</label><input type="radio" name="21030100" id="2103010002" value="NO"><label for="2103010002">NO</label></fieldset></div></td>
+<td><div id="div21030100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21030100" id="2103010001" value="SI"><label for="2103010001">SI</label><input type="radio" name="21030100" id="2103010002" value="NO"><label for="2103010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21030200" data-role="fieldcontain" class="">
 			<label for="21030200" class="ui-hidden-accessible" ></label>
@@ -1588,7 +1588,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Coliseo</td>
-<td><div id="div21040100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21040100" id="2104010001" value="SI"><label for="2104010001">SI</label><input type="radio" name="21040100" id="2104010002" value="NO"><label for="2104010002">NO</label></fieldset></div></td>
+<td><div id="div21040100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21040100" id="2104010001" value="SI"><label for="2104010001">SI</label><input type="radio" name="21040100" id="2104010002" value="NO"><label for="2104010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21040200" data-role="fieldcontain" class="">
 			<label for="21040200" class="ui-hidden-accessible" ></label>
@@ -1599,7 +1599,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Aula funcional</td>
-<td><div id="div21050100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21050100" id="2105010001" value="SI"><label for="2105010001">SI</label><input type="radio" name="21050100" id="2105010002" value="NO"><label for="2105010002">NO</label></fieldset></div></td>
+<td><div id="div21050100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21050100" id="2105010001" value="SI"><label for="2105010001">SI</label><input type="radio" name="21050100" id="2105010002" value="NO"><label for="2105010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21050200" data-role="fieldcontain" class="">
 			<label for="21050200" class="ui-hidden-accessible" ></label>
@@ -1610,7 +1610,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Biblioteca</td>
-<td><div id="div21060100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21060100" id="2106010001" value="SI"><label for="2106010001">SI</label><input type="radio" name="21060100" id="2106010002" value="NO"><label for="2106010002">NO</label></fieldset></div></td>
+<td><div id="div21060100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21060100" id="2106010001" value="SI"><label for="2106010001">SI</label><input type="radio" name="21060100" id="2106010002" value="NO"><label for="2106010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21060200" data-role="fieldcontain" class="">
 			<label for="21060200" class="ui-hidden-accessible" ></label>
@@ -1621,7 +1621,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Salas de cómputo</td>
-<td><div id="div21070100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21070100" id="2107010001" value="SI"><label for="2107010001">SI</label><input type="radio" name="21070100" id="2107010002" value="NO"><label for="2107010002">NO</label></fieldset></div></td>
+<td><div id="div21070100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21070100" id="2107010001" value="SI"><label for="2107010001">SI</label><input type="radio" name="21070100" id="2107010002" value="NO"><label for="2107010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21070200" data-role="fieldcontain" class="">
 			<label for="21070200" class="ui-hidden-accessible" ></label>
@@ -1632,7 +1632,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Loza deportiva</td>
-<td><div id="div21080100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21080100" id="2108010001" value="SI"><label for="2108010001">SI</label><input type="radio" name="21080100" id="2108010002" value="NO"><label for="2108010002">NO</label></fieldset></div></td>
+<td><div id="div21080100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21080100" id="2108010001" value="SI"><label for="2108010001">SI</label><input type="radio" name="21080100" id="2108010002" value="NO"><label for="2108010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21080200" data-role="fieldcontain" class="">
 			<label for="21080200" class="ui-hidden-accessible" ></label>
@@ -1643,7 +1643,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Piscina</td>
-<td><div id="div21090100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21090100" id="2109010001" value="SI"><label for="2109010001">SI</label><input type="radio" name="21090100" id="2109010002" value="NO"><label for="2109010002">NO</label></fieldset></div></td>
+<td><div id="div21090100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21090100" id="2109010001" value="SI"><label for="2109010001">SI</label><input type="radio" name="21090100" id="2109010002" value="NO"><label for="2109010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21090200" data-role="fieldcontain" class="">
 			<label for="21090200" class="ui-hidden-accessible" ></label>
@@ -1654,7 +1654,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Aulas pedagogicas</td>
-<td><div id="div21100100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21100100" id="2110010001" value="SI"><label for="2110010001">SI</label><input type="radio" name="21100100" id="2110010002" value="NO"><label for="2110010002">NO</label></fieldset></div></td>
+<td><div id="div21100100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21100100" id="2110010001" value="SI"><label for="2110010001">SI</label><input type="radio" name="21100100" id="2110010002" value="NO"><label for="2110010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21100200" data-role="fieldcontain" class="">
 			<label for="21100200" class="ui-hidden-accessible" ></label>
@@ -1665,7 +1665,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Topico</td>
-<td><div id="div21110100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21110100" id="2111010001" value="SI"><label for="2111010001">SI</label><input type="radio" name="21110100" id="2111010002" value="NO"><label for="2111010002">NO</label></fieldset></div></td>
+<td><div id="div21110100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21110100" id="2111010001" value="SI"><label for="2111010001">SI</label><input type="radio" name="21110100" id="2111010002" value="NO"><label for="2111010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21110200" data-role="fieldcontain" class="">
 			<label for="21110200" class="ui-hidden-accessible" ></label>
@@ -1676,7 +1676,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Oficina psicopedagogica</td>
-<td><div id="div21120100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21120100" id="2112010001" value="SI"><label for="2112010001">SI</label><input type="radio" name="21120100" id="2112010002" value="NO"><label for="2112010002">NO</label></fieldset></div></td>
+<td><div id="div21120100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21120100" id="2112010001" value="SI"><label for="2112010001">SI</label><input type="radio" name="21120100" id="2112010002" value="NO"><label for="2112010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div2120200" data-role="fieldcontain" class="">
 			<label for="2120200" class="ui-hidden-accessible" ></label>
@@ -1687,7 +1687,7 @@ function encuesta_events(){
 			</div>
 		</div></td>
 </tr><tr class=''><td>Sala de docentes</td>
-<td><div id="div21130100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="21130100" id="2113010001" value="SI"><label for="2113010001">SI</label><input type="radio" name="21130100" id="2113010002" value="NO"><label for="2113010002">NO</label></fieldset></div></td>
+<td><div id="div21130100"  class=""  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="21130100" id="2113010001" value="SI"><label for="2113010001">SI</label><input type="radio" name="21130100" id="2113010002" value="NO"><label for="2113010002">NO</label></fieldset></div></td>
 <td>
 		<div id="div21130200" data-role="fieldcontain" class="">
 			<label for="21130200" class="ui-hidden-accessible" ></label>
