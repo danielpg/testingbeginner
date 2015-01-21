@@ -146,13 +146,47 @@ function upload(){
     }
 
     function file_fail(evt) {
-        console.log(evt.target.error.code);
+        alert(evt.target.error.code);
     }
+
+	var image64str = "";
+	function ajax_read(){
+		/*$.get( $("#test1").html() , function( data ) {
+			image64str = window.btoa(data);
+			//$( "#test3" ).html( window.btoa(data) );
+			//alert( "Load was performed." );
+		});*/
+
+		/*$.post( "http://adostelecom.com/encuesta/webservice.php", { image64: image64str })
+		  .done(function( data ) {
+			alert( "Data Loaded: " + data );
+		});*/
+
+		$.ajax({
+		    type: "GET",
+		    url: $("#test1").html() ,
+			async: false
+		}).done(function( msg ) {
+			image64str = window.btoa( msg );
+	 	});
+
+		$.ajax({
+		    type: "POST",
+		    url: "http://adostelecom.com/encuesta/webservice.php",
+		    data:  { image64: image64str },
+			async: false
+		}).done(function( msg ) {
+			alert( "Data Saved: " + msg );
+	 	});
+		
+	}
 
     </script>
   </head>
   <body>
-    <button onclick="start_read();">READ</button> <br><br>
+    <button onclick="ajax_read();">AJAX READ</button> <br><br>    
+
+	<button onclick="start_read();">READ</button> <br><br>
     <button onclick="upload();">UPLOAD</button> <br><br>
     <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
     <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
