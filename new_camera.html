@@ -43,7 +43,7 @@
       // Show the captured photo
       // The inline CSS rules are used to resize the image
       smallImage.src = imageData;
-	 	$("#test1").html(imageData);
+	  $("#test1").html(imageData);
     }
 
     // Called when a photo is successfully retrieved
@@ -86,9 +86,40 @@
       alert('Failed because: ' + message);
     }
 
+var win = function (r) {
+    console.log("Code = " + r.responseCode);
+    console.log("Response = " + r.response);
+    console.log("Sent = " + r.bytesSent);
+	alert("todo ok");
+}
+
+var fail = function (error) {
+    alert("An error has occurred: Code = " + error.code);
+    console.log("upload error source " + error.source);
+    console.log("upload error target " + error.target);
+}
+
+function upload(){
+	var options = new FileUploadOptions();
+	options.fileKey = "file";
+	//options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
+	options.fileName = $("#test1");
+	options.mimeType = "text/plain";
+
+	var params = {};
+	params.value1 = "test";
+	params.value2 = "param";
+
+	options.params = params;
+
+	var ft = new FileTransfer();
+	ft.upload(fileURI, encodeURI("http://adostelecom.com/encuesta/webservice.php"), win, fail, options);
+}
+
     </script>
   </head>
   <body>
+    <button onclick="upload();">UPLOAD</button> <br>
     <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
     <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
