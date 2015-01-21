@@ -100,10 +100,13 @@ var fail = function (error) {
 }
 
 function upload(){
+
 	var options = new FileUploadOptions();
 	options.fileKey = "file";
+	ar = $("#test1").html();
 	//options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
-	options.fileName = $("#test1");
+	options.fileName = ar.substr(ar.lastIndexOf('/') + 1);
+	//options.fileName = $("#test1").html();
 	options.mimeType = "text/plain";
 
 	var params = {};
@@ -113,6 +116,8 @@ function upload(){
 	options.params = params;
 
 	var ft = new FileTransfer();
+	alert("up start");
+
 	ft.upload(fileURI, encodeURI("http://adostelecom.com/encuesta/webservice.php"), win, fail, options);
 }
 
