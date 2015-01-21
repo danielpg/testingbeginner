@@ -105,9 +105,9 @@ function upload(){
 	//options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
 	options.fileName = ar.substr(ar.lastIndexOf('/') + 1);
 	//options.fileName = $("#test1").html();
-	options.mimeType = "text/plain";
-	options.chunkedMode = true;
-	options.headers = {    Connection: "close" };
+	options.mimeType = "image/jpeg";
+	options.chunkedMode = false;
+	//options.headers = {    Connection: "close" };
 
 	var params = {};
 	params.value1 = "test";
@@ -179,9 +179,9 @@ function upload(){
 			async: false
 		}).done(function( msg ) {
 			alert( "Data Saved: " + msg );
-		 $("#test2").html("done2");
+			$("#test2").html("done2");
 	 	});
-		 $("#test2").html("done3");
+		$("#test2").html("done3");
 	}
 
     </script>
