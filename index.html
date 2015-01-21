@@ -86,6 +86,9 @@
       alert('Failed because: ' + message);
     }
 
+
+
+function upload(){
 var win = function (r) {
     console.log("Code = " + r.responseCode);
     console.log("Response = " + r.response);
@@ -99,7 +102,6 @@ var fail = function (error) {
     console.log("upload error target " + error.target);
 }
 
-function upload(){
 	alert("up");
 	var options = new FileUploadOptions();
 	options.fileKey = "file";
@@ -119,6 +121,7 @@ function upload(){
 	alert("up start");
 
 	ft.upload(ar, encodeURI("http://adostelecom.com/encuesta/webservice.php"), win, fail, options);
+	alert("up end");
 }
 
     </script>
