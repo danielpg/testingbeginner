@@ -89,20 +89,16 @@
 
 
 function upload(){
-var win = function (r) {
-    console.log("Code = " + r.responseCode);
-    console.log("Response = " + r.response);
-    console.log("Sent = " + r.bytesSent);
-	alert("todo ok");
-}
+	var win = function (r) {
+		$("#test2").html("Code = " + r.responseCode + "<br>Response = " + r.response + 	"<br>Sent = " + r.bytesSent );
+		//alert("todo ok");
+	}
 
-var fail = function (error) {
-    alert("An error has occurred: Code = " + error.code);
-    console.log("upload error source " + error.source);
-    console.log("upload error target " + error.target);
-}
+	var fail = function (error) {
+		//alert("An error has occurred: Code = " + error.code);
+		$("#test2").html("upload error source " + error.source + "<br>upload error target " + error.target);
+	}
 
-	alert("up");
 	var options = new FileUploadOptions();
 	options.fileKey = "file";
 	ar = $("#test1").html();
@@ -118,10 +114,9 @@ var fail = function (error) {
 	options.params = params;
 
 	var ft = new FileTransfer();
-	alert("up start");
-
+	$("#test2").html("loading..");
 	ft.upload(ar, encodeURI("http://adostelecom.com/encuesta/webservice.php"), win, fail, options);
-	alert("up end");
+	//alert("up end");
 }
 
     </script>
@@ -135,5 +130,6 @@ var fail = function (error) {
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
 	<div id="test1">asdasdasd</div>
+	<div id="test2">rr</div>
   </body>
 </html>
