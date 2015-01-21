@@ -151,6 +151,7 @@ function upload(){
 
 	var image64str = "";
 	function ajax_read(){
+		 $("#test2").html("loading...");
 		/*$.get( $("#test1").html() , function( data ) {
 			image64str = window.btoa(data);
 			//$( "#test3" ).html( window.btoa(data) );
@@ -168,6 +169,7 @@ function upload(){
 			async: false
 		}).done(function( msg ) {
 			image64str = window.btoa( msg );
+			$( "#test3" ).html( image64str );
 	 	});
 
 		$.ajax({
@@ -177,8 +179,9 @@ function upload(){
 			async: false
 		}).done(function( msg ) {
 			alert( "Data Saved: " + msg );
+		 $("#test2").html("done2");
 	 	});
-		
+		 $("#test2").html("done3");
 	}
 
     </script>
