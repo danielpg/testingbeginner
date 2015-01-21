@@ -23,8 +23,8 @@
 	<gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.0" />
 	<gap:plugin name="org.apache.cordova.camera" version="0.3.2" />
 	<gap:plugin name="org.apache.cordova.geolocation" version="0.3.2" />
-	<gap:plugin name="org.apache.cordova.file-transfer" />
-
+	<!--gap:plugin name="org.apache.cordova.file-transfer" /-->
+	<gap:plugin name="com.chanthu.evri.gcs-file-transfer" version="1.0.0" />
 
 	<gap:splash src="splash.png" />
 	<icon src="icon.png" />
