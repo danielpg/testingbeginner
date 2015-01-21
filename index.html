@@ -121,10 +121,39 @@ function upload(){
 	//alert("up end");
 }
 
+   	function readDataUrl(file) {
+        var reader = new FileReader();
+        reader.onloadend = function(evt) {
+        };
+       $("#test3").html( reader.readAsDataURL( $("#test1").html() ) );
+    }
+
+	function start_read(){
+ 		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, file_fail);
+	}
+
+    function gotFS(fileSystem) {
+		tmp = $("#test1").html();
+        fileSystem.root.getFile( tmp , null, gotFileEntry, fail);
+    }
+
+    function gotFileEntry(fileEntry) {
+        fileEntry.file(gotFile, fail);
+    }
+
+    function gotFile(file){
+        readDataUrl(file);
+    }
+
+    function file_fail(evt) {
+        console.log(evt.target.error.code);
+    }
+
     </script>
   </head>
   <body>
-    <button onclick="upload();">UPLOAD</button> <br>
+    <button onclick="start_read();">READ</button> <br><br>
+    <button onclick="upload();">UPLOAD</button> <br><br>
     <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
     <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
@@ -133,5 +162,6 @@ function upload(){
     <img style="display:none;" id="largeImage" src="" />
 	<div id="test1">asdasdasd</div>
 	<div id="test2">rr</div>
+	<div id="test3">rr</div>
   </body>
 </html>
