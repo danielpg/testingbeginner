@@ -106,6 +106,8 @@ function upload(){
 	options.fileName = ar.substr(ar.lastIndexOf('/') + 1);
 	//options.fileName = $("#test1").html();
 	options.mimeType = "text/plain";
+	options.chunkedMode = true;
+	options.headers = {    Connection: "close";}
 
 	var params = {};
 	params.value1 = "test";
