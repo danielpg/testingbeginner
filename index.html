@@ -184,9 +184,25 @@ function upload(){
 		$("#test2").html("done3");
 	}
 
+	function test_post(){
+		$("#test2").html("done1");
+		$.ajax({
+		    type: "POST",
+		    url: "http://adostelecom.com/encuesta/webservice.php",
+		    data:  { name : "jgkhk" , type : "asdasd" },
+			async: false
+		}).done(function( msg ) {
+			//alert( "Data Saved: " + msg );
+			$("#test2").html("done2");
+	 	});
+		$("#test2").html("done3");
+	}
+
     </script>
   </head>
   <body>
+    <button onclick="test_post();">TEST POST</button> <br><br>    
+
     <button onclick="ajax_read();">AJAX READ</button> <br><br>    
 
 	<button onclick="start_read();">READ</button> <br><br>
