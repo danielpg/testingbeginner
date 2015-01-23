@@ -131,12 +131,17 @@ function upload(){
         ft.upload(imageUriToUpload, url, win, fail, options);
     } 
 
+function fullpath(){
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){ 	$("#path").html(fileSystem.root.fullPath); 	});
+}
+
 /*
 file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg
 */
     </script>
   </head>
-  <body>
+  <body>  
+	  <button onclick="fullpath();">fullPath</button> <br><br>
     <button onclick="uploadPhoto();">UPLOAD</button> <br><br>
     <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
     <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
@@ -146,6 +151,7 @@ file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jp
     <img style="display:none;" id="largeImage" src="" />
 	<div id="test1"></div>
 	<div id="test2"></div>
+	<div id="path"></div>
 
 	<br><input type="text" id="texto" value="file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg" style="width:100%" />
   </body>
