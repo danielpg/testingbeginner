@@ -148,9 +148,10 @@ function read_depas(id){
 				$("#tests").append( res.rows.item(i).codigo + ":" + res.rows.item(i).nombre + "<br>");
 				html += "<option value='" + res.rows.item(i).codigo + "'>" + res.rows.item(i).nombre + "</option>";
 			}
+			$("#select").html(html);
 		});
     });
-	$("#select").html(html);
+
 	//$("#select").selectmenu("refresh");
 }
 
