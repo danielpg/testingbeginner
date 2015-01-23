@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1"/>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
+<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>
 <script src="js/jquery-2.1.3.min.js"></script>
 
     <script type="text/javascript" charset="utf-8">
-
+	var db;
     var pictureSource;   // picture source
     var destinationType; // sets the format of returned value 
 
@@ -17,6 +18,10 @@
     function onDeviceReady() {
         pictureSource=navigator.camera.PictureSourceType;
         destinationType=navigator.camera.DestinationType;
+
+	    db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
+
+		create_depas();
     }
 
     // Called when a photo is successfully retrieved
@@ -115,7 +120,6 @@ function upload(){
 }
 
  function uploadPhoto() {  
-		$("#test2").html("loading...");
 		//imageUriToUpload = $("#test1").html();
 		//imageUriToUpload = "1421988940668.jpg";
 		imageUriToUpload = $("#texto").val();
@@ -132,17 +136,40 @@ function upload(){
         ft.upload(imageUriToUpload, url, win, fail, options);
     } 
 
-function fullpath(){
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){ 	$("#path").html(fileSystem.root.fullPath); 	});
+function read_depas(id){
+	var html = "";
+    db.transaction(function(tx) {
+		tx.executeSql("SELECT data_num from depas where codigo = " + id, [], function(tx, res) {
+			for(i = 0; i < res.rows.length; i++ ){
+				html += "<option value='" + res.rows.item(i).codigo + "'>" + res.rows.item(i).nombre + "</option>";
+			}
+		});
+    });
+	$("#select").html(html);
+	//$("#select").selectmenu("refresh");
 }
 
+function create_depas(){
+    db.transaction(function(tx) {
+	      tx.executeSql('DROP TABLE IF EXISTS depas');
+	      tx.executeSql('CREATE TABLE IF NOT EXISTS depas (id integer primary key, nombre text, codigo integer)');
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [1, "Lambayeque"]);
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [1, "Chiclayo"]);
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [2, "Piura"]);
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [2, "Juliaca"]);
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [3, "Motupe"]);
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [3, "Madrid"]);
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [4, "Medellin"]);
+	      tx.executeSql("INSERT INTO depas (codigo, nombre) VALUES (?,?)", [4, "Buenos Aires"]);
+		  localStorage.setItem("depas",1);
+    });
+}
 /*
 file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg
 */
     </script>
   </head>
-  <body>  
-	  <button onclick="fullpath();">fullPath</button> <br><br>
+  <body>
     <button onclick="uploadPhoto();">UPLOAD</button> <br><br>
     <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
     <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
@@ -152,7 +179,13 @@ file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jp
     <img style="display:none;" id="largeImage" src="" />
 	<div id="test1"></div>
 	<div id="test2"></div>
-	<div id="path"></div>
+    <button onclick="read_depas(1);">READ DEPAS</button> <br><br>
+
+	<div> <select id="select">
+			<option value="1">A</option>
+			<option value="2">B</option>
+		</select> 
+	</div>
 
 	<br><input type="text" id="texto" value="file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg" style="width:100%" />
   </body>
