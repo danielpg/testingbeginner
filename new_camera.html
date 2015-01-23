@@ -41,7 +41,7 @@
       smallImage.style.display = 'block';
 
       // Show the captured photo
-      // The inline CSS rules are used to resize the image
+	  // The inline CSS rules are used to resize the image
       smallImage.src = imageData;
 	  $("#test1").html(imageData);
     }
@@ -118,6 +118,7 @@ function upload(){
 
  function uploadPhoto() {  
 		imageUriToUpload = $("#test1").html();
+		imageUriToUpload = "file://storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg";
         var url = encodeURI("http://adostelecom.com/encuesta/webservice.php");
       
         var options = new FileUploadOptions();
@@ -125,11 +126,15 @@ function upload(){
      
         options.fileName =  imageUriToUpload.substr(imageUriToUpload.lastIndexOf('/') + 1) + ".jpg";
         options.mimeType = "image/jpeg";
-        options.chunkedMode =true; 
+        options.chunkedMode =false; 
+		//options.headers = {	   Connection: "close" };
         var ft = new FileTransfer();
         ft.upload(imageUriToUpload, url, win, fail, options);
     } 
 
+/*
+file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg
+*/
     </script>
   </head>
   <body>
