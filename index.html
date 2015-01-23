@@ -138,9 +138,14 @@ function upload(){
 
 function read_depas(id){
 	var html = "";
+	$("#tests").html();
     db.transaction(function(tx) {
+		$("#tests").html("SELECT data_num from depas where codigo = " + id."<br>");
+	
 		tx.executeSql("SELECT data_num from depas where codigo = " + id, [], function(tx, res) {
+			$("#tests").append("length: " + res.rows.length."<br>");
 			for(i = 0; i < res.rows.length; i++ ){
+				$("#tests").append( res.rows.item(i).codigo + ":" + res.rows.item(i).nombre + "<br>");
 				html += "<option value='" + res.rows.item(i).codigo + "'>" + res.rows.item(i).nombre + "</option>";
 			}
 		});
@@ -186,6 +191,8 @@ file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jp
 			<option value="2">B</option>
 		</select> 
 	</div>
+
+	<div id="tests"></div>
 
 	<br><input type="text" id="texto" value="file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg" style="width:100%" />
   </body>
