@@ -6,8 +6,6 @@
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
 
 <script src="js/jquery-2.1.3.min.js"></script>
-<script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
-<script src="js/main.js"></script>
 
     <script type="text/javascript" charset="utf-8">
 
@@ -41,7 +39,7 @@
       smallImage.style.display = 'block';
 
       // Show the captured photo
-      // The inline CSS rules are used to resize the image
+	  // The inline CSS rules are used to resize the image
       smallImage.src = imageData;
 	  $("#test1").html(imageData);
     }
@@ -117,7 +115,9 @@ function upload(){
 }
 
  function uploadPhoto() {  
-		imageUriToUpload = $("#test1").html();
+		//imageUriToUpload = $("#test1").html();
+		//imageUriToUpload = "1421988940668.jpg";
+		imageUriToUpload = $("#texto").val();
         var url = encodeURI("http://adostelecom.com/encuesta/webservice.php");
       
         var options = new FileUploadOptions();
@@ -125,11 +125,15 @@ function upload(){
      
         options.fileName =  imageUriToUpload.substr(imageUriToUpload.lastIndexOf('/') + 1) + ".jpg";
         options.mimeType = "image/jpeg";
-        options.chunkedMode =true; 
+        options.chunkedMode =false; 
+		//options.headers = {	   Connection: "close" };
         var ft = new FileTransfer();
         ft.upload(imageUriToUpload, url, win, fail, options);
     } 
 
+/*
+file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg
+*/
     </script>
   </head>
   <body>
@@ -140,7 +144,9 @@ function upload(){
     <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
-	<div id="test1">asdasdasd</div>
-	<div id="test2">asdasdasd</div>
+	<div id="test1"></div>
+	<div id="test2"></div>
+
+	<br><input type="text" id="texto" value="file:///storage/sdcard0/Android/data/com.phonegap.colores/cache/1421988940668.jpg" style="width:100%" />
   </body>
 </html>
