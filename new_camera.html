@@ -86,17 +86,12 @@
       alert('Failed because: ' + message);
     }
 
-var win = function (r) {
-    console.log("Code = " + r.responseCode);
-    console.log("Response = " + r.response);
-    console.log("Sent = " + r.bytesSent);
-	alert("todo ok");
+function win(r) {
+    $("#test2").html("Code = " + r.responseCode + "<br>Response = " + "<br>Sent = " + r.bytesSent);
 }
 
-var fail = function (error) {
-    alert("An error has occurred: Code = " + error.code);
-    console.log("upload error source " + error.source);
-    console.log("upload error target " + error.target);
+function fail(error) {
+    $("#test2").html("Code = " + error.code + "<br>error source " + error.source + "<br> error target " + error.target);
 }
 
 function upload(){
@@ -121,10 +116,24 @@ function upload(){
 	ft.upload(fileURI, encodeURI("http://adostelecom.com/encuesta/webservice.php"), win, fail, options);
 }
 
+ function uploadPhoto() {  
+		imageUriToUpload = $("#test1").html();
+        var url = encodeURI("http://adostelecom.com/encuesta/webservice.php");
+      
+        var options = new FileUploadOptions();
+        options.fileKey = "UploadedImage";
+     
+        options.fileName =  imageUriToUpload.substr(imageUriToUpload.lastIndexOf('/') + 1) + ".jpg";
+        options.mimeType = "image/jpeg";
+        options.chunkedMode =true; 
+        var ft = new FileTransfer();
+        ft.upload(imageUriToUpload, url, win, fail, options);
+    } 
+
     </script>
   </head>
   <body>
-    <button onclick="upload();">UPLOAD</button> <br>
+    <button onclick="uploadPhoto();">UPLOAD</button> <br><br>
     <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
     <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
     <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
@@ -132,5 +141,6 @@ function upload(){
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
 	<div id="test1">asdasdasd</div>
+	<div id="test2">asdasdasd</div>
   </body>
 </html>
