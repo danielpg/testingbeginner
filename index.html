@@ -1219,6 +1219,28 @@ function freeze_close(){
 }
 
 //---- LOCAL DATABASE ----------------------
+function dbtotal(){
+    db.transaction(function(tx) {
+		freeze_open();
+		tx.executeSql("SELECT count(*) as total from geografias", [], function(tx, res) {
+			$("#popmsg").append("<br>depas total: " +res.rows.item(0).total +"<br>"); 
+		});
+		tx.executeSql("SELECT count(*) as total from administraciones", [], function(tx, res) {
+			$("#popmsg").append("administraciones total: " +res.rows.item(0).total+"<br>"); 
+		});
+		tx.executeSql("SELECT count(*) as total from encuestadores", [], function(tx, res) {
+			$("#popmsg").append("encuestadores total: " +res.rows.item(0).total+"<br>"); 
+		});
+		tx.executeSql("SELECT count(*) as total from encuesta", [], function(tx, res) {
+			$("#popmsg").append("encuesta total: "+ res.rows.item(0).total+"<br>"); 
+		});
+		tx.executeSql("SELECT count(*) as total from institucioneseducativas", [], function(tx, res) {
+			$("#popmsg").append("instituciones total: "+ res.rows.item(0).total+"<br>"); 
+		});
+    });
+	return false;
+}
+
 
 function read_depas(id){
 	//$("#tests").html();
@@ -1307,6 +1329,12 @@ function create_depas(){
 				  <li>
 					<a href="#" onclick="return create_tables_data();"   data-transition="slide">
 					  <h3>Instalar Base de datos local</h3>
+					  <div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="#" onclick="return dbtotal();"   data-transition="slide">
+					  <h3>Check Database Totals</h3>
 					  <div></div>
 					</a>
 				  </li>
