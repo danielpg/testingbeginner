@@ -1214,6 +1214,7 @@ function show_end_encuesta(){
 }
 
 function freeze_open(){
+	$("#popmsg").html("Procesando datos...");
 	$("#loadbox").popup("open");
 }
 
@@ -1303,6 +1304,13 @@ function create_depas(){
 				  <li>
 					<a href="#" onclick="return list_encuestas();"   data-transition="slide">
 					  <h3>Estado de Encuestas</h3>
+					  <div></div>
+					</a>
+				  </li>
+
+				  <li>
+					<a href="#" onclick="return create_tables_data();"   data-transition="slide">
+					  <h3>Instalar Base de datos local</h3>
 					  <div></div>
 					</a>
 				  </li>
