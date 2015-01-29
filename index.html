@@ -129,7 +129,7 @@ function onDeviceReady() {
 
 	default_hiding();
 
-	$( "#botonvaciar" ).show();
+	$( "#botonvaciar" ).hide();
 
 	$( "input[name=01010000]" ).change(function() {
 		if( $("input[name=01010000]:checked").val() == "SI"){
@@ -1216,6 +1216,8 @@ function new_encuesta(){
 	default_encuesta();
 	clear_form();
 	clear_niveles();
+
+	$("#botonvaciar").show();
 
 	$("#00210101").html( res0 + res2 );
 	$("#00210201").html( res0 + res2 );
@@ -2337,10 +2339,7 @@ function resetpagevars(){
 
 	<div data-role="page" id="login">
 		<div data-role="header" class="hpage1" data-theme="b">
-
 <h1 role="heading"> </h1>
-<a href="#rightpanel1" class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow bw" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Navigation </a>
-
 		</div>
 
 		<div data-role="content">
