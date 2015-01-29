@@ -1685,7 +1685,7 @@ function validate_pages(){
 			//nada aqui
 		} else {
 			tmp = "PARA RECIBIR LA TRANSFERENCIA DE DINERO Y REALIZAR OBRAS DE MANTENIMIENTO DEBIÓ REGISTRAR ANTES LA FICHA DE MANTENIMIENTO";
-			alert(tmp);	return false; 
+			alert(tmp);	//return false; 
 		}
 	}
 
@@ -1702,13 +1702,13 @@ function validate_pages(){
 
 	tmp = "LA SUMA DE APARATOS SANITARIOS SEGÚN ESTADO DE CONSERVACIÓN NO COINCIDE CON EL TOTAL DE APARATOS SANITARIOS OBSERVADO";
 	if( ( int("84010100") + int("84010200") + int("84010300") ) != int(83010000)  ){
-	alert(tmp);	return false; 
+	alert(tmp);	//return false; 
 	}
 	if( ( int("84020100") + int("84020200") + int("84030300") ) != int(83020000)  ){
-	alert(tmp);	return false; 
+	alert(tmp);	//return false; 
 	}
 	if( ( int("84020100") + int("84020200") + int("84030300") ) != int(83030000)  ){
-	alert(tmp);	return false; 
+	alert(tmp);	//return false; 
 	}
 
 	tmp = "EL Nro DE LAVADEROS O LAVATORIOS CON AGUA DISPONIBLE NO DEBE SER MAYOR AL Nro TOTAL DE LAVADEROS O LAVATORIOS";
