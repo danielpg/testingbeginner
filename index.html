@@ -3,12 +3,12 @@
 <meta charset='utf-8'>
 <link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
 <link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>
-<!--<script type="text/javascript"  src="cordova.js"></script>-->
+<script type="text/javascript"  src="cordova.js"></script>
 
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
 <script src="js/main.js"></script>
-<!--<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>-->
+<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>
 <!--script  -->
 <script>
 var pictureSource;   // picture source
@@ -38,8 +38,8 @@ var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</o
 </script>
 <script src="js/dbdata.js"></script>
 <script>
-//document.addEventListener("deviceready", onDeviceReady, false);
-$(function(){ onDeviceReady(); });
+document.addEventListener("deviceready", onDeviceReady, false);
+//$(function(){ onDeviceReady(); });
 
 function onDeviceReady() {
 	$("#loadbox").popup();
@@ -60,13 +60,13 @@ function onDeviceReady() {
 		changepage("#login");
 	}
 
-    //pictureSource   = navigator.camera.PictureSourceType;
-    //destinationType = navigator.camera.DestinationType;
-    //db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
+    pictureSource   = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+    db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
 
 	$( "input[name=000016]" ).change(function() {
-	  var radioValue = $('input[name=000016]:checked').val();   
-	  //alert(radioValue); 
+		var radioValue = $('input[name=000016]:checked').val();   
+		//alert(radioValue); 
 	});
 
 	//$( "input[name=00000100]" ).change(function() {
