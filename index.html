@@ -2219,7 +2219,7 @@ function onFail(message) {
 }
 
 //---------- UPLOAD PHOTOS -------------------------------------------------------
-
+/*
 function photo_win() {
 	//$.mobile.loading("hide");
 	tmp = current_up_image_id;
@@ -2234,14 +2234,15 @@ function photo_fail(error) {
 	$("#aftersendmsg").append("<div class='box_error'>No se pudo enviar una de las fotos.</div>");	
     //$("#test2").html("Code = " + error.code + "<br>error source " + error.source + "<br> error target " + error.target);
 	check_complete_enc();
-}
+}*/
 
 function uploadphoto(tmpobj){
 	//$.mobile.loading("show");
-	$("#aftersendmsg").append("<div class='box_notice'>Enviando foto...</div>");	
+	$("#aftersendmsg").append("<div id='pre_up_i_" + tmpobj.id + "' class='box_notice'>Enviando foto...</div>");	
     var url = encodeURI(webservice_post);
     var options = new FileUploadOptions();
     options.fileKey = "encuesta_image" + tmpobj.id;
+	var photo_img_custom_id = tmpobj.id;
 
 	imageUriToUpload = tmpobj.url;
  
@@ -2251,7 +2252,22 @@ function uploadphoto(tmpobj){
     options.chunkedMode =false; 
 	//options.headers = {	   Connection: "close" };
     var ft = new FileTransfer();
-    ft.upload(imageUriToUpload, url, photo_win, photo_fail, options);
+    //ft.upload(imageUriToUpload, url, photo_win, photo_fail, options);
+	ft.upload(imageUriToUpload, url, function() {
+		//success function
+		tmp = photo_img_custom_id;
+		current_enc["foto" + tmp].status = 3;
+		$("#aftersendmsg").append("<div class='box_success'>Se envió una de las fotos con exito!</div>");	
+		//$("#test2").html("Code = " + r.responseCode + "<br>Response = " + "<br>Sent = " + r.bytesSent);
+		$("#pre_up_i_" + photo_img_custom_id).remove();
+		check_complete_enc();
+	}, function(error) {
+		//fail function
+		$("#pre_up_i_" + photo_img_custom_id).remove();
+		$("#aftersendmsg").append("<div class='box_error'>No se pudo enviar una de las fotos.</div>");	
+		//$("#test2").html("Code = " + error.code + "<br>error source " + error.source + "<br> error target " + error.target);
+		check_complete_enc();
+	}, options);
 }
 
 
@@ -4316,7 +4332,7 @@ function resetpagevars(){
         <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
         <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-04 03:54:40</div>
+		<div style="color:#CACACA;">Ultima version: 2015-02-04 04:07:34</div>
 	</div>
 
 </body>
