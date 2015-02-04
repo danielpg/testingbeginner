@@ -7,15 +7,17 @@
 
 	<!-- versionCode is optional and Android only -->
 
-	<name>Encuesta Test</name>
+	<name>MINEDU Sistema de Monitoreo</name>
 
 	<description>
-		Encuesta TEst
+		MINEDU Sistema de Monitoreo
 	</description>
 
 	<author href="http://aynitech.com" email="dperales@aynitech.com">
-		Daniel Perales
+		Aynitech
 	</author>
+
+	<preference name="Orientation" value="portrait" />
 
 	<feature name="http://api.phonegap.com/1.0/file"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
@@ -28,7 +30,6 @@
 
 	<gap:splash src="splash.png" />
 	<icon src="icon.png" />
-
 
 
 	<access origin="http://adostelecom.com" />
