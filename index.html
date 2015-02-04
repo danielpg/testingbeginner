@@ -2,13 +2,13 @@
 <head>
 <meta charset='utf-8'>
 <link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
-<link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>
-<script type="text/javascript"  src="cordova.js"></script>  
+<link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>  
+<!-- <script type="text/javascript"  src="cordova.js"></script>   t-->
 
 <script src="js/jquery-2.1.3.min.js"></script>
 <script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
 <script src="js/main.js"></script>
-<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>  
+<!--script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script-->
 <!--script  -->
 <script>
 var pictureSource;   // picture source
@@ -44,12 +44,13 @@ var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</o
 <script src="js/dbdata.js"></script>
 <script>
 
-document.addEventListener("deviceready", onDeviceReady, false);
-//$(function(){ onDeviceReady(); });
+//document.addEventListener("deviceready", onDeviceReady, false);
+$(function(){ onDeviceReady(); });
 //db = {transaction : function(){}}
 
 function onDeviceReady() {
 	$("#loadbox").popup();
+
 	$( "body>[data-role='panel']" ).panel();
 
 	$(document).on('pagecontainershow', function(e, ui) {
@@ -63,17 +64,17 @@ function onDeviceReady() {
 		$.mobile.loading("hide");
 	});
 
-	$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
- 	$( "#encuesta1" ).on( "swiperight", swiperightHandler );
+	//$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
+ 	//$( "#encuesta1" ).on( "swiperight", swiperightHandler );
 
 	login_status = localStorage.getItem("login_status");	
 	if((login_status == null) || (login_status == 0)){
 		changepage("#login");
 	}
 
-    pictureSource   = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
-    db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
+    //pictureSource   = navigator.camera.PictureSourceType;
+    //destinationType = navigator.camera.DestinationType;
+    //db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
 
 	//2. SELECT ENCUESTADOR: cuando elige mes cargar periodo
 	$('#00000100').bind('click', function(){
@@ -3683,11 +3684,11 @@ function resetpagevars(){
 					<h3>XV. MATERIAL EDUCATIVO </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>60. La IE cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010000" id="6001000001" value="SI"><label for="6001000001">SI</label><input type="radio" name="60010000" id="6001000002" value="NO"><label for="6001000002">NO</label></fieldset></div><div id='div61000000'><p>61. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='cs1  efi'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
+					<div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>60. La IE cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010000" id="6001000001" value="SI"><label for="6001000001">SI</label><input type="radio" name="60010000" id="6001000002" value="NO"><label for="6001000002">NO</label></fieldset></div><div id='div61000000'><p>61. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='efi'><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
 <td><div id="div61010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010101" id="6101010101" value="SI"><label for="6101010101">SI</label><input type="radio" name="61010101" id="6101010102" value="NO"><label for="6101010102">NO</label></fieldset></div></td>
 <td><div id="div61010201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010201" id="6101020101" value="SI"><label for="6101020101">SI</label><input type="radio" name="61010201" id="6101020102" value="NO"><label for="6101020102">NO</label></fieldset></div></td>
 <td><div id="div61010301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010301" id="6101030101" value="SI"><label for="6101030101">SI</label><input type="radio" name="61010301" id="6101030102" value="NO"><label for="6101030102">NO</label></fieldset></div></td>
-</tr></tbody></table></div><div class='cs1  efp'>Primaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación (Para 1er y 2do grado)</td>
+</tr></tbody></table></div><div class='efp'><div class='cs1'>Primaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación (Para 1er y 2do grado)</td>
 <td><div id="div61020101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61020101" id="6102010101" value="SI"><label for="6102010101">SI</label><input type="radio" name="61020101" id="6102010102" value="NO"><label for="6102010102">NO</label></fieldset></div></td>
 <td><div id="div61020201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61020201" id="6102020101" value="SI"><label for="6102020101">SI</label><input type="radio" name="61020201" id="6102020102" value="NO"><label for="6102020102">NO</label></fieldset></div></td>
 <td><div id="div61020301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61020301" id="6102030101" value="SI"><label for="6102030101">SI</label><input type="radio" name="61020301" id="6102030102" value="NO"><label for="6102030102">NO</label></fieldset></div></td>
@@ -3711,7 +3712,7 @@ function resetpagevars(){
 <td><div id="div61070101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61070101" id="6107010101" value="SI"><label for="6107010101">SI</label><input type="radio" name="61070101" id="6107010102" value="NO"><label for="6107010102">NO</label></fieldset></div></td>
 <td><div id="div61070201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61070201" id="6107020101" value="SI"><label for="6107020101">SI</label><input type="radio" name="61070201" id="6107020102" value="NO"><label for="6107020102">NO</label></fieldset></div></td>
 <td><div id="div61070301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61070301" id="6107030101" value="SI"><label for="6107030101">SI</label><input type="radio" name="61070301" id="6107030102" value="NO"><label for="6107030102">NO</label></fieldset></div></td>
-</tr></tbody></table></div><div class='cs1 efs'>Secundaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efs'><td>Cuadernos de trabajo de Matemática (Para 1er y 2do año)</td>
+</tr></tbody></table></div><div class='efs'><div class='cs1'>Secundaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efs'><td>Cuadernos de trabajo de Matemática (Para 1er y 2do año)</td>
 <td><div id="div61080101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61080101" id="6108010101" value="SI"><label for="6108010101">SI</label><input type="radio" name="61080101" id="6108010102" value="NO"><label for="6108010102">NO</label></fieldset></div></td>
 <td><div id="div61080201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61080201" id="6108020101" value="SI"><label for="6108020101">SI</label><input type="radio" name="61080201" id="6108020102" value="NO"><label for="6108020102">NO</label></fieldset></div></td>
 <td><div id="div61080301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61080301" id="6108030101" value="SI"><label for="6108030101">SI</label><input type="radio" name="61080301" id="6108030102" value="NO"><label for="6108030102">NO</label></fieldset></div></td>
@@ -3751,11 +3752,11 @@ function resetpagevars(){
 <td><div id="div61170101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61170101" id="6117010101" value="SI"><label for="6117010101">SI</label><input type="radio" name="61170101" id="6117010102" value="NO"><label for="6117010102">NO</label></fieldset></div></td>
 <td><div id="div61170201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61170201" id="6117020101" value="SI"><label for="6117020101">SI</label><input type="radio" name="61170201" id="6117020102" value="NO"><label for="6117020102">NO</label></fieldset></div></td>
 <td><div id="div61170301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61170301" id="6117030101" value="SI"><label for="6117030101">SI</label><input type="radio" name="61170301" id="6117030102" value="NO"><label for="6117030102">NO</label></fieldset></div></td>
-</tr></tbody></table></div></div><div class='eib'><div class='cs1  efi '>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: lengua originaria</td>
+</tr></tbody></table></div></div><div class='eib'><div class='efi '><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: lengua originaria</td>
 <td><div id="div61210101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61210101" id="6121010101" value="SI"><label for="6121010101">SI</label><input type="radio" name="61210101" id="6121010102" value="NO"><label for="6121010102">NO</label></fieldset></div></td>
 <td><div id="div61210201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61210201" id="6121020101" value="SI"><label for="6121020101">SI</label><input type="radio" name="61210201" id="6121020102" value="NO"><label for="6121020102">NO</label></fieldset></div></td>
 <td><div id="div61210301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61210301" id="6121030101" value="SI"><label for="6121030101">SI</label><input type="radio" name="61210301" id="6121030102" value="NO"><label for="6121030102">NO</label></fieldset></div></td>
-</tr></tbody></table></div><div class='cs1  efp '>Primaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación: lengua originaria y castellano como segunda lengua</td>
+</tr></tbody></table></div><div class='efp '><div class='cs1'>Primaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación: lengua originaria y castellano como segunda lengua</td>
 <td><div id="div61180101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61180101" id="6118010101" value="SI"><label for="6118010101">SI</label><input type="radio" name="61180101" id="6118010102" value="NO"><label for="6118010102">NO</label></fieldset></div></td>
 <td><div id="div61180201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61180201" id="6118020101" value="SI"><label for="6118020101">SI</label><input type="radio" name="61180201" id="6118020102" value="NO"><label for="6118020102">NO</label></fieldset></div></td>
 <td><div id="div61180301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61180301" id="6118030101" value="SI"><label for="6118030101">SI</label><input type="radio" name="61180301" id="6118030102" value="NO"><label for="6118030102">NO</label></fieldset></div></td>
@@ -4281,11 +4282,13 @@ function resetpagevars(){
 	</div>
 
 	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a">
-        <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Ocultar Menu</a><br><br>
+	
+        <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Ocultar Menu</a><br/><br/>
 
-        <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>
-        <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br><br>
+        <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
+        <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
+
 	</div>
 
 </body>
