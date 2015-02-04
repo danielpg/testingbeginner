@@ -1558,7 +1558,7 @@ function upload_encuesta(id){
 		}
 	}
 
-	//check_complete_enc();//debe ir antes de save//danielfix
+	check_complete_enc();//debe ir antes de save//danielfix
 
 	localStorage.setItem("encobj" + id , JSON.stringify(current_enc) );
 
@@ -1785,6 +1785,7 @@ function special37(){
 }
 
 function check_complete_enc(){
+	$("#aftersendmsg").append("<div class='box_notice'>start check_complete_enc</div>");
 	flag = 0;
 	for(i = 0; i < fotoname_ids.length; i++ ){
 		if (typeof current_enc["foto" + fotoname_ids[i] ] === "undefined"){
@@ -4310,7 +4311,7 @@ function resetpagevars(){
         <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
         <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-04 01:58:46</div>
+		<div style="color:#CACACA;">Ultima version: 2015-02-04 02:00:34</div>
 	</div>
 
 </body>
