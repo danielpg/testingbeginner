@@ -1,5 +1,4 @@
-<html>
-<head>
+<html><head>
 <meta charset='utf-8'>
 	<link rel='stylesheet' id='fa' type='text/css' media='all'   href="font-awesome/css/font-awesome.min.css"/>
 	<link rel='stylesheet' id='jquerymobile-css' type='text/css' media='all'   href="jqmobile/jquery.mobile-1.4.5.min.css"/>  
@@ -35,11 +34,9 @@ var current_enc;
 var form_refresh = 0;
 var ultimate_page = 0;
 var imageid = "";
-
 var res0 = "<option value='0'>--Seleccionar--</option>";
 var res1 = "<option value='1'>Completo</option><option value='2'>Incompleto</option>";
 var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación Local Cerrado</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
-
 </script>
 <script src="js/dbdata.js"></script>
 <script>
@@ -49,7 +46,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 	//fast_buttons();
-
 	$(document).on('pagecontainershow', function(e, ui) {
 		//$.mobile.loading("hide");
 		pageId = $('body').pagecontainer('getActivePage').prop('id');
@@ -1523,23 +1519,22 @@ function upload_encuesta(id){
 	$("#aftersendmsg").html("");
 	current_enc = JSON.parse(localStorage.getItem("encobj" + id));
 	
-	//if(current_enc.formenviado == 0)	{//danielfix
-		//JSON.stringify(obj.nivelesdata);
+	if(current_enc.formenviado == 0)	{//danielfix
 		$.ajax({ url: webservice_post,
 				 type: "POST",
-				 data: { "formdata" : current_enc.formdata  },
+				 data: { "formdata" : JSON.stringify(current_enc)  },
 				 crossDomain: true,
 				 cache: false,
 				 contentType: "application/x-www-form-urlencoded; charset=utf-8"
 		}).done(function(html) {
 			current_enc.formenviado = 1;
-			current_enc.upload = 1;//danielfix
+			//current_enc.upload = 1;//danielfix
 			localStorage.setItem("encobj" + id , JSON.stringify(current_enc) );
 			$("#aftersendmsg").append("<div class='box_success'>Se enviaron los datos de la encuesta con exito!</div>");
 		}).fail(function( jqXHR, textStatus ) {
 			$("#aftersendmsg").append("<div class='box_error'>No se pudo enviar los datos de la encuesta.</div>");
 		});
-	//}//danielfix
+	}//danielfix
 
 	for(i = 0;i < fotoname_ids.length; i++){
 		if (typeof current_enc["foto" + fotoname_ids[i] ] === "undefined"){
@@ -1553,7 +1548,7 @@ function upload_encuesta(id){
 		}
 	}
 
-	//check_complete_enc();//debe ir antes de save//danielfix
+	check_complete_enc();//debe ir antes de save//danielfix
 
 	localStorage.setItem("encobj" + id , JSON.stringify(current_enc) );
 
@@ -2080,6 +2075,12 @@ function form_ausentes(i){
 }
 
 function end_ausentes(){
+	if( typeof $("input[name=90350100]:checked").val() === "undefined" ){
+		alert("Debe responder las preguntas de este cuestonario.");		
+		return false;
+	}
+
+
 	serial = $( "#ausentes form" ).serialize();
 	current_nivel.data +=  "&" + serial;
 	current_nivel.finalizado =  1;
@@ -2222,7 +2223,7 @@ function photo_fail(error) {
 }
 
 function uploadphoto(tmpobj){
-	return photo_win();//danielfix
+	//return photo_win();//danielfix
 
     var url = encodeURI(webservice_post);
     var options = new FileUploadOptions();
@@ -2230,7 +2231,7 @@ function uploadphoto(tmpobj){
 
 	imageUriToUpload = tmpobj.url;
  
-	options.params = { nombre : "q124" , codigo : "56789" };
+	options.params = { enc_id : current_enc.id , image_id : current_up_image_id  };
     options.fileName =  imageUriToUpload.substr(imageUriToUpload.lastIndexOf('/') + 1);// + ".jpg";
     options.mimeType = "image/jpeg";
     options.chunkedMode =false; 
@@ -2426,10 +2427,10 @@ function validate_mes(id){
 function validate_year(id){
 	if( $("#" + id).val() == "" )return false;
 	nn = int(id);
-	if((nn >= 2014) && (nn <= 2024) ){
+	if((nn >= 2014) && (nn <= 2015) ){
 		//return true;
 	} else {
-		alert("Año debe ser entre 2014 y 2024");
+		alert("Año debe ser entre 2014 y 2015");
 		$("#" + id).val("");
 	}
 }
@@ -2841,7 +2842,7 @@ function resetpagevars(){
 	</div>
 
 	
-	<div data-role="page" id="encuesta1" data-dom-cache="true">
+	<div data-role="page" id="encuesta1" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -2871,7 +2872,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta2" data-dom-cache="true">
+	<div data-role="page" id="encuesta2" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -2905,7 +2906,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta3" data-dom-cache="true">
+	<div data-role="page" id="encuesta3" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -2935,7 +2936,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta4" data-dom-cache="true">
+	<div data-role="page" id="encuesta4" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -2970,7 +2971,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta5" data-dom-cache="true">
+	<div data-role="page" id="encuesta5" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3003,7 +3004,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta6" data-dom-cache="true">
+	<div data-role="page" id="encuesta6" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3084,7 +3085,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta7" data-dom-cache="true">
+	<div data-role="page" id="encuesta7" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3123,7 +3124,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta8" data-dom-cache="true">
+	<div data-role="page" id="encuesta8" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3177,7 +3178,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta9" data-dom-cache="true">
+	<div data-role="page" id="encuesta9" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3234,7 +3235,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta10" data-dom-cache="true">
+	<div data-role="page" id="encuesta10" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3255,7 +3256,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta11" data-dom-cache="true">
+	<div data-role="page" id="encuesta11" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3441,7 +3442,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta12" data-dom-cache="true">
+	<div data-role="page" id="encuesta12" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3454,7 +3455,7 @@ function resetpagevars(){
 					<h3>VIII. EQUIPOS DE COMPUTO </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div34010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>34. ¿El local escolar cuenta con equipos de cómputo?</legend><input type="radio" name="34010000" id="3401000001" value="SI"><label for="3401000001">SI</label><input type="radio" name="34010000" id="3401000002" value="NO"><label for="3401000002">NO</label></fieldset></div><div id='div35000000'><p>35. Indique la ubicación y cantidad de equipos de cómputo:</p><p><h3 class="ui-bar ui-bar-a ui-corner-all">Computadoras</h3></p><table class='cs1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
+					<div id="div34010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>34. ¿El local escolar cuenta con equipos de cómputo?</legend><input type="radio" name="34010000" id="3401000001" value="SI"><label for="3401000001">SI</label><input type="radio" name="34010000" id="3401000002" value="NO"><label for="3401000002">NO</label></fieldset></div><div id='div35000000'><p>35. Indique la ubicación y cantidad de equipos de cómputo:</p><p><h3 class="ui-bar ui-bar-a ui-corner-all">Computadoras</h3></p><table class='ts1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
 <td><div id="div35010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010101" id="3501010101" value="SI"><label for="3501010101">SI</label><input type="radio" name="35010101" id="3501010102" value="NO"><label for="3501010102">NO</label></fieldset></div></td>
 <td><div id="div35010201"  class=" ff"  > <label for="35010201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010201" id="35010201" value=""   /></div></td>
 <td><div id="div35010301"  class=" ff"  > <label for="35010301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010301" id="35010301" value=""   /></div></td>
@@ -3482,7 +3483,7 @@ function resetpagevars(){
 <td><div id="div35010107"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010107" id="3501010701" value="SI"><label for="3501010701">SI</label><input type="radio" name="35010107" id="3501010702" value="NO"><label for="3501010702">NO</label></fieldset></div></td>
 <td><div id="div35010207"  class=" ff"  > <label for="35010207"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010207" id="35010207" value=""   /></div></td>
 <td><div id="div35010307"  class=" ff"  > <label for="35010307"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010307" id="35010307" value=""   /></div></td>
-</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops</h3></p><table class='cs1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
+</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops</h3></p><table class='ts1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
 <td><div id="div35020101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020101" id="3502010101" value="SI"><label for="3502010101">SI</label><input type="radio" name="35020101" id="3502010102" value="NO"><label for="3502010102">NO</label></fieldset></div></td>
 <td><div id="div35020201"  class=" ff"  > <label for="35020201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020201" id="35020201" value=""   /></div></td>
 <td><div id="div35020301"  class=" ff"  > <label for="35020301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020301" id="35020301" value=""   /></div></td>
@@ -3510,7 +3511,7 @@ function resetpagevars(){
 <td><div id="div35020107"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020107" id="3502010701" value="SI"><label for="3502010701">SI</label><input type="radio" name="35020107" id="3502010702" value="NO"><label for="3502010702">NO</label></fieldset></div></td>
 <td><div id="div35020207"  class=" ff"  > <label for="35020207"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020207" id="35020207" value=""   /></div></td>
 <td><div id="div35020307"  class=" ff"  > <label for="35020307"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020307" id="35020307" value=""   /></div></td>
-</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops XO</h3></p><table class='cs1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
+</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops XO</h3></p><table class='ts1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
 <td><div id="div35030101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35030101" id="3503010101" value="SI"><label for="3503010101">SI</label><input type="radio" name="35030101" id="3503010102" value="NO"><label for="3503010102">NO</label></fieldset></div></td>
 <td><div id="div35030201"  class=" ff"  > <label for="35030201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030201" id="35030201" value=""   /></div></td>
 <td><div id="div35030301"  class=" ff"  > <label for="35030301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030301" id="35030301" value=""   /></div></td>
@@ -3546,7 +3547,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta13" data-dom-cache="true">
+	<div data-role="page" id="encuesta13" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3569,7 +3570,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta14" data-dom-cache="true">
+	<div data-role="page" id="encuesta14" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3599,7 +3600,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta15" data-dom-cache="true">
+	<div data-role="page" id="encuesta15" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3620,7 +3621,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta16" data-dom-cache="true">
+	<div data-role="page" id="encuesta16" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3641,7 +3642,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta17" data-dom-cache="true">
+	<div data-role="page" id="encuesta17" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3662,7 +3663,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta18" data-dom-cache="true">
+	<div data-role="page" id="encuesta18" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3683,7 +3684,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta19" data-dom-cache="true">
+	<div data-role="page" id="encuesta19" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3788,7 +3789,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta20" data-dom-cache="true">
+	<div data-role="page" id="encuesta20" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3849,7 +3850,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta21" data-dom-cache="true">
+	<div data-role="page" id="encuesta21" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3878,7 +3879,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta22" data-dom-cache="true">
+	<div data-role="page" id="encuesta22" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3891,9 +3892,10 @@ function resetpagevars(){
 					<h3>XVI. OBSERVACION DE LAS RESPUESTAS DEL DIRECTOR Y VERIFICACION </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id='div69000000'>69. ¿Observa la estantería repuesta instalada en el lugar indicado?</div><div id='obs69'> </div><div id="div69010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="69010000" id="6901000001" value="SI"><label for="6901000001">SI</label><input type="radio" name="69010000" id="6901000002" value="NO"><label for="6901000002">NO</label></fieldset></div></div><div id='div70000000'><p>70. Observe y registre la siguiente información:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>Nro de computadoras</th><th class=''>Nro de computadoras operativos</th></tr></thead><tbody><tr class=''><td>Laboratorio de cómputo</td>
+					<div id='div69000000'>69. ¿Observa la estantería repuesta instalada en el lugar indicado?</div><div id='obs69'> </div><div id="div69010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="69010000" id="6901000001" value="SI"><label for="6901000001">SI</label><input type="radio" name="69010000" id="6901000002" value="NO"><label for="6901000002">NO</label></fieldset></div></div><div id='div70000000'><p>70. Observe y registre la siguiente información:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>70.A Nro de computadoras</th><th class=''>70.B Muestra de computadoras</th><th class=''>70.C Nro de computadoras operativos</th></tr></thead><tbody><tr class=''><td>Laboratorio de cómputo</td>
 <td><div id="div70010000"  class=" ff"  > <label for="70010000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70010000" id="70010000" value=""   /></div></td>
 <td><div id="div70020000"  class=" ff"  > <label for="70020000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70020000" id="70020000" value=""   /></div></td>
+<td><div id="div70030000"  class=" ff"  > <label for="70030000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70030000" id="70030000" value=""   /></div></td>
 </tr></tbody></table></div><div id="div71010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>71. La acción de mantenimiento 'Reperación de Techos' cumple con:</legend><input type="checkbox" name="71010000[]" id="7101000001" value="No presentar fisuras ni grietas superficiales"><label for="7101000001" >No presentar fisuras ni grietas superficiales</label><input type="checkbox" name="71010000[]" id="7101000002" value="No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siguen desprendiendo?"><label for="7101000002" >No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siguen desprendiendo?</label><input type="checkbox" name="71010000[]" id="7101000003" value="No existen agujeros y/o aberturas entre las coberturas que permitan el ingreso del agua de lluvia a los ambientes"><label for="7101000003" >No existen agujeros y/o aberturas entre las coberturas que permitan el ingreso del agua de lluvia a los ambientes</label></fieldset></div><div id="div72010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>72. La reparación de instalaciones sanitarias cumple con:</legend><input type="checkbox" name="72010000[]" id="7201000001" value="Cortar con sistema de agua y desague"><label for="7201000001" >Cortar con sistema de agua y desague</label><input type="checkbox" name="72010000[]" id="7201000002" value="No presentar fugas"><label for="7201000002" >No presentar fugas</label><input type="checkbox" name="72010000[]" id="7201000003" value="No existen aparatos sanitarios en mal estado"><label for="7201000003" >No existen aparatos sanitarios en mal estado</label></fieldset></div><div id="div73010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>73. La acción de mantenimiento Reparación de pisos cumple con:</legend><input type="checkbox" name="73010000[]" id="7301000001" value="No existen ambientes sin piso o tiene un piso incompleto en su ejecución"><label for="7301000001" >No existen ambientes sin piso o tiene un piso incompleto en su ejecución</label><input type="checkbox" name="73010000[]" id="7301000002" value="No existen grietas u hoyos en el piso"><label for="7301000002" >No existen grietas u hoyos en el piso</label><input type="checkbox" name="73010000[]" id="7301000003" value="No son un peligro para el alumnado y comunidad educativa en general"><label for="7301000003" >No son un peligro para el alumnado y comunidad educativa en general</label></fieldset></div><div id="div74010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>74. La acción reparación de muros/paredes cumple con:</legend><input type="checkbox" name="74010000[]" id="7401000001" value="No existen fisuras o grietas"><label for="7401000001" >No existen fisuras o grietas</label><input type="checkbox" name="74010000[]" id="7401000002" value="No existen problemas de humedad"><label for="7401000002" >No existen problemas de humedad</label><input type="checkbox" name="74010000[]" id="7401000003" value="No tiene problemas de erosión de ningún tipo"><label for="7401000003" >No tiene problemas de erosión de ningún tipo</label></fieldset></div><div id="div75010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>75. La acción de mantenimiento de reparación de puertas cumple con:</legend><input type="checkbox" name="75010000[]" id="7501000001" value="No presentan daños ni rajaduras"><label for="7501000001" >No presentan daños ni rajaduras</label><input type="checkbox" name="75010000[]" id="7501000002" value="No estan descolgadas o descuadradas"><label for="7501000002" >No estan descolgadas o descuadradas</label><input type="checkbox" name="75010000[]" id="7501000003" value="No existen puertas sin chapas o chapas sin funcionamiento"><label for="7501000003" >No existen puertas sin chapas o chapas sin funcionamiento</label></fieldset></div>
 				</div>				
 			</div>
@@ -3902,7 +3904,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta23" data-dom-cache="true">
+	<div data-role="page" id="encuesta23" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3923,7 +3925,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta24" data-dom-cache="true">
+	<div data-role="page" id="encuesta24" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -3941,7 +3943,7 @@ function resetpagevars(){
 			<label for="83010000"  >Inodoros</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('83010000')"  >&nbsp;</button>
-				<input id="83010000" style="width:40px" type="text" name="83010000" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="83010000" style="width:40px" type="number" pattern="[0-9]*"  name="83010000" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('83010000')"  >&nbsp;</button>
 			</div>
 		</div>
@@ -3949,7 +3951,7 @@ function resetpagevars(){
 			<label for="83020000"  >Turcos</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('83020000')"  >&nbsp;</button>
-				<input id="83020000" style="width:40px" type="text" name="83020000" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="83020000" style="width:40px" type="number" pattern="[0-9]*"  name="83020000" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('83020000')"  >&nbsp;</button>
 			</div>
 		</div>
@@ -3957,7 +3959,7 @@ function resetpagevars(){
 			<label for="83030000"  >Hueco en el piso</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('83030000')"  >&nbsp;</button>
-				<input id="83030000" style="width:40px" type="text" name="83030000" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="83030000" style="width:40px" type="number" pattern="[0-9]*"  name="83030000" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('83030000')"  >&nbsp;</button>
 			</div>
 		</div><p>84. ¿En qué estado de conservación se encuentran los aparatos sanitarios? Indique la cantidad.</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>BUENO</th><th class=''>REGULAR</th><th class=''>MALO</th></tr></thead><tbody><tr class='finodoro'><td>Inodoros</td>
@@ -3966,7 +3968,7 @@ function resetpagevars(){
 			<label for="84010100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84010100')"  >&nbsp;</button>
-				<input id="84010100" style="width:40px" type="text" name="84010100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84010100" style="width:40px" type="number" pattern="[0-9]*"  name="84010100" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84010100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -3975,7 +3977,7 @@ function resetpagevars(){
 			<label for="84010200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84010200')"  >&nbsp;</button>
-				<input id="84010200" style="width:40px" type="text" name="84010200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84010200" style="width:40px" type="number" pattern="[0-9]*"  name="84010200" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84010200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -3984,7 +3986,7 @@ function resetpagevars(){
 			<label for="84010300" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84010300')"  >&nbsp;</button>
-				<input id="84010300" style="width:40px" type="text" name="84010300" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84010300" style="width:40px" type="number" pattern="[0-9]*"  name="84010300" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84010300')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -3994,7 +3996,7 @@ function resetpagevars(){
 			<label for="84020100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84020100')"  >&nbsp;</button>
-				<input id="84020100" style="width:40px" type="text" name="84020100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84020100" style="width:40px" type="number" pattern="[0-9]*"  name="84020100" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84020100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4003,7 +4005,7 @@ function resetpagevars(){
 			<label for="84020200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84020200')"  >&nbsp;</button>
-				<input id="84020200" style="width:40px" type="text" name="84020200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84020200" style="width:40px" type="number" pattern="[0-9]*"  name="84020200" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84020200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4012,7 +4014,7 @@ function resetpagevars(){
 			<label for="84020300" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84020300')"  >&nbsp;</button>
-				<input id="84020300" style="width:40px" type="text" name="84020300" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84020300" style="width:40px" type="number" pattern="[0-9]*"  name="84020300" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84020300')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4022,7 +4024,7 @@ function resetpagevars(){
 			<label for="84030100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84030100')"  >&nbsp;</button>
-				<input id="84030100" style="width:40px" type="text" name="84030100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84030100" style="width:40px" type="number" pattern="[0-9]*"  name="84030100" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84030100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4031,7 +4033,7 @@ function resetpagevars(){
 			<label for="84030200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84030200')"  >&nbsp;</button>
-				<input id="84030200" style="width:40px" type="text" name="84030200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84030200" style="width:40px" type="number" pattern="[0-9]*"  name="84030200" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84030200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4040,7 +4042,7 @@ function resetpagevars(){
 			<label for="84030300" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84030300')"  >&nbsp;</button>
-				<input id="84030300" style="width:40px" type="text" name="84030300" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84030300" style="width:40px" type="number" pattern="[0-9]*"  name="84030300" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84030300')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4050,7 +4052,7 @@ function resetpagevars(){
 			<label for="86010100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86010100')"  >&nbsp;</button>
-				<input id="86010100" style="width:40px" type="text" name="86010100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86010100" style="width:40px" type="number" pattern="[0-9]*"  name="86010100" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86010100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4059,7 +4061,7 @@ function resetpagevars(){
 			<label for="86010200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86010200')"  >&nbsp;</button>
-				<input id="86010200" style="width:40px" type="text" name="86010200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86010200" style="width:40px" type="number" pattern="[0-9]*"  name="86010200" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86010200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4069,7 +4071,7 @@ function resetpagevars(){
 			<label for="86020100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86020100')"  >&nbsp;</button>
-				<input id="86020100" style="width:40px" type="text" name="86020100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86020100" style="width:40px" type="number" pattern="[0-9]*"  name="86020100" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86020100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4078,7 +4080,7 @@ function resetpagevars(){
 			<label for="86020200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86020200')"  >&nbsp;</button>
-				<input id="86020200" style="width:40px" type="text" name="86020200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86020200" style="width:40px" type="number" pattern="[0-9]*"  name="86020200" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86020200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4088,7 +4090,7 @@ function resetpagevars(){
 			<label for="86030100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86030100')"  >&nbsp;</button>
-				<input id="86030100" style="width:40px" type="text" name="86030100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86030100" style="width:40px" type="number" pattern="[0-9]*"  name="86030100" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86030100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4097,7 +4099,7 @@ function resetpagevars(){
 			<label for="86030200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86030200')"  >&nbsp;</button>
-				<input id="86030200" style="width:40px" type="text" name="86030200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86030200" style="width:40px" type="number" pattern="[0-9]*"  name="86030200" data-wrapper-class="textgroup ui-btn" value="0" >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86030200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4109,7 +4111,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta25" data-dom-cache="true">
+	<div data-role="page" id="encuesta25" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -4158,7 +4160,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta27" data-dom-cache="true">
+	<div data-role="page" id="encuesta27" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -4179,7 +4181,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta28" data-dom-cache="true">
+	<div data-role="page" id="encuesta28" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -4200,7 +4202,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta29" data-dom-cache="true">
+	<div data-role="page" id="encuesta29" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -4221,7 +4223,7 @@ function resetpagevars(){
 		</form>
 	</div>
  
-	<div data-role="page" id="encuesta30" data-dom-cache="true">
+	<div data-role="page" id="encuesta30" >
 		<form>
 		<div data-role="header" class="hpage1"  data-theme="b">
 <h1 role="heading"> </h1>
@@ -4293,14 +4295,14 @@ function resetpagevars(){
 		</div>
 	</div>
 
-	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a">
+	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a" style="display:none">
 	
         <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Ocultar Menu</a><br/><br/>
 
         <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
         <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-03 21:40:12</div>
+		<div style="color:#CACACA;">Ultima version: 2015-02-04 01:22:28</div>
 	</div>
 
 </body>
