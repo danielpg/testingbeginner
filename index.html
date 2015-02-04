@@ -1515,10 +1515,17 @@ function load_last_encuesta(){
 
 function upload_encuesta(id){
 	//$.mobile.changePage("#finish_encuesta");
-	$.mobile.loading("show");
 	$("#aftersendmsg").html("");
+	changepage("#aftersend");
+	$.mobile.loading("show");
+
 	current_enc = JSON.parse(localStorage.getItem("encobj" + id));
 	
+	if(current_enc.upload == 1)	{
+		alert("Los datos ya fueron enviados.");
+		return false;
+	}
+
 	if(current_enc.formenviado == 0)	{//danielfix
 		$.ajax({ url: webservice_post,
 				 type: "POST",
@@ -1551,8 +1558,6 @@ function upload_encuesta(id){
 	check_complete_enc();//debe ir antes de save//danielfix
 
 	localStorage.setItem("encobj" + id , JSON.stringify(current_enc) );
-
-	changepage("#aftersend");
 
 	$.mobile.loading("hide");
 	return false;
@@ -4295,14 +4300,14 @@ function resetpagevars(){
 		</div>
 	</div>
 
-	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a" style="display:none">
+	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a" >
 	
         <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Ocultar Menu</a><br/><br/>
 
         <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
         <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-04 01:22:28</div>
+		<div style="color:#CACACA;">Ultima version: 2015-02-04 01:38:39</div>
 	</div>
 
 </body>
