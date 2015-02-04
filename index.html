@@ -1550,12 +1550,14 @@ function upload_encuesta(id){
 			tmp = current_enc["foto" + fotoname_ids[i] ];
 			if(tmp.status == 2){
 				fotoname_ids[i] = current_up_image_id;
+				$("#aftersendmsg").append("<div class='box_error'>xx."+current_up_image_id+"</div>");
 				uploadphoto(tmp);
+				$("#aftersendmsg").append("<div class='box_error'>bb."+current_up_image_id+"</div>");
 			}
 		}
 	}
 
-	check_complete_enc();//debe ir antes de save//danielfix
+	//check_complete_enc();//debe ir antes de save//danielfix
 
 	localStorage.setItem("encobj" + id , JSON.stringify(current_enc) );
 
@@ -4307,7 +4309,7 @@ function resetpagevars(){
         <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
         <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-04 01:38:39</div>
+		<div style="color:#CACACA;">Ultima version: 2015-02-04 01:48:56</div>
 	</div>
 
 </body>
