@@ -1418,12 +1418,12 @@ function save_encuesta(){
 
 	current_enc.formdata = serial;
 	current_enc.page = current_enc_page;
-	localStorage.setItem("encobj" + current_enc.id, JSON.stringify(current_enc) );
+	save_obj( current_enc.id,current_enc );
 }
 
 function load_encuesta( id ){
 	clear_form();
-	current_enc = JSON.parse( localStorage.getItem("encobj" + id ) );
+	current_enc = get_obj( id );
 	data = current_enc.formdata;
 	for(i = 1; i < nivelespage_start; i++){
 		if(i <= ultimate_page){
@@ -1478,7 +1478,7 @@ function new_encuesta(){
 		enc["foto" + fotoname_ids[j] ] = {status : 1, url : "", id : fotoname_ids[j] };
 	}
 
-	localStorage.setItem( "encobj" + tmpid , JSON.stringify(enc) );
+	save_obj( tmpid , enc );
 	current_enc = enc;
 	changepage("#encuesta1");
 	current_enc_page = 1;
@@ -1519,7 +1519,7 @@ function upload_encuesta(id){
 	changepage("#aftersend");
 	$.mobile.loading("show");
 
-	current_enc = JSON.parse(localStorage.getItem("encobj" + id));
+	current_enc = get_obj(id);
 	
 	if(current_enc.upload == 1)	{
 		$.mobile.loading("hide");
@@ -1527,7 +1527,7 @@ function upload_encuesta(id){
 		return false;
 	}
 
-	if(current_enc.formenviado == 0)	{//danielfix
+	if(current_enc.formenviado == 0)	{
 		$.ajax({ url: webservice_post,
 				 type: "POST",
 				 data: { "formdata" : JSON.stringify(current_enc)  },
@@ -1536,13 +1536,17 @@ function upload_encuesta(id){
 				 contentType: "application/x-www-form-urlencoded; charset=utf-8"
 		}).done(function(html) {
 			current_enc.formenviado = 1;
-			//current_enc.upload = 1;//danielfix
-			localStorage.setItem("encobj" + id , JSON.stringify(current_enc) );
+			//current_enc.upload = 1;
+			save_obj(id,current_enc);
 			$("#aftersendmsg").append("<div class='box_success'>Se enviaron los datos de la encuesta con exito!</div>");
+			$.mobile.loading("hide");
 		}).fail(function( jqXHR, textStatus ) {
 			$("#aftersendmsg").append("<div class='box_error'>No se pudo enviar los datos de la encuesta.</div>");
+			$.mobile.loading("hide");
 		});
-	}//danielfix
+	} else {
+		$.mobile.loading("hide");
+	}
 
 	for(i = 0;i < fotoname_ids.length; i++){
 		if (typeof current_enc["foto" + fotoname_ids[i] ] === "undefined"){
@@ -1558,11 +1562,7 @@ function upload_encuesta(id){
 		}
 	}
 
-	check_complete_enc();//debe ir antes de save//danielfix
 
-	localStorage.setItem("encobj" + id , JSON.stringify(current_enc) );
-
-	$.mobile.loading("hide");
 	return false;
 }
 
@@ -1785,7 +1785,7 @@ function special37(){
 }
 
 function check_complete_enc(){
-	$("#aftersendmsg").append("<div class='box_notice'>start check_complete_enc</div>");
+	//$("#aftersendmsg").append("<div class='box_notice'>start check_complete_enc</div>");
 	flag = 0;
 	for(i = 0; i < fotoname_ids.length; i++ ){
 		if (typeof current_enc["foto" + fotoname_ids[i] ] === "undefined"){
@@ -1798,6 +1798,7 @@ function check_complete_enc(){
 	}
 
 	if( (flag == 0) && (current_enc.formenviado == 1) )current_enc.upload = 1;
+	save_obj(current_enc.id,current_enc);
 }
 
 
@@ -2130,7 +2131,7 @@ function save_niveles(){
 
 	current_enc.nivelesdata.push(newnivel);
 	current_enc.page = current_enc_page;
-	localStorage.setItem("encobj" + current_enc.id, JSON.stringify(current_enc) );
+	save_obj(current_enc.id,current_enc);
 
 	draw_niveles_estados();
 
@@ -2220,20 +2221,24 @@ function onFail(message) {
 //---------- UPLOAD PHOTOS -------------------------------------------------------
 
 function photo_win() {
+	$.mobile.loading("hide");
 	tmp = current_up_image_id;
 	current_enc["foto" + tmp].status = 3;
 	$("#aftersendmsg").append("<div class='box_success'>Se envió una de las fotos con exito!</div>");	
     //$("#test2").html("Code = " + r.responseCode + "<br>Response = " + "<br>Sent = " + r.bytesSent);
+	check_complete_enc();
 }
 
 function photo_fail(error) {
+	$.mobile.loading("hide");
 	$("#aftersendmsg").append("<div class='box_error'>No se pudo enviar una de las fotos.</div>");	
     //$("#test2").html("Code = " + error.code + "<br>error source " + error.source + "<br> error target " + error.target);
+	check_complete_enc();
 }
 
 function uploadphoto(tmpobj){
 	//return photo_win();//danielfix
-
+	$.mobile.loading("show");
     var url = encodeURI(webservice_post);
     var options = new FileUploadOptions();
     options.fileKey = "encuesta_image" + tmpobj.id;
@@ -2540,7 +2545,7 @@ function check_encuesta(){
 }
 
 function current_upload_encuesta(){
-	//localStorage.setItem("encobj" + current_enc.id, JSON.stringify(current_enc));
+
 	upload_encuesta(current_enc.id);
 	return false;
 }
@@ -4311,7 +4316,7 @@ function resetpagevars(){
         <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
         <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-04 02:00:34</div>
+		<div style="color:#CACACA;">Ultima version: 2015-02-04 03:39:20</div>
 	</div>
 
 </body>
