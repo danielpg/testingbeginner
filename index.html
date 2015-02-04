@@ -11,6 +11,12 @@
 	<script src="js/main.js"></script>
 <!-- script  -->
 <script>
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
  
@@ -1554,14 +1560,10 @@ function upload_encuesta(id){
 		} else {
 			tmp = current_enc["foto" + fotoname_ids[i] ];
 			if(tmp.status == 2){
-				current_up_image_id = fotoname_ids[i];
-				//$("#aftersendmsg").append("<div class='box_error'>xx."+current_up_image_id+"</div>");
 				uploadphoto(tmp);
-				//$("#aftersendmsg").append("<div class='box_error'>bb."+current_up_image_id+"</div>");
 			}
 		}
 	}
-
 
 	return false;
 }
@@ -2072,15 +2074,34 @@ function draw_niveles_estados(){
 
 
 function form_ausentes(i){
-		content =  current_enc.nivelesdata[i].nivel + ", ";
-		content += current_enc.nivelesdata[i].turno + ", ";
-		content += current_enc.nivelesdata[i].grado + ", ";
-		content += current_enc.nivelesdata[i].seccion;
+	content =  current_enc.nivelesdata[i].nivel + ", ";
+	content += current_enc.nivelesdata[i].turno + ", ";
+	content += current_enc.nivelesdata[i].grado + ", ";
+	content += current_enc.nivelesdata[i].seccion;
 	$("#enivelestitle").html(content);
 	clear_ausentes();
 	current_nivel_id = i;
 	current_nivel = current_enc.nivelesdata[i];
 	changepage("#ausentes");
+	return false;
+}
+
+function delete_nivel(j){
+	j = current_nivel_id;
+	newstack = [];
+	len = current_enc.nivelesdata.length;
+	for(i = 0; i < len; i++){
+		if(j == i){
+			//nadaa qui
+		} else {
+			newstack.push(current_enc.nivelesdata[i]);
+		}
+	}
+	current_enc.nivelesdata = newstack;
+
+	draw_niveles_estados();
+	clear_ausentes();
+	changepage("#encuesta" + nivelespage_start);
 	return false;
 }
 
@@ -2153,6 +2174,7 @@ function fast_encuesta_exit(){
 //---------UPDATING DATABASE -----------------------------
 
 function update_database(){
+	//var udata;
 	tmpv = localStorage.getItem("db_version");
 	if(tmpv != null){
 
@@ -2219,25 +2241,7 @@ function onFail(message) {
 }
 
 //---------- UPLOAD PHOTOS -------------------------------------------------------
-/*
-function photo_win() {
-	//$.mobile.loading("hide");
-	tmp = current_up_image_id;
-	current_enc["foto" + tmp].status = 3;
-	$("#aftersendmsg").append("<div class='box_success'>Se envió una de las fotos con exito!</div>");	
-    //$("#test2").html("Code = " + r.responseCode + "<br>Response = " + "<br>Sent = " + r.bytesSent);
-	check_complete_enc();
-}
-
-function photo_fail(error) {
-	//$.mobile.loading("hide");
-	$("#aftersendmsg").append("<div class='box_error'>No se pudo enviar una de las fotos.</div>");	
-    //$("#test2").html("Code = " + error.code + "<br>error source " + error.source + "<br> error target " + error.target);
-	check_complete_enc();
-}*/
-
 function uploadphoto(tmpobj){
-	//$.mobile.loading("show");
 	$("#aftersendmsg").append("<div id='pre_up_i_" + tmpobj.id + "' class='box_notice'>Enviando foto...</div>");	
     var url = encodeURI(webservice_post);
     var options = new FileUploadOptions();
@@ -2246,13 +2250,12 @@ function uploadphoto(tmpobj){
 
 	imageUriToUpload = tmpobj.url;
  
-	options.params = { enc_id : current_enc.id , image_id : current_up_image_id  };
+	options.params = { enc_id : current_enc.id , image_id : tmpobj.id  };
     options.fileName =  imageUriToUpload.substr(imageUriToUpload.lastIndexOf('/') + 1);// + ".jpg";
     options.mimeType = "image/jpeg";
     options.chunkedMode =false; 
 	//options.headers = {	   Connection: "close" };
     var ft = new FileTransfer();
-    //ft.upload(imageUriToUpload, url, photo_win, photo_fail, options);
 	ft.upload(imageUriToUpload, url, function() {
 		//success function
 		tmp = photo_img_custom_id;
@@ -2534,11 +2537,29 @@ function delete_obj(id){
 }
 
 function get_obj(id){
+	var obj;
+	obj = JSON.parse(localStorage.getItem("encobj" + id));
+   /* db.transaction(function(tx) {
+		sql = "SELECT * FROM encuesta_cache WHERE id = " + id;
+		tx.executeSql(sql, [], function(tx, res) {
+			obj.formdata = res.rows.item(0).content;
+		});
+    });*/
+	return obj;
+}
+
+function get_small_obj(id){
 	return JSON.parse(localStorage.getItem("encobj" + id));
 }
 
 function save_obj(id,obj){
 	localStorage.setItem("encobj" + id,JSON.stringify(obj)  );
+   /*
+	db.transaction(function(tx) {
+		tx.executeSql( "UPDATE encuesta_cache SET content = ? WHERE id = " + id , [ obj.formdata ], function(tx, res) { });
+    });
+	obj.formdata = "";
+	*/
 }
 
 
@@ -4325,14 +4346,14 @@ function resetpagevars(){
 		</div>
 	</div>
 
-	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a" >
+	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a" style="visibility: hidden;" >
 	
         <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Ocultar Menu</a><br/><br/>
 
         <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
         <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
         <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-04 04:07:34</div>
+		<div style="color:#CACACA;">Ultima version: 2015-02-04 05:43:11</div>
 	</div>
 
 </body>
