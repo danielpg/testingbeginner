@@ -98,7 +98,9 @@ jQuery.fn.unserialize = function(parm){
 				//when the value is an object, we set the value to ""
 				val = ((typeof val == "object") || (typeof val == "undefined")) ? "" : val;
 				
-				obj.val(decodeURIComponent(val.replace(/\+/g," ")))
+				obj.val(decodeURIComponent(val.replace(/\+/g," ")));
+				//force_select_option( obj.attr("id") , val );	
+
 				if(parts[1] == "overnight"){
 					if(form_refresh)obj.selectmenu( "refresh" );			
 				}

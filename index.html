@@ -6,7 +6,7 @@
 	<script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
 
 	<script type="text/javascript"  src="cordova.js"></script> 
-	<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>
+	<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script> 
 
 	<script src="js/main.js"></script>
 <!-- script  -->
@@ -30,8 +30,8 @@ var webservice_post = "http://adostelecom.com/encuesta/webservice.php";
 var webservice_update = "http://adostelecom.com/encuesta/webservice_update.php";
  //navigator.camera = {PictureSourceType:"",DestinationType:""} ;
  //window.sqlitePlugin = {openDatabase : function(){}};
- //var webservice_post = "webservice.php";
- //var webservice_update = "webservice_update.php";
+ //var webservice_post = "source/webservice.php";
+ //var webservice_update = "source/webservice_update.php";
 
 var current_up_image_id;
 
@@ -42,7 +42,7 @@ var ultimate_page = 0;
 var imageid = "";
 var res0 = "<option value='0'>--Seleccionar--</option>";
 var res1 = "<option value='1'>Completo</option><option value='2'>Incompleto</option>";
-var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación Local Cerrado</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
+var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
 </script>
 <script src="js/dbdata.js"></script>
 <script>
@@ -59,17 +59,14 @@ function onDeviceReady() {
 			draw_niveles_estados();
 		}
 	});
-
 	/*$(document).on( "pagebeforechange", function( event ) { 
 		//$.mobile.loading("show");
 	});*/
-
 	$("#loadbox").popup();
+	create_panels();
 	$( "body>[data-role='panel']" ).panel();
-
 	//$( "#encuesta1" ).on( "swipeleft", swipeleftHandler );
  	//$( "#encuesta1" ).on( "swiperight", swiperightHandler );
-
 	login_status = localStorage.getItem("login_status");	
 	if((login_status == null) || (login_status == 0)){
 		changepage("#login");
@@ -195,16 +192,16 @@ function onDeviceReady() {
 	//4. SELECT CODIGO LOCAL: cargar detalles de un codigo de local 
 	$('#00000400').change( function(){
 		if( $(this).val() == 1 ){		
-			newvar = [{codigo:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"},
-				{codigo:"55444",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Antonio Maza"},
-				{codigo:"55444",nivel:"Secundaria",nivel_id : 3, nombre : "Colegio Antonio Maza"}];
+			newvar = [{codigo:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Lambda"},
+				{codigo:"55444",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Zigma"},
+				{codigo:"55444",nivel:"Secundaria",nivel_id : 3, nombre : "Colegio Beta"}];
 		}else if( $(this).val() == 2 ) {
-			newvar = [{codigo:"1234",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"},
-				{codigo:"1234",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Antonio Maza"}	];
+			newvar = [{codigo:"1234",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Omega"},
+				{codigo:"1234",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Delta"}	];
 		}else if( $(this).val() == 3 ) {
-			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"}	];
+			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Delta"}	];
 		}else if( $(this).val() == 0 ) {
-			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Antonio Maza"}	];
+			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 		}
 
 		show_inicial = true;
@@ -250,6 +247,10 @@ function onDeviceReady() {
 	default_hiding();
 
 	$( "#botonvaciar" ).hide();
+
+	$( "#00004011,#00004012,#00004013" ).blur(function() {
+		validate_modular($(this).attr('id'));
+	});
 
 	$( "input[name=01010000]" ).change(function() {
 		if( $("input[name=01010000]:checked").val() == "SI"){
@@ -297,18 +298,24 @@ function onDeviceReady() {
 
 
 	$('#00210101,#00210201,#00210301').change( function(){
-		if( ($(this).val() == 5)  ||  ($(this).val() == 6)  ){
+		if( $(this).val() == 7  ){
+			$("00210401").show();
+		}else if( ($(this).val() == 5)  ||  ($(this).val() == 6)  ){
 			//ocultar siguiente
 			$("#encuesta3 .sgte").hide();
 			$("#encaso").hide();		
 			$("#final_link").show();
 
 			$(".visita2,.visita3").hide();
+
+			$("00210401").hide();
 		} else {
 			$("#encuesta3 .sgte").show();
 			$("#encaso").show();		
 			$("#final_link").hide();
 			$(".visita2,.visita3").show();
+
+			$("00210401").hide();
 		}
 	});
 
@@ -599,25 +606,25 @@ function onDeviceReady() {
 
 
 	$( "#2401000001" ).change(function() {
-		if( $("#2401000001").is(":checked") ){ $("#div25010000,#div67010000,#div68010000").show();	} else {$("#div25010000,#div67010000,#div68010000").hide();}
+		if( $("#2401000001").is(":checked") ){ $(".25010000,#div67010000,#div68010000").show();	} else {$(".25010000,#div67010000,#div68010000").hide();}
 	});
 	$( "#2401000002" ).change(function() {
-		if( $("#2401000002").is(":checked") ){ $("#div25020000,#div67020000,#div68020000").show();	} else {$("#div25020000,#div67020000,#div68020000").hide();}
+		if( $("#2401000002").is(":checked") ){ $(".25020000,#div67020000,#div68020000").show();	} else {$(".25020000,#div67020000,#div68020000").hide();}
 	});
 	$( "#2401000003" ).change(function() {
-		if( $("#2401000003").is(":checked") ){ $("#div25030000,#div67030000,#div68030000").show();	} else {$("#div25030000,#div67030000,#div68030000").hide();}
+		if( $("#2401000003").is(":checked") ){ $(".25030000,#div67030000,#div68030000").show();	} else {$(".25030000,#div67030000,#div68030000").hide();}
 	});
 	$( "#2401000004" ).change(function() {
-		if( $("#2401000004").is(":checked") ){ $("#div25040000,#div67040000,#div68040000").show();	} else {$("#div25040000,#div67040000,#div68040000").hide();}
+		if( $("#2401000004").is(":checked") ){ $(".25040000,#div67040000,#div68040000").show();	} else {$(".25040000,#div67040000,#div68040000").hide();}
 	});
 	$( "#2401000005" ).change(function() {
-		if( $("#2401000005").is(":checked") ){ $("#div25050000,#div67050000,#div68050000").show();	} else {$("#div25050000,#div67050000,#div68050000").hide();}
+		if( $("#2401000005").is(":checked") ){ $(".25050000,#div67050000,#div68050000").show();	} else {$(".25050000,#div67050000,#div68050000").hide();}
 	});
 	$( "#2401000006" ).change(function() {
-		if( $("#2401000006").is(":checked") ){ $("#div25060000,#div67060000,#div68060000").show();	} else {$("#div25060000,#div67060000,#div68060000").hide();}
+		if( $("#2401000006").is(":checked") ){ $(".25060000,#div67060000,#div68060000").show();	} else {$(".25060000,#div67060000,#div68060000").hide();}
 	});
 	$( "#2401000007" ).change(function() {
-		if( $("#2401000007").is(":checked") ){ $("#div25070000,#div67070000,#div68070000").show();	} else {$("#div25070000,#div67070000,#div68070000").hide();}
+		if( $("#2401000007").is(":checked") ){ $(".25070000,#div67070000,#div68070000").show();	} else {$(".25070000,#div67070000,#div68070000").hide();}
 	});
 
 
@@ -932,11 +939,11 @@ $( "input[name=35030107]" ).change(function() {
 	});
 
 	$( "input[name=40010000]" ).change(function() {
-		if( ($("input[name=40010000]:checked").val() == "NO") || ($("input[name=40010000]:checked").val() == "NO SABE") ){
+	/*if( ($("input[name=40010000]:checked").val() == "NO") || ($("input[name=40010000]:checked").val() == "NO SABE") ){
 			$( "#div41010000,#div42010000,#div43010000,#div44010000" ).hide();
 		} else {
 			$( "#div41010000,#div42010000,#div43010000,#div44010000" ).show();
-		}
+		}*/
 	});
 
 	$( "input[name=41010000]" ).change(function() {
@@ -1045,6 +1052,16 @@ $( "input[name=35030107]" ).change(function() {
 			$("#div66010000").show();	
 		}
 	});
+
+	$( "input[name=55010000]" ).change(function() {
+		if( $("input[name=55010000]:checked").val() == "Otro"){
+			$( "#div55010100" ).show();
+		} else {
+			$( "#div55010100").hide();
+			$( "#55010100").val("");
+		}
+	});
+
 	$( "input[name=56010000]" ).change(function() {
 		if( $("input[name=56010000]:checked" ).val() == "NO"){
 			$( "#div57010000" ).hide();
@@ -1497,11 +1514,13 @@ function default_encuesta(){
 	$("#tniveles tbody").html("");
 	$(".ff,.efi,.efp,.efs").show();
 	for(j = 0; j < fotoname_ids.length; j++){
-		$("#foto" + fotoname_ids[j] ).attr("src","");
+		$("#fotoimage" + fotoname_ids[j] ).attr("src","");
 	}
 
 	$( ".tnewnivel1,.tnewnivel2,.tnewnivel3,#tnewniveles" ).hide();
 	default_hiding();
+
+	$("#nivelestable tbody").html("<tr><td colspan='5'> El listado esta vació </td></tr>");
 }
 
 function load_last_encuesta(){
@@ -1543,7 +1562,7 @@ function upload_encuesta(id){
 		}).done(function(html) {
 			current_enc.formenviado = 1;
 			//current_enc.upload = 1;
-			save_obj(id,current_enc);
+			save_obj(current_enc.id,current_enc);
 			$("#aftersendmsg").append("<div class='box_success'>Se enviaron los datos de la encuesta con exito!</div>");
 			$.mobile.loading("hide");
 		}).fail(function( jqXHR, textStatus ) {
@@ -1592,6 +1611,17 @@ function nextpage_encuesta( i ){
 		}
 	});
 
+	if($("input[name=00000401]:checked").val() == "SI"){
+		$("#00002411").val( $("#00004011").val());
+	}
+	if($("input[name=00000402]:checked").val() == "SI"){
+		$("#00002412").val( $("#00004012").val());
+	}
+	if($("input[name=00000403]:checked").val() == "SI"){
+		$("#00002413").val( $("#00004013").val());
+	}
+
+
 	if($("#activenivel_1").val()==0)$(".efi").hide();
 	if($("#activenivel_2").val()==0)$(".efp").hide();
 	if($("#activenivel_3").val()==0)$(".efs").hide();
@@ -1607,12 +1637,12 @@ function nextpage_encuesta( i ){
 	if( $('#4401000007').is(":checked") )$("#div77010000").show();
 	if( $('#4401000008').is(":checked") )$("#div78010000").show();
 
-	if( $('#2401000001').is(":checked") )$("#div25010000,#67010000,#68010000").show();
-	if( $('#2401000002').is(":checked") )$("#div25020000,#67020000,#68020000").show();
-	if( $('#2401000003').is(":checked") )$("#div25030000,#67030000,#68030000").show();
-	if( $('#2401000004').is(":checked") )$("#div25040000,#67040000,#68040000").show();
-	if( $('#2401000005').is(":checked") )$("#div25050000,#67050000,#68050000").show();
-	if( $('#2401000006').is(":checked") )$("#div25060000,#67060000,#68060000").show();
+	if( $('#2401000001').is(":checked") )$(".25010000,#67010000,#68010000").show();
+	if( $('#2401000002').is(":checked") )$(".25020000,#67020000,#68020000").show();
+	if( $('#2401000003').is(":checked") )$(".25030000,#67030000,#68030000").show();
+	if( $('#2401000004').is(":checked") )$(".25040000,#67040000,#68040000").show();
+	if( $('#2401000005').is(":checked") )$(".25050000,#67050000,#68050000").show();
+	if( $('#2401000006').is(":checked") )$(".25060000,#67060000,#68060000").show();
 
 	$("#div71010000").hide();
 	$("#div72010000").hide();
@@ -1644,6 +1674,8 @@ function default_hiding(){
 	$("#div00000401").hide();
 	$("#div00000402").hide();
 	$("#div00000403").hide();
+	$("#div00210401").hide();
+	$("#div00220100").hide();
 	$( "#div12010100" ).hide();
 	$( "#div23010100" ).hide();
 	$( "#div24010100" ).hide();
@@ -1738,13 +1770,13 @@ function default_hiding(){
 	$("#div33050603,#div33060603").hide();
 
 	default_hiding_niveles();
-	$("#div25010000,#div67010000,#div68010000").hide();
-	$("#div25020000,#div67020000,#div68020000").hide();
-	$("#div25030000,#div67030000,#div68030000").hide();
-	$("#div25040000,#div67040000,#div68040000").hide();
-	$("#div25050000,#div67050000,#div68050000").hide();
-	$("#div25060000,#div67060000,#div68060000").hide();
-	$("#div25070000,#div67070000,#div68070000").hide();
+	$(".25010000,#div67010000,#div68010000").hide();
+	$(".25020000,#div67020000,#div68020000").hide();
+	$(".25030000,#div67030000,#div68030000").hide();
+	$(".25040000,#div67040000,#div68040000").hide();
+	$(".25050000,#div67050000,#div68050000").hide();
+	$(".25060000,#div67060000,#div68060000").hide();
+	$(".25070000,#div67070000,#div68070000").hide();
 }
 
 function default_hiding_niveles(){
@@ -1856,14 +1888,14 @@ function validate_pages(){
 		tmp = "LA SUMA DE ESTUDIANTES HOMBRES Y MUJERES NO ES IGUAL AL TOTAL DE ESTUDIANTES OBSERVADOS";
 		alert(tmp);	return false;
 	}
-	if( int("90230100")  > int("90210100") ){
+/*	if( int("90230100")  > int("90210100") ){
 		tmp = "EL Nro DE ESTUDIANTES SIN MOBILIARIO NO DEBE SER MAYOR AL Nro TOTAL DE ESTUDIANTES";
 		alert(tmp);	return false;
 	}
 	if( int("90230200") > int("90210100") ){
 		tmp = "EL Nro DE ESTUDIANTES SIN MOBILIARIO NO DEBE SER MAYOR AL Nro TOTAL DE ESTUDIANTES";
 		alert(tmp);	return false;
-	}
+	}*/
 
 	/*
 	//LOS HORARIOS DEBEN REGISTRARSE DE 00 A 24 HORAS
@@ -1899,14 +1931,14 @@ function validate_pages(){
 	if( int("18020002") > int("18010002") ){ 	alert(tmp);	return false;  }
 	if( int("18020003") > int("18010003") ){ 	alert(tmp);	return false; }
 
-	tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
+	/*tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
 	if( ($('#div25010000').is(':visible') ) && (int("25010000") < 2014) ){ alert(tmp);	return false;  }
 	if( ($('#div25020000').is(':visible') ) && (int("25020000") < 2014) ){ alert(tmp);	return false;  }
 	if( ($('#div25030000').is(':visible') ) && (int("25030000") < 2014) ){ alert(tmp);	return false;  }
 	if( ($('#div25040000').is(':visible') ) && (int("25040000") < 2014) ){ alert(tmp);	return false;  }
 	if( ($('#div25050000').is(':visible') ) && (int("25050000") < 2014) ){ alert(tmp);	return false;  }
 	if( ($('#div25060000').is(':visible') ) && (int("25060000") < 2014) ){ alert(tmp);	return false;  }
-	if( ($('#div25070000').is(':visible') ) && (int("25070000") < 2014) ){ alert(tmp);	return false;  }
+	if( ($('#div25070000').is(':visible') ) && (int("25070000") < 2014) ){ alert(tmp);	return false;  }*/
 
 
 	tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
@@ -1935,14 +1967,14 @@ function validate_pages(){
 	if( int("35030307") > int("35030207") ){ alert(tmp);	return false;  }
 
 
-	if( $("input[name=40010000]:checked").val() == "SI" ) {
+	/*if( $("input[name=40010000]:checked").val() == "SI" ) {
 		if($("input[name=41010000]:checked").val() == "SI" ) {
 			//nada aqui
 		} else {
 			tmp = "PARA RECIBIR LA TRANSFERENCIA DE DINERO Y REALIZAR OBRAS DE MANTENIMIENTO DEBIÓ REGISTRAR ANTES LA FICHA DE MANTENIMIENTO";
 			alert(tmp);	//return false; 
 		}
-	}
+	}*/
 
 	tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
 	if( int("70020000") > int("70010000") ){
@@ -2012,20 +2044,20 @@ function validate_niveles(){
 	}		
 
 	if( $("#9000000102").is(':checked') ){
-		if( (int("90000003") >= 1) &&  (int("90000003") <= 5) ){
+		if( (int("90000003") >= 1) &&  (int("90000003") <= 6) ){
 			//nada aqui
 		} else {
-			alert("Grado debe ser entre 1 y 5");
+			alert("Grado debe ser entre 1 y 6");
 			$("#90000003").val("");
 			return false;
 		}
 	}
 
 	if( $("#9000000103").is(':checked') ){
-		if( (int("90000003") >= 1) &&  (int("90000003") <= 6) ){
+		if( (int("90000003") >= 1) &&  (int("90000003") <= 5) ){
 			//nada aqui
 		} else {
-			alert("Grado debe ser entre 1 y 6");
+			alert("Grado debe ser entre 1 y 5");
 			$("#90000003").val("");
 			return false;
 		}
@@ -2066,6 +2098,7 @@ function draw_niveles_estados(){
 		} else {
 			html += "<td> <i class='fa fa-check-circle fa-lg cgreen' ></i> Completado </td>";
 		}
+		html +='<td>  &nbsp; <a href="#" onclick="return delete_nivel(' + i + ')" class="ui-btn-corner-all ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-inline  ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Borrar </a></td>';
 		html += "</tr>";
 	}
 	
@@ -2087,21 +2120,23 @@ function form_ausentes(i){
 }
 
 function delete_nivel(j){
-	j = current_nivel_id;
-	newstack = [];
-	len = current_enc.nivelesdata.length;
-	for(i = 0; i < len; i++){
-		if(j == i){
-			//nadaa qui
-		} else {
-			newstack.push(current_enc.nivelesdata[i]);
+	var ask = window.confirm("Está seguro de querer eliminar esta fila?");
+    if (ask) {
+		newstack = [];
+		len = current_enc.nivelesdata.length;
+		for(i = 0; i < len; i++){
+			if(j == i){
+				//nadaa qui
+			} else {
+				newstack.push(current_enc.nivelesdata[i]);
+			}
 		}
-	}
-	current_enc.nivelesdata = newstack;
+		current_enc.nivelesdata = newstack;
 
-	draw_niveles_estados();
-	clear_ausentes();
-	changepage("#encuesta" + nivelespage_start);
+		draw_niveles_estados();
+		clear_ausentes();
+		changepage("#encuesta" + nivelespage_start);
+	}
 	return false;
 }
 
@@ -2278,7 +2313,7 @@ function uploadphoto(tmpobj){
 
 function get_gps() {
 	$.mobile.loading("show");
-	options = { timeout: 30000, enableHighAccuracy: true };
+	options = { timeout: 90000, enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps,options);
 	return false;
 }
@@ -2400,6 +2435,15 @@ function freeze_close(){
 	$("#loadbox").popup("close");
 }
 
+function force_select_option(id,option){
+	if($("#" + id + " option[value='" + option + "']").length > 0){
+		
+	}else {
+		$("#" + id).html("<option value='" + option + "'>" + option + "</option>");
+		//$("#" + id).selectmenu("refresh");
+	}
+}
+
 //----- THIS APP UTILS ----------------------------------
 
 function manana_hora_start(id){
@@ -2464,6 +2508,17 @@ function validate_year(id){
 		//return true;
 	} else {
 		alert("Año debe ser entre 2014 y 2015");
+		$("#" + id).val("");
+	}
+}
+
+function validate_modular(id){
+	if( $("#" + id).val() == "" )return false;
+	nn = int(id);
+	if( nn.length == 7  ){
+		//return true;
+	} else {
+		alert("Codigo Modular debe contener 7 digitos.");
 		$("#" + id).val("");
 	}
 }
@@ -2597,6 +2652,7 @@ function show_pre_end_encuesta(){
 	}
 
 	//mostrar completo e incompleto
+	$("#div00220100").show();
 	$("#encuesta3 .sgte").hide();
 	$("#encaso").hide();
 	$("#final_link").show();
@@ -2673,6 +2729,18 @@ function create_depas(){
 function resetpagevars(){
 	$("#encuesta" + current_enc.page + " form")[0].reset();
 	return false;
+}
+
+function create_panels(){
+	html = "";
+	html += '	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a" xstyle="visibility: hidden;" >';
+	html += '       <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Ocultar Menu</a><br><br>';
+	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
+	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
+	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-09 07:27:01</div>';
+	html += '</div>';
+	$("body").append(html);
 }
 
 </script>
@@ -2752,6 +2820,7 @@ function resetpagevars(){
 					</a>
 				  </li-->
 				</ul>
+
 			</div>
 		</div>
 	</div>
@@ -2906,13 +2975,13 @@ function resetpagevars(){
 					<h3>INICIAR ENCUESTA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Ruta</label><select name='00000101' id='00000101'  ><option value='01'>Amazonas</option><option value='02'>Ancash</option><option value='03'>Apurímac</option><option value='04'>Arequipa</option><option value='05'>Ayacucho</option><option value='06'>Cajamarca</option><option value='07'>Callao</option><option value='08'>Cusco</option><option value='09'>Huancavelica</option><option value='10'>Huánuco</option><option value='11'>Ica</option><option value='12'>Junín</option><option value='13'>La Libertad</option><option value='14'>Lambayeque</option><option value='15'>Lima</option><option value='16'>Loreto</option><option value='17'>Madre de Dios</option><option value='18'>Moquegua</option><option value='19'>Pasco</option><option value='20'>Piura</option><option value='21'>Puno</option><option value='22'>San Martín</option><option value='23'>Tacna</option><option value='24'>Tumbes</option><option value='25'>Ucayali</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Encuestador</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Encuestador 1</option><option value='2'>Encuestador 2</option><option value='3'>Encuestador 3</option><option value='4'>Encuestador 4</option><option value='5'>Encuestador 5</option><option value='6'>Encuestador 6</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Enero</option><option value='2'>Febrero</option><option value='3'>Marzo</option><option value='4'>Abril</option><option value='5'>Mayo</option><option value='6'>Junio</option><option value='7'>Julio</option><option value='8'>Agosto</option><option value='9'>Septiembre</option><option value='10'>Octubre</option><option value='11'>Noviembre</option><option value='12'>Diciembre</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''></th></tr></thead><tbody></tbody></table><input type="hidden" id="ocultar_1" name="ocultar_1" value="0"/><input type="hidden"  id="ocultar_2" name="ocultar_2" value="0"/><input type="hidden"  id="ocultar_3" name="ocultar_3" value="0"/><input type="hidden" id="activenivel_1" name="activenivel_1" value="0"/><input type="hidden" id="activenivel_2" name="activenivel_2" value="0"/><input type="hidden" id="activenivel_3" name="activenivel_3" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div2057"  class=" ff"  > <label for="2057"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="2057" id="2057" value=""   /></div></td>
+					<div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Ruta</label><select name='00000101' id='00000101'  ><option value='01'>Amazonas</option><option value='02'>Ancash</option><option value='03'>Apurímac</option><option value='04'>Arequipa</option><option value='05'>Ayacucho</option><option value='06'>Cajamarca</option><option value='07'>Callao</option><option value='08'>Cusco</option><option value='09'>Huancavelica</option><option value='10'>Huánuco</option><option value='11'>Ica</option><option value='12'>Junín</option><option value='13'>La Libertad</option><option value='14'>Lambayeque</option><option value='15'>Lima</option><option value='16'>Loreto</option><option value='17'>Madre de Dios</option><option value='18'>Moquegua</option><option value='19'>Pasco</option><option value='20'>Piura</option><option value='21'>Puno</option><option value='22'>San Martín</option><option value='23'>Tacna</option><option value='24'>Tumbes</option><option value='25'>Ucayali</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Enero</option><option value='2'>Febrero</option><option value='3'>Marzo</option><option value='4'>Abril</option><option value='5'>Mayo</option><option value='6'>Junio</option><option value='7'>Julio</option><option value='8'>Agosto</option><option value='9'>Septiembre</option><option value='10'>Octubre</option><option value='11'>Noviembre</option><option value='12'>Diciembre</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Encuestador</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Encuestador 1</option><option value='2'>Encuestador 2</option><option value='3'>Encuestador 3</option><option value='4'>Encuestador 4</option><option value='5'>Encuestador 5</option><option value='6'>Encuestador 6</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Día</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option><option value='LUNES'>LUNES</option><option value='MARTES'>MARTES</option><option value='MIERCOLES'>MIERCOLES</option><option value='JUEVES'>JUEVES</option><option value='VIERNES'>VIERNES</option><option value='SABADO'>SABADO</option><option value='DOMINGO'>DOMINGO</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''></th></tr></thead><tbody></tbody></table><input type="hidden" id="ocultar_1" name="ocultar_1" value="0"/><input type="hidden"  id="ocultar_2" name="ocultar_2" value="0"/><input type="hidden"  id="ocultar_3" name="ocultar_3" value="0"/><input type="hidden" id="activenivel_1" name="activenivel_1" value="0"/><input type="hidden" id="activenivel_2" name="activenivel_2" value="0"/><input type="hidden" id="activenivel_3" name="activenivel_3" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
 <td>Inicial</td>
 <td></td>
-</tr><tr class='tnewnivel2'><td><div id="div2058"  class=" ff"  > <label for="2058"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="2058" id="2058" value=""   /></div></td>
+</tr><tr class='tnewnivel2'><td><div id="div00004012"  class=" ff"  > <label for="00004012"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004012" id="00004012" value=""   /></div></td>
 <td>Primaria</td>
 <td></td>
-</tr><tr class='tnewnivel3'><td><div id="div2059"  class=" ff"  > <label for="2059"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="2059" id="2059" value=""   /></div></td>
+</tr><tr class='tnewnivel3'><td><div id="div00004013"  class=" ff"  > <label for="00004013"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004013" id="00004013" value=""   /></div></td>
 <td>Secundaria</td>
 <td></td>
 </tr></tbody></table>
@@ -2971,15 +3040,15 @@ function resetpagevars(){
 				</div>
 				<div class="ui-body ui-body-a">
 					<table  class="ts1"><thead><tr><th class=''>Nro. Visita</th><th class=''>11. Resultado</th><th class=''>10. Fecha</th></tr></thead><tbody><tr class='visita1 ff'><td>1</td>
-<td><div class="ff" id="div00210101" > <label for='00210101'  class="ui-hidden-accessible" ></label><select name='00210101' id='00210101'  data-mini="true"   ><option value='0'>-- Seleccionar -- </option><option value='1'>Completo</option><option value='2'>Incompleto</option><option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación Local Cerrado</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option></select></div></td>
+<td><div class="ff" id="div00210101" > <label for='00210101'  class="ui-hidden-accessible" ></label><select name='00210101' id='00210101'  data-mini="true"   ><option value='0'>-- Seleccionar -- </option><option value='1'>Completo</option><option value='2'>Incompleto</option><option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option></select></div></td>
 <td><div id="div00210102"  class=" ff"  > <label for="00210102"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="date" name="00210102" id="00210102" value=""   ></div></td>
 </tr><tr class='visita2 ff'><td>2</td>
-<td><div class="ff" id="div00210201" > <label for='00210201'  class="ui-hidden-accessible" ></label><select name='00210201' id='00210201'  data-mini="true"   ><option value='0'>-- Seleccionar -- </option><option value='1'>Completo</option><option value='2'>Incompleto</option><option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación Local Cerrado</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option></select></div></td>
+<td><div class="ff" id="div00210201" > <label for='00210201'  class="ui-hidden-accessible" ></label><select name='00210201' id='00210201'  data-mini="true"   ><option value='0'>-- Seleccionar -- </option><option value='1'>Completo</option><option value='2'>Incompleto</option><option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option></select></div></td>
 <td><div id="div00210202"  class=" ff"  > <label for="00210202"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="date" name="00210202" id="00210202" value=""   ></div></td>
 </tr><tr class='visita3 ff'><td>3</td>
-<td><div class="ff" id="div00210301" > <label for='00210301'  class="ui-hidden-accessible" ></label><select name='00210301' id='00210301'  data-mini="true"   ><option value='0'>-- Seleccionar -- </option><option value='1'>Completo</option><option value='2'>Incompleto</option><option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación Local Cerrado</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option></select></div></td>
+<td><div class="ff" id="div00210301" > <label for='00210301'  class="ui-hidden-accessible" ></label><select name='00210301' id='00210301'  data-mini="true"   ><option value='0'>-- Seleccionar -- </option><option value='1'>Completo</option><option value='2'>Incompleto</option><option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option></select></div></td>
 <td><div id="div00210302"  class=" ff"  > <label for="00210302"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="date" name="00210302" id="00210302" value=""   ></div></td>
-</tr></tbody></table><a href="#" onclick="return fast_encuesta_exit();" class="ui-btn ui-icon-carat-r ui-btn-icon-right" id="encaso">En el caso de no poder continuar con la encuesta, finalizar esta encuesta</a><a href="#" onclick="return show_end_encuesta();" id="final_link" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
+</tr></tbody></table><div id="div00210401"  class=" ff"  > <label for="00210401"   >(Otro) Especificar:</label><textarea  name="00210401" id="00210401"></textarea></div><div id="div00220100"  class=" ff"  > <label for="00220100"   >Observaciones finales:</label><textarea  name="00220100" id="00220100"></textarea></div><a href="#" onclick="return fast_encuesta_exit();" class="ui-btn ui-icon-carat-r ui-btn-icon-right" id="encaso">En el caso de no poder continuar con la encuesta, finalizar esta encuesta</a><a href="#" onclick="return show_end_encuesta();" id="final_link" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(4);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -3299,7 +3368,29 @@ function resetpagevars(){
 					<h3>VI. MODULOS PREFABRICADOS </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div22010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>22. En el local escolar, ¿se ha instalado modulos prefabricados?</legend><input type="radio" name="22010000" id="2201000001" value="SI"><label for="2201000001">SI</label><input type="radio" name="22010000" id="2201000002" value="NO"><label for="2201000002">NO</label></fieldset></div><div id="div23010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>23. ¿Quién otorgó dichos módulos?</legend><input type="checkbox" name="23010000[]" id="2301000001" value="MINISTERIO DE EDUCACION"><label for="2301000001" >MINISTERIO DE EDUCACION</label><input type="checkbox" name="23010000[]" id="2301000002" value="UGEL/DRE"><label for="2301000002" >UGEL/DRE</label><input type="checkbox" name="23010000[]" id="2301000003" value="GOBIERNO REGIONAL"><label for="2301000003" >GOBIERNO REGIONAL</label><input type="checkbox" name="23010000[]" id="2301000004" value="GOBIERNO LOCAL"><label for="2301000004" >GOBIERNO LOCAL</label><input type="checkbox" name="23010000[]" id="2301000005" value="OTRO"><label for="2301000005" >OTRO</label><input type="checkbox" name="23010000[]" id="2301000006" value="NO SABE"><label for="2301000006" >NO SABE</label></fieldset></div><div id="div23010100"  class=" ff"  > <div data-role="fieldcontain"><label for="23010100"   >Especificar:</label><input  data-mini="true"   type="text" name="23010100" id="23010100" value=""   ></div></div><div id="div24010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>24. ¿Para que se utilizan estos módulos?</legend><input type="checkbox" name="24010000[]" id="2401000001" value="AULAS PEDAGOGICAS"><label for="2401000001" >AULAS PEDAGOGICAS</label><input type="checkbox" name="24010000[]" id="2401000002" value="SALAS DE USO MULTIPLE"><label for="2401000002" >SALAS DE USO MULTIPLE</label><input type="checkbox" name="24010000[]" id="2401000003" value="TALLERES"><label for="2401000003" >TALLERES</label><input type="checkbox" name="24010000[]" id="2401000004" value="SSHH (SERVICIOS HIGIENICOS)"><label for="2401000004" >SSHH (SERVICIOS HIGIENICOS)</label><input type="checkbox" name="24010000[]" id="2401000005" value="AULAS FUNCIONALES"><label for="2401000005" >AULAS FUNCIONALES</label><input type="checkbox" name="24010000[]" id="2401000006" value="SALA DE DOCENTES"><label for="2401000006" >SALA DE DOCENTES</label><input type="checkbox" name="24010000[]" id="2401000007" value="OTROS"><label for="2401000007" >OTROS</label></fieldset></div><div id="div24010100"  class=" ff"  > <div data-role="fieldcontain"><label for="24010100"   >Especificar:</label><input  data-mini="true"   type="text" name="24010100" id="24010100" value=""   ></div></div><div id='div25000000'><p>25. ¿En qué año fueron instalados los modulos?</p><div id="div25010000"  class=" ff"  > <div data-role="fieldcontain"><label for="25010000"   >AULAS PEDAGOGICAS</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25010000" id="25010000" value=""  maxlength='4'   /></div></div><div id="div25020000"  class=" ff"  > <div data-role="fieldcontain"><label for="25020000"   >SALAS DE USO MULTIPLE</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25020000" id="25020000" value=""  maxlength='4'   /></div></div><div id="div25030000"  class=" ff"  > <div data-role="fieldcontain"><label for="25030000"   >TALLERES</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25030000" id="25030000" value=""  maxlength='4'   /></div></div><div id="div25040000"  class=" ff"  > <div data-role="fieldcontain"><label for="25040000"   >SSHH (SERVICIOS HIGIÉNICOS)</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25040000" id="25040000" value=""  maxlength='4'   /></div></div><div id="div25050000"  class=" ff"  > <div data-role="fieldcontain"><label for="25050000"   >AULAS FUNCIONALES</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25050000" id="25050000" value=""  maxlength='4'   /></div></div><div id="div25060000"  class=" ff"  > <div data-role="fieldcontain"><label for="25060000"   >SALA DE DOCENTES</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25060000" id="25060000" value=""  maxlength='4'   /></div></div><div id="div25070000"  class=" ff"  > <div data-role="fieldcontain"><label for="25070000"   >OTROS</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25070000" id="25070000" value=""  maxlength='4'   /></div></div></div>
+					<div id="div22010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>22. En el local escolar, ¿se ha instalado modulos prefabricados?</legend><input type="radio" name="22010000" id="2201000001" value="SI"><label for="2201000001">SI</label><input type="radio" name="22010000" id="2201000002" value="NO"><label for="2201000002">NO</label></fieldset></div><div id="div23010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>23. ¿Quién otorgó dichos módulos?</legend><input type="checkbox" name="23010000[]" id="2301000001" value="MINISTERIO DE EDUCACION"><label for="2301000001" >MINISTERIO DE EDUCACION</label><input type="checkbox" name="23010000[]" id="2301000002" value="UGEL/DRE"><label for="2301000002" >UGEL/DRE</label><input type="checkbox" name="23010000[]" id="2301000003" value="GOBIERNO REGIONAL"><label for="2301000003" >GOBIERNO REGIONAL</label><input type="checkbox" name="23010000[]" id="2301000004" value="GOBIERNO LOCAL"><label for="2301000004" >GOBIERNO LOCAL</label><input type="checkbox" name="23010000[]" id="2301000005" value="OTRO"><label for="2301000005" >OTRO</label><input type="checkbox" name="23010000[]" id="2301000006" value="NO SABE"><label for="2301000006" >NO SABE</label></fieldset></div><div id="div23010100"  class=" ff"  > <div data-role="fieldcontain"><label for="23010100"   >Especificar:</label><input  data-mini="true"   type="text" name="23010100" id="23010100" value=""   ></div></div><div id="div24010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>24. ¿Para que se utilizan estos módulos?</legend><input type="checkbox" name="24010000[]" id="2401000001" value="AULAS PEDAGOGICAS"><label for="2401000001" >AULAS PEDAGOGICAS</label><input type="checkbox" name="24010000[]" id="2401000002" value="SALAS DE USO MULTIPLE"><label for="2401000002" >SALAS DE USO MULTIPLE</label><input type="checkbox" name="24010000[]" id="2401000003" value="TALLERES"><label for="2401000003" >TALLERES</label><input type="checkbox" name="24010000[]" id="2401000004" value="SSHH (SERVICIOS HIGIENICOS)"><label for="2401000004" >SSHH (SERVICIOS HIGIENICOS)</label><input type="checkbox" name="24010000[]" id="2401000005" value="AULAS FUNCIONALES"><label for="2401000005" >AULAS FUNCIONALES</label><input type="checkbox" name="24010000[]" id="2401000006" value="SALA DE DOCENTES"><label for="2401000006" >SALA DE DOCENTES</label><input type="checkbox" name="24010000[]" id="2401000007" value="OTROS"><label for="2401000007" >OTROS</label></fieldset></div><div id="div24010100"  class=" ff"  > <div data-role="fieldcontain"><label for="24010100"   >Especificar:</label><input  data-mini="true"   type="text" name="24010100" id="24010100" value=""   ></div></div><div id='div25000000'><p>25. ¿En qué mes y año fueron instalados los modulos?</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>Mes</th><th class=''>Año</th></tr></thead><tbody><tr class='25010000'><td>AULAS PEDAGOGICAS</td>
+<td><div id="div25010100"  class=" ff"  > <label for="25010100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25010100" id="25010100" value=""   /></div></td>
+<td><div id="div25010200"  class=" ff"  > <label for="25010200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25010200" id="25010200" value=""   /></div></td>
+</tr><tr class='25020000'><td>SALAS DE USO MULTIPLE</td>
+<td><div id="div25020100"  class=" ff"  > <label for="25020100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25020100" id="25020100" value=""   /></div></td>
+<td><div id="div25020200"  class=" ff"  > <label for="25020200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25020200" id="25020200" value=""   /></div></td>
+</tr><tr class='25030000'><td>TALLERES</td>
+<td><div id="div25010000"  class=" ff"  > <label for="25010000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25010000" id="25010000" value=""  maxlength='4'   /></div></td>
+<td><div id="div25030100"  class=" ff"  > <label for="25030100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25030100" id="25030100" value=""   /></div></td>
+<td><div id="div25030200"  class=" ff"  > <label for="25030200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25030200" id="25030200" value=""   /></div></td>
+</tr><tr class='25040000'><td>SSHH (SERVICIOS HIGIÉNICOS)</td>
+<td><div id="div25040100"  class=" ff"  > <label for="25040100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25040100" id="25040100" value=""   /></div></td>
+<td><div id="div25040200"  class=" ff"  > <label for="25040200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25040200" id="25040200" value=""   /></div></td>
+</tr><tr class='25050000'><td>AULAS FUNCIONALES</td>
+<td><div id="div25050100"  class=" ff"  > <label for="25050100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25050100" id="25050100" value=""   /></div></td>
+<td><div id="div25050200"  class=" ff"  > <label for="25050200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25050200" id="25050200" value=""   /></div></td>
+</tr><tr class='25060000'><td>SALA DE DOCENTES</td>
+<td><div id="div25060100"  class=" ff"  > <label for="25060100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25060100" id="25060100" value=""   /></div></td>
+<td><div id="div25060200"  class=" ff"  > <label for="25060200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25060200" id="25060200" value=""   /></div></td>
+</tr><tr class='25070000'><td>OTROS</td>
+<td><div id="div25070100"  class=" ff"  > <label for="25070100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25070100" id="25070100" value=""   /></div></td>
+<td><div id="div25070200"  class=" ff"  > <label for="25070200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25070200" id="25070200" value=""   /></div></td>
+</tr></tbody></table></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(11);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -3320,7 +3411,7 @@ function resetpagevars(){
 					<h3>VII. REPOSICION DEL MOBILIARIO ESCOLAR </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div26010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>26. ¿El local escolar cuenta con al menos una estanteria de biblioteca?</legend><input type="radio" name="26010000" id="2601000001" value="SI"><label for="2601000001">SI</label><input type="radio" name="26010000" id="2601000002" value="NO"><label for="2601000002">NO</label></fieldset></div><div id="div27010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>27. ¿Durante el 2015, el Ministerio de Educación ha repuesto al menos una estantería de biblioteca?</legend><input type="radio" name="27010000" id="2701000001" value="SI"><label for="2701000001">SI</label><input type="radio" name="27010000" id="2701000002" value="NO"><label for="2701000002">NO</label><input type="radio" name="27010000" id="2701000003" value="NO SABE"><label for="2701000003">NO SABE</label></fieldset></div><div id="div28010000"  class=" ff"  > <label for="28010000"   >28. ¿Cuantas estanterías han sido repuestas?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="28010000" id="28010000" value=""   /></div><div id="div29010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>29. ¿La estantería se ha instalado?</legend><input type="radio" name="29010000" id="2901000001" value="SI"><label for="2901000001">SI</label><input type="radio" name="29010000" id="2901000002" value="NO"><label for="2901000002">NO</label><input type="radio" name="29010000" id="2901000003" value="NO SABE"><label for="2901000003">NO SABE</label></fieldset></div><div id="div30010000"  class=" ff"  > <label for="30010000"   >30. ¿Cuántas estanterías repuestas se han instalado?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="30010000" id="30010000" value=""   /></div><div id="div31010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>31. ¿Donde se ha instalado la estantería?</legend><input type="checkbox" name="31010000[]" id="3101000001" value="EN LA OFICINA DE DIRECCION"><label for="3101000001" >EN LA OFICINA DE DIRECCION</label><input type="checkbox" name="31010000[]" id="3101000002" value="EN LA BIBLIOTECA"><label for="3101000002" >EN LA BIBLIOTECA</label><input type="checkbox" name="31010000[]" id="3101000003" value="EN LAS AULAS"><label for="3101000003" >EN LAS AULAS</label><input type="checkbox" name="31010000[]" id="3101000004" value="OTRO"><label for="3101000004" >OTRO</label></fieldset></div><div id="div31010100"  class=" ff"  > <div data-role="fieldcontain"><label for="31010100"   >Especificar:</label><input  data-mini="true"   type="text" name="31010100" id="31010100" value=""   ></div></div><div id="div32010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>32. ¿Que hizo con los estantes anteriores?</legend><input type="checkbox" name="32010000[]" id="3201000001" value="SE GUARDO"><label for="3201000001" >SE GUARDO</label><input type="checkbox" name="32010000[]" id="3201000002" value="SE DONO"><label for="3201000002" >SE DONO</label><input type="checkbox" name="32010000[]" id="3201000003" value="OTRO"><label for="3201000003" >OTRO</label></fieldset></div><div id="div32010100"  class=" ff"  > <div data-role="fieldcontain"><label for="32010100"   >Especificar:</label><input  data-mini="true"   type="text" name="32010100" id="32010100" value=""   ></div></div><p>33. Por niveles  (inicial,primaria,secundaria) indicar la siguiente información sobre el mobiliario repuesto:</p><div class='efi'><div class='cs1'>Inicial</div><table class='ts1'><thead><tr><th></th><th width='200px'>33.A ¿Durante el 2014 ó 2015, a través<br> del Ministerio de Educación, se repuso la<br> siguiente lista de mobiliario del Local Escolar?</th>
+					<div id="div26010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>26. ¿El local escolar cuenta con al menos una estanteria de biblioteca?</legend><input type="radio" name="26010000" id="2601000001" value="SI"><label for="2601000001">SI</label><input type="radio" name="26010000" id="2601000002" value="NO"><label for="2601000002">NO</label></fieldset></div><div id="div27010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>27. ¿Durante el 2015, el Ministerio de Educación ha repuesto al menos una estantería de biblioteca?</legend><input type="radio" name="27010000" id="2701000001" value="SI"><label for="2701000001">SI</label><input type="radio" name="27010000" id="2701000002" value="NO"><label for="2701000002">NO</label><input type="radio" name="27010000" id="2701000003" value="NO SABE"><label for="2701000003">NO SABE</label></fieldset></div><div id="div28010000"  class=" ff"  > <label for="28010000"   >28. ¿Cuantas estanterías han sido repuestas?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="28010000" id="28010000" value=""   /></div><div id="div29010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>29. ¿La estantería se ha instalado?</legend><input type="radio" name="29010000" id="2901000001" value="SI"><label for="2901000001">SI</label><input type="radio" name="29010000" id="2901000002" value="NO"><label for="2901000002">NO</label><input type="radio" name="29010000" id="2901000003" value="NO SABE"><label for="2901000003">NO SABE</label></fieldset></div><div id="div30010000"  class=" ff"  > <label for="30010000"   >30. ¿Cuántas estanterías repuestas se han instalado?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="30010000" id="30010000" value=""   /></div><div id="div31010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>31. ¿Donde se ha instalado la estantería?</legend><input type="checkbox" name="31010000[]" id="3101000001" value="EN LA OFICINA DE DIRECCION"><label for="3101000001" >EN LA OFICINA DE DIRECCION</label><input type="checkbox" name="31010000[]" id="3101000002" value="EN LA BIBLIOTECA"><label for="3101000002" >EN LA BIBLIOTECA</label><input type="checkbox" name="31010000[]" id="3101000003" value="EN LAS AULAS"><label for="3101000003" >EN LAS AULAS</label><input type="checkbox" name="31010000[]" id="3101000004" value="OTRO"><label for="3101000004" >OTRO</label></fieldset></div><div id="div31010100"  class=" ff"  > <div data-role="fieldcontain"><label for="31010100"   >Especificar:</label><input  data-mini="true"   type="text" name="31010100" id="31010100" value=""   ></div></div><div id="div32010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>32. ¿Que hizo o va a hacer con los estantes anteriores?</legend><input type="checkbox" name="32010000[]" id="3201000001" value="SE GUARDO"><label for="3201000001" >SE GUARDO</label><input type="checkbox" name="32010000[]" id="3201000002" value="SE DONO"><label for="3201000002" >SE DONO</label><input type="checkbox" name="32010000[]" id="3201000003" value="OTRO"><label for="3201000003" >OTRO</label></fieldset></div><div id="div32010100"  class=" ff"  > <div data-role="fieldcontain"><label for="32010100"   >Especificar:</label><input  data-mini="true"   type="text" name="32010100" id="32010100" value=""   ></div></div><p>33. Por niveles  (inicial,primaria,secundaria) indicar la siguiente información sobre el mobiliario repuesto:</p><div class='efi'><div class='cs1'>Inicial</div><table class='ts1'><thead><tr><th></th><th width='200px'>33.A ¿Durante el 2014 ó 2015, a través<br> del Ministerio de Educación, se repuso la<br> siguiente lista de mobiliario del Local Escolar?</th>
 		<th colspan='2'>33.B ¿En qué mes y año  se repuso el mobiliario?</th><th>33.C ¿Cuántos mobiliario fueron repuestos?</th></tr></thead><tbody><tr><td></td><td></td><td>Mes</td><td>Año</td><td></td></tr><tr class=''><td>Escritorios del docente</td>
 <td><div id="div33010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33010101" id="3301010101" value="SI"><label for="3301010101">SI</label><input type="radio" name="33010101" id="3301010102" value="NO"><label for="3301010102">NO</label><input type="radio" name="33010101" id="3301010103" value="NO SABE"><label for="3301010103">NO SABE</label></fieldset></div></td>
 <td><div id="div33120101"  class=" ff"  > <label for="33120101"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="33120101" id="33120101" value=""   /></div></td>
@@ -3506,7 +3597,7 @@ function resetpagevars(){
 					<h3>VIII. EQUIPOS DE COMPUTO </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div34010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>34. ¿El local escolar cuenta con equipos de cómputo?</legend><input type="radio" name="34010000" id="3401000001" value="SI"><label for="3401000001">SI</label><input type="radio" name="34010000" id="3401000002" value="NO"><label for="3401000002">NO</label></fieldset></div><div id='div35000000'><p>35. Indique la ubicación y cantidad de equipos de cómputo:</p><p><h3 class="ui-bar ui-bar-a ui-corner-all">Computadoras</h3></p><table class='ts1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
+					<div id="div34010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>34. ¿El local escolar cuenta con equipos de cómputo?</legend><input type="radio" name="34010000" id="3401000001" value="SI"><label for="3401000001">SI</label><input type="radio" name="34010000" id="3401000002" value="NO"><label for="3401000002">NO</label></fieldset></div><div id='div35000000'><p>35. Indique la ubicación y cantidad de equipos de cómputo:</p><p><h3 class="ui-bar ui-bar-a ui-corner-all">Computadoras</h3></p><table class='ts1'><thead><tr><th>&nbsp;</th><th>&nbsp;</th><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
 <td><div id="div35010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010101" id="3501010101" value="SI"><label for="3501010101">SI</label><input type="radio" name="35010101" id="3501010102" value="NO"><label for="3501010102">NO</label></fieldset></div></td>
 <td><div id="div35010201"  class=" ff"  > <label for="35010201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010201" id="35010201" value=""   /></div></td>
 <td><div id="div35010301"  class=" ff"  > <label for="35010301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010301" id="35010301" value=""   /></div></td>
@@ -3534,7 +3625,7 @@ function resetpagevars(){
 <td><div id="div35010107"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010107" id="3501010701" value="SI"><label for="3501010701">SI</label><input type="radio" name="35010107" id="3501010702" value="NO"><label for="3501010702">NO</label></fieldset></div></td>
 <td><div id="div35010207"  class=" ff"  > <label for="35010207"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010207" id="35010207" value=""   /></div></td>
 <td><div id="div35010307"  class=" ff"  > <label for="35010307"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010307" id="35010307" value=""   /></div></td>
-</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops</h3></p><table class='ts1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
+</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops</h3></p><table class='ts1'><thead><tr><th>&nbsp;</th><th>&nbsp;</th><th width='160px'>35.C. Cantidad</th><th width='100px'>35.D. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
 <td><div id="div35020101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020101" id="3502010101" value="SI"><label for="3502010101">SI</label><input type="radio" name="35020101" id="3502010102" value="NO"><label for="3502010102">NO</label></fieldset></div></td>
 <td><div id="div35020201"  class=" ff"  > <label for="35020201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020201" id="35020201" value=""   /></div></td>
 <td><div id="div35020301"  class=" ff"  > <label for="35020301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020301" id="35020301" value=""   /></div></td>
@@ -3562,7 +3653,7 @@ function resetpagevars(){
 <td><div id="div35020107"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020107" id="3502010701" value="SI"><label for="3502010701">SI</label><input type="radio" name="35020107" id="3502010702" value="NO"><label for="3502010702">NO</label></fieldset></div></td>
 <td><div id="div35020207"  class=" ff"  > <label for="35020207"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020207" id="35020207" value=""   /></div></td>
 <td><div id="div35020307"  class=" ff"  > <label for="35020307"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020307" id="35020307" value=""   /></div></td>
-</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops XO</h3></p><table class='ts1'><thead><tr><th width='160px'>35.A. Cantidad</th><th width='100px'>35.B. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
+</tr></tbody></table><p><h3 class="ui-bar ui-bar-a ui-corner-all">Laptops XO</h3></p><table class='ts1'><thead><tr><th>&nbsp;</th><th>&nbsp;</th><th width='160px'>35.E. Cantidad</th><th width='100px'>35.F. Nro. de equipos operativos</th></tr></thead><tbody><tr class=''><td>Oficina del Director</td>
 <td><div id="div35030101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35030101" id="3503010101" value="SI"><label for="3503010101">SI</label><input type="radio" name="35030101" id="3503010102" value="NO"><label for="3503010102">NO</label></fieldset></div></td>
 <td><div id="div35030201"  class=" ff"  > <label for="35030201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030201" id="35030201" value=""   /></div></td>
 <td><div id="div35030301"  class=" ff"  > <label for="35030301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030301" id="35030301" value=""   /></div></td>
@@ -3612,7 +3703,7 @@ function resetpagevars(){
 				</div>
 				<div class="ui-body ui-body-a">
 					<div id="div39010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>39. ¿Quién es el responsable de la ejecución de las obras de mantenimiento en su local escolar?
-	</legend><input type="radio" name="39010000" id="3901000001" value="0"><label for="3901000001">Director</label><input type="radio" name="39010000" id="3901000002" value="1"><label for="3901000002">Docenteo/Docente encargado</label><input type="radio" name="39010000" id="3901000003" value="2"><label for="3901000003">Personal designado por UGEL/DRE</label><input type="radio" name="39010000" id="3901000004" value="3"><label for="3901000004">Director UGEL/DRE</label></fieldset></div><div id="div40010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>40. ¿A través del Ministerio de Educación, ha recibido la transferencia de dinero para realizar
+	</legend><input type="radio" name="39010000" id="3901000001" value="0"><label for="3901000001">Director</label><input type="radio" name="39010000" id="3901000002" value="1"><label for="3901000002">Docente/Docente encargado</label><input type="radio" name="39010000" id="3901000003" value="2"><label for="3901000003">Personal designado por UGEL/DRE</label><input type="radio" name="39010000" id="3901000004" value="3"><label for="3901000004">Director UGEL/DRE</label></fieldset></div><div id="div40010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>40. ¿A través del Ministerio de Educación, ha recibido la transferencia de dinero para realizar
 		obras de mantenimiento en el local escolar?</legend><input type="radio" name="40010000" id="4001000001" value="SI"><label for="4001000001">SI</label><input type="radio" name="40010000" id="4001000002" value="NO"><label for="4001000002">NO</label><input type="radio" name="40010000" id="4001000003" value="NO SABE"><label for="4001000003">NO SABE</label></fieldset></div><div id="div41010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>41. ¿Ha registrado la ficha de mantenimiento?</legend><input type="radio" name="41010000" id="4101000001" value="SI"><label for="4101000001">SI</label><input type="radio" name="41010000" id="4101000002" value="NO"><label for="4101000002">NO</label><input type="radio" name="41010000" id="4101000003" value="NO SABE"><label for="4101000003">NO SABE</label></fieldset></div><div id="div42010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>42. ¿Está ejecutando el presupuesto de mantenimiento?</legend><input type="radio" name="42010000" id="4201000001" value="SI"><label for="4201000001">SI</label><input type="radio" name="42010000" id="4201000002" value="NO"><label for="4201000002">NO</label></fieldset></div><div id="div43010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>43. ¿Por qué no lo ha ejecutado?</legend><input type="radio" name="43010000" id="4301000001" value="El local escolar es nuevo y no necesita mantenimiento"><label for="4301000001">El local escolar es nuevo y no necesita mantenimiento</label><input type="radio" name="43010000" id="4301000002" value="Se está reconstruyendo el local escolar"><label for="4301000002">Se está reconstruyendo el local escolar</label><input type="radio" name="43010000" id="4301000003" value="Institución educativa fusionada"><label for="4301000003">Institución educativa fusionada</label><input type="radio" name="43010000" id="4301000004" value="La I.E funciona en un local alquilado/prestado"><label for="4301000004">La I.E funciona en un local alquilado/prestado</label><input type="radio" name="43010000" id="4301000005" value="El dinero no llegó al responsable de las obras de mantenimiento"><label for="4301000005">El dinero no llegó al responsable de las obras de mantenimiento</label><input type="radio" name="43010000" id="4301000006" value="Otros"><label for="4301000006">Otros</label></fieldset></div><div id="div43010100"  class=" ff"  > <div data-role="fieldcontain"><label for="43010100"   >Especificar:</label><input  data-mini="true"   type="text" name="43010100" id="43010100" value=""   ></div></div><div id="div44010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>44. ¿En qué acciones se está ejecutando el presupuesto de mantenimiento?</legend><input type="checkbox" name="44010000[]" id="4401000001" value="Reparación de techos"><label for="4401000001" >Reparación de techos</label><input type="checkbox" name="44010000[]" id="4401000002" value="Reparación de instalaciones sanitarias"><label for="4401000002" >Reparación de instalaciones sanitarias</label><input type="checkbox" name="44010000[]" id="4401000003" value="Reparación de pisos"><label for="4401000003" >Reparación de pisos</label><input type="checkbox" name="44010000[]" id="4401000004" value="Reparación de paredes"><label for="4401000004" >Reparación de paredes</label><input type="checkbox" name="44010000[]" id="4401000005" value="Reparación de puertas"><label for="4401000005" >Reparación de puertas</label><input type="checkbox" name="44010000[]" id="4401000006" value="Reparación de ventanas"><label for="4401000006" >Reparación de ventanas</label><input type="checkbox" name="44010000[]" id="4401000007" value="Reparación de instalaciones electricas"><label for="4401000007" >Reparación de instalaciones electricas</label><input type="checkbox" name="44010000[]" id="4401000008" value="Reparación de mobiliario escolar"><label for="4401000008" >Reparación de mobiliario escolar</label><input type="checkbox" name="44010000[]" id="4401000009" value="Reposición de mobiliario escolar"><label for="4401000009" >Reposición de mobiliario escolar</label><input type="checkbox" name="44010000[]" id="4401000010" value="Pintado"><label for="4401000010" >Pintado</label></fieldset></div>
 				</div>				
 			</div>
@@ -3634,7 +3725,7 @@ function resetpagevars(){
 					<h3>X. SERVICIOS HIGIENICOS </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div45010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>45. ¿El local escolar cuenta con servicios higiénicos?</legend><input type="radio" name="45010000" id="4501000001" value="SI"><label for="4501000001">SI</label><input type="radio" name="45010000" id="4501000002" value="NO"><label for="4501000002">NO</label></fieldset></div><div id="div46010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>46. ¿Con qué tipo de sistema de saneamiento cuenta el servicio higiénico del local escolar?</legend><input type="checkbox" name="46010000[]" id="4601000001" value="Red pública"><label for="4601000001" >Red pública</label><input type="checkbox" name="46010000[]" id="4601000002" value="Pozo séptico"><label for="4601000002" >Pozo séptico</label><input type="checkbox" name="46010000[]" id="4601000003" value="Pozo ciego"><label for="4601000003" >Pozo ciego</label><input type="checkbox" name="46010000[]" id="4601000004" value="Río, acequia, manantial o similar"><label for="4601000004" >Río, acequia, manantial o similar</label><input type="checkbox" name="46010000[]" id="4601000005" value="No tiene"><label for="4601000005" >No tiene</label></fieldset></div><div id='div47000000'><p>47. ¿Qué tipo de aparatos sanitarios existen en el local escolar?</p><table  class="ts1"><thead><tr><th class=''></th><th class=''></th><th class=''>47.A Cantidad</th></tr></thead><tbody><tr class=''><td>Inodoros</td>
+					<div id="div45010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>45. ¿El local escolar cuenta con servicios higiénicos?</legend><input type="radio" name="45010000" id="4501000001" value="SI"><label for="4501000001">SI</label><input type="radio" name="45010000" id="4501000002" value="NO"><label for="4501000002">NO</label></fieldset></div><div id="div46010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>46. ¿Con qué tipo de sistema de saneamiento cuenta el servicio higiénico del local escolar?</legend><input type="checkbox" name="46010000[]" id="4601000001" value="Red pública"><label for="4601000001" >Red pública</label><input type="checkbox" name="46010000[]" id="4601000002" value="Pozo séptico"><label for="4601000002" >Pozo séptico</label><input type="checkbox" name="46010000[]" id="4601000003" value="Pozo ciego"><label for="4601000003" >Pozo ciego</label><input type="checkbox" name="46010000[]" id="4601000004" value="Río, acequia o canal"><label for="4601000004" >Río, acequia o canal</label><input type="checkbox" name="46010000[]" id="4601000005" value="No tiene"><label for="4601000005" >No tiene</label></fieldset></div><div id='div47000000'><p>47. ¿Qué tipo de aparatos sanitarios existen en el local escolar?</p><table  class="ts1"><thead><tr><th class=''></th><th class=''></th><th class=''>47.A Cantidad</th></tr></thead><tbody><tr class=''><td>Inodoros</td>
 <td><div id="div47010100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="47010100" id="4701010001" value="SI"><label for="4701010001">SI</label><input type="radio" name="47010100" id="4701010002" value="NO"><label for="4701010002">NO</label></fieldset></div></td>
 <td><div id="div47010200"  class=" ff"  > <label for="47010200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="47010200" id="47010200" value=""   /></div></td>
 </tr><tr class=''><td>Turco</td>
@@ -3664,7 +3755,7 @@ function resetpagevars(){
 					<h3>XI. ABASTECIMIENTO DE AGUA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div48010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>48.¿ El local escolar cuenta con abastecimiento de agua?</legend><input type="radio" name="48010000" id="4801000001" value="SI"><label for="4801000001">SI</label><input type="radio" name="48010000" id="4801000002" value="NO"><label for="4801000002">NO</label></fieldset></div><div id="div49010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>49. El abastecimiento de agua proviene de:</legend><input type="checkbox" name="49010000[]" id="4901000001" value="Red pública"><label for="4901000001" >Red pública</label><input type="checkbox" name="49010000[]" id="4901000002" value="Río, acequia, manantial o similar"><label for="4901000002" >Río, acequia, manantial o similar</label><input type="checkbox" name="49010000[]" id="4901000003" value="Camión-cisterna"><label for="4901000003" >Camión-cisterna</label><input type="checkbox" name="49010000[]" id="4901000004" value="Pozo"><label for="4901000004" >Pozo</label><input type="checkbox" name="49010000[]" id="4901000005" value="Otro"><label for="4901000005" >Otro</label></fieldset></div><div id="div49010100"  class=" ff"  > <div data-role="fieldcontain"><label for="49010100"   >Especificar:</label><input  data-mini="true"   type="text" name="49010100" id="49010100" value=""   ></div></div><div id="div50010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>50. ¿El aguas es potable?</legend><input type="radio" name="50010000" id="5001000001" value="SI"><label for="5001000001">SI</label><input type="radio" name="50010000" id="5001000002" value="NO"><label for="5001000002">NO</label></fieldset></div>
+					<div id="div48010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>48.¿ El local escolar cuenta con abastecimiento de agua?</legend><input type="radio" name="48010000" id="4801000001" value="SI"><label for="4801000001">SI</label><input type="radio" name="48010000" id="4801000002" value="NO"><label for="4801000002">NO</label></fieldset></div><div id="div49010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>49. El abastecimiento de agua proviene de:</legend><input type="checkbox" name="49010000[]" id="4901000001" value="Red pública"><label for="4901000001" >Red pública</label><input type="checkbox" name="49010000[]" id="4901000002" value="Río, acequia, manantial o similar"><label for="4901000002" >Río, acequia, manantial o similar</label><input type="checkbox" name="49010000[]" id="4901000003" value="Camión-cisterna"><label for="4901000003" >Camión-cisterna</label><input type="checkbox" name="49010000[]" id="4901000004" value="Pozo"><label for="4901000004" >Pozo</label><input type="checkbox" name="49010000[]" id="4901000005" value="Otro"><label for="4901000005" >Otro</label></fieldset></div><div id="div49010100"  class=" ff"  > <div data-role="fieldcontain"><label for="49010100"   >Especificar:</label><input  data-mini="true"   type="text" name="49010100" id="49010100" value=""   ></div></div><div id="div50010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>50. ¿El agua es potable?</legend><input type="radio" name="50010000" id="5001000001" value="SI"><label for="5001000001">SI</label><input type="radio" name="50010000" id="5001000002" value="NO"><label for="5001000002">NO</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(16);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -3706,7 +3797,7 @@ function resetpagevars(){
 					<h3>XIII. TUTORIA Y ORIENTACION EDUCATIVA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div54010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>54. En el local escolar, se ha constituido el comité de tutoría?</legend><input type="radio" name="54010000" id="5401000001" value="SI"><label for="5401000001">SI</label><input type="radio" name="54010000" id="5401000002" value="NO"><label for="5401000002">NO</label></fieldset></div><div id='div55000000'><div id="div55010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>55. De qué forma se ha constituido el comité de tutoría? Indique el número de Resolución Directorial</legend><input type="radio" name="55010000" id="5501000001" value="Un comite de tutoría para todos los niveles del local escolar"><label for="5501000001">Un comite de tutoría para todos los niveles del local escolar</label><input type="radio" name="55010000" id="5501000002" value="Un comite de tutoría para el nivel de educación primaria"><label for="5501000002">Un comite de tutoría para el nivel de educación primaria</label><input type="radio" name="55010000" id="5501000003" value="Un comite de tutoría para el nivel de educación secundaria"><label for="5501000003">Un comite de tutoría para el nivel de educación secundaria</label><input type="radio" name="55010000" id="5501000004" value="Otro"><label for="5501000004">Otro</label></fieldset></div><div id="div55020000"  class=" ff"  > <div data-role="fieldcontain"><label for="55020000"   >55.A Resolución Directorial:</label><input  data-mini="true"   type="text" name="55020000" id="55020000" value=""   ></div></div><div id="div55010100"  class=" ff"  > <div data-role="fieldcontain"><label for="55010100"   >(Otro)Especificar:</label><input  data-mini="true"   type="text" name="55010100" id="55010100" value=""   ></div></div></div>
+					<div id="div54010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>54. En el local escolar, se ha constituido el comité de tutoría?</legend><input type="radio" name="54010000" id="5401000001" value="SI"><label for="5401000001">SI</label><input type="radio" name="54010000" id="5401000002" value="NO"><label for="5401000002">NO</label></fieldset></div><div id='div55000000'><div id="div55010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>55. ¿De qué forma se ha constituido el comité de tutoría? Indique el número de Resolución Directorial</legend><input type="radio" name="55010000" id="5501000001" value="Un comite de tutoría para todos los niveles del local escolar"><label for="5501000001">Un comite de tutoría para todos los niveles del local escolar</label><input type="radio" name="55010000" id="5501000002" value="Un comite de tutoría para el nivel de educación primaria"><label for="5501000002">Un comite de tutoría para el nivel de educación primaria</label><input type="radio" name="55010000" id="5501000003" value="Un comite de tutoría para el nivel de educación secundaria"><label for="5501000003">Un comite de tutoría para el nivel de educación secundaria</label><input type="radio" name="55010000" id="5501000004" value="Otro"><label for="5501000004">Otro</label></fieldset></div><div id="div55020000"  class=" ff"  > <div data-role="fieldcontain"><label for="55020000"   >55.A Resolución Directorial:</label><input  data-mini="true"   type="text" name="55020000" id="55020000" value=""   ></div></div><div id="div55010100"  class=" ff"  > <div data-role="fieldcontain"><label for="55010100"   >(Otro)Especificar:</label><input  data-mini="true"   type="text" name="55010100" id="55010100" value=""   ></div></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(18);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -3727,7 +3818,7 @@ function resetpagevars(){
 					<h3>XIV. KITS DE UTILES ESCOLARES Y ASEO BASICOS (MOCHILITA)- SOLO NIVEL INICIAL </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div56010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>56. A través del Ministerio de Educación ha recibido usted el presupuesto designado para la compra de kits de útiles escolares y aseo básicos?(Mochilita)</legend><input type="radio" name="56010000" id="5601000001" value="SI"><label for="5601000001">SI</label><input type="radio" name="56010000" id="5601000002" value="NO"><label for="5601000002">NO</label></fieldset></div><div id="div57010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>57. Ha ejecutado ese presupuesto?</legend><input type="radio" name="57010000" id="5701000001" value="SI"><label for="5701000001">SI</label><input type="radio" name="57010000" id="5701000002" value="NO"><label for="5701000002">NO</label></fieldset></div><div id="div58010000"  class=" ff"  > <label for="58010000"   >58. Especificar cantidad de Kits de útiles escolares y aseo básico (Mochilita)</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="58010000" id="58010000" value=""   /></div><div id="div59010000"  class=" ff"  > <label for="59010000"   >59. Por qué no lo ha ejecutado?</label><input  data-mini="true"   type="text" name="59010000" id="59010000" value=""   ></div>
+					<div class='efi'><div id="div56010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>56. A través del Ministerio de Educación ha recibido usted el presupuesto designado para la compra de kits de útiles escolares y aseo básicos?(Mochilita)</legend><input type="radio" name="56010000" id="5601000001" value="SI"><label for="5601000001">SI</label><input type="radio" name="56010000" id="5601000002" value="NO"><label for="5601000002">NO</label></fieldset></div><div id="div57010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>57. ¿Ha ejecutado ese presupuesto?</legend><input type="radio" name="57010000" id="5701000001" value="SI"><label for="5701000001">SI</label><input type="radio" name="57010000" id="5701000002" value="NO"><label for="5701000002">NO</label></fieldset></div><div id="div58010000"  class=" ff"  > <label for="58010000"   >58. Especificar cantidad de Kits de útiles escolares y aseo básico (Mochilita)</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="58010000" id="58010000" value=""   /></div><div id="div59010000"  class=" ff"  > <label for="59010000"   >59. ¿Por qué no lo ha ejecutado?</label><input  data-mini="true"   type="text" name="59010000" id="59010000" value=""   ></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(19);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -3748,7 +3839,7 @@ function resetpagevars(){
 					<h3>XV. MATERIAL EDUCATIVO </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>60. La IE cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010000" id="6001000001" value="SI"><label for="6001000001">SI</label><input type="radio" name="60010000" id="6001000002" value="NO"><label for="6001000002">NO</label></fieldset></div><div id='div61000000'><p>61. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='efi'><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
+					<div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>60. ¿El local escolar cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010000" id="6001000001" value="SI"><label for="6001000001">SI</label><input type="radio" name="60010000" id="6001000002" value="NO"><label for="6001000002">NO</label></fieldset></div><div id='div61000000'><p>61. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='efi'><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>61.A ¿Los siguientes materiales educativos se encuentran en la IE?</th><th class=''>61.B ¿La cantidad de material educativo recibido es suficiente?</th><th class=''>61.C ¿El material educativo se encuentra en los salones de clase?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
 <td><div id="div61010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010101" id="6101010101" value="SI"><label for="6101010101">SI</label><input type="radio" name="61010101" id="6101010102" value="NO"><label for="6101010102">NO</label></fieldset></div></td>
 <td><div id="div61010201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010201" id="6101020101" value="SI"><label for="6101020101">SI</label><input type="radio" name="61010201" id="6101020102" value="NO"><label for="6101020102">NO</label></fieldset></div></td>
 <td><div id="div61010301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010301" id="6101030101" value="SI"><label for="6101030101">SI</label><input type="radio" name="61010301" id="6101030102" value="NO"><label for="6101030102">NO</label></fieldset></div></td>
@@ -4203,7 +4294,7 @@ function resetpagevars(){
 					<h3>ENCUESTAS POR NIVELES </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000003"  class=" ff"  > <div data-role="fieldcontain"><label for="90000003"   >Grado/Año</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="90000003" id="90000003" value=""   /></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input  data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(27);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
+					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000003"  class=" ff"  > <div data-role="fieldcontain"><label for="90000003"   >Grado/Año</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="90000003" id="90000003" value=""   /></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input  data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(27);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
 				</div>				
 			</div>
 			<a href="#" onclick="return show_pre_end_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
@@ -4224,7 +4315,7 @@ function resetpagevars(){
 					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Encuestador, ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Encuestador, ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050000" id="9005000001" value="EDUCACION INICIAL"><label for="9005000001">EDUCACION INICIAL</label><input type="radio" name="90050000" id="9005000002" value="EDUCACION PRIMARIA"><label for="9005000002">EDUCACION PRIMARIA</label><input type="radio" name="90050000" id="9005000003" value="E.P INTERCULTURAL BILINGUE"><label for="9005000003">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050000" id="9005000004" value="OTRO"><label for="9005000004">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="E.P INTERCULTURAL BILINGUE"><label for="9007000003">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000004" value="OTRO"><label for="9007000004">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div>
+					<div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Encuestador, ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Encuestador, ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050000" id="9005000001" value="EDUCACION INICIAL"><label for="9005000001">EDUCACION INICIAL</label><input type="radio" name="90050000" id="9005000002" value="EDUCACION PRIMARIA"><label for="9005000002">EDUCACION PRIMARIA</label><input type="radio" name="90050000" id="9005000003" value="EDUCACION SECUNDARIA"><label for="9005000003">EDUCACION SECUNDARIA</label><input type="radio" name="90050000" id="9005000004" value="E.P INTERCULTURAL BILINGUE"><label for="9005000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050000" id="9005000005" value="OTRO"><label for="9005000005">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="EDUCACION SECUNDARIA"><label for="9007000003">EDUCACION SECUNDARIA</label><input type="radio" name="90070000" id="9007000004" value="E.P INTERCULTURAL BILINGUE"><label for="9007000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000005" value="OTRO"><label for="9007000005">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(28);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -4346,15 +4437,7 @@ function resetpagevars(){
 		</div>
 	</div>
 
-	<div data-role="panel" id="rightpanel1" data-position="right" data-display="overlay" data-theme="a" style="visibility: hidden;" >
-	
-        <a href="#demo-links" data-rel="close" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Ocultar Menu</a><br/><br/>
 
-        <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br/><br/>
-        <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br/>
-        <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>
-		<div style="color:#CACACA;">Ultima version: 2015-02-04 05:43:11</div>
-	</div>
 
 </body>
 </html>
