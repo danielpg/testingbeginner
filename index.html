@@ -1563,6 +1563,7 @@ function upload_encuesta(id){
 			current_enc.formenviado = 1;
 			//current_enc.upload = 1;
 			save_obj(current_enc.id,current_enc);
+			check_complete_enc();
 			$("#aftersendmsg").append("<div class='box_success'>Se enviaron los datos de la encuesta con exito!</div>");
 			$.mobile.loading("hide");
 		}).fail(function( jqXHR, textStatus ) {
@@ -2738,7 +2739,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-09 07:27:01</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-09 07:39:18</div>';
 	html += '</div>';
 	$("body").append(html);
 }
