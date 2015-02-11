@@ -6,7 +6,7 @@
 	<script src="jqmobile/jquery.mobile-1.4.5.min.js"></script>
 
 	<script type="text/javascript"  src="cordova.js"></script> 
-	<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script> 
+	<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>  
 
 	<script src="js/main.js"></script>
 <!-- script  -->
@@ -77,7 +77,7 @@ function onDeviceReady() {
     db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
 
 	//2. SELECT ENCUESTADOR: cuando elige mes cargar periodo
-	$('#00000100').bind('click', function(){
+	/*$('#00000100').bind('click', function(){
 		if( $(this).val() == 1 ){		
 			newvar = ["Mes 1","Mes 2","Mes 3","Mes 4","Mes 5"];	
 		}else if( $(this).val() == 2 ) {
@@ -86,12 +86,91 @@ function onDeviceReady() {
 			newvar = ["Mes 1B","Mes 2B","Mes 3B","Mes 4B","Mes 5B"];	
 		}else if( $(this).val() == 4 ) {
 			newvar = ["Mes 1C","Mes 2C","Mes 3C","Mes 4C","Mes 5C"];	
+		} else {
+			newvar = ["Mes 1","Mes 2","Mes 3","Mes 4","Mes 5"];	
 		}
 
 		newop = makeoptions(newvar);
 		//console.log(newvar);
 		//console.log(newop);
 		$( "#00000200" ).html(newop).selectmenu("refresh");
+	});*/
+
+
+ 	db.transaction(function(tx) {
+		sql = "SELECT DISTINCT(departamento) as dep FROM tablon';
+		tx.executeSql(sql, [], function(tx, res) {
+			options = "<option value='0'>--SELECCIONAR--</option>";
+			for(i = 0; i < res.rows.length; i++ ){
+				options += "<option value='" + res.rows.item(i).dep + "'>" + res.rows.item(i).dep + "</option>";
+			}
+			$("#00000101").html(options);
+		});
+    });
+	
+	$("#00000101").change(function(){
+	 	db.transaction(function(tx) {
+			sql = "SELECT DISTINCT(mes) as m FROM tablon WHERE departamento = '" + $("#00000101").val() + "' ";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).m + "'>" + res.rows.item(i).m + "</option>";
+				}
+				$("#00000200").html(options);
+			});
+		});
+	});
+
+	$("#00000200").change(function(){
+	 	db.transaction(function(tx) {
+			sql = "SELECT DISTINCT(encuestador) as n FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "'";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).n + "'>" + res.rows.item(i).n + "</option>";
+				}
+				$("#00000100").html(options);
+			});
+		});
+	});
+
+	$("#00000100").change(function(){
+	 	db.transaction(function(tx) {
+			sql = "SELECT DISTINCT(periodo) as p FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "'  ";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).p + "'>" + res.rows.item(i).p + "</option>";
+				}
+				$("#00000300").html(options);
+			});
+		});
+	});
+
+	$("#00000300").change(function(){
+	 	db.transaction(function(tx) {
+			sql = "SELECT DISTINCT(dia) as d FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "'  ";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).d + "'>" + res.rows.item(i).d + "</option>";
+				}
+				$("#00000500").html(options);
+			});
+		});
+	});
+
+	$("#00000500").change(function(){
+	 	db.transaction(function(tx) {
+			sql = "SELECT codigo_modular FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '"+$("#00000500").val()+"' ";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).codigo_modular + "'>" + res.rows.item(i).codigo_modular + "</option>";
+				}
+				$("#00000400").html(options);
+			});
+		});
 	});
 
 	/* 
@@ -178,7 +257,7 @@ function onDeviceReady() {
 	}
 	*/
 
-	$('#00000200,#00000300').change( function(){
+	/*$('#00000200,#00000300').change( function(){
 		objs = ["Codigo de Local ALPHA","Codigo de Local BETA","Codigo de Local ZIGMA","Codigo de Local DELTA"];
 		html = "";
 		html += "<option value='0'>--SELECCIONAR--</option>";
@@ -187,7 +266,14 @@ function onDeviceReady() {
 		}
 		$('#00000400').html(html);
 		$('#00000400').selectmenu("refresh");
+	});*/
+
+	$('#00003100').blur( function(){
+		if( $('#00003100').val() != "" ){
+			validate_fono('00003100');
+		}
 	});
+
 
 	//4. SELECT CODIGO LOCAL: cargar detalles de un codigo de local 
 	$('#00000400').change( function(){
@@ -201,6 +287,8 @@ function onDeviceReady() {
 		}else if( $(this).val() == 3 ) {
 			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Delta"}	];
 		}else if( $(this).val() == 0 ) {
+			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
+		}else {
 			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 		}
 
@@ -299,7 +387,7 @@ function onDeviceReady() {
 
 	$('#00210101,#00210201,#00210301').change( function(){
 		if( $(this).val() == 7  ){
-			$("00210401").show();
+			$("#div00210401").show();
 		}else if( ($(this).val() == 5)  ||  ($(this).val() == 6)  ){
 			//ocultar siguiente
 			$("#encuesta3 .sgte").hide();
@@ -308,14 +396,14 @@ function onDeviceReady() {
 
 			$(".visita2,.visita3").hide();
 
-			$("00210401").hide();
+			$("#div00210401").hide();
 		} else {
 			$("#encuesta3 .sgte").show();
 			$("#encaso").show();		
 			$("#final_link").hide();
 			$(".visita2,.visita3").show();
 
-			$("00210401").hide();
+			$("#div00210401").hide();
 		}
 	});
 
@@ -945,14 +1033,14 @@ $( "input[name=35030107]" ).change(function() {
 			$( "#div41010000,#div42010000,#div43010000,#div44010000" ).show();
 		}*/
 	});
-
+/*
 	$( "input[name=41010000]" ).change(function() {
 		if( ($("input[name=41010000]:checked").val() == "NO") || ($("input[name=41010000]:checked").val() == "NO SABE") ){
 			$( "#div42010000,#div43010000,#div44010000" ).hide();
 		} else {
 			$( "#div41010000,#div42010000,#div43010000,#div44010000" ).show();
 		}
-	});
+	});*/
 
 	$( "input[name=42010000]" ).change(function() {
 		if( ($("input[name=42010000]:checked").val() == "SI")  ){
@@ -1927,11 +2015,11 @@ function validate_pages(){
 		alert(tmp);	return false;
 	}
 
-	tmp = "EL Nro ESTUDIANTES MATRICULADOS QUE ASISTIERON HOY NO PUEDE SER MAYOR AL TOTAL DE ESTUDIANTES MATRICULADOS EN LA IE";
+/*	tmp = "EL Nro ESTUDIANTES MATRICULADOS QUE ASISTIERON HOY NO PUEDE SER MAYOR AL TOTAL DE ESTUDIANTES MATRICULADOS EN LA IE";
 	if( int("18020001") > int("18010001") ){ 	alert(tmp);	return false; }
 	if( int("18020002") > int("18010002") ){ 	alert(tmp);	return false;  }
 	if( int("18020003") > int("18010003") ){ 	alert(tmp);	return false; }
-
+*/
 	/*tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
 	if( ($('#div25010000').is(':visible') ) && (int("25010000") < 2014) ){ alert(tmp);	return false;  }
 	if( ($('#div25020000').is(':visible') ) && (int("25020000") < 2014) ){ alert(tmp);	return false;  }
@@ -2516,10 +2604,21 @@ function validate_year(id){
 function validate_modular(id){
 	if( $("#" + id).val() == "" )return false;
 	nn = int(id);
-	if( nn.length == 7  ){
+	if(  $("#" + id).val().length == 7  ){
 		//return true;
 	} else {
 		alert("Codigo Modular debe contener 7 digitos.");
+		$("#" + id).val("");
+	}
+}
+
+function validate_fono(id){
+	if( $("#" + id).val() == "" )return false;
+	nn = int(id);
+	if(  $("#" + id).val().length <= 9  ){
+		//return true;
+	} else {
+		alert("Teléfono no debe contener mas de 9 digitos.");
 		$("#" + id).val("");
 	}
 }
@@ -2739,7 +2838,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-09 07:39:18</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 01:35:18</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -2808,7 +2907,7 @@ function create_panels(){
 					</a>
 				  </li>
 
-				  <!--li>
+				  <li>
 					<a href="#" onclick="return create_tables_data();"   data-transition="slide">
 					  <h3>Instalar Base de datos local</h3>
 					  <div></div>
@@ -2976,7 +3075,7 @@ function create_panels(){
 					<h3>INICIAR ENCUESTA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Ruta</label><select name='00000101' id='00000101'  ><option value='01'>Amazonas</option><option value='02'>Ancash</option><option value='03'>Apurímac</option><option value='04'>Arequipa</option><option value='05'>Ayacucho</option><option value='06'>Cajamarca</option><option value='07'>Callao</option><option value='08'>Cusco</option><option value='09'>Huancavelica</option><option value='10'>Huánuco</option><option value='11'>Ica</option><option value='12'>Junín</option><option value='13'>La Libertad</option><option value='14'>Lambayeque</option><option value='15'>Lima</option><option value='16'>Loreto</option><option value='17'>Madre de Dios</option><option value='18'>Moquegua</option><option value='19'>Pasco</option><option value='20'>Piura</option><option value='21'>Puno</option><option value='22'>San Martín</option><option value='23'>Tacna</option><option value='24'>Tumbes</option><option value='25'>Ucayali</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Enero</option><option value='2'>Febrero</option><option value='3'>Marzo</option><option value='4'>Abril</option><option value='5'>Mayo</option><option value='6'>Junio</option><option value='7'>Julio</option><option value='8'>Agosto</option><option value='9'>Septiembre</option><option value='10'>Octubre</option><option value='11'>Noviembre</option><option value='12'>Diciembre</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Encuestador</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Encuestador 1</option><option value='2'>Encuestador 2</option><option value='3'>Encuestador 3</option><option value='4'>Encuestador 4</option><option value='5'>Encuestador 5</option><option value='6'>Encuestador 6</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Día</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option><option value='LUNES'>LUNES</option><option value='MARTES'>MARTES</option><option value='MIERCOLES'>MIERCOLES</option><option value='JUEVES'>JUEVES</option><option value='VIERNES'>VIERNES</option><option value='SABADO'>SABADO</option><option value='DOMINGO'>DOMINGO</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''></th></tr></thead><tbody></tbody></table><input type="hidden" id="ocultar_1" name="ocultar_1" value="0"/><input type="hidden"  id="ocultar_2" name="ocultar_2" value="0"/><input type="hidden"  id="ocultar_3" name="ocultar_3" value="0"/><input type="hidden" id="activenivel_1" name="activenivel_1" value="0"/><input type="hidden" id="activenivel_2" name="activenivel_2" value="0"/><input type="hidden" id="activenivel_3" name="activenivel_3" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
+					<div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Departamento</label><select name='00000101' id='00000101'  ><option value='01'>Amazonas</option><option value='02'>Ancash</option><option value='03'>Apurímac</option><option value='04'>Arequipa</option><option value='05'>Ayacucho</option><option value='06'>Cajamarca</option><option value='07'>Callao</option><option value='08'>Cusco</option><option value='09'>Huancavelica</option><option value='10'>Huánuco</option><option value='11'>Ica</option><option value='12'>Junín</option><option value='13'>La Libertad</option><option value='14'>Lambayeque</option><option value='15'>Lima</option><option value='16'>Loreto</option><option value='17'>Madre de Dios</option><option value='18'>Moquegua</option><option value='19'>Pasco</option><option value='20'>Piura</option><option value='21'>Puno</option><option value='22'>San Martín</option><option value='23'>Tacna</option><option value='24'>Tumbes</option><option value='25'>Ucayali</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Enero</option><option value='2'>Febrero</option><option value='3'>Marzo</option><option value='4'>Abril</option><option value='5'>Mayo</option><option value='6'>Junio</option><option value='7'>Julio</option><option value='8'>Agosto</option><option value='9'>Septiembre</option><option value='10'>Octubre</option><option value='11'>Noviembre</option><option value='12'>Diciembre</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Encuestador</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option><option value='1'>Encuestador 1</option><option value='2'>Encuestador 2</option><option value='3'>Encuestador 3</option><option value='4'>Encuestador 4</option><option value='5'>Encuestador 5</option><option value='6'>Encuestador 6</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option><option value='1'>1</option><option value='2'>2</option><option value='3'>3</option><option value='4'>4</option></select></div></div><div class="ff" id="div00000500" > <div data-role="fieldcontain"><label for='00000500'   >Día</label><select name='00000500' id='00000500'  ><option value='0'>--SELECCIONAR--</option><option value='LUNES'>LUNES</option><option value='MARTES'>MARTES</option><option value='MIERCOLES'>MIERCOLES</option><option value='JUEVES'>JUEVES</option><option value='VIERNES'>VIERNES</option><option value='SABADO'>SABADO</option><option value='DOMINGO'>DOMINGO</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''></th></tr></thead><tbody></tbody></table><input type="hidden" id="ocultar_1" name="ocultar_1" value="0"/><input type="hidden"  id="ocultar_2" name="ocultar_2" value="0"/><input type="hidden"  id="ocultar_3" name="ocultar_3" value="0"/><input type="hidden" id="activenivel_1" name="activenivel_1" value="0"/><input type="hidden" id="activenivel_2" name="activenivel_2" value="0"/><input type="hidden" id="activenivel_3" name="activenivel_3" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
 <td>Inicial</td>
 <td></td>
 </tr><tr class='tnewnivel2'><td><div id="div00004012"  class=" ff"  > <label for="00004012"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004012" id="00004012" value=""   /></div></td>
@@ -3412,7 +3511,7 @@ function create_panels(){
 					<h3>VII. REPOSICION DEL MOBILIARIO ESCOLAR </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div26010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>26. ¿El local escolar cuenta con al menos una estanteria de biblioteca?</legend><input type="radio" name="26010000" id="2601000001" value="SI"><label for="2601000001">SI</label><input type="radio" name="26010000" id="2601000002" value="NO"><label for="2601000002">NO</label></fieldset></div><div id="div27010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>27. ¿Durante el 2015, el Ministerio de Educación ha repuesto al menos una estantería de biblioteca?</legend><input type="radio" name="27010000" id="2701000001" value="SI"><label for="2701000001">SI</label><input type="radio" name="27010000" id="2701000002" value="NO"><label for="2701000002">NO</label><input type="radio" name="27010000" id="2701000003" value="NO SABE"><label for="2701000003">NO SABE</label></fieldset></div><div id="div28010000"  class=" ff"  > <label for="28010000"   >28. ¿Cuantas estanterías han sido repuestas?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="28010000" id="28010000" value=""   /></div><div id="div29010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>29. ¿La estantería se ha instalado?</legend><input type="radio" name="29010000" id="2901000001" value="SI"><label for="2901000001">SI</label><input type="radio" name="29010000" id="2901000002" value="NO"><label for="2901000002">NO</label><input type="radio" name="29010000" id="2901000003" value="NO SABE"><label for="2901000003">NO SABE</label></fieldset></div><div id="div30010000"  class=" ff"  > <label for="30010000"   >30. ¿Cuántas estanterías repuestas se han instalado?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="30010000" id="30010000" value=""   /></div><div id="div31010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>31. ¿Donde se ha instalado la estantería?</legend><input type="checkbox" name="31010000[]" id="3101000001" value="EN LA OFICINA DE DIRECCION"><label for="3101000001" >EN LA OFICINA DE DIRECCION</label><input type="checkbox" name="31010000[]" id="3101000002" value="EN LA BIBLIOTECA"><label for="3101000002" >EN LA BIBLIOTECA</label><input type="checkbox" name="31010000[]" id="3101000003" value="EN LAS AULAS"><label for="3101000003" >EN LAS AULAS</label><input type="checkbox" name="31010000[]" id="3101000004" value="OTRO"><label for="3101000004" >OTRO</label></fieldset></div><div id="div31010100"  class=" ff"  > <div data-role="fieldcontain"><label for="31010100"   >Especificar:</label><input  data-mini="true"   type="text" name="31010100" id="31010100" value=""   ></div></div><div id="div32010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>32. ¿Que hizo o va a hacer con los estantes anteriores?</legend><input type="checkbox" name="32010000[]" id="3201000001" value="SE GUARDO"><label for="3201000001" >SE GUARDO</label><input type="checkbox" name="32010000[]" id="3201000002" value="SE DONO"><label for="3201000002" >SE DONO</label><input type="checkbox" name="32010000[]" id="3201000003" value="OTRO"><label for="3201000003" >OTRO</label></fieldset></div><div id="div32010100"  class=" ff"  > <div data-role="fieldcontain"><label for="32010100"   >Especificar:</label><input  data-mini="true"   type="text" name="32010100" id="32010100" value=""   ></div></div><p>33. Por niveles  (inicial,primaria,secundaria) indicar la siguiente información sobre el mobiliario repuesto:</p><div class='efi'><div class='cs1'>Inicial</div><table class='ts1'><thead><tr><th></th><th width='200px'>33.A ¿Durante el 2014 ó 2015, a través<br> del Ministerio de Educación, se repuso la<br> siguiente lista de mobiliario del Local Escolar?</th>
+					<div id="div26010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>26. ¿El local escolar cuenta con al menos una estanteria de biblioteca?</legend><input type="radio" name="26010000" id="2601000001" value="SI"><label for="2601000001">SI</label><input type="radio" name="26010000" id="2601000002" value="NO"><label for="2601000002">NO</label></fieldset></div><div id="div27010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>27. ¿Durante el 2014 ó 2015, el Ministerio de Educación ha repuesto al menos una estantería de biblioteca?</legend><input type="radio" name="27010000" id="2701000001" value="SI"><label for="2701000001">SI</label><input type="radio" name="27010000" id="2701000002" value="NO"><label for="2701000002">NO</label><input type="radio" name="27010000" id="2701000003" value="NO SABE"><label for="2701000003">NO SABE</label></fieldset></div><div id="div28010000"  class=" ff"  > <label for="28010000"   >28. ¿Cuantas estanterías han sido repuestas?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="28010000" id="28010000" value=""   /></div><div id="div29010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>29. ¿La estantería se ha instalado?</legend><input type="radio" name="29010000" id="2901000001" value="SI"><label for="2901000001">SI</label><input type="radio" name="29010000" id="2901000002" value="NO"><label for="2901000002">NO</label><input type="radio" name="29010000" id="2901000003" value="NO SABE"><label for="2901000003">NO SABE</label></fieldset></div><div id="div30010000"  class=" ff"  > <label for="30010000"   >30. ¿Cuántas estanterías repuestas se han instalado?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="30010000" id="30010000" value=""   /></div><div id="div31010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>31. ¿Donde se ha instalado la estantería?</legend><input type="checkbox" name="31010000[]" id="3101000001" value="EN LA OFICINA DE DIRECCION"><label for="3101000001" >EN LA OFICINA DE DIRECCION</label><input type="checkbox" name="31010000[]" id="3101000002" value="EN LA BIBLIOTECA"><label for="3101000002" >EN LA BIBLIOTECA</label><input type="checkbox" name="31010000[]" id="3101000003" value="EN LAS AULAS"><label for="3101000003" >EN LAS AULAS</label><input type="checkbox" name="31010000[]" id="3101000004" value="OTRO"><label for="3101000004" >OTRO</label></fieldset></div><div id="div31010100"  class=" ff"  > <div data-role="fieldcontain"><label for="31010100"   >Especificar:</label><input  data-mini="true"   type="text" name="31010100" id="31010100" value=""   ></div></div><div id="div32010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>32. ¿Que hizo o va a hacer con los estantes anteriores?</legend><input type="checkbox" name="32010000[]" id="3201000001" value="SE GUARDO"><label for="3201000001" >SE GUARDO</label><input type="checkbox" name="32010000[]" id="3201000002" value="SE DONO"><label for="3201000002" >SE DONO</label><input type="checkbox" name="32010000[]" id="3201000003" value="OTRO"><label for="3201000003" >OTRO</label></fieldset></div><div id="div32010100"  class=" ff"  > <div data-role="fieldcontain"><label for="32010100"   >Especificar:</label><input  data-mini="true"   type="text" name="32010100" id="32010100" value=""   ></div></div><p>33. Por niveles  (inicial,primaria,secundaria) indicar la siguiente información sobre el mobiliario repuesto:</p><div class='efi'><div class='cs1'>Inicial</div><table class='ts1'><thead><tr><th></th><th width='200px'>33.A ¿Durante el 2014 ó 2015, a través<br> del Ministerio de Educación, se repuso la<br> siguiente lista de mobiliario del Local Escolar?</th>
 		<th colspan='2'>33.B ¿En qué mes y año  se repuso el mobiliario?</th><th>33.C ¿Cuántos mobiliario fueron repuestos?</th></tr></thead><tbody><tr><td></td><td></td><td>Mes</td><td>Año</td><td></td></tr><tr class=''><td>Escritorios del docente</td>
 <td><div id="div33010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="33010101" id="3301010101" value="SI"><label for="3301010101">SI</label><input type="radio" name="33010101" id="3301010102" value="NO"><label for="3301010102">NO</label><input type="radio" name="33010101" id="3301010103" value="NO SABE"><label for="3301010103">NO SABE</label></fieldset></div></td>
 <td><div id="div33120101"  class=" ff"  > <label for="33120101"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="33120101" id="33120101" value=""   /></div></td>
@@ -4337,7 +4436,7 @@ function create_panels(){
 					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90090000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. ¿Le parece útil la capacitación?</legend><input type="radio" name="90090000" id="9009000001" value="SI"><label for="9009000001">SI</label><input type="radio" name="90090000" id="9009000002" value="NO"><label for="9009000002">NO</label></fieldset></div><div id="div90100000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>10. ¿Utiliza una sesión de aprendizaje (guía del docente) específico para el desarrollo de la clase?</legend><input type="radio" name="90100000" id="9010000001" value="SI"><label for="9010000001">SI</label><input type="radio" name="90100000" id="9010000002" value="NO"><label for="9010000002">NO</label></fieldset></div><div id="div90110000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>11. La sesión de aprendizaje (guía del docente) es:</legend><input type="checkbox" name="90110000[]" id="9011000001" value="ENTREGADO POR EL MINEDU"><label for="9011000001" >ENTREGADO POR EL MINEDU</label><input type="checkbox" name="90110000[]" id="9011000002" value="ELABORADO POR EL DOCENTE"><label for="9011000002" >ELABORADO POR EL DOCENTE</label><input type="checkbox" name="90110000[]" id="9011000003" value="OTRO"><label for="9011000003" >OTRO</label></fieldset></div><div id="div90110100"  class=" ff"  > <div data-role="fieldcontain"><label for="90110100"   >Especificar:</label><input  data-mini="true"   type="text" name="90110100" id="90110100" value=""   ></div></div><div id="div90120000"  class=" ff"  > <label for="90120000"   >12. En este momento, ¿qué clase está desarrollando?</label><input  data-mini="true"   type="text" name="90120000" id="90120000" value=""   ></div><div id="div90130000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>13. En los últimos 6 meses,¿ ha recibido usted visitas de acompañamiento pedagógico?</legend><input type="radio" name="90130000" id="9013000001" value="SI"><label for="9013000001">SI</label><input type="radio" name="90130000" id="9013000002" value="NO"><label for="9013000002">NO</label></fieldset></div><div id="div90140000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>14. ¿A través de que institución ha recibido usted visitas de acompañamiento?</legend><input type="checkbox" name="90140000[]" id="9014000001" value="MINEDU"><label for="9014000001" >MINEDU</label><input type="checkbox" name="90140000[]" id="9014000002" value="DRE/UGEL"><label for="9014000002" >DRE/UGEL</label><input type="checkbox" name="90140000[]" id="9014000003" value="PELA"><label for="9014000003" >PELA</label><input type="checkbox" name="90140000[]" id="9014000004" value="ONGS O EMPRESA PRIVADA"><label for="9014000004" >ONGS O EMPRESA PRIVADA</label><input type="checkbox" name="90140000[]" id="9014000005" value="OTROS"><label for="9014000005" >OTROS</label></fieldset></div><div id="div90140100"  class=" ff"  > <div data-role="fieldcontain"><label for="90140100"   >Especificar:</label><input  data-mini="true"   type="text" name="90140100" id="90140100" value=""   ></div></div><div id="div90150000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>15. ¿Le parece útil la las visitas de acompañamiento?</legend><input type="radio" name="90150000" id="9015000001" value="SI"><label for="9015000001">SI</label><input type="radio" name="90150000" id="9015000002" value="NO"><label for="9015000002">NO</label></fieldset></div><div id="div90160000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>16. ¿Qué tan satisfecho se encuentra usted con ser docente?</legend><input type="radio" name="90160000" id="9016000001" value="MUY SATISFECHO"><label for="9016000001">MUY SATISFECHO</label><input type="radio" name="90160000" id="9016000002" value="SATISFECHO"><label for="9016000002">SATISFECHO</label><input type="radio" name="90160000" id="9016000003" value="POCO SATISFECHO"><label for="9016000003">POCO SATISFECHO</label><input type="radio" name="90160000" id="9016000004" value="NADA SATISFECHO"><label for="9016000004">NADA SATISFECHO</label></fieldset></div>
+					<div id="div90090000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. ¿Le parece útil la capacitación?</legend><input type="radio" name="90090000" id="9009000001" value="SI"><label for="9009000001">SI</label><input type="radio" name="90090000" id="9009000002" value="NO"><label for="9009000002">NO</label></fieldset></div><div id="div90100000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>10. ¿Utiliza una sesión de aprendizaje (guía del docente) específico para el desarrollo de la clase?</legend><input type="radio" name="90100000" id="9010000001" value="SI"><label for="9010000001">SI</label><input type="radio" name="90100000" id="9010000002" value="NO"><label for="9010000002">NO</label></fieldset></div><div id="div90110000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>11. La sesión de aprendizaje (guía del docente) es:</legend><input type="checkbox" name="90110000[]" id="9011000001" value="ENTREGADO POR EL MINEDU"><label for="9011000001" >ENTREGADO POR EL MINEDU</label><input type="checkbox" name="90110000[]" id="9011000002" value="ELABORADO POR EL DOCENTE"><label for="9011000002" >ELABORADO POR EL DOCENTE</label><input type="checkbox" name="90110000[]" id="9011000003" value="OTRO"><label for="9011000003" >OTRO</label></fieldset></div><div id="div90110100"  class=" ff"  > <div data-role="fieldcontain"><label for="90110100"   >Especificar:</label><input  data-mini="true"   type="text" name="90110100" id="90110100" value=""   ></div></div><div id="div90120000"  class=" ff"  > <label for="90120000"   >12. En este momento, ¿qué clase está desarrollando?</label><input  data-mini="true"   type="text" name="90120000" id="90120000" value=""   ></div><div id="div90130000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>13. En los últimos 6 meses,¿ ha recibido usted visitas de acompañamiento pedagógico?</legend><input type="radio" name="90130000" id="9013000001" value="SI"><label for="9013000001">SI</label><input type="radio" name="90130000" id="9013000002" value="NO"><label for="9013000002">NO</label></fieldset></div><div id="div90140000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>14. ¿A través de que institución ha recibido usted visitas de acompañamiento?</legend><input type="checkbox" name="90140000[]" id="9014000001" value="MINEDU"><label for="9014000001" >MINEDU</label><input type="checkbox" name="90140000[]" id="9014000002" value="DRE/UGEL"><label for="9014000002" >DRE/UGEL</label><input type="checkbox" name="90140000[]" id="9014000003" value="PELA"><label for="9014000003" >PELA</label><input type="checkbox" name="90140000[]" id="9014000004" value="ONGS O EMPRESA PRIVADA"><label for="9014000004" >ONGS O EMPRESA PRIVADA</label><input type="checkbox" name="90140000[]" id="9014000005" value="OTROS"><label for="9014000005" >OTROS</label></fieldset></div><div id="div90140100"  class=" ff"  > <div data-role="fieldcontain"><label for="90140100"   >Especificar:</label><input  data-mini="true"   type="text" name="90140100" id="90140100" value=""   ></div></div><div id="div90150000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>15. ¿Le parece útil las visitas de acompañamiento?</legend><input type="radio" name="90150000" id="9015000001" value="SI"><label for="9015000001">SI</label><input type="radio" name="90150000" id="9015000002" value="NO"><label for="9015000002">NO</label></fieldset></div><div id="div90160000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>16. ¿Qué tan satisfecho se encuentra usted con ser docente?</legend><input type="radio" name="90160000" id="9016000001" value="MUY SATISFECHO"><label for="9016000001">MUY SATISFECHO</label><input type="radio" name="90160000" id="9016000002" value="SATISFECHO"><label for="9016000002">SATISFECHO</label><input type="radio" name="90160000" id="9016000003" value="POCO SATISFECHO"><label for="9016000003">POCO SATISFECHO</label><input type="radio" name="90160000" id="9016000004" value="NADA SATISFECHO"><label for="9016000004">NADA SATISFECHO</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(29);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
