@@ -86,7 +86,7 @@ function onDeviceReady() {
 
 	//--DEPARTAMENTO
 	$("#00000101").change(function(){
-		$("#testr").append("bbb<br>");
+		//$("#testr").append("bbb<br>");
 	 	db.transaction(function(tx) {
 			sql = "SELECT DISTINCT(mes) as m FROM tablon WHERE departamento = '" + $("#00000101").val() + "' ORDER BY m ASC ";
 			tx.executeSql(sql, [], function(tx, res) {
@@ -95,10 +95,10 @@ function onDeviceReady() {
 					options += "<option value='" + res.rows.item(i).m + "'>" + res.rows.item(i).m + "</option>";
 				}
 				$("#00000200").html(options);
-				$("#testr").append("aaaaaaaa<br>");
+				//$("#testr").append("aaaaaaaa<br>");
 			});
 		});
-		$("#testr").append("cccc<br>");
+		//$("#testr").append("cccc<br>");
 		$("#00000100,#00000300,#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>").selectmenu("refresh");
 	});
 
@@ -1573,7 +1573,7 @@ function new_encuesta(){
 
 	if(desktop == 0){
 		db.transaction(function(tx) {
-			tx.executeSql( "INSERT INTO encache (id) VALUES (?)", current_enc.id, function(tx, res) { });
+			//tx.executeSql( "INSERT INTO encache (id) VALUES (?)", current_enc.id, function(tx, res) { });
 		});
 	}
 
@@ -2665,8 +2665,8 @@ function delete_obj(id){
 	localStorage.setItem("list_ids",JSON.stringify(list_ids));
 	localStorage.removeItem("encobj" + id);
     db.transaction(function(tx) {
-		sql = "DELETE FROM encache WHERE id = " + tmpidm;
-		tx.executeSql(sql, [], function(tx, res) {	});
+		//sql = "DELETE FROM encache WHERE id = " + tmpidm;
+		//tx.executeSql(sql, [], function(tx, res) {	});
     });
 }
 
@@ -2674,10 +2674,10 @@ function get_obj(id){
 	var obj;
 	obj = JSON.parse(localStorage.getItem("encobj" + id));
     db.transaction(function(tx) {
-		sql = "SELECT * FROM encache WHERE id = " + obj.id;
+		/*sql = "SELECT * FROM encache WHERE id = " + obj.id;
 		tx.executeSql(sql, [], function(tx, res) {
 			//obj.formdata = res.rows.item(0).contenido;
-		});
+		});*/
     });
 	return obj;
 }
@@ -2827,7 +2827,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 07:09:43</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 07:21:13</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -2895,7 +2895,7 @@ function create_panels(){
 					  <div></div>
 					</a>
 				  </li>
-
+<!--
 				  <li>
 					<a href="#" onclick="return create_tables_data();"   data-transition="slide">
 					  <h3>Instalar Base de datos local</h3>
@@ -2907,7 +2907,7 @@ function create_panels(){
 					  <h3>Check Database Totals</h3>
 					  <div></div>
 					</a>
-				  </li>
+				  </li>-->
 				</ul>
 
 			</div>
