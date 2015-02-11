@@ -43,12 +43,15 @@ var imageid = "";
 var res0 = "<option value='0'>--Seleccionar--</option>";
 var res1 = "<option value='1'>Completo</option><option value='2'>Incompleto</option>";
 var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
+var desktop = 0;
 </script>
 <script src="js/dbdata.js"></script>
 <script>
-//$onready
-document.addEventListener("deviceready", onDeviceReady, false);
-//$(function(){ onDeviceReady(); });
+if(desktop == 0){
+	document.addEventListener("deviceready", onDeviceReady, false);
+} else {
+	$(function(){ onDeviceReady(); });
+}
 
 function onDeviceReady() {
 	//fast_buttons();
@@ -71,30 +74,16 @@ function onDeviceReady() {
 	if((login_status == null) || (login_status == 0)){
 		changepage("#login");
 	}
-
-    pictureSource   = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
-    db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
-
-	//2. SELECT ENCUESTADOR: cuando elige mes cargar periodo
-	/*$('#00000100').bind('click', function(){
-		if( $(this).val() == 1 ){		
-			newvar = ["Mes 1","Mes 2","Mes 3","Mes 4","Mes 5"];	
-		}else if( $(this).val() == 2 ) {
-			newvar = ["Mes 1A","Mes 2A","Mes 3A","Mes 4A","Mes 5A"];	
-		}else if( $(this).val() == 3 ) {
-			newvar = ["Mes 1B","Mes 2B","Mes 3B","Mes 4B","Mes 5B"];	
-		}else if( $(this).val() == 4 ) {
-			newvar = ["Mes 1C","Mes 2C","Mes 3C","Mes 4C","Mes 5C"];	
+	if(desktop == 0){
+		pictureSource   = navigator.camera.PictureSourceType;
+		destinationType = navigator.camera.DestinationType;
+		db = window.sqlitePlugin.openDatabase("Database", "1.0", "Demo", -1);
+		if(localStorage.getItem("localdata") == null){
+			create_tables_data();
 		} else {
-			newvar = ["Mes 1","Mes 2","Mes 3","Mes 4","Mes 5"];	
-		}
 
-		newop = makeoptions(newvar);
-		//console.log(newvar);
-		//console.log(newop);
-		$( "#00000200" ).html(newop).selectmenu("refresh");
-	});*/
+		}
+	}
 
 
 	//--DEPARTAMENTO
@@ -266,17 +255,9 @@ function onDeviceReady() {
 		$('#00000400').selectmenu("refresh");
 	});*/
 
-	$('#00003100').blur( function(){
-		if( $('#00003100').val() != "" ){
-			validate_fono('00003100');
-		}
-	});
-
-
 	//4. SELECT CODIGO LOCAL: cargar detalles de un codigo de local 
 	$('#00000400').change( function(){
 		var newvar = [];
-
 		/*if( $(this).val() == 1 ){		
 			newvar = [{codigo:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Lambda"},
 				{codigo:"55444",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Zigma"},
@@ -292,64 +273,107 @@ function onDeviceReady() {
 			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 		}*/
 
-		db.transaction(function(tx) {
-			sql = "SELECT * FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '" + $("#00000500").val() + "' AND codigo_local = '" + $("#00000400").val() + "' ";
-			tx.executeSql(sql, [], function(tx, res) {
-				for(i = 0; i < res.rows.length; i++ ){
-					obj = res.rows.item(i);
-					if(obj.nivel == "Inicial")obj.nivel_id = 1;
-					if(obj.nivel == "Primaria")obj.nivel_id = 2;
-					if(obj.nivel == "Secundaria")obj.nivel_id = 3;
-					newvar.push(obj);
-					$("#00001000").val(obj.departamento);//Departamento,ftext
-					$("#00001100").val(obj.provincia);//Provincia,ftext
-					$("#00001200").val(obj.distrito);//Distrito,ftext
-					//$("#00001300").val("");//Centro Poblado,fselect
-					//$("#00001400").val("");//DRE,fselect
-					//$("#00001500").val("");//UGEL,fselect
-					$("#00001600").val(obj.area);//Area,ftext
-				}
 
-				show_inicial = true;
-				show_primaria = true;
-				show_secundaria = true;
+		if(desktop == 1){
+			newvar = [{codigo_modular:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Lambda"},
+				{codigo_modular:"12123",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Zigma"}];
 
-				$("#00002411,#00002401,#00002412,#00002402,#00002413,#00002403").val("");
+					show_inicial = true;
+					show_primaria = true;
+					show_secundaria = true;
 
-				len = newvar.length;
-				for( i = 0; i < len ; i++ ){
-					$("#activenivel_" + newvar[i].nivel_id).val(1);
+					$("#00002411,#00002401,#00002412,#00002402,#00002413,#00002403").val("");
 
-					if(newvar[i].nivel_id == 1){
-						show_inicial = false;
-						$("#00002411").val(newvar[i].codigo_modular);
-						$("#00002401").val(newvar[i].nombre);
+					len = newvar.length;
+					for( i = 0; i < len ; i++ ){
+						$("#activenivel_" + newvar[i].nivel_id).val(1);
+
+						if(newvar[i].nivel_id == 1){
+							show_inicial = false;
+							$("#00002411").val(newvar[i].codigo_modular);
+							$("#00002401").val(newvar[i].nombre);
+						}
+						if(newvar[i].nivel_id == 2){
+							show_primaria = false;
+							$("#00002412").val(newvar[i].codigo_modular);
+							$("#00002402").val(newvar[i].nombre);
+						}
+						if(newvar[i].nivel_id == 3){
+							show_secundaria = false;
+							$("#00002413").val(newvar[i].codigo_modular);
+							$("#00002403").val(newvar[i].nombre);
+						}
 					}
-					if(newvar[i].nivel_id == 2){
-						show_primaria = false;
-						$("#00002412").val(newvar[i].codigo_modular);
-						$("#00002402").val(newvar[i].nombre);
+					$("#div00000401").hide();
+					$("#div00000402").hide();
+					$("#div00000403").hide();
+
+					if(show_inicial)$("#div00000401").show();
+					if(show_primaria)$("#div00000402").show();
+					if(show_secundaria)$("#div00000403").show();
+
+					newop = makerows(newvar);
+					$( "#tniveles tbody" ).html(newop);
+		} else {	
+
+			db.transaction(function(tx) {
+				sql = "SELECT * FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '" + $("#00000500").val() + "' AND codigo_local = '" + $("#00000400").val() + "' ";
+				tx.executeSql(sql, [], function(tx, res) {
+					for(i = 0; i < res.rows.length; i++ ){
+						obj = res.rows.item(i);
+						if(obj.nivel == "Inicial")obj.nivel_id = 1;
+						if(obj.nivel == "Primaria")obj.nivel_id = 2;
+						if(obj.nivel == "Secundaria")obj.nivel_id = 3;
+						newvar.push(obj);
+						$("#00001000").val(obj.departamento);//Departamento,ftext
+						$("#00001100").val(obj.provincia);//Provincia,ftext
+						$("#00001200").val(obj.distrito);//Distrito,ftext
+						$("#00001300").html("<option>"+ obj.centro_poblado + "</option>");//Centro Poblado,fselect
+						$("#00001400").html("<option>--SELECCIONAR--</option>");//DRE,fselect
+						$("#00001500").html("<option>" + obj.ugel + "</option>");//UGEL,fselect
+						$("#00001600").val(obj.area);//Area,ftext
 					}
-					if(newvar[i].nivel_id == 3){
-						show_secundaria = false;
-						$("#00002413").val(newvar[i].codigo_modular);
-						$("#00002403").val(newvar[i].nombre);
+
+					show_inicial = true;
+					show_primaria = true;
+					show_secundaria = true;
+
+					$("#00002411,#00002401,#00002412,#00002402,#00002413,#00002403").val("");
+
+					len = newvar.length;
+					for( i = 0; i < len ; i++ ){
+						$("#activenivel_" + newvar[i].nivel_id).val(1);
+
+						if(newvar[i].nivel_id == 1){
+							show_inicial = false;
+							$("#00002411").val(newvar[i].codigo_modular);
+							$("#00002401").val(newvar[i].nombre);
+						}
+						if(newvar[i].nivel_id == 2){
+							show_primaria = false;
+							$("#00002412").val(newvar[i].codigo_modular);
+							$("#00002402").val(newvar[i].nombre);
+						}
+						if(newvar[i].nivel_id == 3){
+							show_secundaria = false;
+							$("#00002413").val(newvar[i].codigo_modular);
+							$("#00002403").val(newvar[i].nombre);
+						}
 					}
-				}
-				$("#div00000401").hide();
-				$("#div00000402").hide();
-				$("#div00000403").hide();
+					$("#div00000401").hide();
+					$("#div00000402").hide();
+					$("#div00000403").hide();
 
-				if(show_inicial)$("#div00000401").show();
-				if(show_primaria)$("#div00000402").show();
-				if(show_secundaria)$("#div00000403").show();
+					if(show_inicial)$("#div00000401").show();
+					if(show_primaria)$("#div00000402").show();
+					if(show_secundaria)$("#div00000403").show();
 
-				newop = makerows(newvar);
-				$( "#tniveles tbody" ).html(newop);
+					newop = makerows(newvar);
+					$( "#tniveles tbody" ).html(newop);
 
+				});
 			});
-		});
-
+		}
 
 	});
 
@@ -365,8 +389,10 @@ function onDeviceReady() {
 	$( "input[name=01010000]" ).change(function() {
 		if( $("input[name=01010000]:checked").val() == "SI"){
 			$( "#div02010000,#div03010000" ).hide();
+			$( "#div11000000,#div11010000,#div11020000,#div11030000" ).show();
 		} else {
 			$( "#div02010000,#div03010000" ).show();
+			$( "#div11000000,#div11010000,#div11020000,#div11030000" ).hide();
 		}
 	});
 
@@ -410,7 +436,7 @@ function onDeviceReady() {
 	$('#00210101,#00210201,#00210301').change( function(){
 		if( $(this).val() == 7  ){
 			$("#div00210401").show();
-		}else if( ($(this).val() == 5)  ||  ($(this).val() == 6)  ){
+		}else if( ($(this).val() == 5)  ||  ($(this).val() == 6)  ){ //local cerrado
 			//ocultar siguiente
 			$("#encuesta3 .sgte").hide();
 			$("#encaso").hide();		
@@ -422,10 +448,10 @@ function onDeviceReady() {
 		} else {
 			$("#encuesta3 .sgte").show();
 			$("#encaso").show();		
-			$("#final_link").hide();
+			//$("#final_link").hide();
 			$(".visita2,.visita3").show();
 
-			$("#div00210401").hide();
+			//$("#div00210401").hide();
 		}
 	});
 
@@ -1589,16 +1615,18 @@ function new_encuesta(){
 	clear_form();
 	clear_niveles();
 
- 	db.transaction(function(tx) {
-		sql = "SELECT DISTINCT(departamento) as dep FROM tablon ORDER BY dep ASC";
-		tx.executeSql(sql, [], function(tx, res) {
-			options = "<option value='0'>--SELECCIONAR--</option>";
-			for(i = 0; i < res.rows.length; i++ ){
-				options += "<option value='" + res.rows.item(i).dep + "'>" + res.rows.item(i).dep + "</option>";
-			}
-			$("#00000101").html(options);
+	if(desktop == 0){
+	 	db.transaction(function(tx) {
+			sql = "SELECT DISTINCT(departamento) as dep FROM tablon ORDER BY dep ASC";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).dep + "'>" + res.rows.item(i).dep + "</option>";
+				}
+				$("#00000101").html(options);
+			});
 		});
-    });
+	}
 
 	$("#botonvaciar").show();
 
@@ -1624,8 +1652,16 @@ function new_encuesta(){
 
 	save_obj( tmpid , enc );
 	current_enc = enc;
-	changepage("#encuesta1");
 	current_enc_page = 1;
+
+	if(desktop == 0){
+		db.transaction(function(tx) {
+			tx.executeSql( "INSERT INTO encache (id) VALUES (?)", current_enc.id, function(tx, res) { });
+		});
+	}
+
+	changepage("#encuesta1");
+
 	return false;
 }
 
@@ -1723,12 +1759,15 @@ function nextpage_encuesta( i ){
 	}
 
 	$("#encuesta" + (i - 1)).find(' input[type!="hidden"] , select' ).each(function () {
-		if($(this).attr("id") == "7800099"){
-			//ignore
-		} else {
-			if ( ! $(this).val() ) { 
-				has_empty = true;
-				//alert("fill all form inputs");
+		if( $(this).is(":visible") ){
+			if($(this).attr("id") == "78000999999"){
+				//ignore
+			} else {
+				if ( ! $(this).val() ) { 
+					has_empty = true;
+					//alert("Debe completar todas las preguntas.");
+					//return false;
+				}
 			}
 		}
 	});
@@ -1742,7 +1781,6 @@ function nextpage_encuesta( i ){
 	if($("input[name=00000403]:checked").val() == "SI"){
 		$("#00002413").val( $("#00004013").val());
 	}
-
 
 	if($("#activenivel_1").val()==0)$(".efi").hide();
 	if($("#activenivel_2").val()==0)$(".efp").hide();
@@ -1990,8 +2028,7 @@ function makerows(tmp){
 	html = "";
 	len = tmp.length;
 	for( i = 0; i < len ; i++ ){
-		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td>" + tmp[i].codigo + "</td>";
-		//html += "<td>" + tmp[i].nombre + "</td>";
+		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td>" + tmp[i].codigo_modular + "</td>";
 		html += "<td>" + tmp[i].nivel + "</td>";
 		html += '<td><a href="#" onclick="return hideinitnivel(' + tmp[i].nivel_id + ');" data-role="button" data-icon="delete" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all" role="button"></a> </td></tr>';
 	}
@@ -2019,23 +2056,9 @@ function validate_pages(){
 		alert(tmp);	return false;
 	}*/
 
-	/*
-	//LOS HORARIOS DEBEN REGISTRARSE DE 00 A 24 HORAS
-	if(  $("input[name=1401010101]").is(":checked") )
-	if( noes24("14010301") ){  }
-	if( noes24("14010401") ){  }
-
-	14010301 14010401
-	14020301 14020401
-
-	14010302 14010402
-	14020302 14020402
-	14030302 14030402
-
-	14010303 14010403
-	14020303 14020403
-	14030303 14030403
-	*/
+	if( $('#00003100').val() != "" ){
+		return validate_fono('00003100');
+	}
 
 	tmp = "EL Nro TOTAL DE DOCENTES DEBE SER IGUAL A LA SUMA DE DOCENTES PRESENTES, AUSENTES CON JUSTIFICACIÓN Y SIN JUSTIFICACIÓN";
 	if( ( (parseInt($("#17020001").val()) || 0) + (parseInt($("#17030001").val()) || 0 ) + (parseInt($("#17040001").val()) || 0)) != (parseInt($("#17010001").val()) || 0) ){
@@ -2053,14 +2076,14 @@ function validate_pages(){
 	if( int("18020002") > int("18010002") ){ 	alert(tmp);	return false;  }
 	if( int("18020003") > int("18010003") ){ 	alert(tmp);	return false; }
 */
-	/*tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
-	if( ($('#div25010000').is(':visible') ) && (int("25010000") < 2014) ){ alert(tmp);	return false;  }
-	if( ($('#div25020000').is(':visible') ) && (int("25020000") < 2014) ){ alert(tmp);	return false;  }
-	if( ($('#div25030000').is(':visible') ) && (int("25030000") < 2014) ){ alert(tmp);	return false;  }
-	if( ($('#div25040000').is(':visible') ) && (int("25040000") < 2014) ){ alert(tmp);	return false;  }
-	if( ($('#div25050000').is(':visible') ) && (int("25050000") < 2014) ){ alert(tmp);	return false;  }
-	if( ($('#div25060000').is(':visible') ) && (int("25060000") < 2014) ){ alert(tmp);	return false;  }
-	if( ($('#div25070000').is(':visible') ) && (int("25070000") < 2014) ){ alert(tmp);	return false;  }*/
+	tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
+	if( ($('.div25010000').is(':visible') ) && (int("25010100") <= 2014) && (int("25010200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.div25020000').is(':visible') ) && (int("25020100") <= 2014) && (int("25020200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.div25030000').is(':visible') ) && (int("25030100") <= 2014) && (int("25030200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.div25040000').is(':visible') ) && (int("25040100") <= 2014) && (int("25040200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.div25050000').is(':visible') ) && (int("25050100") <= 2014) && (int("25050200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.div25060000').is(':visible') ) && (int("25060100") <= 2014) && (int("25060200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.div25070000').is(':visible') ) && (int("25070100") <= 2014) && (int("25070200") < 9) ){ alert(tmp);	return false;  }
 
 
 	tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
@@ -2649,10 +2672,11 @@ function validate_fono(id){
 	if( $("#" + id).val() == "" )return false;
 	nn = int(id);
 	if(  $("#" + id).val().length <= 9  ){
-		//return true;
+		return true;
 	} else {
 		alert("Teléfono no debe contener mas de 9 digitos.");
 		$("#" + id).val("");
+		return false;
 	}
 }
 
@@ -2715,6 +2739,7 @@ function create_id(){
 }
 
 function delete_obj(id){
+	var tmpidm = id;
 	list_ids = JSON.parse(localStorage.getItem("list_ids"));
 	index = list_ids.indexOf(id);
 	if (index > -1) {
@@ -2722,17 +2747,21 @@ function delete_obj(id){
 	}
 	localStorage.setItem("list_ids",JSON.stringify(list_ids));
 	localStorage.removeItem("encobj" + id);
+    db.transaction(function(tx) {
+		sql = "DELETE FROM encache WHERE id = " + tmpidm;
+		tx.executeSql(sql, [], function(tx, res) {	});
+    });
 }
 
 function get_obj(id){
 	var obj;
 	obj = JSON.parse(localStorage.getItem("encobj" + id));
-   /* db.transaction(function(tx) {
-		sql = "SELECT * FROM encuesta_cache WHERE id = " + id;
+    db.transaction(function(tx) {
+		sql = "SELECT * FROM encache WHERE id = " + obj.id;
 		tx.executeSql(sql, [], function(tx, res) {
-			obj.formdata = res.rows.item(0).content;
+			//obj.formdata = res.rows.item(0).content;
 		});
-    });*/
+    });
 	return obj;
 }
 
@@ -2741,15 +2770,14 @@ function get_small_obj(id){
 }
 
 function save_obj(id,obj){
+	var tmpidm = obj;
 	localStorage.setItem("encobj" + id,JSON.stringify(obj)  );
-   /*
-	db.transaction(function(tx) {
-		tx.executeSql( "UPDATE encuesta_cache SET content = ? WHERE id = " + id , [ obj.formdata ], function(tx, res) { });
-    });
-	obj.formdata = "";
-	*/
+	if(desktop == 0){
+		db.transaction(function(tx) {
+			//tx.executeSql( "UPDATE encache SET content = ? WHERE id = " + obj.id , [ obj.formdata ], function(tx, res) { });
+		});
+	}
 }
-
 
 function clear_form(){
 	for(i = 1; i < nivelespage_start; i++){
@@ -2882,7 +2910,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 03:09:22</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 06:15:57</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -3222,7 +3250,7 @@ function create_panels(){
 </tr><tr class='efs'><td><div id="div00002413"  class=" ff"  > <label for="00002413"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="text" name="00002413" id="00002413" value=""   readonly='readonly'  ></div></td>
 <td>Secundaria</td>
 <td><div id="div00002403"  class=" ff"  > <label for="00002403"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="text" name="00002403" id="00002403" value=""   ></div></td>
-</tr></tbody></table><p><div class='cs1'>Dirección del Local Escolar</div></p><div id="div00002500"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1.C Tipo de Vía</legend><input type="radio" name="00002500" id="0000250001" value="AVENIDA"><label for="0000250001">AVENIDA</label><input type="radio" name="00002500" id="0000250002" value="JIRON"><label for="0000250002">JIRON</label><input type="radio" name="00002500" id="0000250003" value="CALLE"><label for="0000250003">CALLE</label><input type="radio" name="00002500" id="0000250004" value="PASAJE"><label for="0000250004">PASAJE</label><input type="radio" name="00002500" id="0000250005" value="CARRETERA"><label for="0000250005">CARRETERA</label></fieldset></div><div id="div00002600"  class=" ff"  > <label for="00002600"   >1.D Nombre de la vía</label><input  data-mini="true"   type="text" name="00002600" id="00002600" value=""   ></div><p>1.E Detalle dirección y teléfono</p><table  class="ts1"><thead><tr><th class=''>Nro de puerta</th><th class=''>Piso</th><th class=''>Manzana</th><th class=''>Lote</th><th class=''>Teléfono</th></tr></thead><tbody><tr class=''><td><div id="div00002700"  class=" ff"  > <label for="00002700"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00002700" id="00002700" value=""   /></div></td>
+</tr></tbody></table><p><div class='cs1'>Dirección del Local Escolar</div></p><div id="div00002500"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1.C Tipo de Vía</legend><input type="radio" name="00002500" id="0000250001" value="AVENIDA"><label for="0000250001">AVENIDA</label><input type="radio" name="00002500" id="0000250002" value="JIRON"><label for="0000250002">JIRON</label><input type="radio" name="00002500" id="0000250003" value="CALLE"><label for="0000250003">CALLE</label><input type="radio" name="00002500" id="0000250004" value="PASAJE"><label for="0000250004">PASAJE</label><input type="radio" name="00002500" id="0000250005" value="CARRETERA"><label for="0000250005">CARRETERA</label></fieldset></div><div id="div00002600"  class=" ff"  > <label for="00002600"   >1.D Nombre de la vía</label><input  data-mini="true"   type="text" name="00002600" id="00002600" value=""   ></div><p>1.E Detalle dirección y teléfono</p><table  class="ts1"><thead><tr><th class=''>Nro de puerta</th><th class=''>Piso</th><th class=''>Manzana</th><th class=''>Lote</th><th class=''>Teléfono</th></tr></thead><tbody><tr class=''><td><div id="div00002700"  class=" ff"  > <label for="00002700"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="text" name="00002700" id="00002700" value=""   ></div></td>
 <td><div id="div00002800"  class=" ff"  > <label for="00002800"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00002800" id="00002800" value=""   /></div></td>
 <td><div id="div00002900"  class=" ff"  > <label for="00002900"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="text" name="00002900" id="00002900" value=""   ></div></td>
 <td><div id="div00003000"  class=" ff"  > <label for="00003000"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="text" name="00003000" id="00003000" value=""   ></div></td>

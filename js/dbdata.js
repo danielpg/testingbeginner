@@ -11,6 +11,9 @@ function create_tables_data(){
 		tx.executeSql('DROP TABLE IF EXISTS dres');
 		tx.executeSql('DROP TABLE IF EXISTS unidades');
 
+		tx.executeSql('DROP TABLE IF EXISTS test');
+		tx.executeSql('DROP TABLE IF EXISTS encache');
+
 		tx.executeSql('CREATE TABLE IF NOT EXISTS administrativas (  idadministrativa INTEGER PRIMARY KEY ,  iddre int DEFAULT NULL,  nombredre varchar(200) DEFAULT NULL, idugel int DEFAULT NULL,  nombreugel varchar(200) DEFAULT NULL)');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS encuesta (  idencuesta INTEGER PRIMARY KEY ,  fecha date DEFAULT NULL,  semana int DEFAULT NULL,  idencuestador int DEFAULT NULL,  idinstitucioneducativa int DEFAULT NULL,  idestado int DEFAULT NULL) ');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS encuestadores (  idencuestador INTEGER PRIMARY KEY ,  codigoencuestador varchar(50)  NULL,  nombreencuestador varchar(200)  NULL,  apellidoencuestador varchar(200)  NULL,  dni int NOT NULL) ');
@@ -22,6 +25,8 @@ function create_tables_data(){
 		tx.executeSql('CREATE TABLE IF NOT EXISTS dres (  id INTEGER PRIMARY KEY , codigo varchar(200) DEFAULT NULL , nombre varchar(200) DEFAULT NULL )  ');
 		tx.executeSql('CREATE TABLE IF NOT EXISTS unidades (  id INTEGER PRIMARY KEY , codigo varchar(200) DEFAULT NULL , nombre varchar(200) DEFAULT NULL, dre_id int DEFAULT NULL)  ');
 
+		tx.executeSql('CREATE TABLE IF NOT EXISTS test (  id INTEGER PRIMARY KEY , codigo varchar(200) DEFAULT NULL , nombre varchar(200) DEFAULT NULL )  ');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS encache (  id INTEGER PRIMARY KEY , textid text DEFAULT NULL ,content text DEFAULT NULL , pro text DEFAULT NULL  )  ');
 
 		tx.executeSql('CREATE INDEX idx10 ON tablon (id);');
 		tx.executeSql('CREATE INDEX idx11 ON tablon (mes);');
