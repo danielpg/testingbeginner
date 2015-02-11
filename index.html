@@ -302,7 +302,7 @@ function onDeviceReady() {
 					if(obj.nivel == "Primaria")obj.nivel_id = 2;
 					if(obj.nivel == "Secundaria")obj.nivel_id = 3;
 					newvar.push(obj);
-
+					$("#testr").append("eeeeee<br>");
 					$("#00001000").val(obj.departamento);//Departamento,ftext
 					$("#00001100").val(obj.provincia);//Provincia,ftext
 					$("#00001200").val(obj.distrito);//Distrito,ftext
@@ -310,10 +310,13 @@ function onDeviceReady() {
 					//$("#00001400").val("");//DRE,fselect
 					//$("#00001500").val("");//UGEL,fselect
 					$("#00001600").val(obj.area);//Area,ftext
+					$("#testr").append("wwwww<br>");
 				}
 
 			});
 		});
+
+		$("#testr").append("aaaa<br>");
 
 		show_inicial = true;
 		show_primaria = true;
@@ -323,6 +326,7 @@ function onDeviceReady() {
 
 		len = newvar.length;
 		for( i = 0; i < len ; i++ ){
+			$("#testr").append("tttt<br>");
 			$("#activenivel_" + newvar[i].nivel_id).val(1);
 
 			if(newvar[i].nivel_id == 1){
@@ -341,7 +345,7 @@ function onDeviceReady() {
 				$("#00002403").val(newvar[i].nombre);
 			}
 		}
-
+		$("#testr").append("bbbb<br>");
 		$("#div00000401").hide();
 		$("#div00000402").hide();
 		$("#div00000403").hide();
@@ -2883,7 +2887,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 02:46:23</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 02:54:40</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -3129,7 +3133,7 @@ function create_panels(){
 </tr><tr class='tnewnivel3'><td><div id="div00004013"  class=" ff"  > <label for="00004013"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004013" id="00004013" value=""   /></div></td>
 <td>Secundaria</td>
 <td></td>
-</tr></tbody></table>
+</tr></tbody></table><div id='testr'></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(2);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
