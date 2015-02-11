@@ -26,7 +26,7 @@ function create_tables_data(){
 		tx.executeSql('CREATE TABLE IF NOT EXISTS unidades (  id INTEGER PRIMARY KEY , codigo varchar(200) DEFAULT NULL , nombre varchar(200) DEFAULT NULL, dre_id int DEFAULT NULL)  ');
 
 		tx.executeSql('CREATE TABLE IF NOT EXISTS test (  id INTEGER PRIMARY KEY , codigo varchar(200) DEFAULT NULL , nombre varchar(200) DEFAULT NULL )  ');
-		tx.executeSql('CREATE TABLE IF NOT EXISTS encache (  id INTEGER PRIMARY KEY , textid text DEFAULT NULL ,content text DEFAULT NULL , pro text DEFAULT NULL  )  ');
+		tx.executeSql('CREATE TABLE IF NOT EXISTS encache (  id INTEGER PRIMARY KEY , tid varchar(30) DEFAULT NULL ,content varchar(500) DEFAULT NULL , odata varchar(500) DEFAULT NULL  )  ');
 
 		tx.executeSql('CREATE INDEX idx10 ON tablon (id);');
 		tx.executeSql('CREATE INDEX idx11 ON tablon (mes);');
@@ -61,7 +61,7 @@ function create_tables_data(){
 		sql = "INSERT INTO institucioneseducativas (codigomodular,nombreinstitucioneducativa,niveleducativo,codigolocal,idadministrativa,idgeografia) VALUES (?,?,?,?,?,?)";
 		//data_institucioneseducativas
 
-		$("#popmsg").html("Instalando Datos...");
+		$("#popmsg").html("Instalando Tablas...");
 		sql = "INSERT INTO tablon (id,mes,encuestador,periodo,dia,departamento,provincia,distrito,centro_poblado,ugel,codigo_local,codigo_modular,nombre,nivel,area) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		tx.executeSql(sql,[1,'Marzo','002','4','LUNES','Apurimac','Grau','Gamarra','PALPACACHI','UGEL Abancay','54210','200170',"54403",'Primaria','Urbano']);
 tx.executeSql(sql,[2,'Marzo','002','5','LUNES','Apurimac','Grau','Progreso','RECORD','UGEL Grau','54781','200287',"54414 CCONCCACCA",'Primaria','Rural']);
@@ -6887,7 +6887,7 @@ tx.executeSql(sql,[6821,'Marzo','004','3','LUNES','Lima Metropolitana','Lima','I
 tx.executeSql(sql,[6822,'Marzo','004','2','LUNES','Lima Metropolitana','Lima','Independencia','INDEPENDENCIA','UGEL Rimac 02','306010','437327',"LIBERTADOR SAN MARTIN",'Secundaria','Urbano']);
 
 
-		$("#popmsg").html("Instalando Datos...");
+		$("#popmsg").html("Instalando DRE...");
 		sql = "INSERT INTO dres (id,codigo,nombre) VALUES (?,?,?)";
 		tx.executeSql(sql,['1','010000','AMAZONAS']);
 tx.executeSql(sql,['2','020000','ANCASH']);
@@ -6917,7 +6917,7 @@ tx.executeSql(sql,['25','230000','TACNA']);
 tx.executeSql(sql,['26','250000','UCAYALI']);
 
 
-		$("#popmsg").html("Instalando Datos...");
+		$("#popmsg").html("Instalando UGEL...");
 		sql = "INSERT INTO unidades (id,codigo,nombre,dre_id) VALUES (?,?,?,?)";
 		tx.executeSql(sql,['1','010001','UGEL CHACHAPOYAS','1']);
 tx.executeSql(sql,['2','010006','UGEL RODRIGUEZ DE MENDOZA','1']);
