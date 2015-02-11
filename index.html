@@ -86,7 +86,7 @@ function onDeviceReady() {
 
 	//--DEPARTAMENTO
 	$("#00000101").change(function(){
-		$("testr").append("bbb<br>");
+		$("#testr").append("bbb<br>");
 	 	db.transaction(function(tx) {
 			sql = "SELECT DISTINCT(mes) as m FROM tablon WHERE departamento = '" + $("#00000101").val() + "' ORDER BY m ASC ";
 			tx.executeSql(sql, [], function(tx, res) {
@@ -95,10 +95,10 @@ function onDeviceReady() {
 					options += "<option value='" + res.rows.item(i).m + "'>" + res.rows.item(i).m + "</option>";
 				}
 				$("#00000200").html(options);
-				$("testr").append("aaaaaaaa<br>");
+				$("#testr").append("aaaaaaaa<br>");
 			});
 		});
-		$("testr").append("cccc<br>");
+		$("#testr").append("cccc<br>");
 		$("#00000100,#00000300,#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>").selectmenu("refresh");
 	});
 
@@ -2827,7 +2827,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 06:55:33</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 06:58:11</div>';
 	html += '</div>';
 	$("body").append(html);
 }
