@@ -98,7 +98,7 @@ function onDeviceReady() {
 
 
  	db.transaction(function(tx) {
-		sql = "SELECT DISTINCT(departamento) as dep FROM tablon';
+		sql = "SELECT DISTINCT(departamento) as dep FROM tablon";
 		tx.executeSql(sql, [], function(tx, res) {
 			options = "<option value='0'>--SELECCIONAR--</option>";
 			for(i = 0; i < res.rows.length; i++ ){
@@ -2789,6 +2789,17 @@ function dbtotal(){
 		tx.executeSql("SELECT count(*) as total from institucioneseducativas", [], function(tx, res) {
 			$("#popmsg").append("instituciones total: "+ res.rows.item(0).total+"<br>"); 
 		});
+
+		tx.executeSql("SELECT count(*) as total from dres", [], function(tx, res) {
+			$("#popmsg").append("dres total: "+ res.rows.item(0).total+"<br>"); 
+		});
+		tx.executeSql("SELECT count(*) as total from unidades", [], function(tx, res) {
+			$("#popmsg").append("unidades total: "+ res.rows.item(0).total+"<br>"); 
+		});
+		tx.executeSql("SELECT count(*) as total from tablon", [], function(tx, res) {
+			$("#popmsg").append("tablon total: "+ res.rows.item(0).total+"<br>"); 
+		});
+
     });
 	return false;
 }
@@ -2838,7 +2849,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 01:35:18</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 01:38:38</div>';
 	html += '</div>';
 	$("body").append(html);
 }
