@@ -7135,13 +7135,13 @@ tx.executeSql(sql,['213','250004','UGEL PURUS','26']);
 tx.executeSql(sql,['214','160009','MUN. DISTRITAL DE BELEN','18']);
 
 
-		localStorage.setItem("localdata",1);
     },function(e){
 		//error    
 		freeze_close();
 		alert("DATABASE ERROR: " + e.message);
 	},function(){
 		//success
+		localStorage.setItem("localdata",1);
 		freeze_close();		
 	});
 	return false;
