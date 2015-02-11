@@ -115,7 +115,7 @@ function onDeviceReady() {
 	//--MES
 	$("#00000200").change(function(){
 	 	db.transaction(function(tx) {
-			sql = "SELECT DISTINCT(encuestador) as n FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "'";
+			sql = "SELECT DISTINCT(encuestador) as n FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' ORDER BY n ASC";
 			tx.executeSql(sql, [], function(tx, res) {
 				options = "<option value='0'>--SELECCIONAR--</option>";
 				for(i = 0; i < res.rows.length; i++ ){
@@ -130,7 +130,7 @@ function onDeviceReady() {
 	//ENCUESTADOR
 	$("#00000100").change(function(){
 	 	db.transaction(function(tx) {
-			sql = "SELECT DISTINCT(periodo) as p FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "'  ";
+			sql = "SELECT DISTINCT(periodo) as p FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' ORDER BY p ASC ";
 			tx.executeSql(sql, [], function(tx, res) {
 				options = "<option value='0'>--SELECCIONAR--</option>";
 				for(i = 0; i < res.rows.length; i++ ){
@@ -145,7 +145,7 @@ function onDeviceReady() {
 	//--PERIODO
 	$("#00000300").change(function(){
 	 	db.transaction(function(tx) {
-			sql = "SELECT DISTINCT(dia) as d FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "'  ";
+			sql = "SELECT DISTINCT(dia) as d FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' ORDER BY d ASC ";
 			tx.executeSql(sql, [], function(tx, res) {
 				options = "<option value='0'>--SELECCIONAR--</option>";
 				for(i = 0; i < res.rows.length; i++ ){
@@ -160,7 +160,7 @@ function onDeviceReady() {
 	//--DIA
 	$("#00000500").change(function(){
 	 	db.transaction(function(tx) {
-			sql = "SELECT DISTINCT(codigo_local) as local FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '"+$("#00000500").val()+"' ";
+			sql = "SELECT DISTINCT(codigo_local) as local FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '"+$("#00000500").val()+"' ORDER BY local ASC";
 			tx.executeSql(sql, [], function(tx, res) {
 				options = "<option value='0'>--SELECCIONAR--</option>";
 				for(i = 0; i < res.rows.length; i++ ){
@@ -293,16 +293,13 @@ function onDeviceReady() {
 		}*/
 
 		db.transaction(function(tx) {
-			//var secvar = [];
 			sql = "SELECT * FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '" + $("#00000500").val() + "' AND codigo_local = '" + $("#00000400").val() + "' ";
 			tx.executeSql(sql, [], function(tx, res) {
 				for(i = 0; i < res.rows.length; i++ ){
-					alert(res.rows.item(i).codigo_modular);
 					obj = res.rows.item(i);
 					if(obj.nivel == "Inicial")obj.nivel_id = 1;
 					if(obj.nivel == "Primaria")obj.nivel_id = 2;
 					if(obj.nivel == "Secundaria")obj.nivel_id = 3;
-					$("#testr").append("eeeeee<br>");
 					newvar.push(obj);
 					$("#00001000").val(obj.departamento);//Departamento,ftext
 					$("#00001100").val(obj.provincia);//Provincia,ftext
@@ -311,52 +308,49 @@ function onDeviceReady() {
 					//$("#00001400").val("");//DRE,fselect
 					//$("#00001500").val("");//UGEL,fselect
 					$("#00001600").val(obj.area);//Area,ftext
-					$("#testr").append("wwwww<br>");
 				}
+
+				show_inicial = true;
+				show_primaria = true;
+				show_secundaria = true;
+
+				$("#00002411,#00002401,#00002412,#00002402,#00002413,#00002403").val("");
+
+				len = newvar.length;
+				for( i = 0; i < len ; i++ ){
+					$("#activenivel_" + newvar[i].nivel_id).val(1);
+
+					if(newvar[i].nivel_id == 1){
+						show_inicial = false;
+						$("#00002411").val(newvar[i].codigo_modular);
+						$("#00002401").val(newvar[i].nombre);
+					}
+					if(newvar[i].nivel_id == 2){
+						show_primaria = false;
+						$("#00002412").val(newvar[i].codigo_modular);
+						$("#00002402").val(newvar[i].nombre);
+					}
+					if(newvar[i].nivel_id == 3){
+						show_secundaria = false;
+						$("#00002413").val(newvar[i].codigo_modular);
+						$("#00002403").val(newvar[i].nombre);
+					}
+				}
+				$("#div00000401").hide();
+				$("#div00000402").hide();
+				$("#div00000403").hide();
+
+				if(show_inicial)$("#div00000401").show();
+				if(show_primaria)$("#div00000402").show();
+				if(show_secundaria)$("#div00000403").show();
+
+				newop = makerows(newvar);
+				$( "#tniveles tbody" ).html(newop);
 
 			});
 		});
 
-		$("#testr").append("aaaa<br>");
 
-		show_inicial = true;
-		show_primaria = true;
-		show_secundaria = true;
-
-		$("#00002411,#00002401,#00002412,#00002402,#00002413,#00002403").val("");
-
-		len = newvar.length;
-		for( i = 0; i < len ; i++ ){
-			$("#testr").append("tttt<br>");
-			$("#activenivel_" + newvar[i].nivel_id).val(1);
-
-			if(newvar[i].nivel_id == 1){
-				show_inicial = false;
-				$("#00002411").val(newvar[i].codigo_modular);
-				$("#00002401").val(newvar[i].nombre);
-			}
-			if(newvar[i].nivel_id == 2){
-				show_primaria = false;
-				$("#00002412").val(newvar[i].codigo_modular);
-				$("#00002402").val(newvar[i].nombre);
-			}
-			if(newvar[i].nivel_id == 3){
-				show_secundaria = false;
-				$("#00002413").val(newvar[i].codigo_modular);
-				$("#00002403").val(newvar[i].nombre);
-			}
-		}
-		$("#testr").append("bbbb<br>");
-		$("#div00000401").hide();
-		$("#div00000402").hide();
-		$("#div00000403").hide();
-
-		if(show_inicial)$("#div00000401").show();
-		if(show_primaria)$("#div00000402").show();
-		if(show_secundaria)$("#div00000403").show();
-
-		newop = makerows(newvar);
-		$( "#tniveles tbody" ).html(newop);
 	});
 
 
@@ -2888,7 +2882,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 03:02:31</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 03:09:22</div>';
 	html += '</div>';
 	$("body").append(html);
 }
