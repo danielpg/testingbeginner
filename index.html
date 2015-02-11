@@ -84,9 +84,9 @@ function onDeviceReady() {
 		}
 	}
 
-
 	//--DEPARTAMENTO
 	$("#00000101").change(function(){
+		$("testr").append("bbb<br>");
 	 	db.transaction(function(tx) {
 			sql = "SELECT DISTINCT(mes) as m FROM tablon WHERE departamento = '" + $("#00000101").val() + "' ORDER BY m ASC ";
 			tx.executeSql(sql, [], function(tx, res) {
@@ -95,8 +95,10 @@ function onDeviceReady() {
 					options += "<option value='" + res.rows.item(i).m + "'>" + res.rows.item(i).m + "</option>";
 				}
 				$("#00000200").html(options);
+				$("testr").append("aaaaaaaa<br>");
 			});
 		});
+		$("testr").append("cccc<br>");
 		$("#00000100,#00000300,#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>").selectmenu("refresh");
 	});
 
@@ -158,90 +160,6 @@ function onDeviceReady() {
 			});
 		});
 	});
-
-	/* 
-	mes = 1;
-	idenc = 21;
-	last_day =  daysInMonth(2015, mes);
-	edu_ids = "";
-
-	//***OBTENER IDS DE CENTROS EDUCATIVOS
-    db.transaction(function(tx) {
-		sql = "SELECT * FROM encuesta WHERE idencuestador = " + idenc + " AND fecha BETWEEN '2015-' + mes + '-01' AND '2015-'+ mes + '-' + last_day;
-		tx.executeSql(sql, [], function(tx, res) {
-			for(i = 0; i < res.rows.length; i++ ){
-				edu_ids	+= res.rows.item(i).idencuesta + ",";
-			}
-		});
-    });
-
-	//***MOSTRAR LISTADO CENTROS EDUCATIVOS
-    db.transaction(function(tx) {
-		sql = "SELECT codigomodular,nombreinstitucioneducativa FROM institucioneseducativas WHERE idinstitucioneducativa IN (" + edu_ids + ")";
-		tx.executeSql(sql, [], function(tx, res) {
-			for(i = 0; i < res.rows.length; i++ ){
-				html += "<option value='" + res.rows.item(i).codigomodular + "'>" + res.rows.item(i).nombreinstitucioneducativa + "</option>";
-			}
-			$('#00000400').html(html_options);
-			//$('#00000400').selecmenu("refresh");
-		});
-    });
-
-	//***CARGAR NIVELES y DETALLE DE UNO SOLO CENTRO EDUCATIVO
-    db.transaction(function(tx) {
-		select_modular = 1220303;
-		sql = "SELECT * FROM institucioneseducativas WHERE codigomodular = " + select_modular;
-		tx.executeSql(sql, [], function(tx, res) {
-			for(i = 0; i < res.rows.length; i++ ){
-				obj = new {};
-				obj.id =  res.rows.item(i).idinstitucioneducativa;
-				obj.nivel_id =  res.rows.item(i).niveleducativo;
-				obj.nombre =  res.rows.item(i).niveleducativo;
-				obj.codigo =  res.rows.item(i).niveleducativo;
-				newvar.push(obj);
-			}
-			edu = res.rows.item(0);
-			edu.idinstitucioneducativa
-			edu.codigomodular
-			edu.anexo
-			edu.nombreinstitucioneducativa
-			edu.niveleducativo
-			edu.codigolocal
-
-			edu.idadministrativa
-			edu.idgeografia
-
-			edgeo = get_geo_educacion(edu.idgeografia);
-			$("#00001000").val(edgeo.departamento);//Departamento,ftext
-			$("#00001000").val(edgeo.provincia);//Provincia,ftext
-			$("#00001000").val(edgeo.distrito);//Distrito,ftext
-			$("#00001000").val("");//Centro Poblado,fselect
-			$("#00001000").val("");//DRE,fselect
-			$("#00001000").val("");//UGEL,fselect
-			$("#00001000").val("");//Area,ftext
-			$("#00001000").val("");//Region,fradiorow
-
-		});
-    });
-
-	function get_geo_educacion(idgeo){
-		db.transaction(function(tx) {
-			sql = "SELECT * FROM geografias WHERE idgeografia = " + idgeo;
-			tx.executeSql(sql, [], function(tx, res) {
-				obj = res.rows.item(0);
-				obj.idgeografia
-				obj.iddepartamento
-				obj.nombredepartamento
-				obj.idprovincia
-				obj.nombreprovincia
-				obj.iddistrito
-				obj.nombredistrito
-				obj.idcentropoblado
-				obj.nombrecentropoblado	
-			});
-		});
-	}
-	*/
 
 	/*$('#00000200,#00000300').change( function(){
 		objs = ["Codigo de Local ALPHA","Codigo de Local BETA","Codigo de Local ZIGMA","Codigo de Local DELTA"];
@@ -2909,7 +2827,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 06:42:16</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 06:52:09</div>';
 	html += '</div>';
 	$("body").append(html);
 }
