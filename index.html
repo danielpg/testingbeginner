@@ -109,7 +109,7 @@ function onDeviceReady() {
 				$("#00000200").html(options);
 			});
 		});
-		$("#00000100,#00000300,#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>");
+		$("#00000100,#00000300,#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>").selectmenu("refresh");
 	});
 
 	//--MES
@@ -124,7 +124,7 @@ function onDeviceReady() {
 				$("#00000100").html(options);
 			});
 		});
-		$("#00000300,#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>");
+		$("#00000300,#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>").selectmenu("refresh");
 	});
 
 	//ENCUESTADOR
@@ -139,7 +139,7 @@ function onDeviceReady() {
 				$("#00000300").html(options);
 			});
 		});
-		$("#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>");
+		$("#00000500,#00000400").html("<option value='0'>--SELECCIONAR--</option>").selectmenu("refresh");
 	});
 
 	//--PERIODO
@@ -154,7 +154,7 @@ function onDeviceReady() {
 				$("#00000500").html(options);
 			});
 		});
-		$("#00000400").html("<option value='0'>--SELECCIONAR--</option>");
+		$("#00000400").html("<option value='0'>--SELECCIONAR--</option>").selectmenu("refresh");
 	});
 
 	//--DIA
@@ -296,6 +296,7 @@ function onDeviceReady() {
 			sql = "SELECT * FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '" + $("#00000500").val() + "' AND codigo_local = '" + $("#00000400").val() + "' ";
 			tx.executeSql(sql, [], function(tx, res) {
 				for(i = 0; i < res.rows.length; i++ ){
+					alert(res.rows.item(i).codigo_modular);
 					obj = res.rows.item(i);
 					if(obj.nivel == "Inicial")obj.nivel_id = 1;
 					if(obj.nivel == "Primaria")obj.nivel_id = 2;
@@ -305,9 +306,9 @@ function onDeviceReady() {
 					$("#00001000").val(obj.departamento);//Departamento,ftext
 					$("#00001100").val(obj.provincia);//Provincia,ftext
 					$("#00001200").val(obj.distrito);//Distrito,ftext
-					$("#00001300").val("");//Centro Poblado,fselect
-					$("#00001400").val("");//DRE,fselect
-					$("#00001500").val("");//UGEL,fselect
+					//$("#00001300").val("");//Centro Poblado,fselect
+					//$("#00001400").val("");//DRE,fselect
+					//$("#00001500").val("");//UGEL,fselect
 					$("#00001600").val(obj.area);//Area,ftext
 				}
 
@@ -2882,7 +2883,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 02:36:56</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 02:46:23</div>';
 	html += '</div>';
 	$("body").append(html);
 }
