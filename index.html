@@ -253,11 +253,11 @@ function onDeviceReady() {
 						$("#00001100").val(obj.provincia);//Provincia,ftext
 						$("#00001200").val(obj.distrito);//Distrito,ftext
 						$("#00001300").html("<option>"+ obj.centro_poblado + "</option>");//Centro Poblado,fselect
-						//$("#00001500").html("<option>" + obj.ugel + "</option>");//UGEL,fselect
+						$("#00001500").html("<option>" + obj.ugel + "</option>");//UGEL,fselect
 						$("#00001600").val(obj.area);//Area,ftext
 					}
 
-					sql = "SELECT u.id,u.nombre,u.dre_id FROM unidades u LEFT JOIN detalle_centros_educativos e ON e.unidad_id = u.id WHERE e.codigo_modular = " + obj.codigo_modular;
+			/*		sql = "SELECT u.id,u.nombre,u.dre_id FROM unidades u LEFT JOIN detalle_centros_educativos e ON e.unidad_id = u.id WHERE e.codigo_modular = " + obj.codigo_modular;
 					tx.executeSql(sql, [], function(tx, res) {
 						var tmp_ugel = res.rows.item(0);
 						//$("#00001400").val( tmp_ugel.dre_id );//dre
@@ -270,7 +270,7 @@ function onDeviceReady() {
 							$("#00001500").html(html);
 							force_select_option("00001500",tmp_ugel.nombre );
 						});
-					});
+					});*/
 /*
 					sql = "SELECT p.id,p.nombre,p.distrito_id FROM centros_poblados p LEFT JOIN centros_educativos e ON e.distrito_id = p.id WHERE e.codigo_modular = " + obj.codigo_modular;
 					tx.executeSql(sql, [], function(tx, res) {
@@ -2894,7 +2894,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-12 06:30:34</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-12 06:36:48</div>';
 	html += '</div>';
 	$("body").append(html);
 }
