@@ -48,8 +48,9 @@ jQuery.fn.unserialize = function(parm){
 		var need_to_build = ((typeof parm == "string") && decodeURIComponent(parm).indexOf("[]=") > -1);
 		items = (need_to_build) ? $.unserialize(parm) : items;
 		
-		
 		for (var i in items){
+			//if(items[i] == "")continue;
+			//console.log(items[i]);
 			var parts = (items instanceof Array) ? items[i].split(/=/) : [i, (items[i] instanceof Array) ? items[i] : "" + items[i]];
 			parts[0] = decodeURIComponent(parts[0]);
 			if (parts[0].indexOf("[]") == -1 && parts[1] instanceof Array){
@@ -99,7 +100,7 @@ jQuery.fn.unserialize = function(parm){
 				val = ((typeof val == "object") || (typeof val == "undefined")) ? "" : val;
 				
 				obj.val(decodeURIComponent(val.replace(/\+/g," ")));
-				//force_select_option( obj.attr("id") , val );	
+				force_select_option( obj.attr("id") , val );	
 
 				if(parts[1] == "overnight"){
 					if(form_refresh)obj.selectmenu( "refresh" );			

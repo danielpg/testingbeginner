@@ -11,11 +11,6 @@
 	<script src="js/main.js"></script>
 <!-- script  -->
 <script>
-Array.prototype.remove = function(from, to) {
-  var rest = this.slice((to || from) + 1 || this.length);
-  this.length = from < 0 ? this.length + from : from;
-  return this.push.apply(this, rest);
-};
 
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
@@ -80,8 +75,31 @@ function onDeviceReady() {
 		if(localStorage.getItem("localdata") == null){
 			create_tables_data();
 		} else {
-
+			if(localStorage.getItem("localdata") < 2){
+				create_tables_data();
+			}
 		}
+
+	 	db.transaction(function(tx) {
+			sql = "SELECT * FROM dres ORDER BY nombre ASC ";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).nombre + "'>" + res.rows.item(i).nombre + "</option>";
+				}
+				$("#00001400").html(options);
+			});
+		});
+	}
+
+	if(desktop == 1){
+		objs = ["Codigo de Local ALPHA","Codigo de Local BETA","Codigo de Local ZIGMA","Codigo de Local DELTA"];
+		html = "<option value='0'>--SELECCIONAR--</option>";
+		for(i = 0; i < objs.length ; i++){
+			html += "<option value='" + i + "'>" + objs[i] + "</option>";
+		}
+		$('#00000400').html(html);
+
 	}
 
 	//--DEPARTAMENTO
@@ -161,17 +179,6 @@ function onDeviceReady() {
 		});
 	});
 
-	/*$('#00000200,#00000300').change( function(){
-		objs = ["Codigo de Local ALPHA","Codigo de Local BETA","Codigo de Local ZIGMA","Codigo de Local DELTA"];
-		html = "";
-		html += "<option value='0'>--SELECCIONAR--</option>";
-		for(i = 0; i < objs.length ; i++){
-			html += "<option value='" + i + "'>" + objs[i] + "</option>";
-		}
-		$('#00000400').html(html);
-		$('#00000400').selectmenu("refresh");
-	});*/
-
 	//4. SELECT CODIGO LOCAL: cargar detalles de un codigo de local 
 	$('#00000400').change( function(){
 		var newvar = [];
@@ -246,10 +253,38 @@ function onDeviceReady() {
 						$("#00001100").val(obj.provincia);//Provincia,ftext
 						$("#00001200").val(obj.distrito);//Distrito,ftext
 						$("#00001300").html("<option>"+ obj.centro_poblado + "</option>");//Centro Poblado,fselect
-						$("#00001400").html("<option>--SELECCIONAR--</option>");//DRE,fselect
-						$("#00001500").html("<option>" + obj.ugel + "</option>");//UGEL,fselect
+						//$("#00001500").html("<option>" + obj.ugel + "</option>");//UGEL,fselect
 						$("#00001600").val(obj.area);//Area,ftext
 					}
+
+					sql = "SELECT u.id,u.nombre,u.dre_id FROM unidades u LEFT JOIN detalle_centros_educativos e ON e.unidad_id = u.id WHERE e.codigo_modular = " + obj.codigo_modular;
+					tx.executeSql(sql, [], function(tx, res) {
+						var tmp_ugel = res.rows.item(0);
+						//$("#00001400").val( tmp_ugel.dre_id );//dre
+						sql = "SELECT nombre,id FROM unidades WHERE dre_id = " + res.rows.item(0).dre_id;
+						tx.executeSql(sql, [], function(tx, res) {
+							html = "";
+							for(i = 0; i < res.rows.length; i++ ){
+								html += '<option value="' + res.rows.item(i).nombre  + '">' + res.rows.item(i).nombre + "</option>";
+							}
+							$("#00001500").html(html);
+							force_select_option("00001500",tmp_ugel.nombre );
+						});
+					});
+/*
+					sql = "SELECT p.id,p.nombre,p.distrito_id FROM centros_poblados p LEFT JOIN centros_educativos e ON e.distrito_id = p.id WHERE e.codigo_modular = " + obj.codigo_modular;
+					tx.executeSql(sql, [], function(tx, res) {
+						sql = "SELECT nombre,id FROM centros_poblados WHERE distrito_id = " + res.rows.item(0).distrito_id;
+						tx.executeSql(sql, [], function(tx, res) {
+							html = "";
+							for(i = 0; i < res.rows.length; i++ ){
+								html += '<option value="' + res.rows.item(i).nombre  + '">' + res.rows.item(i).nombre + "</option>";
+							}
+							$("#00001300").html(html);
+							//$("#00001300").val();
+						});
+					});
+*/
 
 					show_inicial = true;
 					show_primaria = true;
@@ -328,8 +363,8 @@ function onDeviceReady() {
 			$( "#div11010000" ).show();
 			$( "#div11030000" ).show();
 
-			$( "#div62010000" ).hide();			
-			$( "#div63010000" ).show();			
+			$( "#div62000000" ).hide();			
+			$( "#div63000000" ).show();			
 		} else {
 			$( "#div05010000" ).show();
 			$( "#div06010000" ).show();
@@ -344,8 +379,8 @@ function onDeviceReady() {
 			$( "#div11010000" ).hide();
 			$( "#div11030000" ).hide();
 
-			$( "#div62010000" ).show();			
-			$( "#div63010000" ).hide();			
+			$( "#div62000000" ).show();			
+			$( "#div63000000" ).hide();			
 		}
 	});
 
@@ -493,6 +528,7 @@ function onDeviceReady() {
 		}
 		ocultar16();
 	});
+
 
 	$( "input[name=16010001]" ).change(function() {
 		if( $("input[name=16010001]:checked").val() == "SI"){ $("#div64010001").show();	} else {$("#div64010001").hide();}
@@ -1129,18 +1165,20 @@ $( "input[name=35030107]" ).change(function() {
 	$( "input[name=57010000]" ).change(function() {
 		if( $("input[name=57010000]:checked").val() == "NO"){
 			$( "#div58010000" ).hide();
+			$( "#div59010000" ).show();
 		} else {
 			$( "#div58010000" ).show();
+			$( "#div59010000" ).hide();
 		}
 	});
 
-	$( "#58010000" ).blur(function() {
+	/*$( "#58010000" ).blur(function() {
 		if( $( "#58010000" ).val() == "" ){
 			$("#div59010000").show();
 		} else {
 			$("#div59010000").hide();
 		}
-	});
+	});*/
 
 	$( "input[name=60010000]" ).change(function() {
 		if( $("input[name=60010000]:checked").val() == "NO"){
@@ -1194,7 +1232,7 @@ $( "input[name=61140101]" ).change(function() {
 	if( $("input[name=61140101]:checked").val() == "SI"){  $( "#div61140201,#div61140301" ).show();  } else {   $( "#div61140201,#div61140301" ).hide();   }
 });
 $( "input[name=61150101]" ).change(function() {
-	if( $("input[name=61150101]:checked").val() == "SI"){  $( "#div61150201,#div6115301" ).show();  } else {  $( "#div61150201,#div6115301" ).hide();   }
+	if( $("input[name=61150101]:checked").val() == "SI"){  $( "#div61150201,#div61150301" ).show();  } else {  $( "#div61150201,#div61150301" ).hide();   }
 });
 $( "input[name=61160101]" ).change(function() {
 	if( $("input[name=61160101]:checked").val() == "SI"){  $( "#div61160201,#div61160301" ).show();  } else {  $( "#div61160201,#div61160301" ).hide();   }
@@ -1323,8 +1361,8 @@ $( "input[name=61200101]" ).change(function() {
 			$("#div90110000").show();
 		}
 	});
-	$( "#9011000001" ).change(function() {
-		if( $("#9011000001").is(":checked") ){
+	$( "#9011000003" ).change(function() {
+		if( $("#9011000003").is(":checked") ){
 			$( "#div90110100" ).show();
 		} else {
 			$( "#div90110100").hide();
@@ -1498,7 +1536,12 @@ function save_encuesta(){
 }
 
 function load_encuesta( id ){
+	freeze_open();
+
+	default_encuesta();
 	clear_form();
+	clear_niveles();
+
 	current_enc = get_obj( id );
 	data = current_enc.formdata;
 	for(i = 1; i < nivelespage_start; i++){
@@ -1509,9 +1552,13 @@ function load_encuesta( id ){
 		}
 		//console.log(form_refresh);
 
-		$( "#encuesta" + i + " form" ).unserialize(data);
+		$( "#encuesta" + i + " form").unserialize(data);
 	}
 	//$("#form1").unserialize(data);
+
+	if(current_enc.page == 3){
+		$("#final_link").show();
+	}
 
 	if(current_enc.page > nivelespage_start){
 		changepage("#encuesta" + nivelespage_start);
@@ -1523,6 +1570,8 @@ function load_encuesta( id ){
 		changepage("#encuesta1");
 		current_enc_page = 1;
 	}
+
+	freeze_close();
 	return false;
 }
 
@@ -1663,8 +1712,7 @@ function upload_encuesta(id){
 }
 
 function nextpage_encuesta( i ){
-	var has_empty = false;
-
+	var tmpflagp = true;
 	if(i == (nivelespage_start + 1)){
 		if(validate_niveles() == false){
 			return false;
@@ -1675,19 +1723,24 @@ function nextpage_encuesta( i ){
 		return false;
 	}
 
-	$("#encuesta" + (i - 1)).find(' input[type!="hidden"] , select' ).each(function () {
-		if( $(this).is(":visible") ){
-			if($(this).attr("id") == "78000999999"){
-				//ignore
-			} else {
-				if ( ! $(this).val() ) { 
-					has_empty = true;
-					//alert("Debe completar todas las preguntas.");
-					//return false;
+	/*if( ((i-1) != 3) && ((i-1) != 26) ){
+		$("#encuesta" + (i - 1)).find(' input:not([type=hidden],[type=checkbox]) , select' ).each(function () {
+			if( $(this).is(":visible") ){
+				if($(this).attr("id") == "78000999999"){
+					//ignore
+				} else {
+					if ( ! $(this).val() || ( $(this).val() == 0)) {
+						if(tmpflagp == true){
+							alert("Debe completar todas las preguntas.");
+							tmpflagp = false;
+						}
+					}
 				}
 			}
-		}
-	});
+		});
+	}*/
+
+	if(tmpflagp == false)return false;
 
 	if($("input[name=00000401]:checked").val() == "SI"){
 		$("#00002411").val( $("#00004011").val());
@@ -1959,6 +2012,8 @@ function hideinitnivel(nivel){
 }
 
 function validate_pages(){
+	var tmpvflag = true;
+
 
 	if( ( int("90220100") + int("90220200") ) != int("90210100") ){
 		tmp = "LA SUMA DE ESTUDIANTES HOMBRES Y MUJERES NO ES IGUAL AL TOTAL DE ESTUDIANTES OBSERVADOS";
@@ -1977,6 +2032,16 @@ function validate_pages(){
 		return validate_fono('00003100');
 	}
 
+	if( $('#38010000').val() != "" ){
+		if((int("38010000") >= 1900) && (int("38010000") <= 2015)){
+			//nada
+		} else {
+			alert("Año debe ser entre 1900 y 2015");
+			return false;
+		}
+	}
+	
+
 	tmp = "EL Nro TOTAL DE DOCENTES DEBE SER IGUAL A LA SUMA DE DOCENTES PRESENTES, AUSENTES CON JUSTIFICACIÓN Y SIN JUSTIFICACIÓN";
 	if( ( (parseInt($("#17020001").val()) || 0) + (parseInt($("#17030001").val()) || 0 ) + (parseInt($("#17040001").val()) || 0)) != (parseInt($("#17010001").val()) || 0) ){
 		alert(tmp);	return false;
@@ -1994,13 +2059,13 @@ function validate_pages(){
 	if( int("18020003") > int("18010003") ){ 	alert(tmp);	return false; }
 */
 	tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
-	if( ($('.div25010000').is(':visible') ) && (int("25010100") <= 2014) && (int("25010200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.div25020000').is(':visible') ) && (int("25020100") <= 2014) && (int("25020200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.div25030000').is(':visible') ) && (int("25030100") <= 2014) && (int("25030200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.div25040000').is(':visible') ) && (int("25040100") <= 2014) && (int("25040200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.div25050000').is(':visible') ) && (int("25050100") <= 2014) && (int("25050200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.div25060000').is(':visible') ) && (int("25060100") <= 2014) && (int("25060200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.div25070000').is(':visible') ) && (int("25070100") <= 2014) && (int("25070200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.25010000').is(':visible') ) && (int("25010100") <= 2014) && (int("25010200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.25020000').is(':visible') ) && (int("25020100") <= 2014) && (int("25020200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.25030000').is(':visible') ) && (int("25030100") <= 2014) && (int("25030200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.25040000').is(':visible') ) && (int("25040100") <= 2014) && (int("25040200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.25050000').is(':visible') ) && (int("25050100") <= 2014) && (int("25050200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.25060000').is(':visible') ) && (int("25060100") <= 2014) && (int("25060200") < 9) ){ alert(tmp);	return false;  }
+	if( ($('.25070000').is(':visible') ) && (int("25070100") <= 2014) && (int("25070200") < 9) ){ alert(tmp);	return false;  }
 
 
 	tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
@@ -2070,7 +2135,7 @@ function validate_pages(){
 	if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
 	if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
 
-	return true;
+	return tmpvflag;
 }
 
 //---------NIVELES y AUSENTE ------------------------------
@@ -2673,12 +2738,14 @@ function delete_obj(id){
 function get_obj(id){
 	var obj;
 	obj = JSON.parse(localStorage.getItem("encobj" + id));
-    db.transaction(function(tx) {
-		/*sql = "SELECT * FROM encache WHERE id = " + obj.id;
-		tx.executeSql(sql, [], function(tx, res) {
-			//obj.formdata = res.rows.item(0).contenido;
-		});*/
-    });
+	if(desktop == 0){
+		db.transaction(function(tx) {
+			/*sql = "SELECT * FROM encache WHERE id = " + obj.id;
+			tx.executeSql(sql, [], function(tx, res) {
+				//obj.formdata = res.rows.item(0).contenido;
+			});*/
+		});
+	}
 	return obj;
 }
 
@@ -2827,7 +2894,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-11 07:21:13</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-12 06:30:34</div>';
 	html += '</div>';
 	$("body").append(html);
 }
