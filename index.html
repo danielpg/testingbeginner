@@ -75,12 +75,12 @@ function onDeviceReady() {
 		if(localStorage.getItem("localdata") == null){
 			create_tables_data();
 		} else {
-			if(localStorage.getItem("localdata") < 2){
+			if(localStorage.getItem("localdata") < 3){
 				create_tables_data();
 			}
 		}
 
-	 	db.transaction(function(tx) {
+	 	/*db.transaction(function(tx) {
 			sql = "SELECT * FROM dres ORDER BY nombre ASC ";
 			tx.executeSql(sql, [], function(tx, res) {
 				options = "<option value='0'>--SELECCIONAR--</option>";
@@ -89,7 +89,7 @@ function onDeviceReady() {
 				}
 				$("#00001400").html(options);
 			});
-		});
+		});*/
 	}
 
 	if(desktop == 1){
@@ -252,39 +252,11 @@ function onDeviceReady() {
 						$("#00001000").val(obj.departamento);//Departamento,ftext
 						$("#00001100").val(obj.provincia);//Provincia,ftext
 						$("#00001200").val(obj.distrito);//Distrito,ftext
-						$("#00001300").html("<option>"+ obj.centro_poblado + "</option>");//Centro Poblado,fselect
-						$("#00001500").html("<option>" + obj.ugel + "</option>");//UGEL,fselect
+						$("#00001300").val( obj.centro_poblado );//Centro Poblado,fselect
+						$("#00001400").val( obj.dre )
+						$("#00001500").val( obj.ugel );//UGEL,fselect
 						$("#00001600").val(obj.area);//Area,ftext
 					}
-
-			/*		sql = "SELECT u.id,u.nombre,u.dre_id FROM unidades u LEFT JOIN detalle_centros_educativos e ON e.unidad_id = u.id WHERE e.codigo_modular = " + obj.codigo_modular;
-					tx.executeSql(sql, [], function(tx, res) {
-						var tmp_ugel = res.rows.item(0);
-						//$("#00001400").val( tmp_ugel.dre_id );//dre
-						sql = "SELECT nombre,id FROM unidades WHERE dre_id = " + res.rows.item(0).dre_id;
-						tx.executeSql(sql, [], function(tx, res) {
-							html = "";
-							for(i = 0; i < res.rows.length; i++ ){
-								html += '<option value="' + res.rows.item(i).nombre  + '">' + res.rows.item(i).nombre + "</option>";
-							}
-							$("#00001500").html(html);
-							force_select_option("00001500",tmp_ugel.nombre );
-						});
-					});*/
-/*
-					sql = "SELECT p.id,p.nombre,p.distrito_id FROM centros_poblados p LEFT JOIN centros_educativos e ON e.distrito_id = p.id WHERE e.codigo_modular = " + obj.codigo_modular;
-					tx.executeSql(sql, [], function(tx, res) {
-						sql = "SELECT nombre,id FROM centros_poblados WHERE distrito_id = " + res.rows.item(0).distrito_id;
-						tx.executeSql(sql, [], function(tx, res) {
-							html = "";
-							for(i = 0; i < res.rows.length; i++ ){
-								html += '<option value="' + res.rows.item(i).nombre  + '">' + res.rows.item(i).nombre + "</option>";
-							}
-							$("#00001300").html(html);
-							//$("#00001300").val();
-						});
-					});
-*/
 
 					show_inicial = true;
 					show_primaria = true;
@@ -2000,15 +1972,24 @@ function makerows(tmp){
 	for( i = 0; i < len ; i++ ){
 		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td>" + tmp[i].codigo_modular + "</td>";
 		html += "<td>" + tmp[i].nivel + "</td>";
-		html += '<td><a href="#" onclick="return hideinitnivel(' + tmp[i].nivel_id + ');" data-role="button" data-icon="delete" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all" role="button"></a> </td></tr>';
+		html += '<td><a href="#" onclick="return editmodular(' + tmp[i].nivel_id + ');" data-role="button" data-icon="delete" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all" role="button"></a> </td></tr>';
 	}
 	return html;
+}
+
+function edimodular( i ){
+	//if($(element).is("[title]")){
+	return false;
+	//}
+	//$("#foundnivel" + i + " input").attr('readonly', 'readonly');
+
 }
 
 function hideinitnivel(nivel){
 	$("#foundnivel" + nivel ).hide();
 	$("#ocultar_" + nivel ).val(1);	
 	$("#activenivel_" + nivel ).val(0);
+	return false;
 }
 
 function validate_pages(){
@@ -2894,7 +2875,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-12 06:36:48</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-13 07:36:53</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -3161,7 +3142,7 @@ function create_panels(){
 					<h3>I. UBICACION GEOGRAFICA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div00001000"  class=" ff"  > <div data-role="fieldcontain"><label for="00001000"   >1. Departamento</label><input  data-mini="true"   type="text" name="00001000" id="00001000" value="Chachapoyas"   readonly='readonly'  ></div></div><div id="div00001100"  class=" ff"  > <div data-role="fieldcontain"><label for="00001100"   >2. Provincia</label><input  data-mini="true"   type="text" name="00001100" id="00001100" value="Chachapoyas"   readonly='readonly'  ></div></div><div id="div00001200"  class=" ff"  > <div data-role="fieldcontain"><label for="00001200"   >3. Distrito</label><input  data-mini="true"   type="text" name="00001200" id="00001200" value="Chachapoyas"   readonly='readonly'  ></div></div><div class="ff" id="div00001300" > <div data-role="fieldcontain"><label for='00001300'   >4. Centro Poblado</label><select name='00001300' id='00001300'  ><option value='0'>Chachapoyas</option></select></div></div><div class="ff" id="div00001400" > <div data-role="fieldcontain"><label for='00001400'   >5. DRE</label><select name='00001400' id='00001400'  ><option value='0'>Chachapoyas</option></select></div></div><div class="ff" id="div00001500" > <div data-role="fieldcontain"><label for='00001500'   >6. UGEL</label><select name='00001500' id='00001500'  ><option value='0'>Chachapoyas</option></select></div></div><div id="div00001600"  class=" ff"  > <div data-role="fieldcontain"><label for="00001600"   >7. Area</label><input  data-mini="true"   type="text" name="00001600" id="00001600" value="URBANO"   readonly='readonly'  ></div></div><div id="div00001700"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. Region</legend><input type="radio" name="00001700" id="0000170001" value="COSTA"><label for="0000170001">COSTA</label><input type="radio" name="00001700" id="0000170002" value="SIERRA"><label for="0000170002">SIERRA</label><input type="radio" name="00001700" id="0000170003" value="SELVA"><label for="0000170003">SELVA</label></fieldset></div></div><div id="div00001800"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. Zona Priorizada</legend><input type="radio" name="00001800" id="0000180001" value="FRONTERA"><label for="0000180001">FRONTERA</label><input type="radio" name="00001800" id="0000180002" value="VRAEM"><label for="0000180002">VRAEM</label><input type="radio" name="00001800" id="0000180003" value="NINGUNO"><label for="0000180003">NINGUNO</label></fieldset></div></div><div id="div00001900" data-role="fieldcontain">
+					<div id="div00001000"  class=" ff"  > <div data-role="fieldcontain"><label for="00001000"   >1. Departamento</label><input  data-mini="true"   type="text" name="00001000" id="00001000" value=""   readonly='readonly'  ></div></div><div id="div00001100"  class=" ff"  > <div data-role="fieldcontain"><label for="00001100"   >2. Provincia</label><input  data-mini="true"   type="text" name="00001100" id="00001100" value=""   readonly='readonly'  ></div></div><div id="div00001200"  class=" ff"  > <div data-role="fieldcontain"><label for="00001200"   >3. Distrito</label><input  data-mini="true"   type="text" name="00001200" id="00001200" value=""   readonly='readonly'  ></div></div><div id="div00001300"  class=" ff"  > <div data-role="fieldcontain"><label for="00001300"   >4. Centro Poblado</label><input  data-mini="true"   type="text" name="00001300" id="00001300" value=""   ></div></div><div id="div00001400"  class=" ff"  > <div data-role="fieldcontain"><label for="00001400"   >5. DRE</label><input  data-mini="true"   type="text" name="00001400" id="00001400" value=""   ></div></div><div id="div00001500"  class=" ff"  > <div data-role="fieldcontain"><label for="00001500"   >6. UGEL</label><input  data-mini="true"   type="text" name="00001500" id="00001500" value=""   ></div></div><div id="div00001600"  class=" ff"  > <div data-role="fieldcontain"><label for="00001600"   >7. Area</label><input  data-mini="true"   type="text" name="00001600" id="00001600" value="URBANO"   readonly='readonly'  ></div></div><div id="div00001700"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. Region</legend><input type="radio" name="00001700" id="0000170001" value="COSTA"><label for="0000170001">COSTA</label><input type="radio" name="00001700" id="0000170002" value="SIERRA"><label for="0000170002">SIERRA</label><input type="radio" name="00001700" id="0000170003" value="SELVA"><label for="0000170003">SELVA</label></fieldset></div></div><div id="div00001800"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. Zona Priorizada</legend><input type="radio" name="00001800" id="0000180001" value="FRONTERA"><label for="0000180001">FRONTERA</label><input type="radio" name="00001800" id="0000180002" value="VRAEM"><label for="0000180002">VRAEM</label><input type="radio" name="00001800" id="0000180003" value="NINGUNO"><label for="0000180003">NINGUNO</label></fieldset></div></div><div id="div00001900" data-role="fieldcontain">
 			<label for="00001900" >GPS</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 				<button onclick="return get_gps();">Obtener Coordenadas</button>
