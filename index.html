@@ -2388,7 +2388,7 @@ function update_database(){
 	freeze_open();
 	$.ajax({ url: localStorage.getItem("ws_update"),
 			 type: "GET",
-			 data: { "version" : localStorage.getItem("db_version") },
+			 data: { "version" : localStorage.getItem("db_version") , "tablet" : device.uuid   },
 			 crossDomain: true,
 			 cache: false,
 			 dataType: "json"
@@ -3012,7 +3012,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-14 08:24:10</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-14 08:31:45</div>';
 	html += '</div>';
 	$("body").append(html);
 }
