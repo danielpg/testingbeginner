@@ -205,9 +205,10 @@ function onDeviceReady() {
 			newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 		}*/
 
+		current_enc.local = $("#00000400").val();
 
 		if(desktop == 1){
-	newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
+					newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 
 					show_inicial = true;
 					show_primaria = true;
@@ -3012,7 +3013,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-14 08:31:45</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-14 08:37:39</div>';
 	html += '</div>';
 	$("body").append(html);
 }
