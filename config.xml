@@ -33,6 +33,6 @@
 	<icon src="icon.png" />
 
 
-	<access origin="http://adostelecom.com" />
+	<access origin="*" />
 
 </widget>

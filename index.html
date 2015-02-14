@@ -21,8 +21,8 @@ var current_nivel;
 var current_nivel_id;
 var db;
 var	fotoname_ids = [1,2,3,10,11,12,21,22,23];
-var webservice_post = "http://adostelecom.com/encuesta/webservice.php";
-var webservice_update = "http://adostelecom.com/encuesta/webservice_update.php";
+if(localStorage.getItem("ws_post") == null)	localStorage.setItem("ws_post","http://adostelecom.com/encuesta/webservice.php");
+if(localStorage.getItem("ws_update") == null)localStorage.setItem("ws_update","http://adostelecom.com/encuesta/webservice_update.php");
  //navigator.camera = {PictureSourceType:"",DestinationType:""} ;
  //window.sqlitePlugin = {openDatabase : function(){}};
  //var webservice_post = "source/webservice.php";
@@ -37,12 +37,12 @@ var imageid = "";
 var res0 = "<option value='0'>--Seleccionar--</option>";
 var res1 = "<option value='1'>Completo</option><option value='2'>Incompleto</option>";
 var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
-var desktop = 0;
+var desktop = 1;
 </script>
 <script src="js/dbdata.js"></script>
 <script>
 if(localStorage.getItem("db_version") == null){
-	localStorage.setItem("db_version",0);
+	localStorage.setItem("db_version",7000);
 }
 
 if(desktop == 0){
@@ -53,7 +53,10 @@ if(desktop == 0){
 
 function onDeviceReady() {
 	$("#espere").hide();
-	//fast_buttons();
+	$("#espereload").hide();
+	$("#div_db_version").html( localStorage.getItem("db_version") );
+	if(localStorage.getItem("rol") == "supervisor"){ $("#menusupervisor").show(); } else { $("#menusupervisor").hide();  }
+
 	$(document).on('pagecontainershow', function(e, ui) {
 		//$.mobile.loading("hide");
 		pageId = $('body').pagecontainer('getActivePage').prop('id');
@@ -188,24 +191,23 @@ function onDeviceReady() {
 	$('#00000400').change( function(){
 		var newvar = [];
 		/*if( $(this).val() == 1 ){		
-			newvar = [{codigo:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Lambda"},
-				{codigo:"55444",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Zigma"},
-				{codigo:"55444",nivel:"Secundaria",nivel_id : 3, nombre : "Colegio Beta"}];
+			newvar = [{codigo_modular:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Lambda"},
+				{codigo_modular:"55444",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Zigma"},
+				{codigo_modular:"55444",nivel:"Secundaria",nivel_id : 3, nombre : "Colegio Beta"}];
 		}else if( $(this).val() == 2 ) {
-			newvar = [{codigo:"1234",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Omega"},
-				{codigo:"1234",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Delta"}	];
+			newvar = [{codigo_modular:"1234",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Omega"},
+				{codigo_modular:"1234",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Delta"}	];
 		}else if( $(this).val() == 3 ) {
-			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Delta"}	];
+			newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Delta"}	];
 		}else if( $(this).val() == 0 ) {
-			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
+			newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 		}else {
-			newvar = [{codigo:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
+			newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 		}*/
 
 
 		if(desktop == 1){
-			newvar = [{codigo_modular:"55444",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Lambda"},
-				{codigo_modular:"12123",nivel:"Primaria",nivel_id : 2, nombre : "Colegio Zigma"}];
+	newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
 
 					show_inicial = true;
 					show_primaria = true;
@@ -271,7 +273,8 @@ function onDeviceReady() {
 
 					len = newvar.length;
 					for( i = 0; i < len ; i++ ){
-						$("#activenivel_" + newvar[i].nivel_id).val(1);
+						$("#activenivel_" + newvar[i].nivel_id ).val(1);
+						$("#nativo_" + newvar[i].nivel_id ).val(1);
 
 						if(newvar[i].nivel_id == 1){
 							show_inicial = false;
@@ -863,7 +866,7 @@ $("input[name=33040603]").change(function(){
 });
 
 	$( "#3101000004" ).change(function() {
-		if( $(this).is(":checked") ){
+		if( $("#3101000004").is(":checked") ){
 			$( "#div31010100" ).show();
 		} else {
 			$( "#div31010100").hide();
@@ -883,7 +886,7 @@ $("input[name=33040603]").change(function(){
 
 
 	$( "#3201000003" ).change(function() {
-		if( $(this).is(":checked") ){
+		if( $("#3201000003").is(":checked") ){
 			$( "#div32010100" ).show();
 		} else {
 			$( "#div32010100").hide();
@@ -1036,8 +1039,6 @@ $( "input[name=35030107]" ).change(function() {
 		$( "#div44010000").hide();
 	});
 
-
-
 	$( "input[name=45010000]" ).change(function() {
 		if( ($("input[name=45010000]:checked").val() == "NO")  ){
 			$( "#div46010000,#div47000000" ).hide();
@@ -1081,14 +1082,6 @@ $( "input[name=35030107]" ).change(function() {
 		}
 	});
 
-	/*$( "input[name=51010000]" ).change(function() {
-		if( ($("input[name=51010000]:checked").val() == "Petróleo/Gas (Lámpara)") || ($("input[name=51010000]:checked").val() == "Otro")|| ($("input[name=51010000]:checked").val() == "No tiene")  ){
-			$( "#div52010000" ).hide();
-		} else {
-			$( "#div51010000" ).show();
-		}
-	});*/
-
 	$( "#5101000001" ).change(function() {
 		if( $(this).is(":checked") ){
 			$( "#div52010000" ).show();
@@ -1096,7 +1089,6 @@ $( "input[name=35030107]" ).change(function() {
 			$( "#div52010000").hide();
 		}
 	});
-
 
 	$( "#5201000004" ).change(function() {
 		if( $(this).is(":checked") ){
@@ -1272,6 +1264,8 @@ $( "input[name=61200101]" ).change(function() {
 			$( "#89010100").val("");
 		}
 	});
+
+	//*** TRIGGERS NIVELES **************************************************************************************//
 
 	$( "input[name=90010000]" ).change(function() {
 		if( $("input[name=90010000]:checked").val() == "NO"){
@@ -1511,6 +1505,9 @@ function save_encuesta(){
 }
 
 function load_encuesta( id ){
+	$("#espereload").show();
+	setTimeout(function(){ $("#espereload").hide(); }, 15000);
+
 	freeze_open();
 
 	default_encuesta();
@@ -1531,9 +1528,19 @@ function load_encuesta( id ){
 	}
 	//$("#form1").unserialize(data);
 
-	if(current_enc.page == 3){
-		$("#final_link").show();
-	}
+	draw_niveles_estados();
+		
+	if($("#activenivel_1").val()==1){ $(".efi").show(); } else { $(".efi").hide();}
+	if($("#activenivel_2").val()==1){ $(".efp").show(); } else { $(".efp").hide(); }
+	if($("#activenivel_3").val()==1){ $(".efs").show(); } else { $(".efs").hide(); }
+
+	if($("#00210101").val()==0)$("#00210101").html( res0 + res1 + res2 );
+	if($("#00210201").val()==0)$("#00210201").html( res0 + res1 + res2 );
+	if($("#00210301").val()==0)$("#00210301").html( res0 + res1 + res2 );
+
+	$("#final_link").show();
+
+	rebuild_arbol();
 
 	if(current_enc.page > nivelespage_start){
 		changepage("#encuesta" + nivelespage_start);
@@ -1586,6 +1593,9 @@ function new_encuesta(){
 	enc.page = 1;
 	enc.formenviado = 0;	
 	enc.upload = 0;
+	enc.time = getDateTime();
+	enc.local = 0;
+	$("#form_enc_id").val(tmpid);
 
 	for(j = 0; j < fotoname_ids.length; j++){
 		enc["foto" + fotoname_ids[j] ] = {status : 1, url : "", id : fotoname_ids[j] };
@@ -1651,7 +1661,7 @@ function upload_encuesta(id){
 	}
 
 	if(current_enc.formenviado == 0)	{
-		$.ajax({ url: webservice_post,
+		$.ajax({ url: localStorage.getItem("ws_post"),
 				 type: "POST",
 				 data: { "formdata" : JSON.stringify(current_enc)  },
 				 crossDomain: true,
@@ -1726,6 +1736,10 @@ function nextpage_encuesta( i ){
 	if($("input[name=00000403]:checked").val() == "SI"){
 		$("#00002413").val( $("#00004013").val());
 	}
+
+	if($("#nativo_1").val() == 1 ) $("#00002411").val( $("input[name=cod_mod_1]").val()  );
+	if($("#nativo_2").val() == 1 ) $("#00002412").val( $("input[name=cod_mod_2]").val()  );
+	if($("#nativo_3").val() == 1 ) $("#00002413").val( $("input[name=cod_mod_3]").val()  );
 
 	if($("#activenivel_1").val()==0)$(".efi").hide();
 	if($("#activenivel_2").val()==0)$(".efp").hide();
@@ -1940,6 +1954,22 @@ function check_complete_enc(){
 	save_obj(current_enc.id,current_enc);
 }
 
+function make_delete(i){
+	var ask = window.confirm("Está seguro de querer eliminar esta encuesta?");
+    if (ask) {
+		delete_obj(i);
+		list_encuestas();
+	}
+	return false;
+}
+
+function confirm_upload_encuesta(i){
+	var ask = window.confirm("Está seguro de querer enviar los datos?");
+    if (ask) {
+		upload_encuesta( i );
+	}
+	return false;
+}
 
 function list_encuestas(){
 	tmp = localStorage.getItem("list_ids");
@@ -1952,11 +1982,20 @@ function list_encuestas(){
 			id = list_ids[i];
 			//console.log(id);
 			tmpobj = get_obj(list_ids[i]);
-			html += " <tr>" + "<td>"+  list_ids[i];
+
+			if (typeof tmpobj["local"] === "undefined") tmpobj.local = "ID:" + list_ids[i];
+			if (typeof tmpobj["time"] === "undefined") tmpobj.time = "-";
+
+			html += " <tr>" + "<td>"+  tmpobj.local + "</td>";
+			html +=  "<td>"+  tmpobj.time + "</td>";
 			if(tmpobj.upload == 1){
 				html += "<td> <i class='fa fa-check-circle fa-lg cgreen' ></i> Completado</td>";
 			} else {
-				html += '<td><a href="#" onclick="return upload_encuesta(' +list_ids[i] + ');" class="ui-btn ui-btn-inline" data-mini="true">Enviar datos a la red</a></td>';
+				if(localStorage.getItem("rol") == "supervisor") {
+					html += '<td><a href="#" onclick="return make_delete(' +list_ids[i] + ');" class="ui-btn ui-btn-inline" data-mini="true">Eliminar Encuesta</a></td>';
+				} else {
+					html += '<td><a href="#" onclick="return confirm_upload_encuesta(' +list_ids[i] + ');" class="ui-btn ui-btn-inline" data-mini="true">Enviar datos a la red</a></td>';
+				}
 			}
 			html += "</tr>";
 		}
@@ -1973,7 +2012,7 @@ function makerows(tmp){
 	html = "";
 	len = tmp.length;
 	for( i = 0; i < len ; i++ ){
-		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td><input type='text' readonly='readonly' value='" + tmp[i].codigo_modular + "'></td>";
+		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td><input type='text' name='cod_mod_" + tmp[i].nivel_id + "' readonly='readonly' value='" + tmp[i].codigo_modular + "'></td>";
 		html += "<td>" + tmp[i].nivel + "</td>";
 		html += '<td><a href="#" onclick="return editmodular(' + tmp[i].nivel_id + ');" data-role="button" data-icon="delete" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all" role="button"></a> </td></tr>';
 	}
@@ -1991,7 +2030,6 @@ function editmodular( i ){
 
 function hideinitnivel(nivel){
 	$("#foundnivel" + nivel ).hide();
-	$("#ocultar_" + nivel ).val(1);	
 	$("#activenivel_" + nivel ).val(0);
 	return false;
 }
@@ -1999,7 +2037,7 @@ function hideinitnivel(nivel){
 function validate_pages(){
 	var tmpvflag = true;
 
-	if( ($("#activenivel_1").val() == 0) && ($("#activenivel_1").val() == 0) && ($("#activenivel_3").val() == 0) ){
+	if( ($("#activenivel_1").val() == 0) && ($("#activenivel_2").val() == 0) && ($("#activenivel_3").val() == 0) ){
 		alert("Seleccionar un Codigo de Local");					
 		return false;
 	}
@@ -2338,7 +2376,7 @@ function fast_encuesta_exit(){
 function update_database(){
 	//conectarse a app y enviar nuestra version actual
 	freeze_open();
-	$.ajax({ url: webservice_update,
+	$.ajax({ url: localStorage.getItem("ws_update"),
 			 type: "GET",
 			 data: { "version" : localStorage.getItem("db_version") },
 			 crossDomain: true,
@@ -2346,22 +2384,36 @@ function update_database(){
 			 dataType: "json"
 	}).done(function(data) {
 		var udata = data;
+		if (typeof data["ws_post"] !== "undefined"){
+			if(data.ws_post != 0)localStorage.setItem("ws_post",data.ws_post);
+			alert("Nuevo Servicio Web para POST");
+		}
+		if (typeof data["ws_update"] !== "undefined"){
+			if(data.ws_update != 0)localStorage.setItem("ws_update",data.ws_update);
+			alert("Nuevo Servicio Web para UPDATE");
+		}
+
 		if(udata.status == 1){
-			db.transaction(function(tx) {
-				len = udata.rows.length;
-				for(i = 0; i < len; i ++){
-					tx.executeSql( data.rows(i) );
-				}
-			} ,function(e){
-				//error    
-				freeze_close();
-				alert("DATABASE ERROR: " + e.message);
-			},function(){
-				//success
-				localStorage.setItem("db_version",udata.version);
-				freeze_close();		
-				alert("Se actualizó la base de datos con éxito.");
-			});
+			if(desktop == 0){
+				db.transaction(function(tx) {
+					len = udata.rows.length;
+					for(i = 0; i < len; i ++){
+						tx.executeSql( data.rows(i) );
+					}
+				} ,function(e){
+					//error    
+					freeze_close();
+					alert("Error de Base de Datos: " + e.message);
+				},function(){
+					//success
+					if((udata.version != 0) && (udata.version != "") && (udata.version != null)){
+						localStorage.setItem("db_version",udata.version);
+						$("#div_db_version").html( localStorage.getItem("db_version") );
+					}
+					freeze_close();		
+					alert("Se actualizó la base de datos con éxito.");
+				});
+			}
 		} else{
 			freeze_close();		
 			alert("No hay nuevas actualizaciones.");
@@ -2395,7 +2447,7 @@ function onFail(message) {
 //---------- UPLOAD PHOTOS -------------------------------------------------------
 function uploadphoto(tmpobj){
 	$("#aftersendmsg").append("<div id='pre_up_i_" + tmpobj.id + "' class='box_notice'>Enviando foto...</div>");	
-    var url = encodeURI(webservice_post);
+    var url = encodeURI(  localStorage.getItem("ws_post") );
     var options = new FileUploadOptions();
     options.fileKey = "encuesta_image" + tmpobj.id;
 	var photo_img_custom_id = tmpobj.id;
@@ -2448,17 +2500,45 @@ function onError_gps(error) {
     alert('Error GPS: code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
 }
 
+function get_second_gps(){
+	$.mobile.loading("show");
+	options = { timeout: 180000, enableHighAccuracy: true };
+	navigator.geolocation.getCurrentPosition(
+	function (position) {
+		$("#00001902").val( myround(position.coords.latitude,6) + "," + myround(position.coords.longitude,6)  );
+		$.mobile.loading("hide");
+	}, 
+	function (error) {
+		$.mobile.loading("hide");
+		alert('Error GPS: code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
+	},options);
+
+	return false;
+}
+
+
+
 //-------------- LOGIN ---------------------------------------------
 
 function confirm_login(){
 	sys_username = "admin";
 	sys_password = "1234";
+	sys_supervisor_name = "supervisor";
+	sys_supervisor_pass = "supervisor";
 
 	tmp_u = $("#username").val();
 	tmp_p = $("#password").val();
 	if((tmp_u == sys_username ) && (tmp_p == sys_password)){
 		localStorage.setItem("login_status",1);
+		localStorage.setItem("rol","encuestador");
 		changepage("#jqm-home");
+		$("#menusupervisor").hide();
+	} else if((tmp_u == sys_supervisor_name ) && (tmp_p == sys_supervisor_pass )){
+		localStorage.setItem("login_status",1);
+		localStorage.setItem("rol","supervisor");
+		changepage("#jqm-home");
+		$("#menusupervisor").show();
+
 	} else {
 		$("#login_error").html("Usuario y/o Contraseña incorrectos.");
 	}
@@ -2466,23 +2546,37 @@ function confirm_login(){
 
 function logout(){
 	localStorage.setItem("login_status",0);
+	localStorage.setItem("rol",0);
 	changepage("#login");
 	return false;
 }
 
 //-------------UTILS ---------------------------------
-
-function fast_buttons(){
-		var clickEvents = jQuery.hasData( document ) && jQuery._data( document ).events.click;
-		clickEvents = jQuery.extend(true, {}, clickEvents);
-		
-		// remove these click events
-		$(document).off('click');
-	
-		// reset them as vclick events
-		for (var i in clickEvents) {
-			$(document).on('vclick', clickEvents[i].handler);
-		}
+function getDateTime() {
+    var now     = new Date(); 
+    var year    = now.getFullYear();
+    var month   = now.getMonth()+1; 
+    var day     = now.getDate();
+    var hour    = now.getHours();
+    var minute  = now.getMinutes();
+    var second  = now.getSeconds(); 
+    if(month.toString().length == 1) {
+        var month = '0'+month;
+    }
+    if(day.toString().length == 1) {
+        var day = '0'+day;
+    }   
+    if(hour.toString().length == 1) {
+        var hour = '0'+hour;
+    }
+    if(minute.toString().length == 1) {
+        var minute = '0'+minute;
+    }
+    if(second.toString().length == 1) {
+        var second = '0'+second;
+    }   
+    var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;   
+    return dateTime;
 }
 
 function daysInMonth(iMonth, iYear)
@@ -2706,7 +2800,7 @@ function create_id(){
 	} else {
 		list_ids = JSON.parse(tmp);
 	}
-	tmpid = Math.floor((Math.random() * 1000000) + 100000);
+	tmpid = Math.floor((Math.random() * 100000000) );
 	list_ids.push(tmpid);
 	localStorage.setItem("list_ids", JSON.stringify(list_ids) );
 	return tmpid;
@@ -2721,10 +2815,12 @@ function delete_obj(id){
 	}
 	localStorage.setItem("list_ids",JSON.stringify(list_ids));
 	localStorage.removeItem("encobj" + id);
-    db.transaction(function(tx) {
-		//sql = "DELETE FROM encache WHERE id = " + tmpidm;
-		//tx.executeSql(sql, [], function(tx, res) {	});
-    });
+	if(desktop == 0){
+		db.transaction(function(tx) {
+			//sql = "DELETE FROM encache WHERE id = " + tmpidm;
+			//tx.executeSql(sql, [], function(tx, res) {	});
+		});
+	}
 }
 
 function get_obj(id){
@@ -2769,7 +2865,35 @@ function init_home(){
 }
 
 function check_encuesta(){
+	draw_continuar_encuestas();
 	changepage("#encuesta_select");
+	return false;
+}
+
+function draw_continuar_encuestas(){
+	tmp = localStorage.getItem("list_ids");
+	html = "";
+	
+	if(tmp != null){
+		list_ids = JSON.parse(tmp);
+		len = list_ids.length;
+		for( i = 0; i < len ; i++ ){
+			id = list_ids[i];
+			//console.log(id);
+			tmpobj = get_obj(list_ids[i]);
+			if(tmpobj.upload != 1){
+
+				if (typeof tmpobj["local"] === "undefined") tmpobj.local = "ID:" + list_ids[i];
+				if (typeof tmpobj["time"] === "undefined") tmpobj.time = "-";
+
+				html += " <tr>" + "<td>"+  tmpobj.local + "</td>";
+				html +=  "<td>"+  tmpobj.time + "</td>";
+				html += '<td><a href="#" onclick="return load_encuesta(' +list_ids[i] + ');" class="ui-btn ui-btn-inline" data-mini="true">Continuar Encuesta</a></td>';
+				html += "</tr>";
+			}
+		}
+	}
+	 $("#listcontinuar tbody").html( html );
 	return false;
 }
 
@@ -2807,34 +2931,26 @@ function show_end_encuesta(){
 	return false;
 }
 
+function default_webservice(){
+	var ask = window.confirm("Está seguro de querer reiniciar los Servicios Web?");
+    if (ask) {
+		localStorage.setItem("ws_post","http://adostelecom.com/encuesta/webservice.php");
+		localStorage.setItem("ws_update","http://adostelecom.com/encuesta/webservice_update.php");
+		alert("Los Servicios Web han sido reiniciados");
+	}
+	return false;
+}
+
 //---- LOCAL DATABASE ----------------------
 function dbtotal(){
     db.transaction(function(tx) {
 		freeze_open();
-		tx.executeSql("SELECT count(*) as total from geografias", [], function(tx, res) {
-			$("#popmsg").append("<br>depas total: " +res.rows.item(0).total +"<br>"); 
-		});
-		tx.executeSql("SELECT count(*) as total from administrativas", [], function(tx, res) {
-			$("#popmsg").append("administrativas total: " +res.rows.item(0).total+"<br>"); 
-		});
-		tx.executeSql("SELECT count(*) as total from encuestadores", [], function(tx, res) {
-			$("#popmsg").append("encuestadores total: " +res.rows.item(0).total+"<br>"); 
-		});
-		tx.executeSql("SELECT count(*) as total from encuesta", [], function(tx, res) {
-			$("#popmsg").append("encuesta total: "+ res.rows.item(0).total+"<br>"); 
-		});
-		tx.executeSql("SELECT count(*) as total from institucioneseducativas", [], function(tx, res) {
-			$("#popmsg").append("instituciones total: "+ res.rows.item(0).total+"<br>"); 
+		tx.executeSql("SELECT count(*) as total from test", [], function(tx, res) {
+			$("#popmsg").append("Test total: "+ res.rows.item(0).total+"<br>"); 
 		});
 
-		tx.executeSql("SELECT count(*) as total from dres", [], function(tx, res) {
-			$("#popmsg").append("dres total: "+ res.rows.item(0).total+"<br>"); 
-		});
-		tx.executeSql("SELECT count(*) as total from unidades", [], function(tx, res) {
-			$("#popmsg").append("unidades total: "+ res.rows.item(0).total+"<br>"); 
-		});
 		tx.executeSql("SELECT count(*) as total from tablon", [], function(tx, res) {
-			$("#popmsg").append("tablon total: "+ res.rows.item(0).total+"<br>"); 
+			$("#popmsg").append("Tablon total: "+ res.rows.item(0).total+"<br>"); 
 		});
 
     });
@@ -2886,7 +3002,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-14 02:21:38</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-14 06:26:57</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -2941,8 +3057,9 @@ function create_panels(){
 		</div>
 		<div data-role="content">
 			<div class="right">
-				<ul data-role="listview" data-inset="true">
 				<div id="espere" class="box_notice">Procesando datos, espere un momento por favor...</div>
+
+				<ul data-role="listview" data-inset="true">
 				  <li>
 					<a href="#" onclick="return check_encuesta();"  data-transition="slide">
 					   <h3>Iniciar Encuesta</h3>
@@ -2957,10 +3074,11 @@ function create_panels(){
 				  </li>
 				  <li>
 					<a href="#" onclick="return update_database();"   data-transition="slide">
-					  <h3>Actualziar Base de datos</h3>
+					  <h3>Actualizar Base de datos</h3>
 					  <div></div>
 					</a>
 				  </li>
+
 <!--
 				  <li>
 					<a href="#" onclick="return create_tables_data();"   data-transition="slide">
@@ -2976,6 +3094,23 @@ function create_panels(){
 				  </li>-->
 				</ul>
 
+				<ul data-role="listview" data-inset="true" id="menusupervisor">
+				  <li>
+					<a href="#" onclick="return default_webservice();"   data-transition="slide">
+					  <h3>Reiniciar Servicios Web</h3>
+					  <div></div>
+					</a>
+				  </li>
+					<li>
+					<a href="#" onclick="return dbtotal();"   data-transition="slide">
+					  <h3>Estado de Base de Datos</h3>
+					  <div></div>
+					</a>
+				  </li>
+				</ul>
+
+				<p style="color:#C7C7C7">Versión de Base de Datos: <span id="div_db_version"></span></p>
+	
 			</div>
 		</div>
 	</div>
@@ -2989,6 +3124,8 @@ function create_panels(){
 		</div>
 		<div data-role="content">
 			<div class="right">
+				<div id="espereload" class="box_notice">Procesando datos, espere un momento por favor...</div>
+
 				<ul data-role="listview" data-inset="true">
 				  <li>
 					<a href="#" onclick="return new_encuesta();"  data-transition="slide">
@@ -2996,13 +3133,21 @@ function create_panels(){
 						 <div></div>
 					</a>
 				  </li>
-				  <li id="div_ultima">
+				  <!--li id="div_ultima">
 					<a href="#" onclick="return load_last_encuesta();"  data-transition="slide">
 						<h3>Continuar Ultima Encuesta</h3>
 						<div></div>
 					</a>
-				  </li>
+				  </li-->
 				</ul>
+
+				<div>
+					<table class='ts1' id="listcontinuar">
+						<tbody></tbody>
+					</table>
+				</div>
+
+
 			</div>
 		</div>
 	</div>
@@ -3097,7 +3242,8 @@ function create_panels(){
 					<table class="ts1" id="html_table_enc" width="100%">
 					      <thead>
 					        <tr>
-					          <th >Centro Educativo</th>
+					          <th >Local Educativo</th>
+					          <th >Fecha</th>
 					          <th>Estado</th>
 					        </tr>
 					      </thead>
@@ -3130,7 +3276,7 @@ function create_panels(){
 					<h3>INICIAR ENCUESTA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Departamento</label><select name='00000101' id='00000101'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Encuestador</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000500" > <div data-role="fieldcontain"><label for='00000500'   >Día</label><select name='00000500' id='00000500'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''></th></tr></thead><tbody></tbody></table><input type="hidden" id="ocultar_1" name="ocultar_1" value="0"/><input type="hidden"  id="ocultar_2" name="ocultar_2" value="0"/><input type="hidden"  id="ocultar_3" name="ocultar_3" value="0"/><input type="hidden" id="activenivel_1" name="activenivel_1" value="0"/><input type="hidden" id="activenivel_2" name="activenivel_2" value="0"/><input type="hidden" id="activenivel_3" name="activenivel_3" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><div id='testr'></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
+					<div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Departamento</label><select name='00000101' id='00000101'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Encuestador</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000500" > <div data-role="fieldcontain"><label for='00000500'   >Día</label><select name='00000500' id='00000500'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''></th></tr></thead><tbody></tbody></table><input type="hidden" id="form_enc_id" name="form_enc_id" value="0"/><input type="hidden" id="nativo_1" name="nativo_1" value="0"/><input type="hidden"  id="nativo_2" name="nativo_2" value="0"/><input type="hidden"  id="nativo_3" name="nativo_3" value="0"/><input type="hidden" id="activenivel_1" name="activenivel_1" value="0"/><input type="hidden" id="activenivel_2" name="activenivel_2" value="0"/><input type="hidden" id="activenivel_3" name="activenivel_3" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><div id='testr'></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
 <td>Inicial</td>
 <td></td>
 </tr><tr class='tnewnivel2'><td><div id="div00004012"  class=" ff"  > <label for="00004012"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004012" id="00004012" value=""   /></div></td>
@@ -4427,7 +4573,13 @@ function create_panels(){
 				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('23');">Tomar foto al lavadero o lavatorio de algún servicio higiénico</button> <img id="fotoimage23" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
-		</div><input type="hidden" name="foto21" id="foto21" value=""><input type="hidden" name="foto22" id="foto22"  value=""><input type="hidden" name="foto23" id="foto23"  value=""><div id="div87010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>87. Qué señales de seguridad presenta el local escolar en sus instalaciones?</legend><input type="checkbox" name="87010000[]" id="8701000001" value="Zonas de seguridad en caso de terremotos"><label for="8701000001" >Zonas de seguridad en caso de terremotos</label><input type="checkbox" name="87010000[]" id="8701000002" value="Señales contra incendios"><label for="8701000002" >Señales contra incendios</label><input type="checkbox" name="87010000[]" id="8701000003" value="Estado de instalaciones eléctricas"><label for="8701000003" >Estado de instalaciones eléctricas</label><input type="checkbox" name="87010000[]" id="8701000004" value="Otros"><label for="8701000004" >Otros</label></fieldset></div><div id="div87010100"  class=" ff"  > <div data-role="fieldcontain"><label for="87010100"   >(Otros) Especificar:</label><input  data-mini="true"   type="text" name="87010100" id="87010100" value=""   ></div></div><div id="div88010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>88. Confirmar si el local escolar cuenta con abastecimiento de agua</legend><input type="radio" name="88010000" id="8801000001" value="SI"><label for="8801000001">SI</label><input type="radio" name="88010000" id="8801000002" value="NO"><label for="8801000002">NO</label></fieldset></div><div id="div89010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>89. Confirmar con qué tipo de alumbrado cuenta el local escolar.</legend><input type="checkbox" name="89010000[]" id="8901000001" value="Electricidad"><label for="8901000001" >Electricidad</label><input type="checkbox" name="89010000[]" id="8901000002" value="Petróleo/Gas"><label for="8901000002" >Petróleo/Gas</label><input type="checkbox" name="89010000[]" id="8901000003" value="Otro"><label for="8901000003" >Otro</label><input type="checkbox" name="89010000[]" id="8901000004" value="No tiene"><label for="8901000004" >No tiene</label></fieldset></div><div id="div89010100"  class=" ff"  > <div data-role="fieldcontain"><label for="89010100"   >Especificar:</label><input  data-mini="true"   type="text" name="89010100" id="89010100" value=""   ></div></div>
+		</div><input type="hidden" name="foto21" id="foto21" value=""><input type="hidden" name="foto22" id="foto22"  value=""><input type="hidden" name="foto23" id="foto23"  value=""><div id="div87010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>87. Qué señales de seguridad presenta el local escolar en sus instalaciones?</legend><input type="checkbox" name="87010000[]" id="8701000001" value="Zonas de seguridad en caso de terremotos"><label for="8701000001" >Zonas de seguridad en caso de terremotos</label><input type="checkbox" name="87010000[]" id="8701000002" value="Señales contra incendios"><label for="8701000002" >Señales contra incendios</label><input type="checkbox" name="87010000[]" id="8701000003" value="Estado de instalaciones eléctricas"><label for="8701000003" >Estado de instalaciones eléctricas</label><input type="checkbox" name="87010000[]" id="8701000004" value="Otros"><label for="8701000004" >Otros</label></fieldset></div><div id="div87010100"  class=" ff"  > <div data-role="fieldcontain"><label for="87010100"   >(Otros) Especificar:</label><input  data-mini="true"   type="text" name="87010100" id="87010100" value=""   ></div></div><div id="div88010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>88. Confirmar si el local escolar cuenta con abastecimiento de agua</legend><input type="radio" name="88010000" id="8801000001" value="SI"><label for="8801000001">SI</label><input type="radio" name="88010000" id="8801000002" value="NO"><label for="8801000002">NO</label></fieldset></div><div id="div89010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>89. Confirmar con qué tipo de alumbrado cuenta el local escolar.</legend><input type="checkbox" name="89010000[]" id="8901000001" value="Electricidad"><label for="8901000001" >Electricidad</label><input type="checkbox" name="89010000[]" id="8901000002" value="Petróleo/Gas"><label for="8901000002" >Petróleo/Gas</label><input type="checkbox" name="89010000[]" id="8901000003" value="Otro"><label for="8901000003" >Otro</label><input type="checkbox" name="89010000[]" id="8901000004" value="No tiene"><label for="8901000004" >No tiene</label></fieldset></div><div id="div89010100"  class=" ff"  > <div data-role="fieldcontain"><label for="89010100"   >Especificar:</label><input  data-mini="true"   type="text" name="89010100" id="89010100" value=""   ></div></div><div id="div00001902" data-role="fieldcontain">
+			<label for="00001902" >GPS</label>
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<button onclick="return get_second_gps();">Obtener Coordenadas</button>
+				<input id="00001902"  type="text" name="00001902" readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
+			</div>
+		</div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(26);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
