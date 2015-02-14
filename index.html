@@ -41,6 +41,10 @@ var desktop = 0;
 </script>
 <script src="js/dbdata.js"></script>
 <script>
+if(localStorage.getItem("db_version") == null){
+	localStorage.setItem("db_version",0);
+}
+
 if(desktop == 0){
 	document.addEventListener("deviceready", onDeviceReady, false);
 } else {
@@ -48,6 +52,7 @@ if(desktop == 0){
 }
 
 function onDeviceReady() {
+	$("#espere").hide();
 	//fast_buttons();
 	$(document).on('pagecontainershow', function(e, ui) {
 		//$.mobile.loading("hide");
@@ -306,10 +311,6 @@ function onDeviceReady() {
 
 	$( "#botonvaciar" ).hide();
 
-	$( "#00004011,#00004012,#00004013" ).blur(function() {
-		validate_modular($(this).attr('id'));
-	});
-
 	$( "input[name=01010000]" ).change(function() {
 		if( $("input[name=01010000]:checked").val() == "SI"){
 			$( "#div02010000,#div03010000" ).hide();
@@ -500,7 +501,9 @@ function onDeviceReady() {
 		}
 		ocultar16();
 	});
+/*
 
+*/
 
 	$( "input[name=16010001]" ).change(function() {
 		if( $("input[name=16010001]:checked").val() == "SI"){ $("#div64010001").show();	} else {$("#div64010001").hide();}
@@ -1970,19 +1973,20 @@ function makerows(tmp){
 	html = "";
 	len = tmp.length;
 	for( i = 0; i < len ; i++ ){
-		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td>" + tmp[i].codigo_modular + "</td>";
+		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td><input type='text' readonly='readonly' value='" + tmp[i].codigo_modular + "'></td>";
 		html += "<td>" + tmp[i].nivel + "</td>";
 		html += '<td><a href="#" onclick="return editmodular(' + tmp[i].nivel_id + ');" data-role="button" data-icon="delete" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all" role="button"></a> </td></tr>';
 	}
 	return html;
 }
 
-function edimodular( i ){
+function editmodular( i ){
 	//if($(element).is("[title]")){
-	return false;
+	//return false;
 	//}
-	//$("#foundnivel" + i + " input").attr('readonly', 'readonly');
+	$("#foundnivel" + i + " input").attr('readonly', false);
 
+	return false;
 }
 
 function hideinitnivel(nivel){
@@ -1995,6 +1999,10 @@ function hideinitnivel(nivel){
 function validate_pages(){
 	var tmpvflag = true;
 
+	if( ($("#activenivel_1").val() == 0) && ($("#activenivel_1").val() == 0) && ($("#activenivel_3").val() == 0) ){
+		alert("Seleccionar un Codigo de Local");					
+		return false;
+	}
 
 	if( ( int("90220100") + int("90220200") ) != int("90210100") ){
 		tmp = "LA SUMA DE ESTUDIANTES HOMBRES Y MUJERES NO ES IGUAL AL TOTAL DE ESTUDIANTES OBSERVADOS";
@@ -2008,6 +2016,17 @@ function validate_pages(){
 		tmp = "EL Nro DE ESTUDIANTES SIN MOBILIARIO NO DEBE SER MAYOR AL Nro TOTAL DE ESTUDIANTES";
 		alert(tmp);	return false;
 	}*/
+
+	if($( "#00004011").is(":visible")){
+		validate_modular("00004011");
+	}
+	if($( "#00004012").is(":visible")){
+		validate_modular("00004012");
+	}
+	if($( "#00004013").is(":visible")){
+		validate_modular("00004013");
+	}
+	
 
 	if( $('#00003100').val() != "" ){
 		return validate_fono('00003100');
@@ -2317,20 +2336,11 @@ function fast_encuesta_exit(){
 //---------UPDATING DATABASE -----------------------------
 
 function update_database(){
-	//var udata;
-	tmpv = localStorage.getItem("db_version");
-	if(tmpv != null){
-
-	} else {
-		localStorage.setItem("db_version",0);
-		tmpv = 0;
-	}
-
 	//conectarse a app y enviar nuestra version actual
 	freeze_open();
 	$.ajax({ url: webservice_update,
 			 type: "GET",
-			 data: { "version" : tmpv },
+			 data: { "version" : localStorage.getItem("db_version") },
 			 crossDomain: true,
 			 cache: false,
 			 dataType: "json"
@@ -2356,7 +2366,6 @@ function update_database(){
 			freeze_close();		
 			alert("No hay nuevas actualizaciones.");
 		}
-
 	}).fail(function( jqXHR, textStatus ) {
 			freeze_close();		
 			alert("Error de actualización, intentar de nuevo.");
@@ -2421,7 +2430,7 @@ function uploadphoto(tmpobj){
 
 function get_gps() {
 	$.mobile.loading("show");
-	options = { timeout: 90000, enableHighAccuracy: true };
+	options = { timeout: 180000, enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps,options);
 	return false;
 }
@@ -2624,11 +2633,13 @@ function validate_modular(id){
 	if( $("#" + id).val() == "" )return false;
 	nn = int(id);
 	if(  $("#" + id).val().length == 7  ){
-		//return true;
+		return true;
 	} else {
 		alert("Codigo Modular debe contener 7 digitos.");
 		$("#" + id).val("");
+		return false;
 	}
+	return true;
 }
 
 function validate_fono(id){
@@ -2875,7 +2886,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-13 07:36:53</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-14 02:21:38</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -2931,6 +2942,7 @@ function create_panels(){
 		<div data-role="content">
 			<div class="right">
 				<ul data-role="listview" data-inset="true">
+				<div id="espere" class="box_notice">Procesando datos, espere un momento por favor...</div>
 				  <li>
 					<a href="#" onclick="return check_encuesta();"  data-transition="slide">
 					   <h3>Iniciar Encuesta</h3>
@@ -2940,6 +2952,12 @@ function create_panels(){
 				  <li>
 					<a href="#" onclick="return list_encuestas();"   data-transition="slide">
 					  <h3>Estado de Encuestas</h3>
+					  <div></div>
+					</a>
+				  </li>
+				  <li>
+					<a href="#" onclick="return update_database();"   data-transition="slide">
+					  <h3>Actualziar Base de datos</h3>
 					  <div></div>
 					</a>
 				  </li>
@@ -3355,7 +3373,7 @@ function create_panels(){
 					<h3>IV.COMPROMISOS DE GESTION ESCOLAR </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<p>15. Por nivel educativo,¿Existe un registro de asistencia del personal docente?</p><div id="div15010000"  class="efi ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="15010000" id="1501000001" value="SI"><label for="1501000001">SI</label><input type="radio" name="15010000" id="1501000002" value="NO"><label for="1501000002">NO</label></fieldset></div></div><div id="div15020000"  class="efp ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="15020000" id="1502000001" value="SI"><label for="1502000001">SI</label><input type="radio" name="15020000" id="1502000002" value="NO"><label for="1502000002">NO</label></fieldset></div></div><div id="div15030000"  class="efs ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Secundaria</legend><input type="radio" name="15030000" id="1503000001" value="SI"><label for="1503000001">SI</label><input type="radio" name="15030000" id="1503000002" value="NO"><label for="1503000002">NO</label></fieldset></div></div><div id='div16000000'><p>16. ¿Con qué registro de asistencia del personal docente cuenta el local escolar?</p><table  class="ts1"><thead><tr><th class=''>Registros de asistencia</th><th class='efi'>Inicial</th><th class='efp'>Primaria</th><th class='efs'>Secundaria</th></tr></thead><tbody><tr><td>1. Cuadernos de asistencia</td>
+					<p>15. Por nivel educativo,¿Existe un registro de asistencia del personal docente?</p><div id="div15010000"  class="efi ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="15010000" id="1501000001" value="SI"><label for="1501000001">SI</label><input type="radio" name="15010000" id="1501000002" value="NO"><label for="1501000002">NO</label></fieldset></div></div><div id="div15020000"  class="efp ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="15020000" id="1502000001" value="SI"><label for="1502000001">SI</label><input type="radio" name="15020000" id="1502000002" value="NO"><label for="1502000002">NO</label></fieldset></div></div><div id="div15030000"  class="efs ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Secundaria</legend><input type="radio" name="15030000" id="1503000001" value="SI"><label for="1503000001">SI</label><input type="radio" name="15030000" id="1503000002" value="NO"><label for="1503000002">NO</label></fieldset></div></div><div id='div16000000'><p>16. ¿Con qué registro de asistencia del personal docente cuenta el local escolar?</p><table class='ts1'><thead><tr><th>Registros de asistencia </th><th class='efi rai'>Inicial </th><th class='efp rap'>Primaria </th><th class='efs ras'>Secundaria </th>     </tr></thead><tbody><tr><td>1. Cuadernos de asistencia</td>
 <td class='efi'><div id="div16010001"  class="rai ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16010001" id="1601000101" value="SI"><label for="1601000101">SI</label><input type="radio" name="16010001" id="1601000102" value="NO"><label for="1601000102">NO</label></fieldset></div></td><td class='efp'><div id="div16010002"  class="rap ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16010002" id="1601000201" value="SI"><label for="1601000201">SI</label><input type="radio" name="16010002" id="1601000202" value="NO"><label for="1601000202">NO</label></fieldset></div></td><td class='efs'><div id="div16010003"  class="ras ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16010003" id="1601000301" value="SI"><label for="1601000301">SI</label><input type="radio" name="16010003" id="1601000302" value="NO"><label for="1601000302">NO</label></fieldset></div></td></tr><tr><td>2. Marcador de tarjeta</td>
 <td class='efi'><div id="div16020001"  class="rai ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16020001" id="1602000101" value="SI"><label for="1602000101">SI</label><input type="radio" name="16020001" id="1602000102" value="NO"><label for="1602000102">NO</label></fieldset></div></td><td class='efp'><div id="div16020002"  class="rap ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16020002" id="1602000201" value="SI"><label for="1602000201">SI</label><input type="radio" name="16020002" id="1602000202" value="NO"><label for="1602000202">NO</label></fieldset></div></td><td class='efs'><div id="div16020003"  class="ras ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16020003" id="1602000301" value="SI"><label for="1602000301">SI</label><input type="radio" name="16020003" id="1602000302" value="NO"><label for="1602000302">NO</label></fieldset></div></td></tr><tr><td>3. Biométrico digital</td>
 <td class='efi'><div id="div16030001"  class="rai ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16030001" id="1603000101" value="SI"><label for="1603000101">SI</label><input type="radio" name="16030001" id="1603000102" value="NO"><label for="1603000102">NO</label></fieldset></div></td><td class='efp'><div id="div16030002"  class="rap ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16030002" id="1603000201" value="SI"><label for="1603000201">SI</label><input type="radio" name="16030002" id="1603000202" value="NO"><label for="1603000202">NO</label></fieldset></div></td><td class='efs'><div id="div16030003"  class="ras ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="16030003" id="1603000301" value="SI"><label for="1603000301">SI</label><input type="radio" name="16030003" id="1603000302" value="NO"><label for="1603000302">NO</label></fieldset></div></td></tr></tbody></table></div><p>17. Por nivel educativo, indique usted:</p><table  class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>17.A. Nro Total de Docentes</th><th class=''>17.B. Nro. docentes presentes</th><th class=''>17.C. Nro docentes ausentes con justificación</th><th class=''>17.D. Nro. docentes ausentes sin justificación</th></tr></thead><tbody><tr class='efi'><td>Inicial</td>
@@ -3512,7 +3530,6 @@ function create_panels(){
 <td><div id="div25020100"  class=" ff"  > <label for="25020100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25020100" id="25020100" value=""   /></div></td>
 <td><div id="div25020200"  class=" ff"  > <label for="25020200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25020200" id="25020200" value=""   /></div></td>
 </tr><tr class='25030000'><td>TALLERES</td>
-<td><div id="div25010000"  class=" ff"  > <label for="25010000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25010000" id="25010000" value=""  maxlength='4'   /></div></td>
 <td><div id="div25030100"  class=" ff"  > <label for="25030100"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25030100" id="25030100" value=""   /></div></td>
 <td><div id="div25030200"  class=" ff"  > <label for="25030200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="25030200" id="25030200" value=""   /></div></td>
 </tr><tr class='25040000'><td>SSHH (SERVICIOS HIGIÉNICOS)</td>
@@ -3738,15 +3755,15 @@ function create_panels(){
 <td><div id="div35010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010101" id="3501010101" value="SI"><label for="3501010101">SI</label><input type="radio" name="35010101" id="3501010102" value="NO"><label for="3501010102">NO</label></fieldset></div></td>
 <td><div id="div35010201"  class=" ff"  > <label for="35010201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010201" id="35010201" value=""   /></div></td>
 <td><div id="div35010301"  class=" ff"  > <label for="35010301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010301" id="35010301" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Inicial</td>
+</tr><tr class='efi'><td>Aulas Inicial</td>
 <td><div id="div35010102"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010102" id="3501010201" value="SI"><label for="3501010201">SI</label><input type="radio" name="35010102" id="3501010202" value="NO"><label for="3501010202">NO</label></fieldset></div></td>
 <td><div id="div35010202"  class=" ff"  > <label for="35010202"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010202" id="35010202" value=""   /></div></td>
 <td><div id="div35010302"  class=" ff"  > <label for="35010302"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010302" id="35010302" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Primaria</td>
+</tr><tr class='efp'><td>Aulas Primaria</td>
 <td><div id="div35010103"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010103" id="3501010301" value="SI"><label for="3501010301">SI</label><input type="radio" name="35010103" id="3501010302" value="NO"><label for="3501010302">NO</label></fieldset></div></td>
 <td><div id="div35010203"  class=" ff"  > <label for="35010203"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010203" id="35010203" value=""   /></div></td>
 <td><div id="div35010303"  class=" ff"  > <label for="35010303"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010303" id="35010303" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Secundaria</td>
+</tr><tr class='efs'><td>Aulas Secundaria</td>
 <td><div id="div35010104"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35010104" id="3501010401" value="SI"><label for="3501010401">SI</label><input type="radio" name="35010104" id="3501010402" value="NO"><label for="3501010402">NO</label></fieldset></div></td>
 <td><div id="div35010204"  class=" ff"  > <label for="35010204"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010204" id="35010204" value=""   /></div></td>
 <td><div id="div35010304"  class=" ff"  > <label for="35010304"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35010304" id="35010304" value=""   /></div></td>
@@ -3766,15 +3783,15 @@ function create_panels(){
 <td><div id="div35020101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020101" id="3502010101" value="SI"><label for="3502010101">SI</label><input type="radio" name="35020101" id="3502010102" value="NO"><label for="3502010102">NO</label></fieldset></div></td>
 <td><div id="div35020201"  class=" ff"  > <label for="35020201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020201" id="35020201" value=""   /></div></td>
 <td><div id="div35020301"  class=" ff"  > <label for="35020301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020301" id="35020301" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Inicial</td>
+</tr><tr class='efi'><td>Aulas Inicial</td>
 <td><div id="div35020102"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020102" id="3502010201" value="SI"><label for="3502010201">SI</label><input type="radio" name="35020102" id="3502010202" value="NO"><label for="3502010202">NO</label></fieldset></div></td>
 <td><div id="div35020202"  class=" ff"  > <label for="35020202"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020202" id="35020202" value=""   /></div></td>
 <td><div id="div35020302"  class=" ff"  > <label for="35020302"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020302" id="35020302" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Primaria</td>
+</tr><tr class='efp'><td>Aulas Primaria</td>
 <td><div id="div35020103"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020103" id="3502010301" value="SI"><label for="3502010301">SI</label><input type="radio" name="35020103" id="3502010302" value="NO"><label for="3502010302">NO</label></fieldset></div></td>
 <td><div id="div35020203"  class=" ff"  > <label for="35020203"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020203" id="35020203" value=""   /></div></td>
 <td><div id="div35020303"  class=" ff"  > <label for="35020303"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020303" id="35020303" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Secundaria</td>
+</tr><tr class='efs'><td>Aulas Secundaria</td>
 <td><div id="div35020104"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35020104" id="3502010401" value="SI"><label for="3502010401">SI</label><input type="radio" name="35020104" id="3502010402" value="NO"><label for="3502010402">NO</label></fieldset></div></td>
 <td><div id="div35020204"  class=" ff"  > <label for="35020204"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020204" id="35020204" value=""   /></div></td>
 <td><div id="div35020304"  class=" ff"  > <label for="35020304"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35020304" id="35020304" value=""   /></div></td>
@@ -3794,15 +3811,15 @@ function create_panels(){
 <td><div id="div35030101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35030101" id="3503010101" value="SI"><label for="3503010101">SI</label><input type="radio" name="35030101" id="3503010102" value="NO"><label for="3503010102">NO</label></fieldset></div></td>
 <td><div id="div35030201"  class=" ff"  > <label for="35030201"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030201" id="35030201" value=""   /></div></td>
 <td><div id="div35030301"  class=" ff"  > <label for="35030301"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030301" id="35030301" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Inicial</td>
+</tr><tr class='efi'><td>Aulas Inicial</td>
 <td><div id="div35030102"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35030102" id="3503010201" value="SI"><label for="3503010201">SI</label><input type="radio" name="35030102" id="3503010202" value="NO"><label for="3503010202">NO</label></fieldset></div></td>
 <td><div id="div35030202"  class=" ff"  > <label for="35030202"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030202" id="35030202" value=""   /></div></td>
 <td><div id="div35030302"  class=" ff"  > <label for="35030302"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030302" id="35030302" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Primaria</td>
+</tr><tr class='efp'><td>Aulas Primaria</td>
 <td><div id="div35030103"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35030103" id="3503010301" value="SI"><label for="3503010301">SI</label><input type="radio" name="35030103" id="3503010302" value="NO"><label for="3503010302">NO</label></fieldset></div></td>
 <td><div id="div35030203"  class=" ff"  > <label for="35030203"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030203" id="35030203" value=""   /></div></td>
 <td><div id="div35030303"  class=" ff"  > <label for="35030303"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030303" id="35030303" value=""   /></div></td>
-</tr><tr class=''><td>Aulas Secundaria</td>
+</tr><tr class='efs'><td>Aulas Secundaria</td>
 <td><div id="div35030104"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="35030104" id="3503010401" value="SI"><label for="3503010401">SI</label><input type="radio" name="35030104" id="3503010402" value="NO"><label for="3503010402">NO</label></fieldset></div></td>
 <td><div id="div35030204"  class=" ff"  > <label for="35030204"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030204" id="35030204" value=""   /></div></td>
 <td><div id="div35030304"  class=" ff"  > <label for="35030304"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="35030304" id="35030304" value=""   /></div></td>
@@ -4175,7 +4192,7 @@ function create_panels(){
 <td><div id="div70010000"  class=" ff"  > <label for="70010000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70010000" id="70010000" value=""   /></div></td>
 <td><div id="div70020000"  class=" ff"  > <label for="70020000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70020000" id="70020000" value=""   /></div></td>
 <td><div id="div70030000"  class=" ff"  > <label for="70030000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70030000" id="70030000" value=""   /></div></td>
-</tr></tbody></table></div><div id="div71010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>71. La acción de mantenimiento 'Reperación de Techos' cumple con:</legend><input type="checkbox" name="71010000[]" id="7101000001" value="No presentar fisuras ni grietas superficiales"><label for="7101000001" >No presentar fisuras ni grietas superficiales</label><input type="checkbox" name="71010000[]" id="7101000002" value="No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siguen desprendiendo?"><label for="7101000002" >No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siguen desprendiendo?</label><input type="checkbox" name="71010000[]" id="7101000003" value="No existen agujeros y/o aberturas entre las coberturas que permitan el ingreso del agua de lluvia a los ambientes"><label for="7101000003" >No existen agujeros y/o aberturas entre las coberturas que permitan el ingreso del agua de lluvia a los ambientes</label></fieldset></div><div id="div72010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>72. La reparación de instalaciones sanitarias cumple con:</legend><input type="checkbox" name="72010000[]" id="7201000001" value="Cortar con sistema de agua y desague"><label for="7201000001" >Cortar con sistema de agua y desague</label><input type="checkbox" name="72010000[]" id="7201000002" value="No presentar fugas"><label for="7201000002" >No presentar fugas</label><input type="checkbox" name="72010000[]" id="7201000003" value="No existen aparatos sanitarios en mal estado"><label for="7201000003" >No existen aparatos sanitarios en mal estado</label></fieldset></div><div id="div73010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>73. La acción de mantenimiento Reparación de pisos cumple con:</legend><input type="checkbox" name="73010000[]" id="7301000001" value="No existen ambientes sin piso o tiene un piso incompleto en su ejecución"><label for="7301000001" >No existen ambientes sin piso o tiene un piso incompleto en su ejecución</label><input type="checkbox" name="73010000[]" id="7301000002" value="No existen grietas u hoyos en el piso"><label for="7301000002" >No existen grietas u hoyos en el piso</label><input type="checkbox" name="73010000[]" id="7301000003" value="No son un peligro para el alumnado y comunidad educativa en general"><label for="7301000003" >No son un peligro para el alumnado y comunidad educativa en general</label></fieldset></div><div id="div74010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>74. La acción reparación de muros/paredes cumple con:</legend><input type="checkbox" name="74010000[]" id="7401000001" value="No existen fisuras o grietas"><label for="7401000001" >No existen fisuras o grietas</label><input type="checkbox" name="74010000[]" id="7401000002" value="No existen problemas de humedad"><label for="7401000002" >No existen problemas de humedad</label><input type="checkbox" name="74010000[]" id="7401000003" value="No tiene problemas de erosión de ningún tipo"><label for="7401000003" >No tiene problemas de erosión de ningún tipo</label></fieldset></div><div id="div75010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>75. La acción de mantenimiento de reparación de puertas cumple con:</legend><input type="checkbox" name="75010000[]" id="7501000001" value="No presentan daños ni rajaduras"><label for="7501000001" >No presentan daños ni rajaduras</label><input type="checkbox" name="75010000[]" id="7501000002" value="No estan descolgadas o descuadradas"><label for="7501000002" >No estan descolgadas o descuadradas</label><input type="checkbox" name="75010000[]" id="7501000003" value="No existen puertas sin chapas o chapas sin funcionamiento"><label for="7501000003" >No existen puertas sin chapas o chapas sin funcionamiento</label></fieldset></div>
+</tr></tbody></table></div><div id="div71010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>71. La acción de mantenimiento 'Reperación de Techos' cumple con:</legend><input type="checkbox" name="71010000[]" id="7101000001" value="No presentar fisuras ni grietas superficiales"><label for="7101000001" >No presentar fisuras ni grietas superficiales</label><input type="checkbox" name="71010000[]" id="7101000002" value="No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siguen desprendiendo?"><label for="7101000002" >No existen espacios abiertos entre las uniones de las coberturas y existen láminas sueltas que se siguen desprendiendo?</label><input type="checkbox" name="71010000[]" id="7101000003" value="No existen agujeros y/o aberturas entre las coberturas que permitan el ingreso del agua de lluvia a los ambientes"><label for="7101000003" >No existen agujeros y/o aberturas entre las coberturas que permitan el ingreso del agua de lluvia a los ambientes</label></fieldset></div><div id="div72010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>72. La reparación de instalaciones sanitarias cumple con:</legend><input type="checkbox" name="72010000[]" id="7201000001" value="Contar con sistema de agua y desague"><label for="7201000001" >Contar con sistema de agua y desague</label><input type="checkbox" name="72010000[]" id="7201000002" value="No presentar fugas"><label for="7201000002" >No presentar fugas</label><input type="checkbox" name="72010000[]" id="7201000003" value="No existen aparatos sanitarios en mal estado"><label for="7201000003" >No existen aparatos sanitarios en mal estado</label></fieldset></div><div id="div73010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>73. La acción de mantenimiento Reparación de pisos cumple con:</legend><input type="checkbox" name="73010000[]" id="7301000001" value="No existen ambientes sin piso o tiene un piso incompleto en su ejecución"><label for="7301000001" >No existen ambientes sin piso o tiene un piso incompleto en su ejecución</label><input type="checkbox" name="73010000[]" id="7301000002" value="No existen grietas u hoyos en el piso"><label for="7301000002" >No existen grietas u hoyos en el piso</label><input type="checkbox" name="73010000[]" id="7301000003" value="No son un peligro para el alumnado y comunidad educativa en general"><label for="7301000003" >No son un peligro para el alumnado y comunidad educativa en general</label></fieldset></div><div id="div74010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>74. La acción reparación de muros/paredes cumple con:</legend><input type="checkbox" name="74010000[]" id="7401000001" value="No existen fisuras o grietas"><label for="7401000001" >No existen fisuras o grietas</label><input type="checkbox" name="74010000[]" id="7401000002" value="No existen problemas de humedad"><label for="7401000002" >No existen problemas de humedad</label><input type="checkbox" name="74010000[]" id="7401000003" value="No tiene problemas de erosión de ningún tipo"><label for="7401000003" >No tiene problemas de erosión de ningún tipo</label></fieldset></div><div id="div75010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>75. La acción de mantenimiento de reparación de puertas cumple con:</legend><input type="checkbox" name="75010000[]" id="7501000001" value="No presentan daños ni rajaduras"><label for="7501000001" >No presentan daños ni rajaduras</label><input type="checkbox" name="75010000[]" id="7501000002" value="No estan descolgadas o descuadradas"><label for="7501000002" >No estan descolgadas o descuadradas</label><input type="checkbox" name="75010000[]" id="7501000003" value="No existen puertas sin chapas o chapas sin funcionamiento"><label for="7501000003" >No existen puertas sin chapas o chapas sin funcionamiento</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(23);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
