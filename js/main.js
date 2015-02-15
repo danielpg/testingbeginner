@@ -546,7 +546,7 @@ function rebuild_arbol(){
 
 	if( $("#encuesta12").find("input[name=35030102]:checked").val() == "SI"){  $( "#div35030202,#div35030302" ).show();  } else {  $( "#div35030202,#div35030302" ).hide();     }
 
-	if( $("#encuesta12").find("input[name=35030103]:checked").val() == "SI"){  $( "#div35030203,#div35030303" ).show();  } else { ( "#div35030203,#div35030303" ).hide();     }
+	if( $("#encuesta12").find("input[name=35030103]:checked").val() == "SI"){  $( "#div35030203,#div35030303" ).show();  } else { $( "#div35030203,#div35030303" ).hide();     }
 
 	if( $("#encuesta12").find("input[name=35030104]:checked").val() == "SI"){  $( "#div35030204,#div35030304" ).show();  } else { $( "#div35030204,#div35030304" ).hide();     }
 
