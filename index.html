@@ -2548,7 +2548,7 @@ function uploadphoto(tmpobj){
 
 function get_gps() {
 	$.mobile.loading("show");
-	options = { timeout: 240000, enableHighAccuracy: true };
+	options = { timeout: 480000, enableHighAccuracy: true };
     navigator.geolocation.getCurrentPosition(onSuccess_gps, onError_gps,options);
 	return false;
 }
@@ -2568,7 +2568,7 @@ function onError_gps(error) {
 
 function get_second_gps(){
 	$.mobile.loading("show");
-	options = { timeout: 240000, enableHighAccuracy: true };
+	options = { timeout: 480000, enableHighAccuracy: true };
 	navigator.geolocation.getCurrentPosition(
 	function (position) {
 		$("#00001902").val( myround(position.coords.latitude,6) + "," + myround(position.coords.longitude,6)  );
@@ -3073,7 +3073,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-15 08:14:16</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-15 08:46:14</div>';
 	html += '</div>';
 	$("body").append(html);
 }
