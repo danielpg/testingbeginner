@@ -342,12 +342,16 @@ function rebuild_arbol(){
 
 		if( $("#2401000007").is(":checked") ){
 			$( "#div24010100" ).show();
+
+			$("#div67070000 legend").html( $( "#24010100" ).val()  );
+			$("#div68070000 legend").html( $( "#24010100" ).val()  );
+
 		} else {
+			$("#div67070000 legend").html( "Otros(Especificar)");
+			$("#div68070000 legend").html( "Otros(Especificar)" );
 			$( "#div24010100").hide();
 			$( "#24010100").val("");
 		}
-
-
 
 		if( $("#2401000007").is(":checked") ){
 			$( "#2401000001" ).parent().hide();

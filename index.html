@@ -11,7 +11,6 @@
 	<script src="js/main.js"></script>
 <!-- script  -->
 <script>
-
 var pictureSource;   // picture source
 var destinationType; // sets the format of returned value
  
@@ -57,7 +56,13 @@ function onDeviceReady() {
 	$("#espere").hide();
 	$("#espereload").hide();
 	$("#div_db_version").html( localStorage.getItem("db_version") );
-	if(localStorage.getItem("rol") == "supervisor"){ $("#menusupervisor").show(); } else { $("#menusupervisor").hide();  }
+	if(localStorage.getItem("rol") == "supervisor"){
+		 $("#menusupervisor").show(); 
+		 localStorage.setItem("force_validation",0);
+	} else {
+		$("#menusupervisor").hide();  
+		 localStorage.setItem("force_validation",1);
+	}
 
 	$(document).on('pagecontainershow', function(e, ui) {
 		//$.mobile.loading("hide");
@@ -483,7 +488,7 @@ function onDeviceReady() {
 		turno_minuto($(this).attr('id'));
 	});
 
-	$( "input[name=15010000]" ).change(function() {
+	$("#encuesta7").find( "input[name=15010000]" ).change(function() {
 		if( $("input[name=15010000]:checked").val() == "NO"){
 			$(".rai").hide();
 		} else {
@@ -491,7 +496,7 @@ function onDeviceReady() {
 		}
 		ocultar16();
 	});
-	$( "input[name=15020000]" ).change(function() {
+	$("#encuesta7").find( "input[name=15020000]" ).change(function() {
 		if( $("input[name=15020000]:checked").val() == "NO"){
 			$(".rap").hide();
 		} else {
@@ -499,7 +504,7 @@ function onDeviceReady() {
 		}
 		ocultar16();
 	});
-	$( "input[name=15030000]" ).change(function() {
+	$("#encuesta7").find( "input[name=15030000]" ).change(function() {
 		if( $("input[name=15030000]:checked").val() == "NO"){
 			$(".ras").hide();
 		} else {
@@ -511,98 +516,99 @@ function onDeviceReady() {
 
 */
 
-	$( "input[name=16010001]" ).change(function() {
-		if( $("input[name=16010001]:checked").val() == "SI"){ $("#div64010001").show();	} else {$("#div64010001").hide();}
+	$("#encuesta7").find("input[name=16010001]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16010001]:checked").val() == "SI"){ $("#div64010001").show();	} else {$("#div64010001").hide();}
 	});
-	$( "input[name=16020001]" ).change(function() {
-		if( $("input[name=16020001]:checked").val() == "SI"){ $("#div64020001").show();	} else {$("#div64020001").hide();}
+	$("#encuesta7").find("input[name=16020001]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16020001]:checked").val() == "SI"){ $("#div64020001").show();	} else {$("#div64020001").hide();}
 	});
-	$( "input[name=16030001]" ).change(function() {
-		if( $("input[name=16030001]:checked").val() == "SI"){ $("#div64030001").show();	} else {$("#div64030001").hide();}
-	});
-
-	$( "input[name=16010002]" ).change(function() {
-		if( $("input[name=16010002]:checked").val() == "SI"){ $("#div64010002").show();	} else {$("#div64010002").hide();}
-	});
-	$( "input[name=16020002]" ).change(function() {
-		if( $("input[name=16020002]:checked").val() == "SI"){ $("#div64020002").show();	} else {$("#div64020002").hide();}
-	});
-	$( "input[name=16030002]" ).change(function() {
-		if( $("input[name=16030002]:checked").val() == "SI"){ $("#div64030002").show();	} else {$("#div64030002").hide();}
+	$("#encuesta7").find("input[name=16030001]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16030001]:checked").val() == "SI"){ $("#div64030001").show();	} else {$("#div64030001").hide();}
 	});
 
-	$( "input[name=16010003]" ).change(function() {
-		if( $("input[name=16010003]:checked").val() == "SI"){ $("#div64010003").show();	} else {$("#div64010003").hide();}
+	$("#encuesta7").find("input[name=16010002]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16010002]:checked").val() == "SI"){ $("#div64010002").show();	} else {$("#div64010002").hide();}
 	});
-	$( "input[name=16020003]" ).change(function() {
-		if( $("input[name=16020003]:checked").val() == "SI"){ $("#div64020003").show();	} else {$("#div64020003").hide();}
+	$("#encuesta7").find("input[name=16020002]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16020002]:checked").val() == "SI"){ $("#div64020002").show();	} else {$("#div64020002").hide();}
 	});
-	$( "input[name=16030003]" ).change(function() {
-		if( $("input[name=16030003]:checked").val() == "SI"){ $("#div64030003").show();	} else {$("#div64030003").hide();}
+	$("#encuesta7").find("input[name=16030002]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16030002]:checked").val() == "SI"){ $("#div64030002").show();	} else {$("#div64030002").hide();}
+	});
+
+	$("#encuesta7").find("input[name=16010003]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16010003]:checked").val() == "SI"){ $("#div64010003").show();	} else {$("#div64010003").hide();}
+	});
+	$("#encuesta7").find("input[name=16020003]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16020003]:checked").val() == "SI"){ $("#div64020003").show();	} else {$("#div64020003").hide();}
+	});
+	$("#encuesta7").find("input[name=16030003]" ).change(function() {
+		if( $("#encuesta7").find("input[name=16030003]:checked").val() == "SI"){ $("#div64030003").show();	} else {$("#div64030003").hide();}
+	});
+
+	$("#encuesta8").find("input[name=19010001]" ).change(function() {
+		//if( ($("#encuesta8").find("input[name=19010001]:checked").val() == "SI") ){ $("#div65010001").show();	} else { $("#div65010001").hide(); }
+	});
+	$("#encuesta8").find("input[name=19010002]" ).change(function() {
+		if( ($("#encuesta8").find("input[name=19010002]:checked").val() == "SI") ){ $("#div65010002").show();	} else { $("#div65010002").hide(); }
+	});
+	$("#encuesta8").find("input[name=19010003]" ).change(function() {
+		if( ($("#encuesta8").find("input[name=19010003]:checked").val() == "SI") ){ $("#div65010003").show();	} else { $("#div65010003").hide(); }
+	});
+	$("#encuesta8").find("input[name=19020001]" ).change(function() {
+		if( ($("#encuesta8").find("input[name=19020001]:checked").val() == "SI") ){ $("#div65020001").show();	} else { $("#div65020001").hide(); }
+	});
+	$("#encuesta8").find("input[name=19020002]" ).change(function() {
+		if( ($("#encuesta8").find("input[name=19020002]:checked").val() == "SI") ){ $("#div65020002").show();	} else { $("#div65020002").hide(); }
+	});
+	$("#encuesta8").find("input[name=19020003]" ).change(function() {
+		if( ($("#encuesta8").find("input[name=19020003]:checked").val() == "SI") ){ $("#div65020003").show();	} else { $("#div65020003").hide(); }
+	});
+	$("#encuesta8").find("input[name=19030002]" ).change(function() {
+		if( ($("#encuesta8").find("input[name=19030002]:checked").val() == "SI") ){ $("#div65030002").show();	} else { $("#div65030002").hide(); }
+	});
+
+	$("#encuesta9").find("input[name=21010100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21010100]:checked").val() == "NO"){ $( "#div21010200" ).hide(); } else { $( "#div21010200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21020100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21020100]:checked").val() == "NO"){ $( "#div21020200" ).hide(); } else { $( "#div21020200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21030100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21030100]:checked").val() == "NO"){ $( "#div21030200" ).hide(); } else { $( "#div21030200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21040100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21040100]:checked").val() == "NO"){ $( "#div21040200" ).hide(); } else { $( "#div21040200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21050100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21050100]:checked").val() == "NO"){ $( "#div21050200" ).hide(); } else { $( "#div21050200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21060100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21060100]:checked").val() == "NO"){ $( "#div21060200" ).hide(); } else { $( "#div21060200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21070100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21070100]:checked").val() == "NO"){ $( "#div21070200" ).hide(); } else { $( "#div21070200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21080100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21080100]:checked").val() == "NO"){ $( "#div21080200" ).hide(); } else { $( "#div21080200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21090100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21090100]:checked").val() == "NO"){ $( "#div21090200" ).hide(); } else { $( "#div21090200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21100100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21100100]:checked").val() == "NO"){ $( "#div21100200" ).hide(); } else { $( "#div21100200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21110100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21110100]:checked").val() == "NO"){ $( "#div21110200" ).hide(); } else { $( "#div21110200" ).show(); }
+	});
+	$("#encuesta9").find("input[name=21120100]" ).change(function() {
+		if( $("#encuesta9").find("input[name=21120100]:checked").val() == "NO"){ $( "#div21120200" ).hide(); } else { $( "#div21120200" ).show(); }
 	});
 
 
-	$( "input[name=19010001]" ).change(function() {
-		//if( ($("input[name=19010001]:checked").val() == "SI") ){ $("#div65010001").show();	} else { $("#div65010001").hide(); }
-	});
-	$( "input[name=19010002]" ).change(function() {
-		if( ($("input[name=19010002]:checked").val() == "SI") ){ $("#div65010002").show();	} else { $("#div65010002").hide(); }
-	});
-	$( "input[name=19010003]" ).change(function() {
-		if( ($("input[name=19010003]:checked").val() == "SI") ){ $("#div65010003").show();	} else { $("#div65010003").hide(); }
-	});
-	$( "input[name=19020001]" ).change(function() {
-		if( ($("input[name=19020001]:checked").val() == "SI") ){ $("#div65020001").show();	} else { $("#div65020001").hide(); }
-	});
-	$( "input[name=19020002]" ).change(function() {
-		if( ($("input[name=19020002]:checked").val() == "SI") ){ $("#div65020002").show();	} else { $("#div65020002").hide(); }
-	});
-	$( "input[name=19020003]" ).change(function() {
-		if( ($("input[name=19020003]:checked").val() == "SI") ){ $("#div65020003").show();	} else { $("#div65020003").hide(); }
-	});
-	$( "input[name=19030002]" ).change(function() {
-		if( ($("input[name=19030002]:checked").val() == "SI") ){ $("#div65030002").show();	} else { $("#div65030002").hide(); }
-	});
 
-	$( "input[name=21010100]" ).change(function() {
-		if( $("input[name=21010100]:checked").val() == "NO"){ $( "#div21010200" ).hide(); } else { $( "#div21010200" ).show(); }
-	});
-	$( "input[name=21020100]" ).change(function() {
-		if( $("input[name=21020100]:checked").val() == "NO"){ $( "#div21020200" ).hide(); } else { $( "#div21020200" ).show(); }
-	});
-	$( "input[name=21030100]" ).change(function() {
-		if( $("input[name=21030100]:checked").val() == "NO"){ $( "#div21030200" ).hide(); } else { $( "#div21030200" ).show(); }
-	});
-	$( "input[name=21040100]" ).change(function() {
-		if( $("input[name=21040100]:checked").val() == "NO"){ $( "#div21040200" ).hide(); } else { $( "#div21040200" ).show(); }
-	});
-	$( "input[name=21050100]" ).change(function() {
-		if( $("input[name=21050100]:checked").val() == "NO"){ $( "#div21050200" ).hide(); } else { $( "#div21050200" ).show(); }
-	});
-	$( "input[name=21060100]" ).change(function() {
-		if( $("input[name=21060100]:checked").val() == "NO"){ $( "#div21060200" ).hide(); } else { $( "#div21060200" ).show(); }
-	});
-	$( "input[name=21070100]" ).change(function() {
-		if( $("input[name=21070100]:checked").val() == "NO"){ $( "#div21070200" ).hide(); } else { $( "#div21070200" ).show(); }
-	});
-	$( "input[name=21080100]" ).change(function() {
-		if( $("input[name=21080100]:checked").val() == "NO"){ $( "#div21080200" ).hide(); } else { $( "#div21080200" ).show(); }
-	});
-	$( "input[name=21090100]" ).change(function() {
-		if( $("input[name=21090100]:checked").val() == "NO"){ $( "#div21090200" ).hide(); } else { $( "#div21090200" ).show(); }
-	});
-	$( "input[name=21100100]" ).change(function() {
-		if( $("input[name=21100100]:checked").val() == "NO"){ $( "#div21100200" ).hide(); } else { $( "#div21100200" ).show(); }
-	});
-	$( "input[name=21110100]" ).change(function() {
-		if( $("input[name=21110100]:checked").val() == "NO"){ $( "#div21110200" ).hide(); } else { $( "#div21110200" ).show(); }
-	});
-	$( "input[name=21120100]" ).change(function() {
-		if( $("input[name=21120100]:checked").val() == "NO"){ $( "#div21120200" ).hide(); } else { $( "#div21120200" ).show(); }
-	});
-
-	$( "input[name=22010000]" ).change(function() {
-		if( $("input[name=22010000]:checked").val() == "NO"){
+	$( "#encuesta10").find("input[name=22010000]" ).change(function() {
+		if( $( "#encuesta10").find("input[name=22010000]:checked").val() == "NO"){
 			$( "#div23010000,#div24010000,#div25000000" ).hide();
 		} else {
 			$( "#div23010000,#div24010000,#div25000000" ).show();
@@ -648,9 +654,15 @@ function onDeviceReady() {
 	});
 
 	$( "#2401000007" ).change(function() {
-		if( $(this).is(":checked") ){
+		if( $("#2401000007").is(":checked") ){
 			$( "#div24010100" ).show();
+
+			$("#div67070000 legend").html( $( "#24010100" ).val()  );
+			$("#div68070000 legend").html( $( "#24010100" ).val()  );
+
 		} else {
+			$("#div67070000 legend").html( "Otros(Especificar)");
+			$("#div68070000 legend").html( "Otros(Especificar)" );
 			$( "#div24010100").hide();
 			$( "#24010100").val("");
 		}
@@ -741,131 +753,133 @@ function onDeviceReady() {
 		validate_mes($(this).attr('id'));	
 	});
 
-$("input[name=33010101]").change(function(){
-	if($("input[name=33010101]:checked").val() == "SI"){ $("#div33020101,#div33030101,#div33120101,.33i1").show();   } else { $("#div33020101,#div33030101,#div33120101,.33i1").hide();  }
-});
-$("input[name=33040101]").change(function(){
-	if($("input[name=33040101]:checked").val() == "SI"){ $("#div33050101,#div33060101").show(); } else { $("#div33050101").hide();$("#div33060101").show(); }
-});
-
-$("input[name=33010201]").change(function(){
-	if($("input[name=33010201]:checked").val() == "SI"){ $("#div33020201,#div33030201,#div33120201,.33i2").show();   } else { $("#div33020201,#div33030201,#div33120201,.33i2").hide();  }
-});
-$("input[name=33040201]").change(function(){
-	if($("input[name=33040201]:checked").val() == "SI"){ $("#div33050201,#div33060201").show(); } else { $("#div33050201").hide();$("#div33060201").show(); }
-});
-
-$("input[name=33010301]").change(function(){
-	if($("input[name=33010301]:checked").val() == "SI"){ $("#div33020301,#div33030301,#div33120301,.33i3").show();   } else { $("#div33020301,#div33030301,#div33120301,.33i3").hide();  }
-});
-$("input[name=33040301]").change(function(){
-	if($("input[name=33040301]:checked").val() == "SI"){ $("#div33050301,#div33060301").show(); } else { $("#div33050301").hide();$("#div33060301").show(); }
-});
-
-$("input[name=33010401]").change(function(){
-	if($("input[name=33010401]:checked").val() == "SI"){ $("#div33020401,#div33030401,#div33120401,.33i4").show();   } else { $("#div33020401,#div33030401,#div33120401,.33i4").hide();  }
-});
-$("input[name=33040401]").change(function(){
-	if($("input[name=33040401]:checked").val() == "SI"){ $("#div33050401,#div33060401").show(); } else { $("#div33050401").hide();$("#div33060401").show(); }
-});
-
-$("input[name=33010501]").change(function(){
-	if($("input[name=33010501]:checked").val() == "SI"){ $("#div33020501,#div33030501,#div33120501,.33i5").show();   } else { $("#div33020501,#div33030501,#div33120501,.33i5").hide();  }
-});
-$("input[name=33040501]").change(function(){
-	if($("input[name=33040501]:checked").val() == "SI"){ $("#div33050501,#div33060501").show(); } else { $("#div33050501").hide();$("#div33060501").show(); }
-});
-
-$("input[name=33010601]").change(function(){
-	if($("input[name=33010601]:checked").val() == "SI"){ $("#div33020601,#div33030601,#div33120601,.33i6").show();   } else { $("#div33020601,#div33030601,#div33120601,.33i6").hide();  }
-});
-$("input[name=33040601]").change(function(){
-	if($("input[name=33040601]:checked").val() == "SI"){ $("#div33050601,#div33060601").show(); } else { $("#div33050601").hide();$("#div33060601").show(); }
-});
-
-$("input[name=33010102]").change(function(){
-	if($("input[name=33010102]:checked").val() == "SI"){ $("#div33020102,#div33030102,#div33120102,.33p1").show();   } else { $("#div33020102,#div33030102,#div33120102,.33p1").hide();  }
-});
-$("input[name=33040102]").change(function(){
-	if($("input[name=33040102]:checked").val() == "SI"){ $("#div33050102,#div33060102").show(); } else { $("#div33050102").hide();$("#div33060102").show(); }
-});
-
-$("input[name=33010202]").change(function(){
-	if($("input[name=33010202]:checked").val() == "SI"){ $("#div33020202,#div33030202,#div33120202,.33p2").show();   } else { $("#div33020202,#div33030202,#div33120202,.33p2").hide();  }
-});
-$("input[name=33040202]").change(function(){
-	if($("input[name=33040202]:checked").val() == "SI"){ $("#div33050202,#div33060202").show(); } else { $("#div33050202").hide();$("#div33060202").show(); }
-});
-
-$("input[name=33010302]").change(function(){
-	if($("input[name=33010302]:checked").val() == "SI"){ $("#div33020302,#div33030302,#div33120302,.33p3").show();   } else { $("#div33020302,#div33030302,#div33120302,.33p3").hide();  }
-});
-$("input[name=33040302]").change(function(){
-	if($("input[name=33040302]:checked").val() == "SI"){ $("#div33050302,#div33060302").show(); } else { $("#div33050302").hide();$("#div33060302").show(); }
-});
-
-$("input[name=33010402]").change(function(){
-	if($("input[name=33010402]:checked").val() == "SI"){ $("#div33020402,#div33030402,#div33120402,.33p4").show();   } else { $("#div33020402,#div33030402,#div33120402,.33p4").hide();  }
-});
-$("input[name=33040402]").change(function(){
-	if($("input[name=33040402]:checked").val() == "SI"){ $("#div33050402,#div33060402").show(); } else { $("#div33050402").hide();$("#div33060402").show(); }
-});
-
-$("input[name=33010502]").change(function(){
-	if($("input[name=33010502]:checked").val() == "SI"){ $("#div33020502,#div33030502,#div33120502,.33p5").show();   } else { $("#div33020502,#div33030502,#div33120502,.33p5").hide();  }
-});
-$("input[name=33040502]").change(function(){
-	if($("input[name=33040502]:checked").val() == "SI"){ $("#div33050502,#div33060502").show(); } else { $("#div33050502").hide();$("#div33060502").show(); }
-});
-
-$("input[name=33010602]").change(function(){
-	if($("input[name=33010602]:checked").val() == "SI"){ $("#div33020602,#div33030602,#div33120602,.33p6").show();   } else { $("#div33020602,#div33030602,#div33120602,.33p6").hide();  }
-});
-$("input[name=33040602]").change(function(){
-	if($("input[name=33040602]:checked").val() == "SI"){ $("#div33050602,#div33060602").show(); } else { $("#div33050602").hide();$("#div33060602").show(); }
-});
 
 
-$("input[name=33010103]").change(function(){
-	if($("input[name=33010103]:checked").val() == "SI"){ $("#div33020103,#div33030103,#div33120103,.33s1").show();   } else { $("#div33020103,#div33030103,#div33120103,.33s1").hide();  }
+$("#encuesta11").find("input[name=33010101]").change(function(){
+	if($("#encuesta11").find("input[name=33010101]:checked").val() == "SI"){ $("#div33020101,#div33030101,#div33120101,.33i1").show();   } else { $("#div33020101,#div33030101,#div33120101,.33i1").hide();  }
 });
-$("input[name=33040103]").change(function(){
-	if($("input[name=33040103]:checked").val() == "SI"){ $("#div33050103,#div33060103").show(); } else { $("#div33050103").hide();$("#div33060103").show(); }
-});
-
-$("input[name=33010203]").change(function(){
-	if($("input[name=33010203]:checked").val() == "SI"){ $("#div33020203,#div33030203,#div33120203,.33s2").show();   } else { $("#div33020203,#div33030203,#div33120203,.33s2").hide();  }
-});
-$("input[name=33040203]").change(function(){
-	if($("input[name=33040203]:checked").val() == "SI"){ $("#div33050203,#div33060203").show(); } else { $("#div33050203").hide();$("#div33060203").show(); }
+$("#encuesta11").find("input[name=33040101]").change(function(){
+	if($("#encuesta11").find("input[name=33040101]:checked").val() == "SI"){ $("#div33050101,#div33060101").show(); } else { $("#div33050101").hide();$("#div33060101").show(); }
 });
 
-$("input[name=33010303]").change(function(){  
-	if($("input[name=33010303]:checked").val() == "SI"){ $("#div33020303,#div33030303,#div33120303,.33s3").show();   } else { $("#div33020302,#div33030303,#div33120303,.33s3").hide();  }
+$("#encuesta11").find("input[name=33010201]").change(function(){
+	if($("#encuesta11").find("input[name=33010201]:checked").val() == "SI"){ $("#div33020201,#div33030201,#div33120201,.33i2").show();   } else { $("#div33020201,#div33030201,#div33120201,.33i2").hide();  }
 });
-$("input[name=33040303]").change(function(){
-	if($("input[name=33040303]:checked").val() == "SI"){ $("#div33050303,#div33060303").show(); } else { $("#div33050303").hide();$("#div33060303").show(); }
-});
-
-$("input[name=33010403]").change(function(){
-	if($("input[name=33010403]:checked").val() == "SI"){ $("#div33020403,#div33030403,#div33120403,.33s4").show();   } else { $("#div33020403,#div33030403,#div33120403,.33s4").hide();  }
-});
-$("input[name=33040403]").change(function(){ 
-	if($("input[name=33040403]:checked").val() == "SI"){ $("#div33050403,#div33060403").show(); } else { $("#div33050403").hide();$("#div33060403").show(); }
+$("#encuesta11").find("input[name=33040201]").change(function(){
+	if($("#encuesta11").find("input[name=33040201]:checked").val() == "SI"){ $("#div33050201,#div33060201").show(); } else { $("#div33050201").hide();$("#div33060201").show(); }
 });
 
-$("input[name=33010503]").change(function(){
-	if($("input[name=33010503]:checked").val() == "SI"){ $("#div33020503,#div33030503,#div33120503,.33s5").show();   } else { $("#div33020503,#div33030503,#div33120503,.33s5").hide();  }
+$("#encuesta11").find("input[name=33010301]").change(function(){
+	if($("#encuesta11").find("input[name=33010301]:checked").val() == "SI"){ $("#div33020301,#div33030301,#div33120301,.33i3").show();   } else { $("#div33020301,#div33030301,#div33120301,.33i3").hide();  }
 });
-$("input[name=33040503]").change(function(){
-	if($("input[name=33040503]:checked").val() == "SI"){ $("#div33050503,#div33060503").show(); } else { $("#div33050503").hide();$("#div33060503").show(); }
+$("#encuesta11").find("input[name=33040301]").change(function(){
+	if($("#encuesta11").find("input[name=33040301]:checked").val() == "SI"){ $("#div33050301,#div33060301").show(); } else { $("#div33050301").hide();$("#div33060301").show(); }
 });
 
-$("input[name=33010603]").change(function(){
-	if($("input[name=33010603]:checked").val() == "SI"){ $("#div33020603,#div33030603,#div33120603,.33s6").show();   } else { $("#div33020603,#div33030603,#div33120603,.33s6").hide();  }
+$("#encuesta11").find("input[name=33010401]").change(function(){
+	if($("#encuesta11").find("input[name=33010401]:checked").val() == "SI"){ $("#div33020401,#div33030401,#div33120401,.33i4").show();   } else { $("#div33020401,#div33030401,#div33120401,.33i4").hide();  }
 });
-$("input[name=33040603]").change(function(){
-	if($("input[name=33040603]:checked").val() == "SI"){ $("#div33050603,#div33060603").show(); } else { $("#div33050603").hide();$("#div33060603").show(); }
+$("#encuesta11").find("input[name=33040401]").change(function(){
+	if($("#encuesta11").find("input[name=33040401]:checked").val() == "SI"){ $("#div33050401,#div33060401").show(); } else { $("#div33050401").hide();$("#div33060401").show(); }
+});
+
+$("#encuesta11").find("input[name=33010501]").change(function(){
+	if($("#encuesta11").find("input[name=33010501]:checked").val() == "SI"){ $("#div33020501,#div33030501,#div33120501,.33i5").show();   } else { $("#div33020501,#div33030501,#div33120501,.33i5").hide();  }
+});
+$("#encuesta11").find("input[name=33040501]").change(function(){
+	if($("#encuesta11").find("input[name=33040501]:checked").val() == "SI"){ $("#div33050501,#div33060501").show(); } else { $("#div33050501").hide();$("#div33060501").show(); }
+});
+
+$("#encuesta11").find("input[name=33010601]").change(function(){
+	if($("#encuesta11").find("input[name=33010601]:checked").val() == "SI"){ $("#div33020601,#div33030601,#div33120601,.33i6").show();   } else { $("#div33020601,#div33030601,#div33120601,.33i6").hide();  }
+});
+$("#encuesta11").find("input[name=33040601]").change(function(){
+	if($("#encuesta11").find("input[name=33040601]:checked").val() == "SI"){ $("#div33050601,#div33060601").show(); } else { $("#div33050601").hide();$("#div33060601").show(); }
+});
+
+$("#encuesta11").find("input[name=33010102]").change(function(){
+	if($("#encuesta11").find("input[name=33010102]:checked").val() == "SI"){ $("#div33020102,#div33030102,#div33120102,.33p1").show();   } else { $("#div33020102,#div33030102,#div33120102,.33p1").hide();  }
+});
+$("#encuesta11").find("input[name=33040102]").change(function(){
+	if($("#encuesta11").find("input[name=33040102]:checked").val() == "SI"){ $("#div33050102,#div33060102").show(); } else { $("#div33050102").hide();$("#div33060102").show(); }
+});
+
+$("#encuesta11").find("input[name=33010202]").change(function(){
+	if($("#encuesta11").find("input[name=33010202]:checked").val() == "SI"){ $("#div33020202,#div33030202,#div33120202,.33p2").show();   } else { $("#div33020202,#div33030202,#div33120202,.33p2").hide();  }
+});
+$("#encuesta11").find("input[name=33040202]").change(function(){
+	if($("#encuesta11").find("input[name=33040202]:checked").val() == "SI"){ $("#div33050202,#div33060202").show(); } else { $("#div33050202").hide();$("#div33060202").show(); }
+});
+
+$("#encuesta11").find("input[name=33010302]").change(function(){
+	if($("#encuesta11").find("input[name=33010302]:checked").val() == "SI"){ $("#div33020302,#div33030302,#div33120302,.33p3").show();   } else { $("#div33020302,#div33030302,#div33120302,.33p3").hide();  }
+});
+$("#encuesta11").find("input[name=33040302]").change(function(){
+	if($("#encuesta11").find("input[name=33040302]:checked").val() == "SI"){ $("#div33050302,#div33060302").show(); } else { $("#div33050302").hide();$("#div33060302").show(); }
+});
+
+$("#encuesta11").find("input[name=33010402]").change(function(){
+	if($("#encuesta11").find("input[name=33010402]:checked").val() == "SI"){ $("#div33020402,#div33030402,#div33120402,.33p4").show();   } else { $("#div33020402,#div33030402,#div33120402,.33p4").hide();  }
+});
+$("#encuesta11").find("input[name=33040402]").change(function(){
+	if($("#encuesta11").find("input[name=33040402]:checked").val() == "SI"){ $("#div33050402,#div33060402").show(); } else { $("#div33050402").hide();$("#div33060402").show(); }
+});
+
+$("#encuesta11").find("input[name=33010502]").change(function(){
+	if($("#encuesta11").find("input[name=33010502]:checked").val() == "SI"){ $("#div33020502,#div33030502,#div33120502,.33p5").show();   } else { $("#div33020502,#div33030502,#div33120502,.33p5").hide();  }
+});
+$("#encuesta11").find("input[name=33040502]").change(function(){
+	if($("#encuesta11").find("input[name=33040502]:checked").val() == "SI"){ $("#div33050502,#div33060502").show(); } else { $("#div33050502").hide();$("#div33060502").show(); }
+});
+
+$("#encuesta11").find("input[name=33010602]").change(function(){
+	if($("#encuesta11").find("input[name=33010602]:checked").val() == "SI"){ $("#div33020602,#div33030602,#div33120602,.33p6").show();   } else { $("#div33020602,#div33030602,#div33120602,.33p6").hide();  }
+});
+$("#encuesta11").find("input[name=33040602]").change(function(){
+	if($("#encuesta11").find("input[name=33040602]:checked").val() == "SI"){ $("#div33050602,#div33060602").show(); } else { $("#div33050602").hide();$("#div33060602").show(); }
+});
+
+
+$("#encuesta11").find("input[name=33010103]").change(function(){
+	if($("#encuesta11").find("input[name=33010103]:checked").val() == "SI"){ $("#div33020103,#div33030103,#div33120103,.33s1").show();   } else { $("#div33020103,#div33030103,#div33120103,.33s1").hide();  }
+});
+$("#encuesta11").find("input[name=33040103]").change(function(){
+	if($("#encuesta11").find("input[name=33040103]:checked").val() == "SI"){ $("#div33050103,#div33060103").show(); } else { $("#div33050103").hide();$("#div33060103").show(); }
+});
+
+$("#encuesta11").find("input[name=33010203]").change(function(){
+	if($("#encuesta11").find("input[name=33010203]:checked").val() == "SI"){ $("#div33020203,#div33030203,#div33120203,.33s2").show();   } else { $("#div33020203,#div33030203,#div33120203,.33s2").hide();  }
+});
+$("#encuesta11").find("input[name=33040203]").change(function(){
+	if($("#encuesta11").find("input[name=33040203]:checked").val() == "SI"){ $("#div33050203,#div33060203").show(); } else { $("#div33050203").hide();$("#div33060203").show(); }
+});
+
+$("#encuesta11").find("input[name=33010303]").change(function(){  
+	if($("#encuesta11").find("input[name=33010303]:checked").val() == "SI"){ $("#div33020303,#div33030303,#div33120303,.33s3").show();   } else { $("#div33020302,#div33030303,#div33120303,.33s3").hide();  }
+});
+$("#encuesta11").find("input[name=33040303]").change(function(){
+	if($("#encuesta11").find("input[name=33040303]:checked").val() == "SI"){ $("#div33050303,#div33060303").show(); } else { $("#div33050303").hide();$("#div33060303").show(); }
+});
+
+$("#encuesta11").find("input[name=33010403]").change(function(){
+	if($("#encuesta11").find("input[name=33010403]:checked").val() == "SI"){ $("#div33020403,#div33030403,#div33120403,.33s4").show();   } else { $("#div33020403,#div33030403,#div33120403,.33s4").hide();  }
+});
+$("#encuesta11").find("input[name=33040403]").change(function(){ 
+	if($("#encuesta11").find("input[name=33040403]:checked").val() == "SI"){ $("#div33050403,#div33060403").show(); } else { $("#div33050403").hide();$("#div33060403").show(); }
+});
+
+$("#encuesta11").find("input[name=33010503]").change(function(){
+	if($("#encuesta11").find("input[name=33010503]:checked").val() == "SI"){ $("#div33020503,#div33030503,#div33120503,.33s5").show();   } else { $("#div33020503,#div33030503,#div33120503,.33s5").hide();  }
+});
+$("#encuesta11").find("input[name=33040503]").change(function(){
+	if($("#encuesta11").find("input[name=33040503]:checked").val() == "SI"){ $("#div33050503,#div33060503").show(); } else { $("#div33050503").hide();$("#div33060503").show(); }
+});
+
+$("#encuesta11").find("input[name=33010603]").change(function(){
+	if($("#encuesta11").find("input[name=33010603]:checked").val() == "SI"){ $("#div33020603,#div33030603,#div33120603,.33s6").show();   } else { $("#div33020603,#div33030603,#div33120603,.33s6").hide();  }
+});
+$("#encuesta11").find("input[name=33040603]").change(function(){
+	if($("#encuesta11").find("input[name=33040603]:checked").val() == "SI"){ $("#div33050603,#div33060603").show(); } else { $("#div33050603").hide();$("#div33060603").show(); }
 });
 
 	$( "#3101000004" ).change(function() {
@@ -913,69 +927,69 @@ $("input[name=33040603]").change(function(){
 		}
 	});
 
-$( "input[name=35010101]" ).change(function() {
-	if( $("input[name=35010101]:checked").val() == "SI"){  $( "#div35010201,#div35010301" ).show();  } else {  $( "#div35010201,#div35010301" ).hide();    }
-});
-$( "input[name=35010102]" ).change(function() {
-	if( $("input[name=35010102]:checked").val() == "SI"){  $( "#div35010202,#div35010302" ).show();  } else {  $( "#div35010202,#div35010302" ).hide();    }
-});
-$( "input[name=35010103]" ).change(function() {
-	if( $("input[name=35010103]:checked").val() == "SI"){  $( "#div35010203,#div35010303" ).show();  } else {  $( "#div35010203,#div35010303" ).hide();    }
-});
-$( "input[name=35010104]" ).change(function() {
-	if( $("input[name=35010104]:checked").val() == "SI"){  $( "#div35010204,#div35010304" ).show();  } else {  $( "#div35010204,#div35010304" ).hide();   }
-});
-$( "input[name=35010105]" ).change(function() {
-	if( $("input[name=35010105]:checked").val() == "SI"){  $( "#div35010205,#div35010305" ).show();  } else { $( "#div35010205,#div35010305" ).hide();     }
-});
-$( "input[name=35010106]" ).change(function() {
-	if( $("input[name=35010106]:checked").val() == "SI"){  $( "#div35010206,#div35010306" ).show();  } else {  $( "#div35010206,#div35010306" ).hide();   }
-});
-$( "input[name=35010107]" ).change(function() {
-	if( $("input[name=35010107]:checked").val() == "SI"){  $( "#div35010207,#div35010307" ).show();  } else {   $( "#div35010207,#div35010307" ).hide();  }
-});
-$( "input[name=35020101]" ).change(function() {
-	if( $("input[name=35020101]:checked").val() == "SI"){  $( "#div35020201,#div35020301" ).show();  } else { $( "#div35020201,#div35020301" ).hide();    }
-});
-$( "input[name=35020102]" ).change(function() {
-	if( $("input[name=35020102]:checked").val() == "SI"){  $( "#div35020202,#div35020302" ).show();  } else {  $( "#div35020202,#div35020302" ).hide();   }
-});
-$( "input[name=35020103]" ).change(function() {
-	if( $("input[name=35020103]:checked").val() == "SI"){  $( "#div35020203,#div35020303" ).show();  } else {  $( "#div35020203,#div35020303" ).hide();   }
-});
-$( "input[name=35020104]" ).change(function() {
-	if( $("input[name=35020104]:checked").val() == "SI"){  $( "#div35020204,#div35020304" ).show();  } else { $( "#div35020204,#div35020304" ).hide();    }
-});
-$( "input[name=35020105]" ).change(function() {
-	if( $("input[name=35020105]:checked").val() == "SI"){  $( "#div35020205,#div35020305" ).show();  } else { $( "#div35020205,#div35020305" ).hide();     }
-});
-$( "input[name=35020106]" ).change(function() {
-	if( $("input[name=35020106]:checked").val() == "SI"){  $( "#div35020206,#div35020306" ).show();  } else {  $( "#div35020206,#div35020306" ).hide();    }
-});
-$( "input[name=35020107]" ).change(function() {
-	if( $("input[name=35020107]:checked").val() == "SI"){  $( "#div35020207,#div35020307" ).show();  } else {   $( "#div35020207,#div35020307" ).hide();  }
-});
-$( "input[name=35030101]" ).change(function() {
-	if( $("input[name=35030101]:checked").val() == "SI"){  $( "#div35030201,#div35030301" ).show();  } else { $( "#div35030201,#div35030301" ).hide();     }
-});
-$( "input[name=35030102]" ).change(function() {
-	if( $("input[name=35030102]:checked").val() == "SI"){  $( "#div35030202,#div35030302" ).show();  } else {  $( "#div35030202,#div35030302" ).hide();     }
-});
-$( "input[name=35030103]" ).change(function() {
-	if( $("input[name=35030103]:checked").val() == "SI"){  $( "#div35030203,#div35030303" ).show();  } else { $( "#div35030203,#div35030303" ).hide();     }
-});
-$( "input[name=35030104]" ).change(function() {
-	if( $("input[name=35030104]:checked").val() == "SI"){  $( "#div35030204,#div35030304" ).show();  } else { $( "#div35030204,#div35030304" ).hide();     }
-});
-$( "input[name=35030105]" ).change(function() {
-	if( $("input[name=35030105]:checked").val() == "SI"){  $( "#div35030205,#div35030305" ).show();  } else {   $( "#div35030205,#div35030305" ).hide();    }
-});
-$( "input[name=35030106]" ).change(function() {
-	if( $("input[name=35030106]:checked").val() == "SI"){  $( "#div35030206,#div35030306" ).show();  } else { $( "#div35030206,#div35030306" ).hide();     }
-});
-$( "input[name=35030107]" ).change(function() {
-	if( $("input[name=35030107]:checked").val() == "SI"){  $( "#div35030207,#div35030307" ).show();  } else {  $( "#div35030207,#div35030307" ).hide();    }
-});
+	$("#encuesta12").find("input[name=35010101]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35010101]:checked").val() == "SI"){  $( "#div35010201,#div35010301" ).show();  } else {  $( "#div35010201,#div35010301" ).hide();    }
+	});
+	$("#encuesta12").find("input[name=35010102]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35010102]:checked").val() == "SI"){  $( "#div35010202,#div35010302" ).show();  } else {  $( "#div35010202,#div35010302" ).hide();    }
+	});
+	$("#encuesta12").find("input[name=35010103]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35010103]:checked").val() == "SI"){  $( "#div35010203,#div35010303" ).show();  } else {  $( "#div35010203,#div35010303" ).hide();    }
+	});
+	$("#encuesta12").find("input[name=35010104]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35010104]:checked").val() == "SI"){  $( "#div35010204,#div35010304" ).show();  } else {  $( "#div35010204,#div35010304" ).hide();   }
+	});
+	$("#encuesta12").find("input[name=35010105]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35010105]:checked").val() == "SI"){  $( "#div35010205,#div35010305" ).show();  } else { $( "#div35010205,#div35010305" ).hide();     }
+	});
+	$("#encuesta12").find("input[name=35010106]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35010106]:checked").val() == "SI"){  $( "#div35010206,#div35010306" ).show();  } else {  $( "#div35010206,#div35010306" ).hide();   }
+	});
+	$("#encuesta12").find("input[name=35010107]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35010107]:checked").val() == "SI"){  $( "#div35010207,#div35010307" ).show();  } else {   $( "#div35010207,#div35010307" ).hide();  }
+	});
+	$("#encuesta12").find("input[name=35020101]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35020101]:checked").val() == "SI"){  $( "#div35020201,#div35020301" ).show();  } else { $( "#div35020201,#div35020301" ).hide();    }
+	});
+	$("#encuesta12").find("input[name=35020102]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35020102]:checked").val() == "SI"){  $( "#div35020202,#div35020302" ).show();  } else {  $( "#div35020202,#div35020302" ).hide();   }
+	});
+	$("#encuesta12").find("input[name=35020103]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35020103]:checked").val() == "SI"){  $( "#div35020203,#div35020303" ).show();  } else {  $( "#div35020203,#div35020303" ).hide();   }
+	});
+	$("#encuesta12").find("input[name=35020104]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35020104]:checked").val() == "SI"){  $( "#div35020204,#div35020304" ).show();  } else { $( "#div35020204,#div35020304" ).hide();    }
+	});
+	$("#encuesta12").find("input[name=35020105]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35020105]:checked").val() == "SI"){  $( "#div35020205,#div35020305" ).show();  } else { $( "#div35020205,#div35020305" ).hide();     }
+	});
+	$("#encuesta12").find("input[name=35020106]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35020106]:checked").val() == "SI"){  $( "#div35020206,#div35020306" ).show();  } else {  $( "#div35020206,#div35020306" ).hide();    }
+	});
+	$("#encuesta12").find("input[name=35020107]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35020107]:checked").val() == "SI"){  $( "#div35020207,#div35020307" ).show();  } else {   $( "#div35020207,#div35020307" ).hide();  }
+	});
+	$("#encuesta12").find("input[name=35030101]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35030101]:checked").val() == "SI"){  $( "#div35030201,#div35030301" ).show();  } else { $( "#div35030201,#div35030301" ).hide();     }
+	});
+	$("#encuesta12").find("input[name=35030102]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35030102]:checked").val() == "SI"){  $( "#div35030202,#div35030302" ).show();  } else {  $( "#div35030202,#div35030302" ).hide();     }
+	});
+	$("#encuesta12").find("input[name=35030103]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35030103]:checked").val() == "SI"){  $( "#div35030203,#div35030303" ).show();  } else { $( "#div35030203,#div35030303" ).hide();     }
+	});
+	$("#encuesta12").find("input[name=35030104]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35030104]:checked").val() == "SI"){  $( "#div35030204,#div35030304" ).show();  } else { $( "#div35030204,#div35030304" ).hide();     }
+	});
+	$("#encuesta12").find("input[name=35030105]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35030105]:checked").val() == "SI"){  $( "#div35030205,#div35030305" ).show();  } else {   $( "#div35030205,#div35030305" ).hide();    }
+	});
+	$("#encuesta12").find("input[name=35030106]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35030106]:checked").val() == "SI"){  $( "#div35030206,#div35030306" ).show();  } else { $( "#div35030206,#div35030306" ).hide();     }
+	});
+	$("#encuesta12").find("input[name=35030107]" ).change(function() {
+		if( $("#encuesta12").find("input[name=35030107]:checked").val() == "SI"){  $( "#div35030207,#div35030307" ).show();  } else {  $( "#div35030207,#div35030307" ).hide();    }
+	});
 
 	$( "#3701000001" ).change(function() { special37(); });
 	$( "#3701000002" ).change(function() { special37(); });
@@ -1027,8 +1041,14 @@ $( "input[name=35030107]" ).change(function() {
 	$( "input[name=42010000]" ).change(function() {
 		if( ($("input[name=42010000]:checked").val() == "SI")  ){
 			$( "#div43010000" ).hide();
+			$("input[name=43010000]:checked").attr("checked", false);
+			$("input[name=43010000]").checkboxradio("refresh");
+			$( "#div44010000").show();
 		} else {
+			$("input[name=43010000]:checked").attr("checked", false);
+			$("input[name=43010000]").checkboxradio("refresh");
 			$( "#div43010000" ).show();
+			$( "#div44010000").hide();
 		}
 	});
 
@@ -1159,71 +1179,69 @@ $( "input[name=35030107]" ).change(function() {
 	});
 
 
-$( "input[name=61010101]" ).change(function() {
-	if( $("input[name=61010101]:checked").val() == "SI"){  $( "#div61010201,#div61010301" ).show();  } else { $( "#div61010201,#div61010301" ).hide();     }
-});
-$( "input[name=61020101]" ).change(function() {
-	if( $("input[name=61020101]:checked").val() == "SI"){  $( "#div61020201,#div61020301" ).show();  } else {    $( "#div61020201,#div61020301" ).hide();  }
-});
-$( "input[name=61030101]" ).change(function() {
-	if( $("input[name=61030101]:checked").val() == "SI"){  $( "#div61030201,#div61030301" ).show();  } else {  $( "#div61030201,#div61030301" ).hide();    }
-});
-$( "input[name=61040101]" ).change(function() {
-	if( $("input[name=61040101]:checked").val() == "SI"){  $( "#div61040201,#div61040301" ).show();  } else {  $( "#div61040201,#div61040301" ).hide();    }
-});
-$( "input[name=61050101]" ).change(function() {
-	if( $("input[name=61050101]:checked").val() == "SI"){  $( "#div61050201,#div61050301" ).show();  } else {  $( "#div61050201,#div61050301" ).hide();    }
-});
-$( "input[name=61060101]" ).change(function() {
-	if( $("input[name=61060101]:checked").val() == "SI"){  $( "#div61060201,#div61060301" ).show();  } else {  $( "#div61060201,#div61060301" ).hide();   }
-});
-$( "input[name=61070101]" ).change(function() {
-	if( $("input[name=61070101]:checked").val() == "SI"){  $( "#div61070201,#div61070301" ).show();  } else {   $( "#div61070201,#div61070301" ).hide();  }
-});
-$( "input[name=61080101]" ).change(function() {
-	if( $("input[name=61080101]:checked").val() == "SI"){  $( "#div61080201,#div61080301" ).show();  } else {   $( "#div61080201,#div61080301" ).hide();  }
-});
-$( "input[name=61090101]" ).change(function() {
-	if( $("input[name=61090101]:checked").val() == "SI"){  $( "#div61090201,#div61090301" ).show();  } else {   $( "#div61090201,#div61090301" ).hide();    }
-});
-$( "input[name=61100101]" ).change(function() {
-	if( $("input[name=61100101]:checked").val() == "SI"){  $( "#div61100201,#div61100301" ).show();  } else {  $( "#div61100201,#div61100301" ).hide();   }
-});
-$( "input[name=61110101]" ).change(function() {
-	if( $("input[name=61110101]:checked").val() == "SI"){  $( "#div61110201,#div61110301" ).show();  } else {  $( "#div61110201,#div61110301" ).hide();    }
-});
-$( "input[name=61120101]" ).change(function() {
-	if( $("input[name=61120101]:checked").val() == "SI"){  $( "#div61120201,#div61120301" ).show();  } else {  $( "#div61120201,#div61120301" ).hide();   }
-});
-$( "input[name=61130101]" ).change(function() {
-	if( $("input[name=61130101]:checked").val() == "SI"){  $( "#div61130201,#div61130301" ).show();  } else {  $( "#div61130201,#div61130301" ).hide();   }
-});
-$( "input[name=61140101]" ).change(function() {
-	if( $("input[name=61140101]:checked").val() == "SI"){  $( "#div61140201,#div61140301" ).show();  } else {   $( "#div61140201,#div61140301" ).hide();   }
-});
-$( "input[name=61150101]" ).change(function() {
-	if( $("input[name=61150101]:checked").val() == "SI"){  $( "#div61150201,#div61150301" ).show();  } else {  $( "#div61150201,#div61150301" ).hide();   }
-});
-$( "input[name=61160101]" ).change(function() {
-	if( $("input[name=61160101]:checked").val() == "SI"){  $( "#div61160201,#div61160301" ).show();  } else {  $( "#div61160201,#div61160301" ).hide();   }
-});
-$( "input[name=61170101]" ).change(function() {
-	if( $("input[name=61170101]:checked").val() == "SI"){  $( "#div61170201,#div61170301" ).show();  } else {  $( "#div61170201,#div61170301" ).hide();     }
-});
-$( "input[name=61210101]" ).change(function() {
-	if( $("input[name=61210101]:checked").val() == "SI"){  $( "#div61210201,#div61210301" ).show();  } else {   $( "#div61210201,#div61210301" ).hide();   }
-});
-$( "input[name=61180101]" ).change(function() {
-	if( $("input[name=61180101]:checked").val() == "SI"){  $( "#div61180201,#div61180301" ).show();  } else {   $( "#div61180201,#div61180301" ).hide();  }
-});
-$( "input[name=61190101]" ).change(function() {
-	if( $("input[name=61190101]:checked").val() == "SI"){  $( "#div61190201,#div61190301" ).show();  } else {  $( "#div61190201,#div61190301" ).hide();   }
-});
-$( "input[name=61200101]" ).change(function() {
-	if( $("input[name=61200101]:checked").val() == "SI"){  $( "#div61200201,#div61200301" ).show();  } else {  $( "#div61200201,#div61200301" ).hide();   }
-});
-
-
+	$("#encuesta19").find("input[name=61010101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61010101]:checked").val() == "SI"){  $( "#div61010201,#div61010301" ).show();  } else { $( "#div61010201,#div61010301" ).hide();     }
+	});
+	$("#encuesta19").find("input[name=61020101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61020101]:checked").val() == "SI"){  $( "#div61020201,#div61020301" ).show();  } else {    $( "#div61020201,#div61020301" ).hide();  }
+	});
+	$("#encuesta19").find("input[name=61030101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61030101]:checked").val() == "SI"){  $( "#div61030201,#div61030301" ).show();  } else {  $( "#div61030201,#div61030301" ).hide();    }
+	});
+	$("#encuesta19").find("input[name=61040101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61040101]:checked").val() == "SI"){  $( "#div61040201,#div61040301" ).show();  } else {  $( "#div61040201,#div61040301" ).hide();    }
+	});
+	$("#encuesta19").find("input[name=61050101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61050101]:checked").val() == "SI"){  $( "#div61050201,#div61050301" ).show();  } else {  $( "#div61050201,#div61050301" ).hide();    }
+	});
+	$("#encuesta19").find("input[name=61060101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61060101]:checked").val() == "SI"){  $( "#div61060201,#div61060301" ).show();  } else {  $( "#div61060201,#div61060301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61070101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61070101]:checked").val() == "SI"){  $( "#div61070201,#div61070301" ).show();  } else {   $( "#div61070201,#div61070301" ).hide();  }
+	});
+	$("#encuesta19").find("input[name=61080101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61080101]:checked").val() == "SI"){  $( "#div61080201,#div61080301" ).show();  } else {   $( "#div61080201,#div61080301" ).hide();  }
+	});
+	$("#encuesta19").find("input[name=61090101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61090101]:checked").val() == "SI"){  $( "#div61090201,#div61090301" ).show();  } else {   $( "#div61090201,#div61090301" ).hide();    }
+	});
+	$("#encuesta19").find("input[name=61100101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61100101]:checked").val() == "SI"){  $( "#div61100201,#div61100301" ).show();  } else {  $( "#div61100201,#div61100301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61110101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61110101]:checked").val() == "SI"){  $( "#div61110201,#div61110301" ).show();  } else {  $( "#div61110201,#div61110301" ).hide();    }
+	});
+	$("#encuesta19").find("input[name=61120101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61120101]:checked").val() == "SI"){  $( "#div61120201,#div61120301" ).show();  } else {  $( "#div61120201,#div61120301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61130101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61130101]:checked").val() == "SI"){  $( "#div61130201,#div61130301" ).show();  } else {  $( "#div61130201,#div61130301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61140101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61140101]:checked").val() == "SI"){  $( "#div61140201,#div61140301" ).show();  } else {   $( "#div61140201,#div61140301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61150101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61150101]:checked").val() == "SI"){  $( "#div61150201,#div61150301" ).show();  } else {  $( "#div61150201,#div61150301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61160101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61160101]:checked").val() == "SI"){  $( "#div61160201,#div61160301" ).show();  } else {  $( "#div61160201,#div61160301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61170101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61170101]:checked").val() == "SI"){  $( "#div61170201,#div61170301" ).show();  } else {  $( "#div61170201,#div61170301" ).hide();     }
+	});
+	$("#encuesta19").find("input[name=61210101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61210101]:checked").val() == "SI"){  $( "#div61210201,#div61210301" ).show();  } else {   $( "#div61210201,#div61210301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61180101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61180101]:checked").val() == "SI"){  $( "#div61180201,#div61180301" ).show();  } else {   $( "#div61180201,#div61180301" ).hide();  }
+	});
+	$("#encuesta19").find("input[name=61190101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61190101]:checked").val() == "SI"){  $( "#div61190201,#div61190301" ).show();  } else {  $( "#div61190201,#div61190301" ).hide();   }
+	});
+	$("#encuesta19").find("input[name=61200101]" ).change(function() {
+		if( $("#encuesta19").find("input[name=61200101]:checked").val() == "SI"){  $( "#div61200201,#div61200301" ).show();  } else {  $( "#div61200201,#div61200301" ).hide();   }
+	});
 
 
 	$( "input[name=67070000]" ).change(function() {
@@ -1480,14 +1498,22 @@ $( "input[name=61200101]" ).change(function() {
 
 function ocultar16(){
 	$("#div16000000").show();
+	$("#div64000000").show();
+
 	if( ($("#activenivel_1").val() == 1) && ($("#activenivel_2").val() == 0) && ($("#activenivel_3").val() == 0) ){
-		if( $("input[name=15010000]:checked").val() == "NO"){ $("#div16000000").hide();   }	
+		if( $("input[name=15010000]:checked").val() == "NO"){ 
+			$("#div16000000,#div64000000").hide(); 
+		}	
 	}
 	if( ($("#activenivel_1").val() == 1) && ($("#activenivel_2").val() == 1) && ($("#activenivel_3").val() == 0) ){
-		if( ($("input[name=15010000]:checked").val() == "NO") && ($("input[name=15020000]:checked").val() == "NO")   ){ $("#div16000000").hide();   }	
+		if( ($("input[name=15010000]:checked").val() == "NO") && ($("input[name=15020000]:checked").val() == "NO")   ){ 
+			$("#div16000000,#div64000000").hide(); 
+		 }	
 	}
 	if( ($("#activenivel_1").val() == 1) && ($("#activenivel_2").val() == 1) && ($("#activenivel_3").val() == 1) ){
-		if( ($("input[name=15010000]:checked").val() == "NO") && ($("input[name=15020000]:checked").val() == "NO") && ($("input[name=15030000]:checked").val() == "NO")   ){ $("#div16000000").hide();   }	
+		if( ($("input[name=15010000]:checked").val() == "NO") && ($("input[name=15020000]:checked").val() == "NO") && ($("input[name=15030000]:checked").val() == "NO")   ){ 
+			$("#div16000000,#div64000000").hide();   
+		}	
 	}
 }
 
@@ -1541,7 +1567,7 @@ function load_encuesta( id ){
 	if($("#00210201").val()==0)$("#00210201").html( res0 + res1 + res2 );
 	if($("#00210301").val()==0)$("#00210301").html( res0 + res1 + res2 );
 
-	$("#final_link").show();
+	$("#final_link,#primer_link").show();
 
 	rebuild_arbol();
 
@@ -1566,18 +1592,7 @@ function new_encuesta(){
 	clear_form();
 	clear_niveles();
 
-	if(desktop == 0){
-	 	db.transaction(function(tx) {
-			sql = "SELECT DISTINCT(departamento) as dep FROM tablon ORDER BY dep ASC";
-			tx.executeSql(sql, [], function(tx, res) {
-				options = "<option value='0'>--SELECCIONAR--</option>";
-				for(i = 0; i < res.rows.length; i++ ){
-					options += "<option value='" + res.rows.item(i).dep + "'>" + res.rows.item(i).dep + "</option>";
-				}
-				$("#00000101").html(options);
-			});
-		});
-	}
+
 
 	$("#botonvaciar").show();
 
@@ -1620,6 +1635,23 @@ function new_encuesta(){
 }
 
 function default_encuesta(){
+	if(desktop == 0){
+	 	db.transaction(function(tx) {
+			sql = "SELECT DISTINCT(departamento) as dep FROM tablon ORDER BY dep ASC";
+			tx.executeSql(sql, [], function(tx, res) {
+				options = "<option value='0'>--SELECCIONAR--</option>";
+				for(i = 0; i < res.rows.length; i++ ){
+					options += "<option value='" + res.rows.item(i).dep + "'>" + res.rows.item(i).dep + "</option>";
+				}
+				$("#00000101").html(options);
+			});
+		});
+	}
+
+	$("#div67070000 legend").html( "Otros(Especificar)");
+	$("#div68070000 legend").html( "Otros(Especificar)" );
+
+
 	$("#activenivel_1,#activenivel_2,#activenivel_3,#ocultar_1,#ocultar_2,#ocultar_3").val(0);
 
 	$("#tniveles tbody").html("");
@@ -1711,22 +1743,38 @@ function nextpage_encuesta( i ){
 		return false;
 	}
 
-	/*if( ((i-1) != 3) && ((i-1) != 26) ){
-		$("#encuesta" + (i - 1)).find(' input:not([type=hidden],[type=checkbox]) , select' ).each(function () {
-			if( $(this).is(":visible") ){
-				if($(this).attr("id") == "78000999999"){
-					//ignore
-				} else {
-					if ( ! $(this).val() || ( $(this).val() == 0)) {
-						if(tmpflagp == true){
-							alert("Debe completar todas las preguntas.");
-							tmpflagp = false;
+	
+
+	if(localStorage.getItem("force_validation")==1){
+		if( ((i-1) != 3) && ((i-1) != 26) ){
+			$("#encuesta" + (i - 1)).find(' input:not([type=hidden],[type=checkbox]) ' ).each(function () {
+				if(tmpflagp == true){
+
+					if( $(this).is(":visible") ){
+						if(  ($(this).attr("id") == "78000999999") || 
+							 ($(this).attr("id") == "00001902") ||
+							 ($(this).attr("id") == "00001900") )
+						{
+							//ignore
+						} else {
+							if($(this).attr("type") == "radio"){
+								if ( $(  "input[name=" + $(this).attr("name") + "]:checked"  ).val() === undefined ) {
+									alert("Debe completar todas las preguntas.");
+									tmpflagp = false;
+								}
+							} else {
+								if (  $(this).val() == "" ) {
+									alert("Debe completar todas las preguntas.");
+									tmpflagp = false;
+								}
+							}
+		
 						}
 					}
 				}
-			}
-		});
-	}*/
+			});
+		}
+	}
 
 	if(tmpflagp == false)return false;
 
@@ -1821,13 +1869,13 @@ function default_hiding(){
 
 	$("#encuesta3 .sgte").show();
 	$("#encaso").show();		
-	$("#final_link").hide();
+	$("#final_link,#primer_link").hide();
 
 	$( "#00000200").html("<option value='0'>--SELECCIONAR--</option>");
 	$( "#00000100").html("<option value='0'>--SELECCIONAR--</option>");
 	$( "#00000300").html("<option value='0'>--SELECCIONAR--</option>");
 	$( "#00000500").html("<option value='0'>--SELECCIONAR--</option>");
-	$( "#00000400").html("<option value='0'>--SELECCIONAR--</option>");
+	//$( "#00000400").html("<option value='0'>--SELECCIONAR--</option>");
 
 
 	$("#div14010201,#div14010301,#div14010401,#div14010501,#div14010601").hide();  
@@ -2040,15 +2088,28 @@ function hideinitnivel(nivel){
 
 function validate_pages(){
 	var tmpvflag = true;
+	tmp_page = $('body').pagecontainer( 'getActivePage' ).attr( 'id' );
+	if(tmp_page == "encuesta1"){
+		if( ($("#activenivel_1").val() == 0) && ($("#activenivel_2").val() == 0) && ($("#activenivel_3").val() == 0) ){
+			alert("Seleccionar un Codigo de Local");					
+			return false;
+		}
 
-	if( ($("#activenivel_1").val() == 0) && ($("#activenivel_2").val() == 0) && ($("#activenivel_3").val() == 0) ){
-		alert("Seleccionar un Codigo de Local");					
-		return false;
+		if($( "#00004011").is(":visible")){
+			validate_modular("00004011");
+		}
+		if($( "#00004012").is(":visible")){
+			validate_modular("00004012");
+		}
+		if($( "#00004013").is(":visible")){
+			validate_modular("00004013");
+		}
 	}
-
-	if( ( int("90220100") + int("90220200") ) != int("90210100") ){
-		tmp = "LA SUMA DE ESTUDIANTES HOMBRES Y MUJERES NO ES IGUAL AL TOTAL DE ESTUDIANTES OBSERVADOS";
-		alert(tmp);	return false;
+	if(tmp_page == "encuesta29"){
+		if( ( int("90220100") + int("90220200") ) != int("90210100") ){
+			tmp = "LA SUMA DE ESTUDIANTES HOMBRES Y MUJERES NO ES IGUAL AL TOTAL DE ESTUDIANTES OBSERVADOS";
+			alert(tmp);	return false;
+		}
 	}
 /*	if( int("90230100")  > int("90210100") ){
 		tmp = "EL Nro DE ESTUDIANTES SIN MOBILIARIO NO DEBE SER MAYOR AL Nro TOTAL DE ESTUDIANTES";
@@ -2059,82 +2120,76 @@ function validate_pages(){
 		alert(tmp);	return false;
 	}*/
 
-	if($( "#00004011").is(":visible")){
-		validate_modular("00004011");
-	}
-	if($( "#00004012").is(":visible")){
-		validate_modular("00004012");
-	}
-	if($( "#00004013").is(":visible")){
-		validate_modular("00004013");
-	}
-	
-
-	if( $('#00003100').val() != "" ){
-		return validate_fono('00003100');
-	}
-
-	if( $('#38010000').val() != "" ){
-		if((int("38010000") >= 1900) && (int("38010000") <= 2015)){
-			//nada
-		} else {
-			alert("Año debe ser entre 1900 y 2015");
-			return false;
+	if(tmp_page == "encuesta4"){
+		if( $('#00003100').val() != "" ){
+			return validate_fono('00003100');
 		}
 	}
-	
-
-	tmp = "EL Nro TOTAL DE DOCENTES DEBE SER IGUAL A LA SUMA DE DOCENTES PRESENTES, AUSENTES CON JUSTIFICACIÓN Y SIN JUSTIFICACIÓN";
-	if( ( (parseInt($("#17020001").val()) || 0) + (parseInt($("#17030001").val()) || 0 ) + (parseInt($("#17040001").val()) || 0)) != (parseInt($("#17010001").val()) || 0) ){
-		alert(tmp);	return false;
+	if(tmp_page == "encuesta7"){
+		tmp = "EL Nro TOTAL DE DOCENTES DEBE SER IGUAL A LA SUMA DE DOCENTES PRESENTES, AUSENTES CON JUSTIFICACIÓN Y SIN JUSTIFICACIÓN";
+		if( ( (parseInt($("#17020001").val()) || 0) + (parseInt($("#17030001").val()) || 0 ) + (parseInt($("#17040001").val()) || 0)) != (parseInt($("#17010001").val()) || 0) ){
+			alert(tmp);	return false;
+		}
+		if(( (parseInt($("#17020002").val()) || 0) + (parseInt($("#17030002").val()) || 0 ) + (parseInt($("#17040002").val()) || 0)) != (parseInt($("#17010002").val()) || 0) ){
+			alert(tmp);	return false;
+		}
+		if(( (parseInt($("#17020003").val()) || 0) + (parseInt($("#17030003").val()) || 0 ) + (parseInt($("#17040003").val()) || 0)) != (parseInt($("#17010003").val()) || 0) ){
+			alert(tmp);	return false;
+		}
 	}
-	if(( (parseInt($("#17020002").val()) || 0) + (parseInt($("#17030002").val()) || 0 ) + (parseInt($("#17040002").val()) || 0)) != (parseInt($("#17010002").val()) || 0) ){
-		alert(tmp);	return false;
-	}
-	if(( (parseInt($("#17020003").val()) || 0) + (parseInt($("#17030003").val()) || 0 ) + (parseInt($("#17040003").val()) || 0)) != (parseInt($("#17010003").val()) || 0) ){
-		alert(tmp);	return false;
-	}
+	if(tmp_page == "encuesta12"){
+		if( $('#38010000').val() != "" ){
+			if((int("38010000") >= 1900) && (int("38010000") <= 2015)){
+				//nada
+			} else {
+				alert("Año debe ser entre 1900 y 2015");
+				return false;
+			}
+		}
+	}	
 
 /*	tmp = "EL Nro ESTUDIANTES MATRICULADOS QUE ASISTIERON HOY NO PUEDE SER MAYOR AL TOTAL DE ESTUDIANTES MATRICULADOS EN LA IE";
 	if( int("18020001") > int("18010001") ){ 	alert(tmp);	return false; }
 	if( int("18020002") > int("18010002") ){ 	alert(tmp);	return false;  }
 	if( int("18020003") > int("18010003") ){ 	alert(tmp);	return false; }
 */
-	tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
-	if( ($('.25010000').is(':visible') ) && (int("25010100") <= 2014) && (int("25010200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.25020000').is(':visible') ) && (int("25020100") <= 2014) && (int("25020200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.25030000').is(':visible') ) && (int("25030100") <= 2014) && (int("25030200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.25040000').is(':visible') ) && (int("25040100") <= 2014) && (int("25040200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.25050000').is(':visible') ) && (int("25050100") <= 2014) && (int("25050200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.25060000').is(':visible') ) && (int("25060100") <= 2014) && (int("25060200") < 9) ){ alert(tmp);	return false;  }
-	if( ($('.25070000').is(':visible') ) && (int("25070100") <= 2014) && (int("25070200") < 9) ){ alert(tmp);	return false;  }
+	if(tmp_page == "encuesta10"){
+		tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
+		if( ($('.25010000').is(':visible') ) && (int("25010100") <= 2014) && (int("25010200") < 9) ){ alert(tmp);	return false;  }
+		if( ($('.25020000').is(':visible') ) && (int("25020100") <= 2014) && (int("25020200") < 9) ){ alert(tmp);	return false;  }
+		if( ($('.25030000').is(':visible') ) && (int("25030100") <= 2014) && (int("25030200") < 9) ){ alert(tmp);	return false;  }
+		if( ($('.25040000').is(':visible') ) && (int("25040100") <= 2014) && (int("25040200") < 9) ){ alert(tmp);	return false;  }
+		if( ($('.25050000').is(':visible') ) && (int("25050100") <= 2014) && (int("25050200") < 9) ){ alert(tmp);	return false;  }
+		if( ($('.25060000').is(':visible') ) && (int("25060100") <= 2014) && (int("25060200") < 9) ){ alert(tmp);	return false;  }
+		if( ($('.25070000').is(':visible') ) && (int("25070100") <= 2014) && (int("25070200") < 9) ){ alert(tmp);	return false;  }
+	}	
 
+	if(tmp_page == "encuesta12"){
+		tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
+		if( int("35010301") > int("35010201") ){ alert(tmp);	return false;  }
+		if( int("35010302") > int("35010202") ){ alert(tmp);	return false;  }
+		if( int("35010303") > int("35010203") ){ alert(tmp);	return false;  }
+		if( int("35010304") > int("35010204") ){ alert(tmp);	return false;  }
+		if( int("35010305") > int("35010205") ){ alert(tmp);	return false;  }
+		if( int("35010306") > int("35010206") ){ alert(tmp);	return false;  }
+		if( int("35010307") > int("35010207") ){ alert(tmp);	return false;  }
 
-	tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
-	if( int("35010301") > int("35010201") ){ alert(tmp);	return false;  }
-	if( int("35010302") > int("35010202") ){ alert(tmp);	return false;  }
-	if( int("35010303") > int("35010203") ){ alert(tmp);	return false;  }
-	if( int("35010304") > int("35010204") ){ alert(tmp);	return false;  }
-	if( int("35010305") > int("35010205") ){ alert(tmp);	return false;  }
-	if( int("35010306") > int("35010206") ){ alert(tmp);	return false;  }
-	if( int("35010307") > int("35010207") ){ alert(tmp);	return false;  }
+		if( int("35020301") > int("35020201") ){ alert(tmp);	return false;  }
+		if( int("35020302") > int("35020202") ){ alert(tmp);	return false;  }
+		if( int("35020303") > int("35020203") ){ alert(tmp);	return false;  }
+		if( int("35020304") > int("35020204") ){ alert(tmp);	return false;  }
+		if( int("35020305") > int("35020205") ){ alert(tmp);	return false;  }
+		if( int("35020306") > int("35020206") ){ alert(tmp);	return false;  }
+		if( int("35020307") > int("35020207") ){ alert(tmp);	return false;  }
 
-	if( int("35020301") > int("35020201") ){ alert(tmp);	return false;  }
-	if( int("35020302") > int("35020202") ){ alert(tmp);	return false;  }
-	if( int("35020303") > int("35020203") ){ alert(tmp);	return false;  }
-	if( int("35020304") > int("35020204") ){ alert(tmp);	return false;  }
-	if( int("35020305") > int("35020205") ){ alert(tmp);	return false;  }
-	if( int("35020306") > int("35020206") ){ alert(tmp);	return false;  }
-	if( int("35020307") > int("35020207") ){ alert(tmp);	return false;  }
-
-	if( int("35030301") > int("35030201") ){ alert(tmp);	return false;  }
-	if( int("35030302") > int("35030202") ){ alert(tmp);	return false;  }
-	if( int("35030303") > int("35030203") ){ alert(tmp);	return false;  }
-	if( int("35030304") > int("35030204") ){ alert(tmp);	return false;  }
-	if( int("35030305") > int("35030205") ){ alert(tmp);	return false;  }
-	if( int("35030306") > int("35030206") ){ alert(tmp);	return false;  }
-	if( int("35030307") > int("35030207") ){ alert(tmp);	return false;  }
-
+		if( int("35030301") > int("35030201") ){ alert(tmp);	return false;  }
+		if( int("35030302") > int("35030202") ){ alert(tmp);	return false;  }
+		if( int("35030303") > int("35030203") ){ alert(tmp);	return false;  }
+		if( int("35030304") > int("35030204") ){ alert(tmp);	return false;  }
+		if( int("35030305") > int("35030205") ){ alert(tmp);	return false;  }
+		if( int("35030306") > int("35030206") ){ alert(tmp);	return false;  }
+		if( int("35030307") > int("35030207") ){ alert(tmp);	return false;  }
+	}	
 
 	/*if( $("input[name=40010000]:checked").val() == "SI" ) {
 		if($("input[name=41010000]:checked").val() == "SI" ) {
@@ -2144,38 +2199,44 @@ function validate_pages(){
 			alert(tmp);	//return false; 
 		}
 	}*/
-
-	tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
-	if( int("70020000") > int("70010000") ){
-		alert(tmp);	return false; 
+	if(tmp_page == "encuesta22"){
+		tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
+		if( int("70020000") > int("70010000") ){
+			alert(tmp);	return false; 
+		}
 	}
 
-	if(current_enc.page == 24){
+
+	if(tmp_page == "encuesta24"){
 		tmp = "EL N° DE APARATOS SANITARIOS NO COINCIDE CON LA CANTIDAD DECLARADA POR EL DIRECTOR";
 		if( int("47010200") != int("83010000") ){alert(tmp);	}
 		if( int("47020200") != int("83020000") ){alert(tmp);	}
 		if( int("47030200") != int("83030000") ){alert(tmp);	}
+
+		if( ( int("84010100") + int("84010200") + int("84010300") ) != int(83010000)  ){
+			tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN  DE INODOROS NO COINCIDE CON EL NUMERO TOTAL DE INODOROS OBSERVADOS";
+			alert(tmp);	return false; 
+		}
+		if( ( int("84020100") + int("84020200") + int("84020300") ) != int(83020000)  ){
+			tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN DE TURCOS NO COINCIDE CON EL NUMERO TOTAL DE TURCOS OBSERVADOS";
+			alert(tmp);	return false; 
+		}
+		if( ( int("84030100") + int("84030200") + int("84030300") ) != int(83030000)  ){
+			tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN DE HUECOS EN EL PISO NO COINCIDE CON EL NUMERO TOTAL DE HUECOS EN EL PISO OBSERVADOS";
+			alert(tmp);	return false; 
+		}
+
+		tmp = "EL Nro DE LAVADEROS O LAVATORIOS CON AGUA DISPONIBLE NO DEBE SER MAYOR AL Nro TOTAL DE LAVADEROS O LAVATORIOS";
+		if( int("86010200") > int("86010100")  ){alert(tmp);	return false; } 
+		if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
+		if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
+
 	}
 
 
 
-	if( ( int("84010100") + int("84010200") + int("84010300") ) != int(83010000)  ){
-		tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN  DE INODOROS NO COINCIDE CON EL NUMERO TOTAL DE INODOROS OBSERVADOS";
-		alert(tmp);	//return false; 
-	}
-	if( ( int("84020100") + int("84020200") + int("84020300") ) != int(83020000)  ){
-		tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN DE TURCOS NO COINCIDE CON EL NUMERO TOTAL DE TURCOS OBSERVADOS";
-		alert(tmp);	//return false; 
-	}
-	if( ( int("84030100") + int("84030200") + int("84030300") ) != int(83030000)  ){
-		tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN DE HUECOS EN EL PISO NO COINCIDE CON EL NUMERO TOTAL DE HUECOS EN EL PISO OBSERVADOS";
-		alert(tmp);	//return false; 
-	}
 
-	tmp = "EL Nro DE LAVADEROS O LAVATORIOS CON AGUA DISPONIBLE NO DEBE SER MAYOR AL Nro TOTAL DE LAVADEROS O LAVATORIOS";
-	if( int("86010200") > int("86010100")  ){alert(tmp);	return false; } 
-	if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
-	if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
+
 
 	return tmpvflag;
 }
@@ -2324,6 +2385,7 @@ function end_ausentes(){
 
 	draw_niveles_estados();
 	clear_ausentes();
+	save_obj(current_enc.id,current_enc);
 	changepage("#encuesta" + nivelespage_start);
 	return false;
 }
@@ -2535,11 +2597,13 @@ function confirm_login(){
 	if((tmp_u == sys_username ) && (tmp_p == sys_password)){
 		localStorage.setItem("login_status",1);
 		localStorage.setItem("rol","encuestador");
+		localStorage.setItem("force_validation",1);
 		changepage("#jqm-home");
 		$("#menusupervisor").hide();
 	} else if((tmp_u == sys_supervisor_name ) && (tmp_p == sys_supervisor_pass )){
 		localStorage.setItem("login_status",1);
 		localStorage.setItem("rol","supervisor");
+		localStorage.setItem("force_validation",0);
 		changepage("#jqm-home");
 		$("#menusupervisor").show();
 
@@ -2651,12 +2715,15 @@ function freeze_close(){
 }
 
 function force_select_option(id,option){
-	if($("#" + id + " option[value='" + option + "']").length > 0){
+
+		if($("#" + id + " option[value='" + option + "']").length > 0){
 		
-	}else {
-		$("#" + id).html("<option value='" + option + "'>" + option + "</option>");
-		//$("#" + id).selectmenu("refresh");
-	}
+		}else {
+			if(id != "00000101"){
+				$("#" + id).html("<option value='" + option + "'>" + option + "</option>");
+			}
+			//$("#" + id).selectmenu("refresh");
+		}
 }
 
 //----- THIS APP UTILS ----------------------------------
@@ -2920,7 +2987,7 @@ function show_pre_end_encuesta(){
 	$("#div00220100").show();
 	$("#encuesta3 .sgte").hide();
 	$("#encaso").hide();
-	$("#final_link").show();
+	$("#final_link,#primer_link").show();
 	changepage("#encuesta3");
 
 	if($("#00210101").val()==0)$("#00210101").html( res0 + res1 + res2 );
@@ -3006,7 +3073,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-15 04:59:18</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-15 07:52:40</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -3353,7 +3420,7 @@ function create_panels(){
 </tr><tr class='visita3 ff'><td>3</td>
 <td><div class="ff" id="div00210301" > <label for='00210301'  class="ui-hidden-accessible" ></label><select name='00210301' id='00210301'  data-mini="true"   ><option value='0'>-- Seleccionar -- </option><option value='1'>Completo</option><option value='2'>Incompleto</option><option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option></select></div></td>
 <td><div id="div00210302"  class=" ff"  > <label for="00210302"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="date" name="00210302" id="00210302" value=""   ></div></td>
-</tr></tbody></table><div id="div00210401"  class=" ff"  > <label for="00210401"   >(Otro) Especificar:</label><textarea  name="00210401" id="00210401"></textarea></div><div id="div00220100"  class=" ff"  > <label for="00220100"   >Observaciones finales:</label><textarea  name="00220100" id="00220100"></textarea></div><a href="#" onclick="return fast_encuesta_exit();" class="ui-btn ui-icon-carat-r ui-btn-icon-right" id="encaso">En el caso de no poder continuar con la encuesta, finalizar esta encuesta</a><a href="#" onclick="return show_end_encuesta();" id="final_link" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
+</tr></tbody></table><div id="div00210401"  class=" ff"  > <label for="00210401"   >(Otro) Especificar:</label><textarea  name="00210401" id="00210401"></textarea></div><div id="div00220100"  class=" ff"  > <label for="00220100"   >Observaciones finales:</label><textarea  name="00220100" id="00220100"></textarea></div><a href="#" onclick="return fast_encuesta_exit();" class="ui-btn ui-icon-carat-r ui-btn-icon-right" id="encaso">En el caso de no poder continuar con la encuesta, finalizar esta encuesta</a><a href="#" onclick="return nextpage_encuesta(1);" id="primer_link" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Ir a la pregunta 1</a><a href="#" onclick="return show_end_encuesta();" id="final_link" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(4);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -4264,7 +4331,7 @@ function create_panels(){
 <td class='efi' ><div id="div62040001"  class="edi ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="62040001" id="6204000101" value="SI"><label for="6204000101">SI</label><input type="radio" name="62040001" id="6204000102" value="NO"><label for="6204000102">NO</label></fieldset></div></td>
 <td class='efp' ><div id="div62040002"  class="edp ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="62040002" id="6204000201" value="SI"><label for="6204000201">SI</label><input type="radio" name="62040002" id="6204000202" value="NO"><label for="6204000202">NO</label></fieldset></div></td>
 <td class='efs' ><div id="div62040003"  class="eds ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="62040003" id="6204000301" value="SI"><label for="6204000301">SI</label><input type="radio" name="62040003" id="6204000302" value="NO"><label for="6204000302">NO</label></fieldset></div></td>
-</tr></tbody></table></div><p>64. Encuestador, ¿observa el registro de asistencia del personal docente?</p><table class="ts1"><thead><tr><th></th><th class="efi rai">Inicial</th><th class="efp rap">Primaria</th><th class="efs ras">Secundaria</th></tr></thead><tbody><tr class=''><td  >1. Cuaderno de asistencia</td>
+</tr></tbody></table></div><div id='div64000000' ><p>64. Encuestador, ¿observa el registro de asistencia del personal docente?</p><table class="ts1"><thead><tr><th></th><th class="efi rai">Inicial</th><th class="efp rap">Primaria</th><th class="efs ras">Secundaria</th></tr></thead><tbody><tr class=''><td  >1. Cuaderno de asistencia</td>
 <td class='efi' ><div id="div64010001"  class="efi rai ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="64010001" id="6401000101" value="SI"><label for="6401000101">SI</label><input type="radio" name="64010001" id="6401000102" value="NO"><label for="6401000102">NO</label></fieldset></div></td>
 <td class='efp' ><div id="div64010002"  class="efp rap ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="64010002" id="6401000201" value="SI"><label for="6401000201">SI</label><input type="radio" name="64010002" id="6401000202" value="NO"><label for="6401000202">NO</label></fieldset></div></td>
 <td class='efs' ><div id="div64010003"  class="efs ras ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="64010003" id="6401000301" value="SI"><label for="6401000301">SI</label><input type="radio" name="64010003" id="6401000302" value="NO"><label for="6401000302">NO</label></fieldset></div></td>
@@ -4276,7 +4343,7 @@ function create_panels(){
 <td class='efi' ><div id="div64030001"  class="efi rai ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="64030001" id="6403000101" value="SI"><label for="6403000101">SI</label><input type="radio" name="64030001" id="6403000102" value="NO"><label for="6403000102">NO</label></fieldset></div></td>
 <td class='efp' ><div id="div64030002"  class="efp rap ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="64030002" id="6403000201" value="SI"><label for="6403000201">SI</label><input type="radio" name="64030002" id="6403000202" value="NO"><label for="6403000202">NO</label></fieldset></div></td>
 <td class='efs' ><div id="div64030003"  class="efs ras ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="64030003" id="6403000301" value="SI"><label for="6403000301">SI</label><input type="radio" name="64030003" id="6403000302" value="NO"><label for="6403000302">NO</label></fieldset></div></td>
-</tr></tbody></table><p>65. Encuestador, ¿observa si el nivel educativo cuenta con los siguientes resultados de aprendizaje de los estudiantes del año 2014?</p><table  class="ts1"><thead><tr><th class=''></th><th class='efi'>Inicial</th><th class='efp'>Primaria</th><th class='efs'>Secundaria</th></tr></thead><tbody><tr class=''><td  >1. Actas de notas</td>
+</tr></tbody></table></div><p>65. Encuestador, ¿observa si el nivel educativo cuenta con los siguientes resultados de aprendizaje de los estudiantes del año 2014?</p><table  class="ts1"><thead><tr><th class=''></th><th class='efi'>Inicial</th><th class='efp'>Primaria</th><th class='efs'>Secundaria</th></tr></thead><tbody><tr class=''><td  >1. Actas de notas</td>
 <td class='efi' ><div id="div65010001"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="65010001" id="6501000101" value="SI"><label for="6501000101">SI</label><input type="radio" name="65010001" id="6501000102" value="NO"><label for="6501000102">NO</label></fieldset></div></td>
 <td class='efp' ><div id="div65010002"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="65010002" id="6501000201" value="SI"><label for="6501000201">SI</label><input type="radio" name="65010002" id="6501000202" value="NO"><label for="6501000202">NO</label></fieldset></div></td>
 <td class='efs' ><div id="div65010003"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="65010003" id="6501000301" value="SI"><label for="6501000301">SI</label><input type="radio" name="65010003" id="6501000302" value="NO"><label for="6501000302">NO</label></fieldset></div></td>
