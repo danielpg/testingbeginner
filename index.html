@@ -653,16 +653,30 @@ function onDeviceReady() {
 		}
 	});
 
+	$( "#24010100" ).blur(function() {
+		if( $("#24010100").val() != "" ){
+			$("#div67070000").find("legend").html( $( "#24010100" ).val()  );
+			$("#div68070000").find("legend").html( $( "#24010100" ).val()  );
+			$("#div25000000").find(".25070000 td:first-child").html( $( "#24010100" ).val()  );
+		} else {
+			$("#div67070000").find("legend").html( "Otros"  );
+			$("#div68070000").find("legend").html(  "Otros"  );
+			$("#div25000000").find(".25070000 td:first-child").html(  "Otros"  );
+		}
+	});
+
 	$( "#2401000007" ).change(function() {
 		if( $("#2401000007").is(":checked") ){
 			$( "#div24010100" ).show();
 
-			$("#div67070000 legend").html( $( "#24010100" ).val()  );
-			$("#div68070000 legend").html( $( "#24010100" ).val()  );
+			$("#div67070000").find("legend").html( $( "#24010100" ).val()  );
+			$("#div68070000").find("legend").html( $( "#24010100" ).val()  );
+
 
 		} else {
-			$("#div67070000 legend").html( "Otros(Especificar)");
-			$("#div68070000 legend").html( "Otros(Especificar)" );
+			$("#div67070000").find("legend").html( "Otros");
+			$("#div68070000").find("legend").html( "Otros" );
+			$("#div25000000").find(".25070000 td:first-child").html(  "Otros"  );
 			$( "#div24010100").hide();
 			$( "#24010100").val("");
 		}
@@ -1288,6 +1302,16 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 
 	//*** TRIGGERS NIVELES **************************************************************************************//
 
+
+	$( "input[name=90000001]" ).change(function() {
+		if( $("input[name=90000001]:checked").val() == "INICIAL"){
+			$("#90000003").val("");
+			$("#div90000003").hide();
+		} else {
+			$("#div90000003").show();
+		}
+	});
+
 	$( "input[name=90010000]" ).change(function() {
 		if( $("input[name=90010000]:checked").val() == "NO"){
 			$("#div90020000,#div90030000").hide();
@@ -1648,9 +1672,9 @@ function default_encuesta(){
 		});
 	}
 
-	$("#div67070000 legend").html( "Otros(Especificar)");
-	$("#div68070000 legend").html( "Otros(Especificar)" );
-
+	$("#div67070000").find("legend").html( "Otros");
+	$("#div68070000").find("legend").html( "Otros" );
+	$("#div25000000").find(".25070000 td:first-child").html(  "Otros"  );
 
 	$("#activenivel_1,#activenivel_2,#activenivel_3,#ocultar_1,#ocultar_2,#ocultar_3").val(0);
 
@@ -1876,7 +1900,7 @@ function default_hiding(){
 	$( "#00000300").html("<option value='0'>--SELECCIONAR--</option>");
 	$( "#00000500").html("<option value='0'>--SELECCIONAR--</option>");
 	//$( "#00000400").html("<option value='0'>--SELECCIONAR--</option>");
-
+	$("#div90000003").show();
 
 	$("#div14010201,#div14010301,#div14010401,#div14010501,#div14010601").hide();  
 	$("#div14020201,#div14020301,#div14020401,#div14020501,#div14020601").hide();  
@@ -2333,6 +2357,7 @@ function draw_niveles_estados(){
 	}
 	
 	$("#nivelestable tbody").html(html);
+	$("#div90000003").show();
 }
 
 
@@ -3073,7 +3098,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-15 08:50:01</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-18 07:27:46</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -4405,7 +4430,7 @@ function create_panels(){
 					<h3>XVI. OBSERVACION DE LAS RESPUESTAS DEL DIRECTOR Y VERIFICACION </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id='div69000000'>69. ¿Observa la estantería repuesta instalada en el lugar indicado?</div><div id='obs69'> </div><div id="div69010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="69010000" id="6901000001" value="SI"><label for="6901000001">SI</label><input type="radio" name="69010000" id="6901000002" value="NO"><label for="6901000002">NO</label></fieldset></div></div><div id='div70000000'><p>70. Observe y registre la siguiente información:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>70.A Nro de computadoras</th><th class=''>70.B Muestra de computadoras</th><th class=''>70.C Nro de computadoras operativos</th></tr></thead><tbody><tr class=''><td>Laboratorio de cómputo</td>
+					<div id='div69000000'>69. ¿Observa la estantería repuesta instalada en el lugar indicado?</div><div id='obs69'> </div><div id="div69010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="69010000" id="6901000001" value="SI"><label for="6901000001">SI</label><input type="radio" name="69010000" id="6901000002" value="NO"><label for="6901000002">NO</label></fieldset></div></div><div id='div70000000'><p>70. Observe y registre la siguiente información:</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>70.A Nro de computadoras</th><th class=''>70.B Nro computadoras en la muestra</th><th class=''>70.C Nro de computadoras operativas en la muestra</th></tr></thead><tbody><tr class=''><td>Laboratorio de cómputo</td>
 <td><div id="div70010000"  class=" ff"  > <label for="70010000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70010000" id="70010000" value=""   /></div></td>
 <td><div id="div70020000"  class=" ff"  > <label for="70020000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70020000" id="70020000" value=""   /></div></td>
 <td><div id="div70030000"  class=" ff"  > <label for="70030000"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="70030000" id="70030000" value=""   /></div></td>

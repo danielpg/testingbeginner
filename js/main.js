@@ -369,6 +369,16 @@ function rebuild_arbol(){
 			$( "#2401000006" ).parent().show();		
 		}
 
+		if( $("#24010100").val() != "" ){
+			$("#div67070000 legend").html( $( "#24010100" ).val()  );
+			$("#div68070000 legend").html( $( "#24010100" ).val()  );
+			$("#div25000000").find(".25070000 td:first-child").html( $( "#24010100" ).val()  );
+		} else {
+			$("#div67070000 legend").html( "Otros"  );
+			$("#div68070000 legend").html(  "Otros"  );
+			$("#div25000000").find(".25070000 td:first-child").html(  "Otros"  );
+		}
+
 		if( $("#2401000001").is(":checked") ){ $(".25010000,#div67010000,#div68010000").show();	} else {$(".25010000,#div67010000,#div68010000").hide();}
 
 		if( $("#2401000002").is(":checked") ){ $(".25020000,#div67020000,#div68020000").show();	} else {$(".25020000,#div67020000,#div68020000").hide();}
