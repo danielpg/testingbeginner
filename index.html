@@ -1257,15 +1257,6 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		if( $("#encuesta19").find("input[name=61200101]:checked").val() == "SI"){  $( "#div61200201,#div61200301" ).show();  } else {  $( "#div61200201,#div61200301" ).hide();   }
 	});
 
-
-	$( "input[name=67070000]" ).change(function() {
-		$( "#div67070100" ).show();
-	});
-	$( "input[name=68070000]" ).change(function() {
-		$( "#div68070100" ).show();
-	});
-
-
 	$( "input[name=79010000]" ).change(function() {
 		if( $("input[name=79010000]:checked").val() == "NO"){
 			$( "#div80010000,#div81010000" ).hide();
@@ -1303,8 +1294,8 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 	//*** TRIGGERS NIVELES **************************************************************************************//
 
 
-	$( "input[name=90000001]" ).change(function() {
-		if( $("input[name=90000001]:checked").val() == "INICIAL"){
+	$("#encuesta26").find("input[name=90000001]" ).change(function() {
+		if( $("#encuesta26").find("input[name=90000001]:checked").val() == "INICIAL"){
 			$("#90000003").val("");
 			$("#div90000003").hide();
 		} else {
@@ -1312,8 +1303,8 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=90010000]" ).change(function() {
-		if( $("input[name=90010000]:checked").val() == "NO"){
+	$("#encuesta27").find("input[name=90010000]" ).change(function() {
+		if( $("#encuesta27").find("input[name=90010000]:checked").val() == "NO"){
 			$("#div90020000,#div90030000").hide();
 			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
 			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
@@ -1325,8 +1316,8 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 			$("#div90160000").show();
 		}
 	});
-	$( "input[name=90030000]" ).change(function() {
-		if( $("input[name=90030000]:checked").val() == "NO"){
+	$("#encuesta27").find("input[name=90030000]" ).change(function() {
+		if( $("#encuesta27").find("input[name=90030000]:checked").val() == "NO"){
 			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
 			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
 			$("#div90160000").hide();
@@ -1337,8 +1328,8 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=90050000]" ).change(function() {
-		if( $("input[name=90050000]:checked").val() == "OTRO" ){
+	$("#encuesta27").find("input[name=90050000]" ).change(function() {
+		if( $("#encuesta27").find("input[name=90050000]:checked").val() == "OTRO" ){
 			$( "#div90050100" ).show();
 		} else {
 			$( "#div90050100").hide();
@@ -1346,30 +1337,30 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=90060000]" ).change(function() {
-		if( $( "input[name=90060000]:checked").val() == "NO"){
+	$("#encuesta27").find("input[name=90060000]" ).change(function() {
+		if( $("#encuesta27").find("input[name=90060000]:checked").val() == "NO"){
 			$("#div90070000").hide();
 		} else {
 			$("#div90070000").show();
 		}
 	});
-	$( "input[name=90070000]" ).change(function() {
-		if( $("input[name=90070000]:checked").val() == "OTRO" ){
+	$("#encuesta27").find("input[name=90070000]" ).change(function() {
+		if( $("#encuesta27").find("input[name=90070000]:checked").val() == "OTRO" ){
 			$( "#div90070100" ).show();
 		} else {
 			$( "#div90070100").hide();
 			$( "#90070100").val("");
 		}
 	});
-	$( "input[name=90080000]" ).change(function() {
-		if( $("input[name=90080000]:checked").val() == "NO"){
+	$("#encuesta27").find("input[name=90080000]" ).change(function() {
+		if( $("#encuesta27").find("input[name=90080000]:checked").val() == "NO"){
 			$("#div90090000").hide();
 		} else {
 			$("#div90090000").show();
 		}
 	});
-	$( "input[name=90100000]" ).change(function() {
-		if( $("input[name=90100000]:checked").val() == "NO"){
+	$("#encuesta28").find("input[name=90100000]" ).change(function() {
+		if( $("#encuesta28").find("input[name=90100000]:checked").val() == "NO"){
 			$("#div90110000").hide();
 		} else {
 			$("#div90110000").show();
@@ -1383,8 +1374,8 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 			$( "#90110100").val("");
 		}
 	});
-	$( "input[name=90130000]" ).change(function() {
-		if( $("input[name=90130000]:checked").val() == "NO"){
+	$("#encuesta28").find("input[name=90130000]" ).change(function() {
+		if( $("#encuesta28").find("input[name=90130000]:checked").val() == "NO"){
 			$("#div90140000").hide();
 			$("#div90150000" ).hide();
 		} else {
@@ -1420,8 +1411,8 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		if( $("#9017000006").is(":checked") ){ $("#div90180600,#div90190600").show();	} else {$("#div90180600,#div90190600").hide();}
 	});
 
-	$( "input[name=90200100]" ).change(function() {
-		if( $("input[name=90200100]:checked").val() == "NO"){
+	$("#encuesta29").find("input[name=90200100]" ).change(function() {
+		if( $("#encuesta29").find("input[name=90200100]:checked").val() == "NO"){
 			$("#div90210100").hide();
 			$("#div90220000").hide();
 			$("#div90230000").hide();
@@ -1447,8 +1438,8 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 
 
 
-	$( "input[name=90250100]" ).change(function() {
-		if( $("input[name=90250100]:checked").val() == "NO"){
+	$("#encuesta30").find("input[name=90250100]" ).change(function() {
+		if( $("#encuesta30").find("input[name=90250100]:checked").val() == "NO"){
 			$("#div90260100").hide();
 		} else {
 			$("#div90260100").show();
@@ -1464,36 +1455,36 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=00000401]" ).change(function() {
+	$("#encuesta1").find("input[name=00000401]" ).change(function() {
 			//alert("adasd");
-		if( $("input[name=00000401]:checked").val() == "SI"){
+		if( $("#encuesta1").find("input[name=00000401]:checked").val() == "SI"){
 			$("#tnewniveles").show();
-			$( ".tnewnivel1" ).show();
+			$("#encuesta1").find(".tnewnivel1" ).show();
 			$("#activenivel_1"  ).val(1);
 		} else {
-			$( ".tnewnivel1" ).hide();
+			$("#encuesta1").find(".tnewnivel1" ).hide();
 			$("#activenivel_1"  ).val(0);
 		}
 	});
 
-	$( "input[name=00000402]" ).change(function() {
-		if( $( "input[name=00000402]:checked" ).val() == "SI"){
+	$("#encuesta1").find("input[name=00000402]" ).change(function() {
+		if( $("#encuesta1").find("input[name=00000402]:checked" ).val() == "SI"){
 			$("#tnewniveles").show();
-			$( ".tnewnivel2" ).show();
+			$("#encuesta1").find(".tnewnivel2" ).show();
 			$("#activenivel_2"  ).val(1);
 		} else {
-			$( ".tnewnivel2" ).hide();
+			$("#encuesta1").find(".tnewnivel2" ).hide();
 			$("#activenivel_2"  ).val(0);
 		}
 	});
 
-	$( "input[name=00000403]" ).change(function() {
-		if( $($( "input[name=00000403]:checked" )).val() == "SI"){
+	$("#encuesta1").find("input[name=00000403]" ).change(function() {
+		if( $("#encuesta1").find("input[name=00000403]:checked" ).val() == "SI"){
 			$("#tnewniveles").show();
-			$( ".tnewnivel3" ).show();
+			$("#encuesta1").find(".tnewnivel3" ).show();
 			$("#activenivel_3"  ).val(1);
 		} else {
-			$( ".tnewnivel3" ).hide();
+			$("#encuesta1").find(".tnewnivel3" ).hide();
 			$("#activenivel_3"  ).val(0);
 		}
 	});
@@ -1506,15 +1497,15 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=90360100]" ).change(function() {
-		if( $("input[name=90360100]:checked").val() == "NO"){
+	$("#ausentes").find("input[name=90360100]" ).change(function() {
+		if( $("#ausentes").find("input[name=90360100]:checked").val() == "NO"){
 			$("#div90370100,#div90380100").hide();
 		} else {
 			$("#div90370100,#div90380100").show();
 		}
 	});
 
-	$( "input[name=90380100]" ).change(function() {
+	$("#ausentes").find("input[name=90380100]" ).change(function() {
 		$( "#div90390100").hide();
 	});
 
@@ -1684,7 +1675,7 @@ function default_encuesta(){
 		$("#fotoimage" + fotoname_ids[j] ).attr("src","");
 	}
 
-	$( ".tnewnivel1,.tnewnivel2,.tnewnivel3,#tnewniveles" ).hide();
+	$("#encuesta1").find(".tnewnivel1,.tnewnivel2,.tnewnivel3,#tnewniveles" ).hide();
 	default_hiding();
 
 	$("#nivelestable tbody").html("<tr><td colspan='5'> El listado esta vació </td></tr>");
@@ -1921,10 +1912,9 @@ function default_hiding(){
 	$("#div33120102,#div33120202,#div33120302,#div33120402,#div33120502,#div33120602").hide();
 	$("#div33120103,#div33120203,#div33120303,#div33120403,#div33120503,#div33120603").hide();
 
-
-	$(".33i1,.33i2,.33i3,.33i4,.33i5,.33i6").hide();
-	$(".33p1,.33p2,.33p3,.33p4,.33p5,.33p6").hide();
-	$(".33s1,.33s2,.33s3,.33s4,.33s5,.33s6").hide();
+	$("#encuesta11").find(".33i1,.33i2,.33i3,.33i4,.33i5,.33i6").hide();
+	$("#encuesta11").find(".33p1,.33p2,.33p3,.33p4,.33p5,.33p6").hide();
+	$("#encuesta11").find(".33s1,.33s2,.33s3,.33s4,.33s5,.33s6").hide();
 
 	$("#div35010201,#div35010301,#div35010202,#div35010302,#div35010203,#div35010303,#div35010204,#div35010304,#div35010205,#div35010305").hide();
 	$("#div35010206,#div35010306,#div35010207,#div35010307,#div35020201,#div35020301,#div35020202,#div35020302,#div35020203,#div35020303").hide();
@@ -1961,13 +1951,14 @@ function default_hiding(){
 	$("#div33050603,#div33060603").hide();
 
 	default_hiding_niveles();
-	$(".25010000,#div67010000,#div68010000").hide();
-	$(".25020000,#div67020000,#div68020000").hide();
-	$(".25030000,#div67030000,#div68030000").hide();
-	$(".25040000,#div67040000,#div68040000").hide();
-	$(".25050000,#div67050000,#div68050000").hide();
-	$(".25060000,#div67060000,#div68060000").hide();
-	$(".25070000,#div67070000,#div68070000").hide();
+	$("#div67010000,#div68010000").hide();
+	$("#div67020000,#div68020000").hide();
+	$("#div67030000,#div68030000").hide();
+	$("#div67040000,#div68040000").hide();
+	$("#div67050000,#div68050000").hide();
+	$("#div67060000,#div68060000").hide();
+	$("#div67070000,#div68070000").hide();
+	$("#encuesta10").find(".25010000,.25020000,.25030000,.25040000,.25050000,.25060000,.25070000").hide();
 }
 
 function default_hiding_niveles(){
@@ -2142,7 +2133,7 @@ function validate_pages(){
 	if( int("90230200") > int("90210100") ){
 		tmp = "EL Nro DE ESTUDIANTES SIN MOBILIARIO NO DEBE SER MAYOR AL Nro TOTAL DE ESTUDIANTES";
 		alert(tmp);	return false;
-	}*/
+	}  */
 
 	if(tmp_page == "encuesta4"){
 		if( $('#00003100').val() != "" ){
@@ -2297,7 +2288,7 @@ function validate_niveles(){
 		}
 	}		
 
-	if( $("#9000000102").is(':checked') ){
+	/*if( $("#9000000102").is(':checked') ){
 		if( (int("90000003") >= 1) &&  (int("90000003") <= 6) ){
 			//nada aqui
 		} else {
@@ -2315,7 +2306,7 @@ function validate_niveles(){
 			$("#90000003").val("");
 			return false;
 		}
-	}
+	}*/
 
 	if( $("#9000000101").is(':checked') || $("#9000000102").is(':checked') || $("#9000000103").is(':checked') ){
 		//no hacer nada aqui
@@ -3098,7 +3089,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-18 07:27:46</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-19 05:00:37</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -4401,7 +4392,7 @@ function create_panels(){
 					<h3>XVI. OBSERVACION DE LAS RESPUESTAS DEL DIRECTOR Y VERIFICACION </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div66010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>66. ¿Encuestador, observa la resolución que indica la constitución del comité de tutoría?</legend><input type="radio" name="66010000" id="6601000001" value="SI"><label for="6601000001">SI</label><input type="radio" name="66010000" id="6601000002" value="NO"><label for="6601000002">NO</label></fieldset></div><p>67. ¿De qué material son los módulos prefabricados?</p><div id="div67010000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="67010000" id="6701000001" value="TRIPLAY"><label for="6701000001">TRIPLAY</label><input type="radio" name="67010000" id="6701000002" value="MADERA"><label for="6701000002">MADERA</label><input type="radio" name="67010000" id="6701000003" value="METALICO"><label for="6701000003">METALICO</label></fieldset></div></div><div id="div67020000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="67020000" id="6702000001" value="TRIPLAY"><label for="6702000001">TRIPLAY</label><input type="radio" name="67020000" id="6702000002" value="MADERA"><label for="6702000002">MADERA</label><input type="radio" name="67020000" id="6702000003" value="METALICO"><label for="6702000003">METALICO</label></fieldset></div></div><div id="div67030000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="67030000" id="6703000001" value="TRIPLAY"><label for="6703000001">TRIPLAY</label><input type="radio" name="67030000" id="6703000002" value="MADERA"><label for="6703000002">MADERA</label><input type="radio" name="67030000" id="6703000003" value="METALICO"><label for="6703000003">METALICO</label></fieldset></div></div><div id="div67040000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="67040000" id="6704000001" value="TRIPLAY"><label for="6704000001">TRIPLAY</label><input type="radio" name="67040000" id="6704000002" value="MADERA"><label for="6704000002">MADERA</label><input type="radio" name="67040000" id="6704000003" value="METALICO"><label for="6704000003">METALICO</label></fieldset></div></div><div id="div67050000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="67050000" id="6705000001" value="TRIPLAY"><label for="6705000001">TRIPLAY</label><input type="radio" name="67050000" id="6705000002" value="MADERA"><label for="6705000002">MADERA</label><input type="radio" name="67050000" id="6705000003" value="METALICO"><label for="6705000003">METALICO</label></fieldset></div></div><div id="div67060000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="67060000" id="6706000001" value="TRIPLAY"><label for="6706000001">TRIPLAY</label><input type="radio" name="67060000" id="6706000002" value="MADERA"><label for="6706000002">MADERA</label><input type="radio" name="67060000" id="6706000003" value="METALICO"><label for="6706000003">METALICO</label></fieldset></div></div><div id="div67070000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="67070000" id="6707000001" value="TRIPLAY"><label for="6707000001">TRIPLAY</label><input type="radio" name="67070000" id="6707000002" value="MADERA"><label for="6707000002">MADERA</label><input type="radio" name="67070000" id="6707000003" value="METALICO"><label for="6707000003">METALICO</label></fieldset></div></div></tbody></table><div id="div67070100"  class=" ff"  > <div data-role="fieldcontain"><label for="67070100"   >(Otros) Especificar:</label><input  data-mini="true"   type="text" name="67070100" id="67070100" value=""   ></div></div><p>68. ¿Cuál es el estado de los módulos prefabricados?</p><div id="div68010000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="68010000" id="6801000001" value="BUENO"><label for="6801000001">BUENO</label><input type="radio" name="68010000" id="6801000002" value="REGULAR"><label for="6801000002">REGULAR</label><input type="radio" name="68010000" id="6801000003" value="MALO"><label for="6801000003">MALO</label></fieldset></div></div><div id="div68020000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="68020000" id="6802000001" value="BUENO"><label for="6802000001">BUENO</label><input type="radio" name="68020000" id="6802000002" value="REGULAR"><label for="6802000002">REGULAR</label><input type="radio" name="68020000" id="6802000003" value="MALO"><label for="6802000003">MALO</label></fieldset></div></div><div id="div68030000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="68030000" id="6803000001" value="BUENO"><label for="6803000001">BUENO</label><input type="radio" name="68030000" id="6803000002" value="REGULAR"><label for="6803000002">REGULAR</label><input type="radio" name="68030000" id="6803000003" value="MALO"><label for="6803000003">MALO</label></fieldset></div></div><div id="div68040000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="68040000" id="6804000001" value="BUENO"><label for="6804000001">BUENO</label><input type="radio" name="68040000" id="6804000002" value="REGULAR"><label for="6804000002">REGULAR</label><input type="radio" name="68040000" id="6804000003" value="MALO"><label for="6804000003">MALO</label></fieldset></div></div><div id="div68050000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="68050000" id="6805000001" value="BUENO"><label for="6805000001">BUENO</label><input type="radio" name="68050000" id="6805000002" value="REGULAR"><label for="6805000002">REGULAR</label><input type="radio" name="68050000" id="6805000003" value="MALO"><label for="6805000003">MALO</label></fieldset></div></div><div id="div68060000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="68060000" id="6806000001" value="BUENO"><label for="6806000001">BUENO</label><input type="radio" name="68060000" id="6806000002" value="REGULAR"><label for="6806000002">REGULAR</label><input type="radio" name="68060000" id="6806000003" value="MALO"><label for="6806000003">MALO</label></fieldset></div></div><div id="div68070000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="68070000" id="6807000001" value="BUENO"><label for="6807000001">BUENO</label><input type="radio" name="68070000" id="6807000002" value="REGULAR"><label for="6807000002">REGULAR</label><input type="radio" name="68070000" id="6807000003" value="MALO"><label for="6807000003">MALO</label></fieldset></div></div></tbody></table><div id="div68070100"  class=" ff"  > <div data-role="fieldcontain"><label for="68070100"   >(Otros) Especificar:</label><input  data-mini="true"   type="text" name="68070100" id="68070100" value=""   ></div></div><p>68.A Encuestador, tome una foto frontal al exterior, lateral e interior de algún módulo prefabricado</p><div id="div99009900" >
+					<div id="div66010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>66. ¿Encuestador, observa la resolución que indica la constitución del comité de tutoría?</legend><input type="radio" name="66010000" id="6601000001" value="SI"><label for="6601000001">SI</label><input type="radio" name="66010000" id="6601000002" value="NO"><label for="6601000002">NO</label></fieldset></div><p>67. ¿De qué material son los módulos prefabricados?</p><div id="div67010000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="67010000" id="6701000001" value="TRIPLAY"><label for="6701000001">TRIPLAY</label><input type="radio" name="67010000" id="6701000002" value="MADERA"><label for="6701000002">MADERA</label><input type="radio" name="67010000" id="6701000003" value="METALICO"><label for="6701000003">METALICO</label></fieldset></div></div><div id="div67020000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="67020000" id="6702000001" value="TRIPLAY"><label for="6702000001">TRIPLAY</label><input type="radio" name="67020000" id="6702000002" value="MADERA"><label for="6702000002">MADERA</label><input type="radio" name="67020000" id="6702000003" value="METALICO"><label for="6702000003">METALICO</label></fieldset></div></div><div id="div67030000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="67030000" id="6703000001" value="TRIPLAY"><label for="6703000001">TRIPLAY</label><input type="radio" name="67030000" id="6703000002" value="MADERA"><label for="6703000002">MADERA</label><input type="radio" name="67030000" id="6703000003" value="METALICO"><label for="6703000003">METALICO</label></fieldset></div></div><div id="div67040000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="67040000" id="6704000001" value="TRIPLAY"><label for="6704000001">TRIPLAY</label><input type="radio" name="67040000" id="6704000002" value="MADERA"><label for="6704000002">MADERA</label><input type="radio" name="67040000" id="6704000003" value="METALICO"><label for="6704000003">METALICO</label></fieldset></div></div><div id="div67050000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="67050000" id="6705000001" value="TRIPLAY"><label for="6705000001">TRIPLAY</label><input type="radio" name="67050000" id="6705000002" value="MADERA"><label for="6705000002">MADERA</label><input type="radio" name="67050000" id="6705000003" value="METALICO"><label for="6705000003">METALICO</label></fieldset></div></div><div id="div67060000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="67060000" id="6706000001" value="TRIPLAY"><label for="6706000001">TRIPLAY</label><input type="radio" name="67060000" id="6706000002" value="MADERA"><label for="6706000002">MADERA</label><input type="radio" name="67060000" id="6706000003" value="METALICO"><label for="6706000003">METALICO</label></fieldset></div></div><div id="div67070000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="67070000" id="6707000001" value="TRIPLAY"><label for="6707000001">TRIPLAY</label><input type="radio" name="67070000" id="6707000002" value="MADERA"><label for="6707000002">MADERA</label><input type="radio" name="67070000" id="6707000003" value="METALICO"><label for="6707000003">METALICO</label></fieldset></div></div></tbody></table><p>68. ¿Cuál es el estado de los módulos prefabricados?</p><div id="div68010000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="68010000" id="6801000001" value="BUENO"><label for="6801000001">BUENO</label><input type="radio" name="68010000" id="6801000002" value="REGULAR"><label for="6801000002">REGULAR</label><input type="radio" name="68010000" id="6801000003" value="MALO"><label for="6801000003">MALO</label></fieldset></div></div><div id="div68020000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="68020000" id="6802000001" value="BUENO"><label for="6802000001">BUENO</label><input type="radio" name="68020000" id="6802000002" value="REGULAR"><label for="6802000002">REGULAR</label><input type="radio" name="68020000" id="6802000003" value="MALO"><label for="6802000003">MALO</label></fieldset></div></div><div id="div68030000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="68030000" id="6803000001" value="BUENO"><label for="6803000001">BUENO</label><input type="radio" name="68030000" id="6803000002" value="REGULAR"><label for="6803000002">REGULAR</label><input type="radio" name="68030000" id="6803000003" value="MALO"><label for="6803000003">MALO</label></fieldset></div></div><div id="div68040000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="68040000" id="6804000001" value="BUENO"><label for="6804000001">BUENO</label><input type="radio" name="68040000" id="6804000002" value="REGULAR"><label for="6804000002">REGULAR</label><input type="radio" name="68040000" id="6804000003" value="MALO"><label for="6804000003">MALO</label></fieldset></div></div><div id="div68050000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="68050000" id="6805000001" value="BUENO"><label for="6805000001">BUENO</label><input type="radio" name="68050000" id="6805000002" value="REGULAR"><label for="6805000002">REGULAR</label><input type="radio" name="68050000" id="6805000003" value="MALO"><label for="6805000003">MALO</label></fieldset></div></div><div id="div68060000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="68060000" id="6806000001" value="BUENO"><label for="6806000001">BUENO</label><input type="radio" name="68060000" id="6806000002" value="REGULAR"><label for="6806000002">REGULAR</label><input type="radio" name="68060000" id="6806000003" value="MALO"><label for="6806000003">MALO</label></fieldset></div></div><div id="div68070000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="68070000" id="6807000001" value="BUENO"><label for="6807000001">BUENO</label><input type="radio" name="68070000" id="6807000002" value="REGULAR"><label for="6807000002">REGULAR</label><input type="radio" name="68070000" id="6807000003" value="MALO"><label for="6807000003">MALO</label></fieldset></div></div></tbody></table><p>68.A Encuestador, tome una foto frontal al exterior, lateral e interior de algún módulo prefabricado</p><div id="div99009900" >
 			<div style="float:left;width:20%;margin: .5em 2% 0 0;">Fotos</div>
 			<div style="float:left;width:70%">
 				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('10');">Foto Frontal</button> <img id="fotoimage10" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
@@ -4696,7 +4687,7 @@ function create_panels(){
 					<h3>ENCUESTAS POR NIVELES </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000003"  class=" ff"  > <div data-role="fieldcontain"><label for="90000003"   >Grado/Año</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="90000003" id="90000003" value=""   /></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input  data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(27);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
+					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000003"  class=" ff"  > <div data-role="fieldcontain"><label for="90000003"   >Grado/Año</label><input  data-mini="true"   type="text" name="90000003" id="90000003" value=""   ></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input  data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(27);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
 				</div>				
 			</div>
 			<a href="#" onclick="return show_pre_end_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
