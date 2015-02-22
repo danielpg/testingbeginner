@@ -2468,11 +2468,11 @@ function update_database(){
 		var udata = data;
 		if (typeof data["ws_post"] !== "undefined"){
 			if(data.ws_post != 0)localStorage.setItem("ws_post",data.ws_post);
-			alert("Nuevo Servicio Web para POST");
+			//alert("Nuevo Servicio Web para POST");
 		}
 		if (typeof data["ws_update"] !== "undefined"){
 			if(data.ws_update != 0)localStorage.setItem("ws_update",data.ws_update);
-			alert("Nuevo Servicio Web para UPDATE");
+			//alert("Nuevo Servicio Web para UPDATE");
 		}
 
 		if(udata.status == 1){
@@ -3089,7 +3089,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-22 05:55:15</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-22 06:34:18</div>';
 	html += '</div>';
 	$("body").append(html);
 }
