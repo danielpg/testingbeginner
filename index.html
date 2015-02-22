@@ -20,8 +20,8 @@ var current_nivel;
 var current_nivel_id;
 var db;
 var	fotoname_ids = [1,2,3,10,11,12,21,22,23];
-if(localStorage.getItem("ws_post") == null)	localStorage.setItem("ws_post","http://adostelecom.com/encuesta/webservice.php");
-if(localStorage.getItem("ws_update") == null)localStorage.setItem("ws_update","http://adostelecom.com/encuesta/webservice_update.php");
+if(localStorage.getItem("ws_post") == null)	localStorage.setItem("ws_post","http://190.116.20.35/ws/webservice.php");
+if(localStorage.getItem("ws_update") == null)localStorage.setItem("ws_update","http://190.116.20.35/ws/webservice_update.php");
  //navigator.camera = {PictureSourceType:"",DestinationType:""} ;
  //window.sqlitePlugin = {openDatabase : function(){}};
  //var webservice_post = "source/webservice.php";
@@ -3089,7 +3089,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-22 06:34:18</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-22 15:42:25</div>';
 	html += '</div>';
 	$("body").append(html);
 }
