@@ -20,8 +20,11 @@ var current_nivel;
 var current_nivel_id;
 var db;
 var	fotoname_ids = [1,2,3,10,11,12,21,22,23];
-localStorage.setItem("ws_post","http://190.116.20.35/ws/webservice.php");
-localStorage.setItem("ws_update","http://190.116.20.35/ws/webservice_update.php");
+//localStorage.setItem("ws_post","http://190.116.20.35/ws/webservice.php");
+//localStorage.setItem("ws_update","http://190.116.20.35/ws/webservice_update.php");
+localStorage.setItem("ws_post","");
+localStorage.setItem("ws_update","");
+
 //if(localStorage.getItem("ws_post") == null)	localStorage.setItem("ws_post","http://190.116.20.35/ws/webservice.php");
 //if(localStorage.getItem("ws_update") == null)localStorage.setItem("ws_update","http://190.116.20.35/ws/webservice_update.php");
  //navigator.camera = {PictureSourceType:"",DestinationType:""} ;
@@ -3091,7 +3094,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-02-22 23:28:14</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-04-14 09:55:33</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -3146,6 +3149,8 @@ function create_panels(){
 		</div>
 		<div data-role="content">
 			<div class="right">
+				<div class="box_warning">Demo</div>
+
 				<div id="espere" class="box_notice">Procesando datos, espere un momento por favor...</div>
 
 				<ul data-role="listview" data-inset="true">
@@ -3399,13 +3404,13 @@ function create_panels(){
 			<label for="00001900" >GPS</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 				<button onclick="return get_gps();">Obtener Coordenadas</button>
-				<input id="00001900"  type="text" name="" readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
+				<input id="00001900"  type="text" name="" value="" readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
 			</div>
 		</div><div id="div00001901" >
 			<div style="float:left;width:20%;margin: .5em 2% 0 0;">Fotos</div>
 			<div style="float:left;width:70%">
-				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('1');">Tomar foto del frontis del local escolar</button> <img id="fotoimage1" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
-				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('2');">Tomar foto del frontis de L.E. con el encuestador</button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('1');">Tomar foto del frontis del local escolar    </button> <img id="fotoimage1" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('2');">Tomar foto del frontis de L.E. con el encuestador   </button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
 		</div><input type="hidden" name="" id="foto1" value=""><input type="hidden" name="" id="foto2"  value="">
@@ -4397,9 +4402,9 @@ function create_panels(){
 					<div id="div66010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>66. ¿Encuestador, observa la resolución que indica la constitución del comité de tutoría?</legend><input type="radio" name="66010000" id="6601000001" value="SI"><label for="6601000001">SI</label><input type="radio" name="66010000" id="6601000002" value="NO"><label for="6601000002">NO</label></fieldset></div><p>67. ¿De qué material son los módulos prefabricados?</p><div id="div67010000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="67010000" id="6701000001" value="TRIPLAY"><label for="6701000001">TRIPLAY</label><input type="radio" name="67010000" id="6701000002" value="MADERA"><label for="6701000002">MADERA</label><input type="radio" name="67010000" id="6701000003" value="METALICO"><label for="6701000003">METALICO</label></fieldset></div></div><div id="div67020000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="67020000" id="6702000001" value="TRIPLAY"><label for="6702000001">TRIPLAY</label><input type="radio" name="67020000" id="6702000002" value="MADERA"><label for="6702000002">MADERA</label><input type="radio" name="67020000" id="6702000003" value="METALICO"><label for="6702000003">METALICO</label></fieldset></div></div><div id="div67030000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="67030000" id="6703000001" value="TRIPLAY"><label for="6703000001">TRIPLAY</label><input type="radio" name="67030000" id="6703000002" value="MADERA"><label for="6703000002">MADERA</label><input type="radio" name="67030000" id="6703000003" value="METALICO"><label for="6703000003">METALICO</label></fieldset></div></div><div id="div67040000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="67040000" id="6704000001" value="TRIPLAY"><label for="6704000001">TRIPLAY</label><input type="radio" name="67040000" id="6704000002" value="MADERA"><label for="6704000002">MADERA</label><input type="radio" name="67040000" id="6704000003" value="METALICO"><label for="6704000003">METALICO</label></fieldset></div></div><div id="div67050000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="67050000" id="6705000001" value="TRIPLAY"><label for="6705000001">TRIPLAY</label><input type="radio" name="67050000" id="6705000002" value="MADERA"><label for="6705000002">MADERA</label><input type="radio" name="67050000" id="6705000003" value="METALICO"><label for="6705000003">METALICO</label></fieldset></div></div><div id="div67060000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="67060000" id="6706000001" value="TRIPLAY"><label for="6706000001">TRIPLAY</label><input type="radio" name="67060000" id="6706000002" value="MADERA"><label for="6706000002">MADERA</label><input type="radio" name="67060000" id="6706000003" value="METALICO"><label for="6706000003">METALICO</label></fieldset></div></div><div id="div67070000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="67070000" id="6707000001" value="TRIPLAY"><label for="6707000001">TRIPLAY</label><input type="radio" name="67070000" id="6707000002" value="MADERA"><label for="6707000002">MADERA</label><input type="radio" name="67070000" id="6707000003" value="METALICO"><label for="6707000003">METALICO</label></fieldset></div></div></tbody></table><p>68. ¿Cuál es el estado de los módulos prefabricados?</p><div id="div68010000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas pedagógicas</legend><input type="radio" name="68010000" id="6801000001" value="BUENO"><label for="6801000001">BUENO</label><input type="radio" name="68010000" id="6801000002" value="REGULAR"><label for="6801000002">REGULAR</label><input type="radio" name="68010000" id="6801000003" value="MALO"><label for="6801000003">MALO</label></fieldset></div></div><div id="div68020000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Salas de uso múltiple</legend><input type="radio" name="68020000" id="6802000001" value="BUENO"><label for="6802000001">BUENO</label><input type="radio" name="68020000" id="6802000002" value="REGULAR"><label for="6802000002">REGULAR</label><input type="radio" name="68020000" id="6802000003" value="MALO"><label for="6802000003">MALO</label></fieldset></div></div><div id="div68030000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Talleres</legend><input type="radio" name="68030000" id="6803000001" value="BUENO"><label for="6803000001">BUENO</label><input type="radio" name="68030000" id="6803000002" value="REGULAR"><label for="6803000002">REGULAR</label><input type="radio" name="68030000" id="6803000003" value="MALO"><label for="6803000003">MALO</label></fieldset></div></div><div id="div68040000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>SSHH</legend><input type="radio" name="68040000" id="6804000001" value="BUENO"><label for="6804000001">BUENO</label><input type="radio" name="68040000" id="6804000002" value="REGULAR"><label for="6804000002">REGULAR</label><input type="radio" name="68040000" id="6804000003" value="MALO"><label for="6804000003">MALO</label></fieldset></div></div><div id="div68050000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Aulas funcionales</legend><input type="radio" name="68050000" id="6805000001" value="BUENO"><label for="6805000001">BUENO</label><input type="radio" name="68050000" id="6805000002" value="REGULAR"><label for="6805000002">REGULAR</label><input type="radio" name="68050000" id="6805000003" value="MALO"><label for="6805000003">MALO</label></fieldset></div></div><div id="div68060000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Sala de Docentes</legend><input type="radio" name="68060000" id="6806000001" value="BUENO"><label for="6806000001">BUENO</label><input type="radio" name="68060000" id="6806000002" value="REGULAR"><label for="6806000002">REGULAR</label><input type="radio" name="68060000" id="6806000003" value="MALO"><label for="6806000003">MALO</label></fieldset></div></div><div id="div68070000"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend>Otros (Especificar)</legend><input type="radio" name="68070000" id="6807000001" value="BUENO"><label for="6807000001">BUENO</label><input type="radio" name="68070000" id="6807000002" value="REGULAR"><label for="6807000002">REGULAR</label><input type="radio" name="68070000" id="6807000003" value="MALO"><label for="6807000003">MALO</label></fieldset></div></div></tbody></table><p>68.A Encuestador, tome una foto frontal al exterior, lateral e interior de algún módulo prefabricado</p><div id="div99009900" >
 			<div style="float:left;width:20%;margin: .5em 2% 0 0;">Fotos</div>
 			<div style="float:left;width:70%">
-				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('10');">Foto Frontal</button> <img id="fotoimage10" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
-				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('11');">Foto Lateral</button> <img id="fotoimage11" src="" style="width:60px;height:60px;"  align="absmiddle"  /><br/>
-				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('12');">Foto Interior</button> <img id="fotoimage12" src="" style="width:60px;height:60px;"  align="absmiddle"  />    
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('10');">Foto Frontal   </button> <img id="fotoimage10" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('11');">Foto Lateral   </button> <img id="fotoimage11" src="" style="width:60px;height:60px;"  align="absmiddle"  /><br/>
+				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('12');">Foto Interior   </button> <img id="fotoimage12" src="" style="width:60px;height:60px;"  align="absmiddle"  />    
 			</div>
 			<div style="clear:both"></div>
 		</div><input type="hidden" name="" id="foto10" value=""><input type="hidden" name="" id="foto11"  value=""><input type="hidden" name="" id="foto12"  value="">
@@ -4474,7 +4479,7 @@ function create_panels(){
 			<label for="83010000"  >Inodoros</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('83010000')"  >&nbsp;</button>
-				<input id="83010000" style="width:40px" type="number" pattern="[0-9]*"  name="83010000" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="83010000" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="83010000" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('83010000')"  >&nbsp;</button>
 			</div>
 		</div>
@@ -4482,7 +4487,7 @@ function create_panels(){
 			<label for="83020000"  >Turcos</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('83020000')"  >&nbsp;</button>
-				<input id="83020000" style="width:40px" type="number" pattern="[0-9]*"  name="83020000" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="83020000" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="83020000" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('83020000')"  >&nbsp;</button>
 			</div>
 		</div>
@@ -4490,7 +4495,7 @@ function create_panels(){
 			<label for="83030000"  >Hueco en el piso</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('83030000')"  >&nbsp;</button>
-				<input id="83030000" style="width:40px" type="number" pattern="[0-9]*"  name="83030000" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="83030000" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="83030000" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('83030000')"  >&nbsp;</button>
 			</div>
 		</div><p>84. ¿En qué estado de conservación se encuentran los aparatos sanitarios? Indique la cantidad.</p><table  class="ts1"><thead><tr><th class=''></th><th class=''>BUENO</th><th class=''>REGULAR</th><th class=''>MALO</th></tr></thead><tbody><tr class='finodoro'><td>Inodoros</td>
@@ -4499,7 +4504,7 @@ function create_panels(){
 			<label for="84010100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84010100')"  >&nbsp;</button>
-				<input id="84010100" style="width:40px" type="number" pattern="[0-9]*"  name="84010100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84010100" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84010100" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84010100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4508,7 +4513,7 @@ function create_panels(){
 			<label for="84010200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84010200')"  >&nbsp;</button>
-				<input id="84010200" style="width:40px" type="number" pattern="[0-9]*"  name="84010200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84010200" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84010200" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84010200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4517,7 +4522,7 @@ function create_panels(){
 			<label for="84010300" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84010300')"  >&nbsp;</button>
-				<input id="84010300" style="width:40px" type="number" pattern="[0-9]*"  name="84010300" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84010300" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84010300" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84010300')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4527,7 +4532,7 @@ function create_panels(){
 			<label for="84020100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84020100')"  >&nbsp;</button>
-				<input id="84020100" style="width:40px" type="number" pattern="[0-9]*"  name="84020100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84020100" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84020100" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84020100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4536,7 +4541,7 @@ function create_panels(){
 			<label for="84020200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84020200')"  >&nbsp;</button>
-				<input id="84020200" style="width:40px" type="number" pattern="[0-9]*"  name="84020200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84020200" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84020200" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84020200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4545,7 +4550,7 @@ function create_panels(){
 			<label for="84020300" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84020300')"  >&nbsp;</button>
-				<input id="84020300" style="width:40px" type="number" pattern="[0-9]*"  name="84020300" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84020300" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84020300" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84020300')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4555,7 +4560,7 @@ function create_panels(){
 			<label for="84030100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84030100')"  >&nbsp;</button>
-				<input id="84030100" style="width:40px" type="number" pattern="[0-9]*"  name="84030100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84030100" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84030100" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84030100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4564,7 +4569,7 @@ function create_panels(){
 			<label for="84030200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84030200')"  >&nbsp;</button>
-				<input id="84030200" style="width:40px" type="number" pattern="[0-9]*"  name="84030200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84030200" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84030200" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84030200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4573,7 +4578,7 @@ function create_panels(){
 			<label for="84030300" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('84030300')"  >&nbsp;</button>
-				<input id="84030300" style="width:40px" type="number" pattern="[0-9]*"  name="84030300" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="84030300" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="84030300" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('84030300')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4583,7 +4588,7 @@ function create_panels(){
 			<label for="86010100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86010100')"  >&nbsp;</button>
-				<input id="86010100" style="width:40px" type="number" pattern="[0-9]*"  name="86010100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86010100" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="86010100" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86010100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4592,7 +4597,7 @@ function create_panels(){
 			<label for="86010200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86010200')"  >&nbsp;</button>
-				<input id="86010200" style="width:40px" type="number" pattern="[0-9]*"  name="86010200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86010200" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="86010200" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86010200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4602,7 +4607,7 @@ function create_panels(){
 			<label for="86020100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86020100')"  >&nbsp;</button>
-				<input id="86020100" style="width:40px" type="number" pattern="[0-9]*"  name="86020100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86020100" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="86020100" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86020100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4611,7 +4616,7 @@ function create_panels(){
 			<label for="86020200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86020200')"  >&nbsp;</button>
-				<input id="86020200" style="width:40px" type="number" pattern="[0-9]*"  name="86020200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86020200" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="86020200" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86020200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4621,7 +4626,7 @@ function create_panels(){
 			<label for="86030100" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86030100')"  >&nbsp;</button>
-				<input id="86030100" style="width:40px" type="number" pattern="[0-9]*"  name="86030100" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86030100" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="86030100" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86030100')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4630,7 +4635,7 @@ function create_panels(){
 			<label for="86030200" class="ui-hidden-accessible" ></label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true" class="bc">
 				<button class="ui-btn ui-icon-minus ui-btn-icon-left" onclick="return frestar('86030200')"  >&nbsp;</button>
-				<input id="86030200" style="width:40px" type="number" pattern="[0-9]*"  name="86030200" data-wrapper-class="textgroup ui-btn" value="0" >
+				<input id="86030200" value="0" style="width:40px" type="number" pattern="[0-9]*"  name="86030200" data-wrapper-class="textgroup ui-btn"  >
 				<button class="ui-btn ui-icon-plus ui-btn-icon-right " onclick="return fsumar('86030200')"  >&nbsp;</button>
 			</div>
 		</div></td>
@@ -4657,42 +4662,21 @@ function create_panels(){
 				<div class="ui-body ui-body-a">
 					<p>86.1 Encuestador, tome las siguientes fotos:</p><div id="div86100000" >
 			<div style="float:left;width:90%">
-				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('21');">Tomar foto frontal al exterior de algún servicio higiénico</button> <img id="fotoimage21" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
-				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('22');">Tomar foto lateral al aparato sanitario de algún servicio higiénico</button> <img id="fotoimage22" src="" style="width:60px;height:60px;"  align="absmiddle"  />  <br/>
-				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('23');">Tomar foto al lavadero o lavatorio de algún servicio higiénico</button> <img id="fotoimage23" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
+				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('21');"> Tomar foto frontal al exterior de algún servicio higiénico</button> <img id="fotoimage21" src="" style="width:60px;height:60px;" align="absmiddle" />  <br/>
+				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('22');"> Tomar foto lateral al aparato sanitario de algún servicio higiénico</button> <img id="fotoimage22" src="" style="width:60px;height:60px;"  align="absmiddle"  />  <br/>
+				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('23');">  Tomar foto al lavadero o lavatorio de algún servicio higiénico</button> <img id="fotoimage23" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
 		</div><input type="hidden" name="" id="foto21" value=""><input type="hidden" name="" id="foto22"  value=""><input type="hidden" name="" id="foto23"  value=""><div id="div87010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>87. Qué señales de seguridad presenta el local escolar en sus instalaciones?</legend><input type="checkbox" name="87010001" id="8701000001" value="Zonas de seguridad en caso de terremotos"><label for="8701000001" >Zonas de seguridad en caso de terremotos</label><input type="checkbox" name="87010002" id="8701000002" value="Señales contra incendios"><label for="8701000002" >Señales contra incendios</label><input type="checkbox" name="87010003" id="8701000003" value="Estado de instalaciones eléctricas"><label for="8701000003" >Estado de instalaciones eléctricas</label><input type="checkbox" name="87010004" id="8701000004" value="Otros"><label for="8701000004" >Otros</label></fieldset></div><div id="div87010100"  class=" ff"  > <div data-role="fieldcontain"><label for="87010100"   >(Otros) Especificar:</label><input  data-mini="true"   type="text" name="87010100" id="87010100" value=""   ></div></div><div id="div88010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>88. Confirmar si el local escolar cuenta con abastecimiento de agua</legend><input type="radio" name="88010000" id="8801000001" value="SI"><label for="8801000001">SI</label><input type="radio" name="88010000" id="8801000002" value="NO"><label for="8801000002">NO</label></fieldset></div><div id="div89010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>89. Confirmar con qué tipo de alumbrado cuenta el local escolar.</legend><input type="checkbox" name="89010001" id="8901000001" value="Electricidad"><label for="8901000001" >Electricidad</label><input type="checkbox" name="89010002" id="8901000002" value="Petróleo/Gas"><label for="8901000002" >Petróleo/Gas</label><input type="checkbox" name="89010003" id="8901000003" value="Otro"><label for="8901000003" >Otro</label><input type="checkbox" name="89010004" id="8901000004" value="No tiene"><label for="8901000004" >No tiene</label></fieldset></div><div id="div89010100"  class=" ff"  > <div data-role="fieldcontain"><label for="89010100"   >Especificar:</label><input  data-mini="true"   type="text" name="89010100" id="89010100" value=""   ></div></div><div id="div00001902" data-role="fieldcontain">
 			<label for="00001902" >GPS</label>
-			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				<button onclick="return get_second_gps();">Obtener Coordenadas</button>
-				<input id="00001902"  type="text" name="" readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
+			<div data-role="controlgroup" data-type="horizontal" data-mini="true"  >
+				<button onclick="return get_second_gps();">Obtener Coordenadas        </button>
+				<input id="00001902"  type="text" name=""  readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
 			</div>
 		</div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(26);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-		</div>
-		</form>
-	</div>
- 
-	<div data-role="page" id="encuesta26">
-		<form>
-		<div data-role="header" class="hpage1"  data-theme="b">
-<h1 role="heading"> </h1>
-<a href="#rightpanel1" class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow bw" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Navigation </a>
-
-		</div>
-		<div data-role="content">
-			<div class="ui-corner-all custom-corners">
-				<div class="ui-bar ui-bar-a">
-					<h3>ENCUESTAS POR NIVELES </h3>
-				</div>
-				<div class="ui-body ui-body-a">
-					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000003"  class=" ff"  > <div data-role="fieldcontain"><label for="90000003"   >Grado/Año</label><input  data-mini="true"   type="text" name="90000003" id="90000003" value=""   ></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input  data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(27);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
-				</div>				
-			</div>
-			<a href="#" onclick="return show_pre_end_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
 		</div>
 		</form>
 	</div>
