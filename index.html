@@ -41,7 +41,7 @@ var imageid = "";
 var res0 = "<option value='0'>--Seleccionar--</option>";
 var res1 = "<option value='1'>Completo</option><option value='2'>Incompleto</option>";
 var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
-var desktop = 0;
+var desktop = 1;
 </script>
 <script src="js/dbdata.js"></script>
 <script>
@@ -565,69 +565,69 @@ function onDeviceReady() {
 		if( $("#encuesta7").find("input[name=16030003]:checked").val() == "SI"){ $("#div64030003").show();	} else {$("#div64030003").hide();}
 	});
 
-	$("#encuesta8").find("input[name=19010001]" ).change(function() {
+	$("#encuesta9").find("input[name=19010001]" ).change(function() {
 		//if( ($("#encuesta8").find("input[name=19010001]:checked").val() == "SI") ){ $("#div65010001").show();	} else { $("#div65010001").hide(); }
 	});
-	$("#encuesta8").find("input[name=19010002]" ).change(function() {
-		if( ($("#encuesta8").find("input[name=19010002]:checked").val() == "SI") ){ $("#div65010002").show();	} else { $("#div65010002").hide(); }
+	$("#encuesta9").find("input[name=19010002]" ).change(function() {
+		if( ($("#encuesta9").find("input[name=19010002]:checked").val() == "SI") ){ $("#div65010002").show();	} else { $("#div65010002").hide(); }
 	});
-	$("#encuesta8").find("input[name=19010003]" ).change(function() {
-		if( ($("#encuesta8").find("input[name=19010003]:checked").val() == "SI") ){ $("#div65010003").show();	} else { $("#div65010003").hide(); }
+	$("#encuesta9").find("input[name=19010003]" ).change(function() {
+		if( ($("#encuesta9").find("input[name=19010003]:checked").val() == "SI") ){ $("#div65010003").show();	} else { $("#div65010003").hide(); }
 	});
-	$("#encuesta8").find("input[name=19020001]" ).change(function() {
-		if( ($("#encuesta8").find("input[name=19020001]:checked").val() == "SI") ){ $("#div65020001").show();	} else { $("#div65020001").hide(); }
+	$("#encuesta9").find("input[name=19020001]" ).change(function() {
+		if( ($("#encuesta9").find("input[name=19020001]:checked").val() == "SI") ){ $("#div65020001").show();	} else { $("#div65020001").hide(); }
 	});
-	$("#encuesta8").find("input[name=19020002]" ).change(function() {
-		if( ($("#encuesta8").find("input[name=19020002]:checked").val() == "SI") ){ $("#div65020002").show();	} else { $("#div65020002").hide(); }
+	$("#encuesta9").find("input[name=19020002]" ).change(function() {
+		if( ($("#encuesta9").find("input[name=19020002]:checked").val() == "SI") ){ $("#div65020002").show();	} else { $("#div65020002").hide(); }
 	});
-	$("#encuesta8").find("input[name=19020003]" ).change(function() {
-		if( ($("#encuesta8").find("input[name=19020003]:checked").val() == "SI") ){ $("#div65020003").show();	} else { $("#div65020003").hide(); }
+	$("#encuesta9").find("input[name=19020003]" ).change(function() {
+		if( ($("#encuesta9").find("input[name=19020003]:checked").val() == "SI") ){ $("#div65020003").show();	} else { $("#div65020003").hide(); }
 	});
-	$("#encuesta8").find("input[name=19030002]" ).change(function() {
-		if( ($("#encuesta8").find("input[name=19030002]:checked").val() == "SI") ){ $("#div65030002").show();	} else { $("#div65030002").hide(); }
-	});
-
-	$("#encuesta9").find("input[name=21010100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21010100]:checked").val() == "NO"){ $( "#div21010200" ).hide(); } else { $( "#div21010200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21020100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21020100]:checked").val() == "NO"){ $( "#div21020200" ).hide(); } else { $( "#div21020200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21030100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21030100]:checked").val() == "NO"){ $( "#div21030200" ).hide(); } else { $( "#div21030200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21040100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21040100]:checked").val() == "NO"){ $( "#div21040200" ).hide(); } else { $( "#div21040200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21050100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21050100]:checked").val() == "NO"){ $( "#div21050200" ).hide(); } else { $( "#div21050200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21060100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21060100]:checked").val() == "NO"){ $( "#div21060200" ).hide(); } else { $( "#div21060200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21070100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21070100]:checked").val() == "NO"){ $( "#div21070200" ).hide(); } else { $( "#div21070200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21080100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21080100]:checked").val() == "NO"){ $( "#div21080200" ).hide(); } else { $( "#div21080200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21090100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21090100]:checked").val() == "NO"){ $( "#div21090200" ).hide(); } else { $( "#div21090200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21100100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21100100]:checked").val() == "NO"){ $( "#div21100200" ).hide(); } else { $( "#div21100200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21110100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21110100]:checked").val() == "NO"){ $( "#div21110200" ).hide(); } else { $( "#div21110200" ).show(); }
-	});
-	$("#encuesta9").find("input[name=21120100]" ).change(function() {
-		if( $("#encuesta9").find("input[name=21120100]:checked").val() == "NO"){ $( "#div21120200" ).hide(); } else { $( "#div21120200" ).show(); }
+	$("#encuesta9").find("input[name=19030002]" ).change(function() {
+		if( ($("#encuesta9").find("input[name=19030002]:checked").val() == "SI") ){ $("#div65030002").show();	} else { $("#div65030002").hide(); }
 	});
 
+	$("#encuesta10").find("input[name=21010100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21010100]:checked").val() == "NO"){ $( "#div21010200" ).hide(); } else { $( "#div21010200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21020100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21020100]:checked").val() == "NO"){ $( "#div21020200" ).hide(); } else { $( "#div21020200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21030100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21030100]:checked").val() == "NO"){ $( "#div21030200" ).hide(); } else { $( "#div21030200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21040100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21040100]:checked").val() == "NO"){ $( "#div21040200" ).hide(); } else { $( "#div21040200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21050100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21050100]:checked").val() == "NO"){ $( "#div21050200" ).hide(); } else { $( "#div21050200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21060100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21060100]:checked").val() == "NO"){ $( "#div21060200" ).hide(); } else { $( "#div21060200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21070100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21070100]:checked").val() == "NO"){ $( "#div21070200" ).hide(); } else { $( "#div21070200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21080100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21080100]:checked").val() == "NO"){ $( "#div21080200" ).hide(); } else { $( "#div21080200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21090100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21090100]:checked").val() == "NO"){ $( "#div21090200" ).hide(); } else { $( "#div21090200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21100100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21100100]:checked").val() == "NO"){ $( "#div21100200" ).hide(); } else { $( "#div21100200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21110100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21110100]:checked").val() == "NO"){ $( "#div21110200" ).hide(); } else { $( "#div21110200" ).show(); }
+	});
+	$("#encuesta10").find("input[name=21120100]" ).change(function() {
+		if( $("#encuesta10").find("input[name=21120100]:checked").val() == "NO"){ $( "#div21120200" ).hide(); } else { $( "#div21120200" ).show(); }
+	});
 
 
-	$( "#encuesta10").find("input[name=22010000]" ).change(function() {
-		if( $( "#encuesta10").find("input[name=22010000]:checked").val() == "NO"){
+
+	$( "#encuesta11").find("input[name=22010000]" ).change(function() {
+		if( $( "#encuesta11").find("input[name=22010000]:checked").val() == "NO"){
 			$( "#div23010000,#div24010000,#div25000000" ).hide();
 		} else {
 			$( "#div23010000,#div24010000,#div25000000" ).show();
@@ -787,132 +787,131 @@ function onDeviceReady() {
 	});
 
 
-
-$("#encuesta11").find("input[name=33010101]").change(function(){
-	if($("#encuesta11").find("input[name=33010101]:checked").val() == "SI"){ $("#div33020101,#div33030101,#div33120101").show();   } else { $("#div33020101,#div33030101,#div33120101").hide();  }
+$("#encuesta12").find("input[name=33010101]").change(function(){
+	if($("#encuesta12").find("input[name=33010101]:checked").val() == "SI"){ $("#div33020101,#div33030101,#div33120101").show();   } else { $("#div33020101,#div33030101,#div33120101").hide();  }
 });
-$("#encuesta11").find("input[name=33040101]").change(function(){
-	if($("#encuesta11").find("input[name=33040101]:checked").val() == "SI"){ $("#div33050101,#div33060101").show(); } else { $("#div33050101").hide();$("#div33060101").show(); }
-});
-
-$("#encuesta11").find("input[name=33010201]").change(function(){
-	if($("#encuesta11").find("input[name=33010201]:checked").val() == "SI"){ $("#div33020201,#div33030201,#div33120201").show();   } else { $("#div33020201,#div33030201,#div33120201").hide();  }
-});
-$("#encuesta11").find("input[name=33040201]").change(function(){
-	if($("#encuesta11").find("input[name=33040201]:checked").val() == "SI"){ $("#div33050201,#div33060201").show(); } else { $("#div33050201").hide();$("#div33060201").show(); }
+$("#encuesta12").find("input[name=33040101]").change(function(){
+	if($("#encuesta12").find("input[name=33040101]:checked").val() == "SI"){ $("#div33050101,#div33060101").show(); } else { $("#div33050101").hide();$("#div33060101").show(); }
 });
 
-$("#encuesta11").find("input[name=33010301]").change(function(){
-	if($("#encuesta11").find("input[name=33010301]:checked").val() == "SI"){ $("#div33020301,#div33030301,#div33120301").show();   } else { $("#div33020301,#div33030301,#div33120301").hide();  }
+$("#encuesta12").find("input[name=33010201]").change(function(){
+	if($("#encuesta12").find("input[name=33010201]:checked").val() == "SI"){ $("#div33020201,#div33030201,#div33120201").show();   } else { $("#div33020201,#div33030201,#div33120201").hide();  }
 });
-$("#encuesta11").find("input[name=33040301]").change(function(){
-	if($("#encuesta11").find("input[name=33040301]:checked").val() == "SI"){ $("#div33050301,#div33060301").show(); } else { $("#div33050301").hide();$("#div33060301").show(); }
-});
-
-$("#encuesta11").find("input[name=33010401]").change(function(){
-	if($("#encuesta11").find("input[name=33010401]:checked").val() == "SI"){ $("#div33020401,#div33030401,#div33120401").show();   } else { $("#div33020401,#div33030401,#div33120401").hide();  }
-});
-$("#encuesta11").find("input[name=33040401]").change(function(){
-	if($("#encuesta11").find("input[name=33040401]:checked").val() == "SI"){ $("#div33050401,#div33060401").show(); } else { $("#div33050401").hide();$("#div33060401").show(); }
+$("#encuesta12").find("input[name=33040201]").change(function(){
+	if($("#encuesta12").find("input[name=33040201]:checked").val() == "SI"){ $("#div33050201,#div33060201").show(); } else { $("#div33050201").hide();$("#div33060201").show(); }
 });
 
-$("#encuesta11").find("input[name=33010501]").change(function(){
-	if($("#encuesta11").find("input[name=33010501]:checked").val() == "SI"){ $("#div33020501,#div33030501,#div33120501").show();   } else { $("#div33020501,#div33030501,#div33120501").hide();  }
+$("#encuesta12").find("input[name=33010301]").change(function(){
+	if($("#encuesta12").find("input[name=33010301]:checked").val() == "SI"){ $("#div33020301,#div33030301,#div33120301").show();   } else { $("#div33020301,#div33030301,#div33120301").hide();  }
 });
-$("#encuesta11").find("input[name=33040501]").change(function(){
-	if($("#encuesta11").find("input[name=33040501]:checked").val() == "SI"){ $("#div33050501,#div33060501").show(); } else { $("#div33050501").hide();$("#div33060501").show(); }
-});
-
-$("#encuesta11").find("input[name=33010601]").change(function(){
-	if($("#encuesta11").find("input[name=33010601]:checked").val() == "SI"){ $("#div33020601,#div33030601,#div33120601").show();   } else { $("#div33020601,#div33030601,#div33120601").hide();  }
-});
-$("#encuesta11").find("input[name=33040601]").change(function(){
-	if($("#encuesta11").find("input[name=33040601]:checked").val() == "SI"){ $("#div33050601,#div33060601").show(); } else { $("#div33050601").hide();$("#div33060601").show(); }
+$("#encuesta12").find("input[name=33040301]").change(function(){
+	if($("#encuesta12").find("input[name=33040301]:checked").val() == "SI"){ $("#div33050301,#div33060301").show(); } else { $("#div33050301").hide();$("#div33060301").show(); }
 });
 
-$("#encuesta11").find("input[name=33010102]").change(function(){
-	if($("#encuesta11").find("input[name=33010102]:checked").val() == "SI"){ $("#div33020102,#div33030102,#div33120102").show();   } else { $("#div33020102,#div33030102,#div33120102").hide();  }
+$("#encuesta12").find("input[name=33010401]").change(function(){
+	if($("#encuesta12").find("input[name=33010401]:checked").val() == "SI"){ $("#div33020401,#div33030401,#div33120401").show();   } else { $("#div33020401,#div33030401,#div33120401").hide();  }
 });
-$("#encuesta11").find("input[name=33040102]").change(function(){
-	if($("#encuesta11").find("input[name=33040102]:checked").val() == "SI"){ $("#div33050102,#div33060102").show(); } else { $("#div33050102").hide();$("#div33060102").show(); }
-});
-
-$("#encuesta11").find("input[name=33010202]").change(function(){
-	if($("#encuesta11").find("input[name=33010202]:checked").val() == "SI"){ $("#div33020202,#div33030202,#div33120202").show();   } else { $("#div33020202,#div33030202,#div33120202").hide();  }
-});
-$("#encuesta11").find("input[name=33040202]").change(function(){
-	if($("#encuesta11").find("input[name=33040202]:checked").val() == "SI"){ $("#div33050202,#div33060202").show(); } else { $("#div33050202").hide();$("#div33060202").show(); }
+$("#encuesta12").find("input[name=33040401]").change(function(){
+	if($("#encuesta12").find("input[name=33040401]:checked").val() == "SI"){ $("#div33050401,#div33060401").show(); } else { $("#div33050401").hide();$("#div33060401").show(); }
 });
 
-$("#encuesta11").find("input[name=33010302]").change(function(){
-	if($("#encuesta11").find("input[name=33010302]:checked").val() == "SI"){ $("#div33020302,#div33030302,#div33120302").show();   } else { $("#div33020302,#div33030302,#div33120302").hide();  }
+$("#encuesta12").find("input[name=33010501]").change(function(){
+	if($("#encuesta12").find("input[name=33010501]:checked").val() == "SI"){ $("#div33020501,#div33030501,#div33120501").show();   } else { $("#div33020501,#div33030501,#div33120501").hide();  }
 });
-$("#encuesta11").find("input[name=33040302]").change(function(){
-	if($("#encuesta11").find("input[name=33040302]:checked").val() == "SI"){ $("#div33050302,#div33060302").show(); } else { $("#div33050302").hide();$("#div33060302").show(); }
-});
-
-$("#encuesta11").find("input[name=33010402]").change(function(){
-	if($("#encuesta11").find("input[name=33010402]:checked").val() == "SI"){ $("#div33020402,#div33030402,#div33120402").show();   } else { $("#div33020402,#div33030402,#div33120402").hide();  }
-});
-$("#encuesta11").find("input[name=33040402]").change(function(){
-	if($("#encuesta11").find("input[name=33040402]:checked").val() == "SI"){ $("#div33050402,#div33060402").show(); } else { $("#div33050402").hide();$("#div33060402").show(); }
+$("#encuesta12").find("input[name=33040501]").change(function(){
+	if($("#encuesta12").find("input[name=33040501]:checked").val() == "SI"){ $("#div33050501,#div33060501").show(); } else { $("#div33050501").hide();$("#div33060501").show(); }
 });
 
-$("#encuesta11").find("input[name=33010502]").change(function(){
-	if($("#encuesta11").find("input[name=33010502]:checked").val() == "SI"){ $("#div33020502,#div33030502,#div33120502").show();   } else { $("#div33020502,#div33030502,#div33120502").hide();  }
+$("#encuesta12").find("input[name=33010601]").change(function(){
+	if($("#encuesta12").find("input[name=33010601]:checked").val() == "SI"){ $("#div33020601,#div33030601,#div33120601").show();   } else { $("#div33020601,#div33030601,#div33120601").hide();  }
 });
-$("#encuesta11").find("input[name=33040502]").change(function(){
-	if($("#encuesta11").find("input[name=33040502]:checked").val() == "SI"){ $("#div33050502,#div33060502").show(); } else { $("#div33050502").hide();$("#div33060502").show(); }
-});
-
-$("#encuesta11").find("input[name=33010602]").change(function(){
-	if($("#encuesta11").find("input[name=33010602]:checked").val() == "SI"){ $("#div33020602,#div33030602,#div33120602").show();   } else { $("#div33020602,#div33030602,#div33120602").hide();  }
-});
-$("#encuesta11").find("input[name=33040602]").change(function(){
-	if($("#encuesta11").find("input[name=33040602]:checked").val() == "SI"){ $("#div33050602,#div33060602").show(); } else { $("#div33050602").hide();$("#div33060602").show(); }
+$("#encuesta12").find("input[name=33040601]").change(function(){
+	if($("#encuesta12").find("input[name=33040601]:checked").val() == "SI"){ $("#div33050601,#div33060601").show(); } else { $("#div33050601").hide();$("#div33060601").show(); }
 });
 
-
-$("#encuesta11").find("input[name=33010103]").change(function(){
-	if($("#encuesta11").find("input[name=33010103]:checked").val() == "SI"){ $("#div33020103,#div33030103,#div33120103").show();   } else { $("#div33020103,#div33030103,#div33120103").hide();  }
+$("#encuesta12").find("input[name=33010102]").change(function(){
+	if($("#encuesta12").find("input[name=33010102]:checked").val() == "SI"){ $("#div33020102,#div33030102,#div33120102").show();   } else { $("#div33020102,#div33030102,#div33120102").hide();  }
 });
-$("#encuesta11").find("input[name=33040103]").change(function(){
-	if($("#encuesta11").find("input[name=33040103]:checked").val() == "SI"){ $("#div33050103,#div33060103").show(); } else { $("#div33050103").hide();$("#div33060103").show(); }
-});
-
-$("#encuesta11").find("input[name=33010203]").change(function(){
-	if($("#encuesta11").find("input[name=33010203]:checked").val() == "SI"){ $("#div33020203,#div33030203,#div33120203").show();   } else { $("#div33020203,#div33030203,#div33120203").hide();  }
-});
-$("#encuesta11").find("input[name=33040203]").change(function(){
-	if($("#encuesta11").find("input[name=33040203]:checked").val() == "SI"){ $("#div33050203,#div33060203").show(); } else { $("#div33050203").hide();$("#div33060203").show(); }
+$("#encuesta12").find("input[name=33040102]").change(function(){
+	if($("#encuesta12").find("input[name=33040102]:checked").val() == "SI"){ $("#div33050102,#div33060102").show(); } else { $("#div33050102").hide();$("#div33060102").show(); }
 });
 
-$("#encuesta11").find("input[name=33010303]").change(function(){  
-	if($("#encuesta11").find("input[name=33010303]:checked").val() == "SI"){ $("#div33020303,#div33030303,#div33120303").show();   } else { $("#div33020302,#div33030303,#div33120303").hide();  }
+$("#encuesta12").find("input[name=33010202]").change(function(){
+	if($("#encuesta12").find("input[name=33010202]:checked").val() == "SI"){ $("#div33020202,#div33030202,#div33120202").show();   } else { $("#div33020202,#div33030202,#div33120202").hide();  }
 });
-$("#encuesta11").find("input[name=33040303]").change(function(){
-	if($("#encuesta11").find("input[name=33040303]:checked").val() == "SI"){ $("#div33050303,#div33060303").show(); } else { $("#div33050303").hide();$("#div33060303").show(); }
-});
-
-$("#encuesta11").find("input[name=33010403]").change(function(){
-	if($("#encuesta11").find("input[name=33010403]:checked").val() == "SI"){ $("#div33020403,#div33030403,#div33120403").show();   } else { $("#div33020403,#div33030403,#div33120403").hide();  }
-});
-$("#encuesta11").find("input[name=33040403]").change(function(){ 
-	if($("#encuesta11").find("input[name=33040403]:checked").val() == "SI"){ $("#div33050403,#div33060403").show(); } else { $("#div33050403").hide();$("#div33060403").show(); }
+$("#encuesta12").find("input[name=33040202]").change(function(){
+	if($("#encuesta12").find("input[name=33040202]:checked").val() == "SI"){ $("#div33050202,#div33060202").show(); } else { $("#div33050202").hide();$("#div33060202").show(); }
 });
 
-$("#encuesta11").find("input[name=33010503]").change(function(){
-	if($("#encuesta11").find("input[name=33010503]:checked").val() == "SI"){ $("#div33020503,#div33030503,#div33120503").show();   } else { $("#div33020503,#div33030503,#div33120503").hide();  }
+$("#encuesta12").find("input[name=33010302]").change(function(){
+	if($("#encuesta12").find("input[name=33010302]:checked").val() == "SI"){ $("#div33020302,#div33030302,#div33120302").show();   } else { $("#div33020302,#div33030302,#div33120302").hide();  }
 });
-$("#encuesta11").find("input[name=33040503]").change(function(){
-	if($("#encuesta11").find("input[name=33040503]:checked").val() == "SI"){ $("#div33050503,#div33060503").show(); } else { $("#div33050503").hide();$("#div33060503").show(); }
+$("#encuesta12").find("input[name=33040302]").change(function(){
+	if($("#encuesta12").find("input[name=33040302]:checked").val() == "SI"){ $("#div33050302,#div33060302").show(); } else { $("#div33050302").hide();$("#div33060302").show(); }
 });
 
-$("#encuesta11").find("input[name=33010603]").change(function(){
-	if($("#encuesta11").find("input[name=33010603]:checked").val() == "SI"){ $("#div33020603,#div33030603,#div33120603").show();   } else { $("#div33020603,#div33030603,#div33120603").hide();  }
+$("#encuesta12").find("input[name=33010402]").change(function(){
+	if($("#encuesta12").find("input[name=33010402]:checked").val() == "SI"){ $("#div33020402,#div33030402,#div33120402").show();   } else { $("#div33020402,#div33030402,#div33120402").hide();  }
 });
-$("#encuesta11").find("input[name=33040603]").change(function(){
-	if($("#encuesta11").find("input[name=33040603]:checked").val() == "SI"){ $("#div33050603,#div33060603").show(); } else { $("#div33050603").hide();$("#div33060603").show(); }
+$("#encuesta12").find("input[name=33040402]").change(function(){
+	if($("#encuesta12").find("input[name=33040402]:checked").val() == "SI"){ $("#div33050402,#div33060402").show(); } else { $("#div33050402").hide();$("#div33060402").show(); }
+});
+
+$("#encuesta12").find("input[name=33010502]").change(function(){
+	if($("#encuesta12").find("input[name=33010502]:checked").val() == "SI"){ $("#div33020502,#div33030502,#div33120502").show();   } else { $("#div33020502,#div33030502,#div33120502").hide();  }
+});
+$("#encuesta12").find("input[name=33040502]").change(function(){
+	if($("#encuesta12").find("input[name=33040502]:checked").val() == "SI"){ $("#div33050502,#div33060502").show(); } else { $("#div33050502").hide();$("#div33060502").show(); }
+});
+
+$("#encuesta12").find("input[name=33010602]").change(function(){
+	if($("#encuesta12").find("input[name=33010602]:checked").val() == "SI"){ $("#div33020602,#div33030602,#div33120602").show();   } else { $("#div33020602,#div33030602,#div33120602").hide();  }
+});
+$("#encuesta12").find("input[name=33040602]").change(function(){
+	if($("#encuesta12").find("input[name=33040602]:checked").val() == "SI"){ $("#div33050602,#div33060602").show(); } else { $("#div33050602").hide();$("#div33060602").show(); }
+});
+
+
+$("#encuesta12").find("input[name=33010103]").change(function(){
+	if($("#encuesta12").find("input[name=33010103]:checked").val() == "SI"){ $("#div33020103,#div33030103,#div33120103").show();   } else { $("#div33020103,#div33030103,#div33120103").hide();  }
+});
+$("#encuesta12").find("input[name=33040103]").change(function(){
+	if($("#encuesta12").find("input[name=33040103]:checked").val() == "SI"){ $("#div33050103,#div33060103").show(); } else { $("#div33050103").hide();$("#div33060103").show(); }
+});
+
+$("#encuesta12").find("input[name=33010203]").change(function(){
+	if($("#encuesta12").find("input[name=33010203]:checked").val() == "SI"){ $("#div33020203,#div33030203,#div33120203").show();   } else { $("#div33020203,#div33030203,#div33120203").hide();  }
+});
+$("#encuesta12").find("input[name=33040203]").change(function(){
+	if($("#encuesta12").find("input[name=33040203]:checked").val() == "SI"){ $("#div33050203,#div33060203").show(); } else { $("#div33050203").hide();$("#div33060203").show(); }
+});
+
+$("#encuesta12").find("input[name=33010303]").change(function(){  
+	if($("#encuesta12").find("input[name=33010303]:checked").val() == "SI"){ $("#div33020303,#div33030303,#div33120303").show();   } else { $("#div33020302,#div33030303,#div33120303").hide();  }
+});
+$("#encuesta12").find("input[name=33040303]").change(function(){
+	if($("#encuesta12").find("input[name=33040303]:checked").val() == "SI"){ $("#div33050303,#div33060303").show(); } else { $("#div33050303").hide();$("#div33060303").show(); }
+});
+
+$("#encuesta12").find("input[name=33010403]").change(function(){
+	if($("#encuesta12").find("input[name=33010403]:checked").val() == "SI"){ $("#div33020403,#div33030403,#div33120403").show();   } else { $("#div33020403,#div33030403,#div33120403").hide();  }
+});
+$("#encuesta12").find("input[name=33040403]").change(function(){ 
+	if($("#encuesta12").find("input[name=33040403]:checked").val() == "SI"){ $("#div33050403,#div33060403").show(); } else { $("#div33050403").hide();$("#div33060403").show(); }
+});
+
+$("#encuesta12").find("input[name=33010503]").change(function(){
+	if($("#encuesta12").find("input[name=33010503]:checked").val() == "SI"){ $("#div33020503,#div33030503,#div33120503").show();   } else { $("#div33020503,#div33030503,#div33120503").hide();  }
+});
+$("#encuesta12").find("input[name=33040503]").change(function(){
+	if($("#encuesta12").find("input[name=33040503]:checked").val() == "SI"){ $("#div33050503,#div33060503").show(); } else { $("#div33050503").hide();$("#div33060503").show(); }
+});
+
+$("#encuesta12").find("input[name=33010603]").change(function(){
+	if($("#encuesta12").find("input[name=33010603]:checked").val() == "SI"){ $("#div33020603,#div33030603,#div33120603").show();   } else { $("#div33020603,#div33030603,#div33120603").hide();  }
+});
+$("#encuesta12").find("input[name=33040603]").change(function(){
+	if($("#encuesta12").find("input[name=33040603]:checked").val() == "SI"){ $("#div33050603,#div33060603").show(); } else { $("#div33050603").hide();$("#div33060603").show(); }
 });
 
 	/*$( "#3101000004" ).change(function() {
@@ -960,88 +959,88 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$("#encuesta12").find("input[name=35010101]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010101]:checked").val() == "SI"){  $( "#div35010201,#div35010301" ).show();  } else {  $( "#div35010201,#div35010301" ).hide();    }
+	$("#encuesta17").find("input[name=35010101]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010101]:checked").val() == "SI"){  $( "#div35010201,#div35010301" ).show();  } else {  $( "#div35010201,#div35010301" ).hide();    }
 	});
-	$("#encuesta12").find("input[name=35010102]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010102]:checked").val() == "SI"){  $( "#div35010202,#div35010302" ).show();  } else {  $( "#div35010202,#div35010302" ).hide();    }
+	$("#encuesta17").find("input[name=35010102]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010102]:checked").val() == "SI"){  $( "#div35010202,#div35010302" ).show();  } else {  $( "#div35010202,#div35010302" ).hide();    }
 	});
-	$("#encuesta12").find("input[name=35010103]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010103]:checked").val() == "SI"){  $( "#div35010203,#div35010303" ).show();  } else {  $( "#div35010203,#div35010303" ).hide();    }
+	$("#encuesta17").find("input[name=35010103]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010103]:checked").val() == "SI"){  $( "#div35010203,#div35010303" ).show();  } else {  $( "#div35010203,#div35010303" ).hide();    }
 	});
-	$("#encuesta12").find("input[name=35010104]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010104]:checked").val() == "SI"){  $( "#div35010204,#div35010304" ).show();  } else {  $( "#div35010204,#div35010304" ).hide();   }
+	$("#encuesta17").find("input[name=35010104]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010104]:checked").val() == "SI"){  $( "#div35010204,#div35010304" ).show();  } else {  $( "#div35010204,#div35010304" ).hide();   }
 	});
-	$("#encuesta12").find("input[name=35010105]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010105]:checked").val() == "SI"){  $( "#div35010205,#div35010305" ).show();  } else { $( "#div35010205,#div35010305" ).hide();     }
+	$("#encuesta17").find("input[name=35010105]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010105]:checked").val() == "SI"){  $( "#div35010205,#div35010305" ).show();  } else { $( "#div35010205,#div35010305" ).hide();     }
 	});
-	$("#encuesta12").find("input[name=35010106]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010106]:checked").val() == "SI"){  $( "#div35010206,#div35010306" ).show();  } else {  $( "#div35010206,#div35010306" ).hide();   }
+	$("#encuesta17").find("input[name=35010106]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010106]:checked").val() == "SI"){  $( "#div35010206,#div35010306" ).show();  } else {  $( "#div35010206,#div35010306" ).hide();   }
 	});
-	$("#encuesta12").find("input[name=35010107]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010107]:checked").val() == "SI"){  $( "#div35010207,#div35010307" ).show();  } else {   $( "#div35010207,#div35010307" ).hide();  }
+	$("#encuesta17").find("input[name=35010107]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010107]:checked").val() == "SI"){  $( "#div35010207,#div35010307" ).show();  } else {   $( "#div35010207,#div35010307" ).hide();  }
 	});
-	$("#encuesta12").find("input[name=35010108]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010108]:checked").val() == "SI"){  $( "#div35010208,#div35010308" ).show();  } else {   $( "#div35010208,#div35010308" ).hide();  }
+	$("#encuesta17").find("input[name=35010108]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010108]:checked").val() == "SI"){  $( "#div35010208,#div35010308" ).show();  } else {   $( "#div35010208,#div35010308" ).hide();  }
 	});
-	$("#encuesta12").find("input[name=35010109]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35010109]:checked").val() == "SI"){  $( "#div35010209,#div35010309,#div35901011" ).show();  } else {   $( "#div35010209,#div35010309,#div35901011" ).hide();  }
-	});
-
-	$("#encuesta12").find("input[name=35020101]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020101]:checked").val() == "SI"){  $( "#div35020201,#div35020301" ).show();  } else { $( "#div35020201,#div35020301" ).hide();    }
-	});
-	$("#encuesta12").find("input[name=35020102]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020102]:checked").val() == "SI"){  $( "#div35020202,#div35020302" ).show();  } else {  $( "#div35020202,#div35020302" ).hide();   }
-	});
-	$("#encuesta12").find("input[name=35020103]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020103]:checked").val() == "SI"){  $( "#div35020203,#div35020303" ).show();  } else {  $( "#div35020203,#div35020303" ).hide();   }
-	});
-	$("#encuesta12").find("input[name=35020104]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020104]:checked").val() == "SI"){  $( "#div35020204,#div35020304" ).show();  } else { $( "#div35020204,#div35020304" ).hide();    }
-	});
-	$("#encuesta12").find("input[name=35020105]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020105]:checked").val() == "SI"){  $( "#div35020205,#div35020305" ).show();  } else { $( "#div35020205,#div35020305" ).hide();     }
-	});
-	$("#encuesta12").find("input[name=35020106]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020106]:checked").val() == "SI"){  $( "#div35020206,#div35020306" ).show();  } else {  $( "#div35020206,#div35020306" ).hide();    }
-	});
-	$("#encuesta12").find("input[name=35020107]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020107]:checked").val() == "SI"){  $( "#div35020207,#div35020307" ).show();  } else {   $( "#div35020207,#div35020307" ).hide();  }
-	});
-	$("#encuesta12").find("input[name=35020108]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020108]:checked").val() == "SI"){  $( "#div35020208,#div35020308" ).show();  } else {   $( "#div35020208,#div35020308" ).hide();  }
-	});
-	$("#encuesta12").find("input[name=35020109]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35020109]:checked").val() == "SI"){  $( "#div35020209,#div35020309,#div35901111" ).show();  } else {   $( "#div35020209,#div35020309,#div35901111" ).hide();  }
+	$("#encuesta17").find("input[name=35010109]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35010109]:checked").val() == "SI"){  $( "#div35010209,#div35010309,#div35901011" ).show();  } else {   $( "#div35010209,#div35010309,#div35901011" ).hide();  }
 	});
 
-	$("#encuesta12").find("input[name=35030101]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030101]:checked").val() == "SI"){  $( "#div35030201,#div35030301" ).show();  } else { $( "#div35030201,#div35030301" ).hide();     }
+	$("#encuesta17").find("input[name=35020101]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020101]:checked").val() == "SI"){  $( "#div35020201,#div35020301" ).show();  } else { $( "#div35020201,#div35020301" ).hide();    }
 	});
-	$("#encuesta12").find("input[name=35030102]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030102]:checked").val() == "SI"){  $( "#div35030202,#div35030302" ).show();  } else {  $( "#div35030202,#div35030302" ).hide();     }
+	$("#encuesta17").find("input[name=35020102]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020102]:checked").val() == "SI"){  $( "#div35020202,#div35020302" ).show();  } else {  $( "#div35020202,#div35020302" ).hide();   }
 	});
-	$("#encuesta12").find("input[name=35030103]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030103]:checked").val() == "SI"){  $( "#div35030203,#div35030303" ).show();  } else { $( "#div35030203,#div35030303" ).hide();     }
+	$("#encuesta17").find("input[name=35020103]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020103]:checked").val() == "SI"){  $( "#div35020203,#div35020303" ).show();  } else {  $( "#div35020203,#div35020303" ).hide();   }
 	});
-	$("#encuesta12").find("input[name=35030104]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030104]:checked").val() == "SI"){  $( "#div35030204,#div35030304" ).show();  } else { $( "#div35030204,#div35030304" ).hide();     }
+	$("#encuesta17").find("input[name=35020104]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020104]:checked").val() == "SI"){  $( "#div35020204,#div35020304" ).show();  } else { $( "#div35020204,#div35020304" ).hide();    }
 	});
-	$("#encuesta12").find("input[name=35030105]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030105]:checked").val() == "SI"){  $( "#div35030205,#div35030305" ).show();  } else {   $( "#div35030205,#div35030305" ).hide();    }
+	$("#encuesta17").find("input[name=35020105]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020105]:checked").val() == "SI"){  $( "#div35020205,#div35020305" ).show();  } else { $( "#div35020205,#div35020305" ).hide();     }
 	});
-	$("#encuesta12").find("input[name=35030106]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030106]:checked").val() == "SI"){  $( "#div35030206,#div35030306" ).show();  } else { $( "#div35030206,#div35030306" ).hide();     }
+	$("#encuesta17").find("input[name=35020106]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020106]:checked").val() == "SI"){  $( "#div35020206,#div35020306" ).show();  } else {  $( "#div35020206,#div35020306" ).hide();    }
 	});
-	$("#encuesta12").find("input[name=35030107]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030107]:checked").val() == "SI"){  $( "#div35030207,#div35030307" ).show();  } else {  $( "#div35030207,#div35030307" ).hide();    }
+	$("#encuesta17").find("input[name=35020107]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020107]:checked").val() == "SI"){  $( "#div35020207,#div35020307" ).show();  } else {   $( "#div35020207,#div35020307" ).hide();  }
 	});
-	$("#encuesta12").find("input[name=35030108]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030108]:checked").val() == "SI"){  $( "#div35030208,#div35030308" ).show();  } else {  $( "#div35030208,#div35030308" ).hide();    }
+	$("#encuesta17").find("input[name=35020108]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020108]:checked").val() == "SI"){  $( "#div35020208,#div35020308" ).show();  } else {   $( "#div35020208,#div35020308" ).hide();  }
 	});
-	$("#encuesta12").find("input[name=35030109]" ).change(function() {
-		if( $("#encuesta12").find("input[name=35030109]:checked").val() == "SI"){  $( "#div35030209,#div35030309,#div35901211" ).show();  } else {  $( "#div35030209,#div35030309,#div35901211" ).hide();    }
+	$("#encuesta17").find("input[name=35020109]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35020109]:checked").val() == "SI"){  $( "#div35020209,#div35020309,#div35901111" ).show();  } else {   $( "#div35020209,#div35020309,#div35901111" ).hide();  }
+	});
+
+	$("#encuesta17").find("input[name=35030101]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030101]:checked").val() == "SI"){  $( "#div35030201,#div35030301" ).show();  } else { $( "#div35030201,#div35030301" ).hide();     }
+	});
+	$("#encuesta17").find("input[name=35030102]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030102]:checked").val() == "SI"){  $( "#div35030202,#div35030302" ).show();  } else {  $( "#div35030202,#div35030302" ).hide();     }
+	});
+	$("#encuesta17").find("input[name=35030103]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030103]:checked").val() == "SI"){  $( "#div35030203,#div35030303" ).show();  } else { $( "#div35030203,#div35030303" ).hide();     }
+	});
+	$("#encuesta17").find("input[name=35030104]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030104]:checked").val() == "SI"){  $( "#div35030204,#div35030304" ).show();  } else { $( "#div35030204,#div35030304" ).hide();     }
+	});
+	$("#encuesta17").find("input[name=35030105]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030105]:checked").val() == "SI"){  $( "#div35030205,#div35030305" ).show();  } else {   $( "#div35030205,#div35030305" ).hide();    }
+	});
+	$("#encuesta17").find("input[name=35030106]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030106]:checked").val() == "SI"){  $( "#div35030206,#div35030306" ).show();  } else { $( "#div35030206,#div35030306" ).hide();     }
+	});
+	$("#encuesta17").find("input[name=35030107]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030107]:checked").val() == "SI"){  $( "#div35030207,#div35030307" ).show();  } else {  $( "#div35030207,#div35030307" ).hide();    }
+	});
+	$("#encuesta17").find("input[name=35030108]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030108]:checked").val() == "SI"){  $( "#div35030208,#div35030308" ).show();  } else {  $( "#div35030208,#div35030308" ).hide();    }
+	});
+	$("#encuesta17").find("input[name=35030109]" ).change(function() {
+		if( $("#encuesta17").find("input[name=35030109]:checked").val() == "SI"){  $( "#div35030209,#div35030309,#div35901211" ).show();  } else {  $( "#div35030209,#div35030309,#div35901211" ).hide();    }
 	});
 
 	$( "#3701000001" ).change(function() { special37(); });
@@ -1232,68 +1231,69 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 	});
 
 
-	$("#encuesta19").find("input[name=61010101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61010101]:checked").val() == "SI"){  $( "#div61010201,#div61010301" ).show();  } else { $( "#div61010201,#div61010301" ).hide();     }
+
+	$("#encuesta24").find("input[name=61010101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61010101]:checked").val() == "SI"){  $( "#div61010201,#div61010301" ).show();  } else { $( "#div61010201,#div61010301" ).hide();     }
 	});
-	$("#encuesta19").find("input[name=61020101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61020101]:checked").val() == "SI"){  $( "#div61020201,#div61020301" ).show();  } else {    $( "#div61020201,#div61020301" ).hide();  }
+	$("#encuesta24").find("input[name=61020101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61020101]:checked").val() == "SI"){  $( "#div61020201,#div61020301" ).show();  } else {    $( "#div61020201,#div61020301" ).hide();  }
 	});
-	$("#encuesta19").find("input[name=61030101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61030101]:checked").val() == "SI"){  $( "#div61030201,#div61030301" ).show();  } else {  $( "#div61030201,#div61030301" ).hide();    }
+	$("#encuesta24").find("input[name=61030101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61030101]:checked").val() == "SI"){  $( "#div61030201,#div61030301" ).show();  } else {  $( "#div61030201,#div61030301" ).hide();    }
 	});
-	$("#encuesta19").find("input[name=61040101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61040101]:checked").val() == "SI"){  $( "#div61040201,#div61040301" ).show();  } else {  $( "#div61040201,#div61040301" ).hide();    }
+	$("#encuesta24").find("input[name=61040101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61040101]:checked").val() == "SI"){  $( "#div61040201,#div61040301" ).show();  } else {  $( "#div61040201,#div61040301" ).hide();    }
 	});
-	$("#encuesta19").find("input[name=61050101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61050101]:checked").val() == "SI"){  $( "#div61050201,#div61050301" ).show();  } else {  $( "#div61050201,#div61050301" ).hide();    }
+	$("#encuesta24").find("input[name=61050101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61050101]:checked").val() == "SI"){  $( "#div61050201,#div61050301" ).show();  } else {  $( "#div61050201,#div61050301" ).hide();    }
 	});
-	$("#encuesta19").find("input[name=61060101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61060101]:checked").val() == "SI"){  $( "#div61060201,#div61060301" ).show();  } else {  $( "#div61060201,#div61060301" ).hide();   }
+	$("#encuesta24").find("input[name=61060101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61060101]:checked").val() == "SI"){  $( "#div61060201,#div61060301" ).show();  } else {  $( "#div61060201,#div61060301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61070101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61070101]:checked").val() == "SI"){  $( "#div61070201,#div61070301" ).show();  } else {   $( "#div61070201,#div61070301" ).hide();  }
+	$("#encuesta24").find("input[name=61070101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61070101]:checked").val() == "SI"){  $( "#div61070201,#div61070301" ).show();  } else {   $( "#div61070201,#div61070301" ).hide();  }
 	});
-	$("#encuesta19").find("input[name=61080101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61080101]:checked").val() == "SI"){  $( "#div61080201,#div61080301" ).show();  } else {   $( "#div61080201,#div61080301" ).hide();  }
+	$("#encuesta24").find("input[name=61080101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61080101]:checked").val() == "SI"){  $( "#div61080201,#div61080301" ).show();  } else {   $( "#div61080201,#div61080301" ).hide();  }
 	});
-	$("#encuesta19").find("input[name=61090101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61090101]:checked").val() == "SI"){  $( "#div61090201,#div61090301" ).show();  } else {   $( "#div61090201,#div61090301" ).hide();    }
+	$("#encuesta24").find("input[name=61090101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61090101]:checked").val() == "SI"){  $( "#div61090201,#div61090301" ).show();  } else {   $( "#div61090201,#div61090301" ).hide();    }
 	});
-	$("#encuesta19").find("input[name=61100101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61100101]:checked").val() == "SI"){  $( "#div61100201,#div61100301" ).show();  } else {  $( "#div61100201,#div61100301" ).hide();   }
+	$("#encuesta24").find("input[name=61100101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61100101]:checked").val() == "SI"){  $( "#div61100201,#div61100301" ).show();  } else {  $( "#div61100201,#div61100301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61110101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61110101]:checked").val() == "SI"){  $( "#div61110201,#div61110301" ).show();  } else {  $( "#div61110201,#div61110301" ).hide();    }
+	$("#encuesta24").find("input[name=61110101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61110101]:checked").val() == "SI"){  $( "#div61110201,#div61110301" ).show();  } else {  $( "#div61110201,#div61110301" ).hide();    }
 	});
-	$("#encuesta19").find("input[name=61120101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61120101]:checked").val() == "SI"){  $( "#div61120201,#div61120301" ).show();  } else {  $( "#div61120201,#div61120301" ).hide();   }
+	$("#encuesta24").find("input[name=61120101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61120101]:checked").val() == "SI"){  $( "#div61120201,#div61120301" ).show();  } else {  $( "#div61120201,#div61120301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61130101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61130101]:checked").val() == "SI"){  $( "#div61130201,#div61130301" ).show();  } else {  $( "#div61130201,#div61130301" ).hide();   }
+	$("#encuesta24").find("input[name=61130101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61130101]:checked").val() == "SI"){  $( "#div61130201,#div61130301" ).show();  } else {  $( "#div61130201,#div61130301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61140101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61140101]:checked").val() == "SI"){  $( "#div61140201,#div61140301" ).show();  } else {   $( "#div61140201,#div61140301" ).hide();   }
+	$("#encuesta24").find("input[name=61140101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61140101]:checked").val() == "SI"){  $( "#div61140201,#div61140301" ).show();  } else {   $( "#div61140201,#div61140301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61150101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61150101]:checked").val() == "SI"){  $( "#div61150201,#div61150301" ).show();  } else {  $( "#div61150201,#div61150301" ).hide();   }
+	$("#encuesta24").find("input[name=61150101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61150101]:checked").val() == "SI"){  $( "#div61150201,#div61150301" ).show();  } else {  $( "#div61150201,#div61150301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61160101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61160101]:checked").val() == "SI"){  $( "#div61160201,#div61160301" ).show();  } else {  $( "#div61160201,#div61160301" ).hide();   }
+	$("#encuesta24").find("input[name=61160101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61160101]:checked").val() == "SI"){  $( "#div61160201,#div61160301" ).show();  } else {  $( "#div61160201,#div61160301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61170101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61170101]:checked").val() == "SI"){  $( "#div61170201,#div61170301" ).show();  } else {  $( "#div61170201,#div61170301" ).hide();     }
+	$("#encuesta24").find("input[name=61170101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61170101]:checked").val() == "SI"){  $( "#div61170201,#div61170301" ).show();  } else {  $( "#div61170201,#div61170301" ).hide();     }
 	});
-	$("#encuesta19").find("input[name=61210101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61210101]:checked").val() == "SI"){  $( "#div61210201,#div61210301" ).show();  } else {   $( "#div61210201,#div61210301" ).hide();   }
+	$("#encuesta24").find("input[name=61210101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61210101]:checked").val() == "SI"){  $( "#div61210201,#div61210301" ).show();  } else {   $( "#div61210201,#div61210301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61180101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61180101]:checked").val() == "SI"){  $( "#div61180201,#div61180301" ).show();  } else {   $( "#div61180201,#div61180301" ).hide();  }
+	$("#encuesta24").find("input[name=61180101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61180101]:checked").val() == "SI"){  $( "#div61180201,#div61180301" ).show();  } else {   $( "#div61180201,#div61180301" ).hide();  }
 	});
-	$("#encuesta19").find("input[name=61190101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61190101]:checked").val() == "SI"){  $( "#div61190201,#div61190301" ).show();  } else {  $( "#div61190201,#div61190301" ).hide();   }
+	$("#encuesta24").find("input[name=61190101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61190101]:checked").val() == "SI"){  $( "#div61190201,#div61190301" ).show();  } else {  $( "#div61190201,#div61190301" ).hide();   }
 	});
-	$("#encuesta19").find("input[name=61200101]" ).change(function() {
-		if( $("#encuesta19").find("input[name=61200101]:checked").val() == "SI"){  $( "#div61200201,#div61200301" ).show();  } else {  $( "#div61200201,#div61200301" ).hide();   }
+	$("#encuesta24").find("input[name=61200101]" ).change(function() {
+		if( $("#encuesta24").find("input[name=61200101]:checked").val() == "SI"){  $( "#div61200201,#div61200301" ).show();  } else {  $( "#div61200201,#div61200301" ).hide();   }
 	});
 
 	$( "input[name=79010000]" ).change(function() {
@@ -1383,6 +1383,7 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 	});
 
 	$("#encuesta32").find("input[name=90050000]" ).change(function() {
+		if($("#encuesta32").find("input[name=90050000]" ).val() == "EDUCACION SECUNDARIA"){ 	$("#div90050300").show();	} else { $("#div90050300").hide(); }
 		if( $("#encuesta32").find("input[name=90050000]:checked").val() == "OTRO" ){
 			$( "#div90050100" ).show();
 		} else {
@@ -1399,6 +1400,7 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 		}
 	});
 	$("#encuesta32").find("input[name=90070000]" ).change(function() {
+		if($("#encuesta32").find("input[name=90070000]:checked").val() == "EDUCACION SECUNDARIA"){ 	$("#div90050300").show();	} else { $("#div90050300").hide(); }
 		if( $("#encuesta32").find("input[name=90070000]:checked").val() == "OTRO" ){
 			$( "#div90070100" ).show();
 		} else {
@@ -1817,6 +1819,16 @@ $("#encuesta11").find("input[name=33040603]").change(function(){
 	$("#18121004").change(function() {
 		if($(this).val() == "Otro"){ 	$("#div18121009").show();	} else { $("#div18121009").hide(); }
 	});
+
+	/*$("encuesta32").find("input[name=90050200]").change(function() {
+		if($(this).val() == "OTRO"){ 	$("#div90050100").show();	} else { $("#div90050100").hide();$("#90050100").val(""); }
+		if($(this).val() == "EDUCACION SECUNDARIA"){ 	$("#div90050300").show();	} else { $("#div90050300").hide(); }
+	});*/
+
+	/*$("encuesta32").find("input[name=90070000]").change(function() {
+		if($(this).val() == "OTRO"){ 	$("#iv90070100").show();	} else { $("#div90070100").hide();$("#90070100").val(""); }
+		if($(this).val() == "EDUCACION SECUNDARIA"){ 	$("#div90060100").show();	} else { $("#div90060100").hide(); }
+	});*/
 	//---------------------------------------------------------
 
 }
@@ -1865,8 +1877,8 @@ function load_encuesta( id ){
 	freeze_open();
 
 	default_encuesta();
-	//clear_form(); DANIELFIX
-	//clear_niveles(); DANIELFIX
+	clear_form();// DANIELFIX
+	clear_niveles(); //DANIELFIX
 
 	current_enc = get_obj( id );
 	data = current_enc.formdata;
@@ -1914,8 +1926,8 @@ function load_encuesta( id ){
 
 function new_encuesta(){
 	default_encuesta();
-	//clear_form(); DANIELFIX
-	//clear_niveles(); DANIELFIX
+	clear_form(); //DANIELFIX
+	clear_niveles(); //DANIELFIX
 
 
 
@@ -2059,12 +2071,13 @@ function upload_encuesta(id){
 function nextpage_encuesta( i ){
 	var tmpflagp = true;
 	if(i == (nivelespage_start + 1)){
+		filter_niveles();
+		default_hiding_niveles();
 		if(validate_niveles() == false){
 			return false;
 		}
 
 
-		
 
 	}
 
@@ -2397,6 +2410,9 @@ function default_hiding_niveles(){
 	$( "#div90140100").hide();
 	$( "#div90260200").hide();
 
+	$("#div90050300").hide();
+	$("#div90060100").hide();
+
 	$("#div90180100,#div90180200,#div90180300,#div90180400,#div90180500,#div90180600").hide()
 	//$("#div90190100,#div90190200,#div90190300,#div90190400,#div90190500,#div90190600").hide();
 
@@ -2510,9 +2526,19 @@ function makerows(tmp){
 	for( i = 0; i < len ; i++ ){
 		html += "<tr id='foundnivel" + tmp[i].nivel_id + "'><td><input type='text' name='cod_mod_" + tmp[i].nivel_id + "' readonly='readonly' value='" + tmp[i].codigo_modular + "'></td>";
 		html += "<td>" + tmp[i].nivel + "</td>";
-		html += '<td><a href="#" onclick="return editmodular(' + tmp[i].nivel_id + ');" data-role="button" data-icon="delete" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all" role="button"></a> </td></tr>';
+		html += '<td><input type="button" href="#" id="fn' + tmp[i].nivel_id + 'button1" class="cbdd" onclick="return nivelcheck(' + tmp[i].nivel_id + ',1);" value="SI"> <input type="button" class="cbdd"   id="fn' + tmp[i].nivel_id + 'button2"  href="#" onclick="return nivelcheck(' + tmp[i].nivel_id + ',2);" value="NO"> </td></tr>';
+		//html += '<td><a href="#" onclick="return editmodular(' + tmp[i].nivel_id + ');" data-role="button" data-icon="delete" data-iconpos="notext" data-theme="a" data-inline="true" class="ui-link ui-btn ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-inline ui-shadow ui-corner-all" role="button"></a> </td></tr>';
 	}
 	return html;
+}
+
+function  nivelcheck(nid,colid){
+	otherid = 1;
+	if(colid == 1)otherid = 2;
+	if(colid == 1){ $("#activenivel_" + nid).val(1);$("#nivelcheck_" + nid).val(1);  }
+	if(colid == 2){ $("#activenivel_" + nid).val(0);$("#nivelcheck_" + nid).val(2);  }
+	$("#fn" + nid + "button" + colid).addClass("cbab");
+	$("#fn" + nid + "button" + otherid).removeClass("cbab");
 }
 
 function editmodular( i ){
@@ -2549,7 +2575,7 @@ function validate_pages(){
 			validate_modular("00004013");
 		}
 	}
-	if(tmp_page == "encuesta29"){
+	if(tmp_page == "encuesta34"){
 		if( ( int("90220100") + int("90220200") ) != int("90210100") ){
 			tmp = "LA SUMA DE ESTUDIANTES HOMBRES Y MUJERES NO ES IGUAL AL TOTAL DE ESTUDIANTES OBSERVADOS";
 			alert(tmp);	return false;
@@ -2582,7 +2608,7 @@ function validate_pages(){
 		}*/
 	}
 
-	if(tmp_page == "encuesta12"){
+	if(tmp_page == "encuesta17"){
 		if( $('#38010000').val() != "" ){
 			if((int("38010000") >= 1900) && (int("38010000") <= 2015)){
 				//nada
@@ -2598,7 +2624,7 @@ function validate_pages(){
 	if( int("18020002") > int("18010002") ){ 	alert(tmp);	return false;  }
 	if( int("18020003") > int("18010003") ){ 	alert(tmp);	return false; }
 */
-	if(tmp_page == "encuesta10"){
+	if(tmp_page == "encuesta11"){
 		tmp = "EL PROGRAMA NACIONAL DE INFRAESTRUCTURA EDUCATIVA NO PROPORCIONÓ MÓDULOS PREFABRICADOS ANTES DE SETIEMBRE DEL 2014";
 		if( ($('.25010000').is(':visible') ) && (int("25010100") <= 2014) && (int("25010200") < 9) ){ alert(tmp);	return false;  }
 		if( ($('.25020000').is(':visible') ) && (int("25020100") <= 2014) && (int("25020200") < 9) ){ alert(tmp);	return false;  }
@@ -2609,7 +2635,7 @@ function validate_pages(){
 		if( ($('.25070000').is(':visible') ) && (int("25070100") <= 2014) && (int("25070200") < 9) ){ alert(tmp);	return false;  }
 	}	
 
-	if(tmp_page == "encuesta12"){
+	if(tmp_page == "encuesta17"){
 		tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
 		if( int("35010301") > int("35010201") ){ alert(tmp);	return false;  }
 		if( int("35010302") > int("35010202") ){ alert(tmp);	return false;  }
@@ -2644,15 +2670,15 @@ function validate_pages(){
 			alert(tmp);	//return false; 
 		}
 	}*/
-	if(tmp_page == "encuesta22"){
+	/*if(tmp_page == "encuesta22"){
 		tmp = "EL Nro DE EQUIPOS OPERATIVOS NO PUEDE SER MAYOR AL Nro DE EQUIPOS EN TOTAL";
 		if( int("70020000") > int("70010000") ){
 			alert(tmp);	return false; 
 		}
-	}
+	}*/
 
 
-	if(tmp_page == "encuesta24"){
+	if(tmp_page == "encuesta29"){
 		tmp = "EL N° DE APARATOS SANITARIOS NO COINCIDE CON LA CANTIDAD DECLARADA POR EL DIRECTOR";
 		if( int("47010200") != int("83010000") ){alert(tmp);	}
 		if( int("47020200") != int("83020000") ){alert(tmp);	}
@@ -2699,6 +2725,211 @@ function clear_niveles(){
 function clear_ausentes(){
 	$("#ausentes form")[0].reset();
 	$("#ausentes .ff").show();
+}
+
+function filter_niveles(){
+	tmp1  = $("input[name=90000001]:checked").val();
+	tmp3d = "";//$("#90000003").val() ;
+	if($('#9000030001').is(':checked'))tmp3d += "1,";
+	if($('#9000030002').is(':checked'))tmp3d += "2,";
+	if($('#9000030003').is(':checked'))tmp3d += "3,";
+	if($('#9000030004').is(':checked'))tmp3d += "4,";
+	if($('#9000030005').is(':checked'))tmp3d += "5,";
+	if($('#9000030006').is(':checked'))tmp3d += "6,";
+	tmp3 = tmp3d.substring(0,(tmp3d.length - 1));
+
+	if(tmp1 == "PRIMARIA"){
+		$(".nivelp_primaria").show();
+	} else {
+		$(".nivelp_primaria").hide();
+	}
+	$("#90010021").val(0);
+
+	len = current_enc.nivelesdata.length;
+	for(i = 0; i < len; i++){
+		if( current_enc.nivelesdata[i].nivel == "INICIAL" ){
+			$("nivelf_inicial").hide();
+			$("#90010021").val(1);
+		}
+
+		if( (current_enc.nivelesdata[i].nivel == "PRIMARIA") && (tmp1 == "PRIMARIA") ){
+			if( (current_enc.nivelesdata[i].grado == tmp3 ) ){
+				$("nivelf_primaria").hide();
+				$("#90010021").val(1);
+			}
+		}
+
+		if( (current_enc.nivelesdata[i].nivel == "SECUNDARIA") && (tmp1 == "SECUNDARIA") ){
+			if( (current_enc.nivelesdata[i].grado == tmp3 ) ){
+				$("nivelf_secundaria").hide();
+				$("#90010021").val(1);
+			}
+		}
+	}
+
+}
+
+function load_nivel(i){
+	default_hiding_niveles();
+
+	data = current_enc.niveldata[i];
+	for(i = nivelespage_start; i <= nivelespage_end; i++){
+		$( "#encuesta" + i + " form").unserialize(data);
+	}
+	arbol_nivel();
+
+	if($("#90010021").val() == 1){
+		if(current_enc.niveldata[i].nivel == "INICIAL")$("nivelf_inicial").hide();
+		if(current_enc.niveldata[i].nivel == "PRIMARIA")$("nivelf_primaria").hide();
+		if(current_enc.niveldata[i].nivel == "SECUNDARIA")$("nivelf_secundaria").hide();
+	}
+
+	changepage("encuesta32");
+}
+
+function arbol_nivel(){
+		tmpval = $("#encuesta31").find("input[name=90000001]:checked").val();
+		if( tmpval == "INICIAL"){
+			//$("#90000003").val("");
+			$("#div90000300").hide();
+			$('#9000030001').attr('checked', false).checkboxradio( "refresh" );
+			$('#9000030002').attr('checked', false).checkboxradio( "refresh" );
+			$('#9000030003').attr('checked', false).checkboxradio( "refresh" );
+			$('#9000030004').attr('checked', false).checkboxradio( "refresh" );
+			$('#9000030005').attr('checked', false).checkboxradio( "refresh" );
+			$('#9000030006').attr('checked', false).checkboxradio( "refresh" );
+		} else {
+			if(tmpval == "SECUNDARIA"){
+				$('#9000030006').parent().hide();
+				$('#9000030006').attr('checked', false).checkboxradio( "refresh" );
+			} else {
+				$('#9000030006').parent().show();
+			}
+
+
+			$("#div90000300").show();
+		}
+
+		if( $("#encuesta32").find("input[name=90010000]:checked").val() == "NO"){
+			$("#div90020000,#div90030000").hide();
+			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
+			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
+			$("#div90160000").hide();
+		} else {
+			$("#div90020000,#div90030000").show();
+			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").show();
+			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").show();
+			$("#div90160000").show();
+		}
+
+		if( $("#encuesta32").find("input[name=90030000]:checked").val() == "NO"){
+			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
+			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
+			$("#div90160000").hide();
+		} else {
+			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").show();
+			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").show();
+			$("#div90160000").show();
+		}
+
+		if($("#encuesta32").find("input[name=90050000]" ).val() == "EDUCACION SECUNDARIA"){ 	$("#div90050300").show();	} else { $("#div90050300").hide(); }
+		if( $("#encuesta32").find("input[name=90050000]:checked").val() == "OTRO" ){
+			$( "#div90050100" ).show();
+		} else {
+			$( "#div90050100").hide();
+			$( "#90050100").val("");
+		}
+
+		if( $("#encuesta32").find("input[name=90060000]:checked").val() == "NO"){
+			$("#div90070000").hide();
+		} else {
+			$("#div90070000").show();
+		}
+
+		if($("#encuesta32").find("input[name=90070000]:checked").val() == "EDUCACION SECUNDARIA"){ 	$("#div90050300").show();	} else { $("#div90050300").hide(); }
+		if( $("#encuesta32").find("input[name=90070000]:checked").val() == "OTRO" ){
+			$( "#div90070100" ).show();
+		} else {
+			$( "#div90070100").hide();
+			$( "#90070100").val("");
+		}
+
+		if( $("#encuesta32").find("input[name=90080000]:checked").val() == "NO"){
+			$("#div90090000").hide();
+		} else {
+			$("#div90090000").show();
+		}
+
+		if( $("#encuesta33").find("input[name=90100000]:checked").val() == "NO"){
+			$("#div90110000").hide();
+		} else {
+			$("#div90110000").show();
+		}
+
+		if( $("#9011000003").is(":checked") ){
+			$( "#div90110100" ).show();
+		} else {
+			$( "#div90110100").hide();
+			$( "#90110100").val("");
+		}
+
+		if( $("#encuesta33").find("input[name=90130000]:checked").val() == "NO"){
+			$("#div90140000").hide();
+			$("#div90150000" ).hide();
+		} else {
+			$("#div90140000").show();
+			$("#div90150000" ).show();
+		}
+
+		if( $("#9014000005").is(":checked") ){
+			$( "#div90140100" ).show();
+		} else {
+			$( "#div90140100").hide();
+			$( "#90140100").val("");
+		}
+
+		if( $("#9017000001").is(":checked") ){ $("#div90180100").show();	} else {$("#div90180100").hide();}
+		if( $("#9017000002").is(":checked") ){ $("#div90180200").show();	} else {$("#div90180200").hide();}
+		if( $("#9017000003").is(":checked") ){ $("#div90180300").show();	} else {$("#div90180300").hide();}
+		if( $("#9017000004").is(":checked") ){ $("#div90180400").show();	} else {$("#div90180400").hide();}
+		if( $("#9017000005").is(":checked") ){ $("#div90180500").show();	} else {$("#div90180500").hide();}
+		if( $("#9017000006").is(":checked") ){ $("#div90180600").show();	} else {$("#div90180600").hide();}
+
+
+		if( $("#encuesta34").find("input[name=90200100]:checked").val() == "NO"){
+			$("#div90210100").hide();
+			$("#div90220000").hide();
+			$("#div90230000").hide();
+			$("#div90240100").hide();
+		} else {
+			$("#div90210100").show();
+			$("#div90220000").show();
+			$("#div90230000").show();
+			$("#div90240100").show();
+		}
+
+		if( $("#encuesta35").find("input[name=90250100]:checked").val() == "NO"){
+			$("#div90260100").hide();
+		} else {
+			$("#div90260100").show();
+		}
+
+	
+		if( $("#9026010004").is(":checked") ){
+			$( "#div90260200" ).show();
+		} else {
+			$( "#div90260200").hide();
+			$( "#90260200").val("");
+		}
+	
+
+		if( $("input[name=90350100]:checked").val() == "SI"){
+			$("#div90360100,#div90370100,#div90380100,#div90390100").hide();
+		} else {
+			$("#div90360100,#div90370100,#div90380100,#div90390100").show();
+		}
+
+
 }
 
 function validate_niveles(){
@@ -2780,9 +3011,10 @@ function draw_niveles_estados(){
 		html += "<td>" + current_enc.nivelesdata[i].seccion + "</td>";
 
 		html += "<td> <i class='fa fa-check-circle fa-lg cgreen' ></i> Completado </td>";
-
-		html +='<td>  &nbsp; <a href="#" onclick="return delete_nivel(' + i + ')" class="ui-btn-corner-all ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-inline  ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Borrar </a></td>';
-		html += "</tr>";
+		html +='<td>';
+		html +=' &nbsp; <a href="#" onclick="return load_nivel(' + i + ')" class="ui-btn-corner-all ui-btn ui-btn-icon-notext ui-icon-edit ui-btn-inline  ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Borrar </a>';
+		html +=' &nbsp; <a href="#" onclick="return delete_nivel(' + i + ')" class="ui-btn-corner-all ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-inline  ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Borrar </a>';
+		html += "</td></tr>";
 	}
 	
 	$("#nivelestable tbody").html(html);
@@ -3527,7 +3759,9 @@ function create_depas(){
 }
 
 function resetpagevars(){
-	$("#encuesta" + current_enc.page + " form")[0].reset();
+	if(current_enc.page > 4){
+		$("#encuesta" + current_enc.page + " form")[0].reset();
+	}
 	return false;
 }
 
@@ -3538,7 +3772,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-04-23 05:17:17</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-04-24 03:30:34</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -3581,7 +3815,8 @@ function create_panels(){
 
 .div90180000 .ui-controlgroup-controls{width:58% !important }
 .div90190000 .ui-controlgroup-controls{width:58% !important}
-
+.cbab{background:#38c}
+.cbdd{padding: 8px;border-radius: 5px;padding-left: 14px;padding-right: 14px;}
 </style>
 <body>
 	<div data-role="page" id="jqm-home" >
@@ -3826,7 +4061,7 @@ function create_panels(){
 				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('2');">Tomar foto del frontis de L.E. con el Monitor(a)   </button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
-		</div><div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Departamento</label><select name='00000101' id='00000101'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Monitor(a)</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000500" > <div data-role="fieldcontain"><label for='00000500'   >Día</label><select name='00000500' id='00000500'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''></th></tr></thead><tbody></tbody></table><input type="hidden" id="form_enc_id" name="" value="0"/><input type="hidden" id="nativo_1" name="" value="0"/><input type="hidden"  id="nativo_2" name="" value="0"/><input type="hidden"  id="nativo_3" name="" value="0"/><input type="hidden" id="activenivel_1" name="" value="0"/><input type="hidden" id="activenivel_2" name="" value="0"/><input type="hidden" id="activenivel_3" name="" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><div id='testr'></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
+		</div><div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Departamento</label><select name='00000101' id='00000101'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Monitor(a)</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000500" > <div data-role="fieldcontain"><label for='00000500'   >Día</label><select name='00000500' id='00000500'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''>El nivel esta activo?</th></tr></thead><tbody></tbody></table><input type="hidden" id="form_enc_id" name="" value="0"/><input type="hidden" id="nativo_1" name="" value="0"/><input type="hidden"  id="nativo_2" name="" value="0"/><input type="hidden"  id="nativo_3" name="" value="0"/><input type="hidden" id="activenivel_1" name="" value="0"/><input type="hidden" id="activenivel_2" name="" value="0"/><input type="hidden" id="activenivel_3" name="" value="0"/><input type="hidden" id="nivelcheck_1" name="" value="0"/><input type="hidden" id="nivelcheck_2" name="" value="0"/><input type="hidden" id="nivelcheck_3" name="" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><div id='testr'></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
 <td>Inicial</td>
 <td></td>
 </tr><tr class='tnewnivel2'><td><div id="div00004012"  class=" ff"  > <label for="00004012"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004012" id="00004012" value=""   /></div></td>
@@ -5693,7 +5928,7 @@ function create_panels(){
 					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Monitor(a), ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Monitor(a), ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050200"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050200" id="9005020001" value="EDUCACION INICIAL"><label for="9005020001">EDUCACION INICIAL</label><input type="radio" name="90050200" id="9005020002" value="EDUCACION PRIMARIA"><label for="9005020002">EDUCACION PRIMARIA</label><input type="radio" name="90050200" id="9005020003" value="EDUCACION SECUNDARIA"><label for="9005020003">EDUCACION SECUNDARIA</label><input type="radio" name="90050200" id="9005020004" value="E.P INTERCULTURAL BILINGUE"><label for="9005020004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050200" id="9005020005" value="OTRO"><label for="9005020005">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90050300"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>5.A. Especificar 1era especialidad - Secundaria:</legend><input type="radio" name="90050300" id="9005030001" value="LENGUA Y LITERATURA"><label for="9005030001">LENGUA Y LITERATURA</label><input type="radio" name="90050300" id="9005030002" value="COMUNICACION"><label for="9005030002">COMUNICACION</label><input type="radio" name="90050300" id="9005030003" value="MATEMATICA Y FISICA"><label for="9005030003">MATEMATICA Y FISICA</label><input type="radio" name="90050300" id="9005030004" value="MATEMATICA"><label for="9005030004">MATEMATICA</label><input type="radio" name="90050300" id="9005030005" value="CCSS Y FILOSOFIA"><label for="9005030005">CCSS Y FILOSOFIA</label><input type="radio" name="90050300" id="9005030006" value="CIENCIAS NATURALES"><label for="9005030006">CIENCIAS NATURALES</label><input type="radio" name="90050300" id="9005030007" value="BIOLOGIA Y QUIMICA"><label for="9005030007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90050300" id="9005030008" value="HISTORIA Y GEOGRAFIA"><label for="9005030008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90050300" id="9005030009" value="CCHH SOCIALES"><label for="9005030009">CCHH SOCIALES</label><input type="radio" name="90050300" id="90050300010" value="INGLES"><label for="90050300010">INGLES</label><input type="radio" name="90050300" id="90050300011" value="EDUCACION RELIGIOSA"><label for="90050300011">EDUCACION RELIGIOSA</label><input type="radio" name="90050300" id="90050300012" value="EDUCACION FAMILIAR"><label for="90050300012">EDUCACION FAMILIAR</label><input type="radio" name="90050300" id="90050300013" value="EDUCACION ARTISTICA"><label for="90050300013">EDUCACION ARTISTICA</label><input type="radio" name="90050300" id="90050300014" value="E.P. INTERCULTURAL BILINGUE"><label for="90050300014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90050300" id="90050300015" value="OTROS"><label for="90050300015">OTROS</label></fieldset></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="EDUCACION SECUNDARIA"><label for="9007000003">EDUCACION SECUNDARIA</label><input type="radio" name="90070000" id="9007000004" value="E.P INTERCULTURAL BILINGUE"><label for="9007000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000005" value="OTRO"><label for="9007000005">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90060100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>7.A. Especificar 2da especialidad - Secundaria:</legend><input type="radio" name="90060100" id="9006010001" value="LENGUA Y LITERATURA"><label for="9006010001">LENGUA Y LITERATURA</label><input type="radio" name="90060100" id="9006010002" value="COMUNICACION"><label for="9006010002">COMUNICACION</label><input type="radio" name="90060100" id="9006010003" value="MATEMATICA Y FISICA"><label for="9006010003">MATEMATICA Y FISICA</label><input type="radio" name="90060100" id="9006010004" value="MATEMATICA"><label for="9006010004">MATEMATICA</label><input type="radio" name="90060100" id="9006010005" value="CCSS Y FILOSOFIA"><label for="9006010005">CCSS Y FILOSOFIA</label><input type="radio" name="90060100" id="9006010006" value="CIENCIAS NATURALES"><label for="9006010006">CIENCIAS NATURALES</label><input type="radio" name="90060100" id="9006010007" value="BIOLOGIA Y QUIMICA"><label for="9006010007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90060100" id="9006010008" value="HISTORIA Y GEOGRAFIA"><label for="9006010008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90060100" id="9006010009" value="CCHH SOCIALES"><label for="9006010009">CCHH SOCIALES</label><input type="radio" name="90060100" id="90060100010" value="INGLES"><label for="90060100010">INGLES</label><input type="radio" name="90060100" id="90060100011" value="EDUCACION RELIGIOSA"><label for="90060100011">EDUCACION RELIGIOSA</label><input type="radio" name="90060100" id="90060100012" value="EDUCACION FAMILIAR"><label for="90060100012">EDUCACION FAMILIAR</label><input type="radio" name="90060100" id="90060100013" value="EDUCACION ARTISTICA"><label for="90060100013">EDUCACION ARTISTICA</label><input type="radio" name="90060100" id="90060100014" value="E.P. INTERCULTURAL BILINGUE"><label for="90060100014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90060100" id="90060100015" value="OTROS"><label for="90060100015">OTROS</label></fieldset></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div>
+					input type='hidden' name='' value='0'><div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Monitor(a), ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Monitor(a), ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050200"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050200" id="9005020001" value="EDUCACION INICIAL"><label for="9005020001">EDUCACION INICIAL</label><input type="radio" name="90050200" id="9005020002" value="EDUCACION PRIMARIA"><label for="9005020002">EDUCACION PRIMARIA</label><input type="radio" name="90050200" id="9005020003" value="EDUCACION SECUNDARIA"><label for="9005020003">EDUCACION SECUNDARIA</label><input type="radio" name="90050200" id="9005020004" value="E.P INTERCULTURAL BILINGUE"><label for="9005020004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050200" id="9005020005" value="OTRO"><label for="9005020005">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90050300"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>5.A. Especificar 1era especialidad - Secundaria:</legend><input type="radio" name="90050300" id="9005030001" value="LENGUA Y LITERATURA"><label for="9005030001">LENGUA Y LITERATURA</label><input type="radio" name="90050300" id="9005030002" value="COMUNICACION"><label for="9005030002">COMUNICACION</label><input type="radio" name="90050300" id="9005030003" value="MATEMATICA Y FISICA"><label for="9005030003">MATEMATICA Y FISICA</label><input type="radio" name="90050300" id="9005030004" value="MATEMATICA"><label for="9005030004">MATEMATICA</label><input type="radio" name="90050300" id="9005030005" value="CCSS Y FILOSOFIA"><label for="9005030005">CCSS Y FILOSOFIA</label><input type="radio" name="90050300" id="9005030006" value="CIENCIAS NATURALES"><label for="9005030006">CIENCIAS NATURALES</label><input type="radio" name="90050300" id="9005030007" value="BIOLOGIA Y QUIMICA"><label for="9005030007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90050300" id="9005030008" value="HISTORIA Y GEOGRAFIA"><label for="9005030008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90050300" id="9005030009" value="CCHH SOCIALES"><label for="9005030009">CCHH SOCIALES</label><input type="radio" name="90050300" id="90050300010" value="INGLES"><label for="90050300010">INGLES</label><input type="radio" name="90050300" id="90050300011" value="EDUCACION RELIGIOSA"><label for="90050300011">EDUCACION RELIGIOSA</label><input type="radio" name="90050300" id="90050300012" value="EDUCACION FAMILIAR"><label for="90050300012">EDUCACION FAMILIAR</label><input type="radio" name="90050300" id="90050300013" value="EDUCACION ARTISTICA"><label for="90050300013">EDUCACION ARTISTICA</label><input type="radio" name="90050300" id="90050300014" value="E.P. INTERCULTURAL BILINGUE"><label for="90050300014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90050300" id="90050300015" value="OTROS"><label for="90050300015">OTROS</label></fieldset></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="EDUCACION SECUNDARIA"><label for="9007000003">EDUCACION SECUNDARIA</label><input type="radio" name="90070000" id="9007000004" value="E.P INTERCULTURAL BILINGUE"><label for="9007000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000005" value="OTRO"><label for="9007000005">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90060100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>7.A. Especificar 2da especialidad - Secundaria:</legend><input type="radio" name="90060100" id="9006010001" value="LENGUA Y LITERATURA"><label for="9006010001">LENGUA Y LITERATURA</label><input type="radio" name="90060100" id="9006010002" value="COMUNICACION"><label for="9006010002">COMUNICACION</label><input type="radio" name="90060100" id="9006010003" value="MATEMATICA Y FISICA"><label for="9006010003">MATEMATICA Y FISICA</label><input type="radio" name="90060100" id="9006010004" value="MATEMATICA"><label for="9006010004">MATEMATICA</label><input type="radio" name="90060100" id="9006010005" value="CCSS Y FILOSOFIA"><label for="9006010005">CCSS Y FILOSOFIA</label><input type="radio" name="90060100" id="9006010006" value="CIENCIAS NATURALES"><label for="9006010006">CIENCIAS NATURALES</label><input type="radio" name="90060100" id="9006010007" value="BIOLOGIA Y QUIMICA"><label for="9006010007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90060100" id="9006010008" value="HISTORIA Y GEOGRAFIA"><label for="9006010008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90060100" id="9006010009" value="CCHH SOCIALES"><label for="9006010009">CCHH SOCIALES</label><input type="radio" name="90060100" id="90060100010" value="INGLES"><label for="90060100010">INGLES</label><input type="radio" name="90060100" id="90060100011" value="EDUCACION RELIGIOSA"><label for="90060100011">EDUCACION RELIGIOSA</label><input type="radio" name="90060100" id="90060100012" value="EDUCACION FAMILIAR"><label for="90060100012">EDUCACION FAMILIAR</label><input type="radio" name="90060100" id="90060100013" value="EDUCACION ARTISTICA"><label for="90060100013">EDUCACION ARTISTICA</label><input type="radio" name="90060100" id="90060100014" value="E.P. INTERCULTURAL BILINGUE"><label for="90060100014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90060100" id="90060100015" value="OTROS"><label for="90060100015">OTROS</label></fieldset></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(33);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
