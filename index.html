@@ -3092,7 +3092,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-04-25 05:53:57</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-04-25 05:59:28</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -4673,6 +4673,27 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(26);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+		</div>
+		</form>
+	</div>
+ 
+	<div data-role="page" id="encuesta26">
+		<form>
+		<div data-role="header" class="hpage1"  data-theme="b">
+<h1 role="heading"> </h1>
+<a href="#rightpanel1" class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow bw" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Navigation </a>
+
+		</div>
+		<div data-role="content">
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>ENCUESTAS POR NIVELES </h3>
+				</div>
+				<div class="ui-body ui-body-a">
+					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000003"  class=" ff"  > <div data-role="fieldcontain"><label for="90000003"   >Grado/Año</label><input  data-mini="true"   type="text" name="90000003" id="90000003" value=""   ></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input  data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(27);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
+				</div>				
+			</div>
+			<a href="#" onclick="return show_pre_end_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
 		</div>
 		</form>
 	</div>
