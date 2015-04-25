@@ -2462,6 +2462,9 @@ function fast_encuesta_exit(){
 
 function update_database(){
 	//conectarse a app y enviar nuestra version actual
+	alert("No hay nuevas actualizaciones.");
+	return false;
+
 	freeze_open();
 	$.ajax({ url: localStorage.getItem("ws_update"),
 			 type: "GET",
@@ -3094,7 +3097,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-04-25 06:04:57</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-04-25 06:07:44</div>';
 	html += '</div>';
 	$("body").append(html);
 }
