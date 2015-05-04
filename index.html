@@ -41,7 +41,7 @@ var imageid = "";
 var res0 = "<option value='0'>--Seleccionar--</option>";
 var res1 = "<option value='1'>Completo</option><option value='2'>Incompleto</option>";
 var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
-var desktop = 0;
+var desktop = 1;
 </script>
 <script src="js/dbdata.js"></script>
 <script>
@@ -356,10 +356,12 @@ function onDeviceReady() {
 			$( "#div62000000" ).hide();			
 			$( "#div63000000" ).show();	
 
-			$( "#div12020100" ).hide();			
 			$( "#div12020110" ).show();
 			$( "#div12020200" ).hide();			
 			$( "#div12020120" ).show();
+
+			$( "#div07010200" ).hide();		
+			$( "#div07020300" ).hide();		
 		
 		} else {
 			$( "#div05010000" ).show();
@@ -383,6 +385,10 @@ function onDeviceReady() {
 			$( "#div12020110" ).hide();
 			$( "#div12020200" ).show();			
 			$( "#div12020120" ).hide();
+
+			$( "#div07010200" ).show();		
+			$( "#div07020300" ).show();	
+		
 		
 		}
 	});
@@ -1083,38 +1089,38 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=40010000]" ).change(function() {
-	/*if( ($("input[name=40010000]:checked").val() == "NO") || ($("input[name=40010000]:checked").val() == "NO SABE") ){
-			$( "#div41010000,#div42010000,#div43010000,#div44010000" ).hide();
+	$("#encuesta18").find( "input[name=40010000]" ).change(function() {
+	if( ($("#encuesta18").find("input[name=40010000]:checked").val() == "NO") || ($("#encuesta18").find("input[name=40010000]:checked").val() == "NO SABE") ){
+			$( "#mantenimiento" ).hide();
 		} else {
-			$( "#div41010000,#div42010000,#div43010000,#div44010000" ).show();
-		}*/
-	});
-/*
-	$( "input[name=41010000]" ).change(function() {
-		if( ($("input[name=41010000]:checked").val() == "NO") || ($("input[name=41010000]:checked").val() == "NO SABE") ){
-			$( "#div42010000,#div43010000,#div44010000" ).hide();
-		} else {
-			$( "#div41010000,#div42010000,#div43010000,#div44010000" ).show();
+			$( "#mantenimiento" ).show();
 		}
-	});*/
+	});
 
-	$( "input[name=42010000]" ).change(function() {
-		if( ($("input[name=42010000]:checked").val() == "SI")  ){
+	$("#encuesta18").find( "input[name=41010000]" ).change(function() {
+		if( ($("#encuesta18").find("input[name=41010000]:checked").val() == "NO") || ($("#encuesta18").find("input[name=41010000]:checked").val() == "NO SABE") ){
+			$( "#mantficha" ).hide();
+		} else {
+			$( "#mantficha" ).show();
+		}
+	});
+
+	$("#encuesta18").find( "input[name=42010000]" ).change(function() {
+		if( ($("#encuesta18").find("input[name=42010000]:checked").val() == "SI")  ){
 			$( "#div43010000" ).hide();
-			$("input[name=43010000]:checked").attr("checked", false);
-			$("input[name=43010000]").checkboxradio("refresh");
+			$("#encuesta18").find("input[name=43010000]:checked").attr("checked", false);
+			$("#encuesta18").find("input[name=43010000]").checkboxradio("refresh");
 			$( "#div44010000").show();
 		} else {
-			$("input[name=43010000]:checked").attr("checked", false);
-			$("input[name=43010000]").checkboxradio("refresh");
+			$("#encuesta18").find("input[name=43010000]:checked").attr("checked", false);
+			$("#encuesta18").find("input[name=43010000]").checkboxradio("refresh");
 			$( "#div43010000" ).show();
 			$( "#div44010000").hide();
 		}
 	});
 
-	$( "input[name=43010000]" ).change(function() {
-		if( $("input[name=43010000]:checked").val() == "Otros" ){
+	$("#encuesta18").find( "input[name=43010000]" ).change(function() {
+		if( $("#encuesta18").find("input[name=43010000]:checked").val() == "Otros" ){
 			$( "#div43010100" ).show();
 		} else {
 			$( "#div43010100").hide();
@@ -1123,29 +1129,29 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		$( "#div44010000").hide();
 	});
 
-	$( "input[name=45010000]" ).change(function() {
-		if( ($("input[name=45010000]:checked").val() == "NO")  ){
-			$( "#div46010000,#div47000000" ).hide();
+	$("#encuesta19").find( "input[name=45010000]" ).change(function() {
+		if( ($("#encuesta19").find("input[name=45010000]:checked").val() == "NO")  ){
+			$( "#higienicos" ).hide();
 		} else {
-			$( "#div46010000,#div47000000" ).show();
+			$( "#higienicos" ).show();
 		}
 	});
 
-	$( "input[name=47010100]" ).change(function() {
-		if( ($("input[name=47010100]:checked").val() == "NO")  ){	$(".finodoro,#div47010200").hide();	} else {$(".finodoro,#div47010200").show();	}
+	$("#encuesta19").find( "input[name=47010100]" ).change(function() {
+		if( ($("#encuesta19").find("input[name=47010100]:checked").val() == "NO")  ){	$(".finodoro,#div47010200").hide();	} else {$(".finodoro,#div47010200").show();	}
 	});
-	$( "input[name=47020100]" ).change(function() {
-		if( ($("input[name=47020100]:checked").val() == "NO")  ){	$(".fturco,#div47020200").hide();	} else {$(".fturco,#div47020200").show();	}
+	$("#encuesta19").find( "input[name=47020100]" ).change(function() {
+		if( ($("#encuesta19").find("input[name=47020100]:checked").val() == "NO")  ){	$(".fturco,#div47020200").hide();	} else {$(".fturco,#div47020200").show();	}
 	});
-	$( "input[name=47030100]" ).change(function() {
-		if( ($("input[name=47030100]:checked").val() == "NO")  ){	$(".fhueco,#div47030200").hide();	} else {$(".fhueco,#div47030200").show();	}
+	$("#encuesta19").find( "input[name=47030100]" ).change(function() {
+		if( ($("#encuesta19").find("input[name=47030100]:checked").val() == "NO")  ){	$(".fhueco,#div47030200").hide();	} else {$(".fhueco,#div47030200").show();	}
 	});
 
-	$( "input[name=48010000]" ).change(function() {
-		if( ($("input[name=48010000]:checked").val() == "NO") ){
-			$( "#div49010000,#div50010000,#div86000000" ).hide();
+	$("#encuesta20").find("input[name=48010000]" ).change(function() {
+		if( ($("#encuesta20").find("input[name=48010000]:checked").val() == "NO") ){
+			$("#encuesta20").find("#div49010000,#div50010000,#div50110000,#div86000000" ).hide();
 		} else {
-			$( "#div49010000,#div50010000,#div86000000" ).show();
+			$("#encuesta20").find("#div49010000,#div50010000,#div50110000,#div86000000" ).show();
 		}
 	});
 
@@ -1349,19 +1355,25 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 
 
 
-	$( "input[name=79010000]" ).change(function() {
-		if( $("input[name=79010000]:checked").val() == "NO"){
-			$( "#div80010000,#div81010000" ).hide();
+	$("#encuesta28").find( "input[name=79010000]" ).change(function() {
+		if( $("#encuesta28").find("input[name=79010000]:checked").val() == "NO"){
+			$("#encuesta28").find( "#div79020000,#div80020000,#div81030000,#div80010000,#div80010100" ).hide();
 		} else {
-			$( "#div80010000,#div81010000" ).show();
+			$("#encuesta28").find( "#div79020000,#div80020000,#div81030000,#div80010000,#div80010100" ).show();
 		}
 	});
 
-	$( "input[name=80010000]" ).change(function() {
-		if( $("input[name=80010000]:checked").val() == "CERCO VIVO"){
-			$( "#div81010000" ).hide();
+	$("#encuesta28").find( "input[name=80010000]" ).change(function() {
+		if( $("#encuesta28").find("input[name=80010000]:checked").val() == "OTRO"){
+			$("#encuesta28").find( "#div80010100" ).show();
 		} else {
-			$( "#div81010000" ).show();
+			$("#encuesta28").find( "#div80010100" ).hide();
+		}
+
+		if( $("#encuesta28").find("input[name=80010000]:checked").val() == "CERCO VIVO"){
+			$("#encuesta28").find( "#div80010100,#div80020000,81030000" ).hide();
+		} else {
+			$("#encuesta28").find( "#div80010100,#div80020000,#div81030000" ).show();
 		}
 	});
 
@@ -1412,26 +1424,20 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 
 	$("#encuesta32").find("input[name=90010000]" ).change(function() {
 		if( $("#encuesta32").find("input[name=90010000]:checked").val() == "NO"){
-			$("#div90020000,#div90030000").hide();
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
-			$("#div90160000").hide();
+			$("#dopresente1").hide();
+			$("#dopresente2").hide();
 		} else {
-			$("#div90020000,#div90030000").show();
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").show();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").show();
-			$("#div90160000").show();
+			$("#dopresente1").show();
+			$("#dopresente2").show();
 		}
 	});
 	$("#encuesta32").find("input[name=90030000]" ).change(function() {
 		if( $("#encuesta32").find("input[name=90030000]:checked").val() == "NO"){
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
-			$("#div90160000").hide();
+			$("#dopresente1v2").hide();
+			$("#dopresente2").hide();
 		} else {
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").show();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").show();
-			$("#div90160000").show();
+			$("#dopresente1v2").show();
+			$("#dopresente2").show();
 		}
 	});
 
@@ -1971,6 +1977,96 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 	$("#encuesta9").find( "input[name=20010003]" ).change(function() {
 		if( $("#encuesta9").find("input[name=20010003]:checked").val() == "SI" ){  $("#div66020300").show();	} else {  $("#div66020300").hide();  }
 	});
+
+	$("#encuesta4").find( "input[name=00003101]" ).change(function() {
+		if( $("#encuesta4").find("input[name=00003101]:checked").val() == "SI" ){  $("#div00003100").show();	} else {  $("#div00003100").hide();  }
+	});
+
+	$("#encuesta13").find( "input[name=34020100]" ).change(function() {
+		if( $("#encuesta13").find("input[name=34020100]:checked").val() == "SI" ){  $("#div34020200").show();	} else {  $("#div34020200").hide();  }
+	});
+	$("#encuesta15").find( "input[name=34010310]" ).change(function() {
+		if( $("#encuesta15").find("input[name=34010310]:checked").val() == "SI" ){  $("#soportepeda").show();	} else {  $("#soportepeda").hide();  }
+	});
+	$("#encuesta16").find( "input[name=34220150]" ).change(function() {
+		if( $("#encuesta16").find("input[name=34220150]:checked").val() == "SI" ){  $("#div34220250,#div34220350").show();	} else {  $("#div34220250,#div34220350").hide();  }
+	});
+
+	$("#encuesta21").find( "input[name=53010000]" ).change(function() {
+		if( $("#encuesta21").find("input[name=53010000]:checked").val() == "SI" ){  $("#internet").show();	} else {  $("#internet").hide();  }
+	});
+	$("#encuesta24").find( "input[name=60010220]" ).change(function() {
+		if( $("#encuesta24").find("input[name=60010220]:checked").val() == "SI" ){  $("#materiale").show();	} else {  $("#materiale").hide();  }
+	});
+
+	$("#encuesta28").find( "input[name=79100000]" ).change(function() {
+		if( $("#encuesta28").find("input[name=79100000]:checked").val() == "SI" ){  $("#div79110000").show();	} else {  $("#div79110000").hide();  }
+	});
+
+
+	$("#encuesta32").find( "input[name=90150100]" ).change(function() {
+		if( $("#encuesta32").find("input[name=90150100]:checked").val() == "SI" ){  $("#div90150200").hide();	} else {  $("#div90150200").show();  }
+	});
+	$("#encuesta34").find( "input[name=90200100]" ).change(function() {
+		if( $("#encuesta34").find("input[name=90200100]:checked").val() == "SI" ){  $("#div90200200").hide();	} else {  $("#div90200200").show();  }
+	});
+
+	$("#encuesta36").find( "input[name=90270100]" ).change(function() {
+		if( $("#encuesta36").find("input[name=90270100]:checked").val() == "NO TIENE PAREDES" ){  $("#div90280100").hide();	} else {  $("#div90280100").show();  }
+	});
+
+	$("#encuesta36").find( "input[name=90290100]" ).change(function() {
+		if( $("#encuesta36").find("input[name=90290100]:checked").val() == "NO TIENE TECHO" ){  $("#div90300100").hide();	} else {  $("#div90300100").show();  }
+	});
+
+	$("#encuesta36").find( "input[name=90320100]" ).change(function() {
+		if( $("#encuesta36").find("input[name=90320100]:checked").val() == "NO TIENE PUERTAS" ){  $("#div90330100").hide();	} else {  $("#div90330100").show();  }
+	});
+
+	$("#encuesta33").find( "input[name=90101000]" ).change(function() {
+		if( $("#encuesta33").find("input[name=90101000]:checked").val() == "NO" ){  $("#div90111000,#div90121001,#div90121000").hide();	 } else {  $("#div90111000,#div90121001,#div90121000").show();  }
+	});
+	$("#encuesta33").find( "input[name=90111000]" ).change(function() {
+		if( $("#encuesta33").find("input[name=90111000]:checked").val() == "NO" ){  $("#div90121001,#div90121000").hide();	 } else {  $("#div90121001,#div90121000").show();  }
+	});
+	$("#encuesta33").find( "input[name=90150100]" ).change(function() {
+		if( $("#encuesta33").find("input[name=90150100]:checked").val() == "NO" ){  $("#div90150200").hide();	 } else {  $("#div90150200").show();  }
+	});
+	$("#encuesta33").find( "input[name=90221000]" ).change(function() {
+		if( $("#encuesta33").find("input[name=90221000]:checked").val() == "NO" ){  $("#div90231000,#div90241000,#div90251000,#div90160000").hide();	 } else { $("#div90231000,#div90241000,#div90251000,#div90160000").show();  }
+	});
+
+
+	$("#encuesta6").find( "input[name=10040001]" ).change(function() {
+		if( $("#encuesta6").find("input[name=10040001]:checked").val() == "NO" ){  $("#div10050011").hide();	 } else {  $("#div10050011").show();  }
+	});
+	$("#encuesta6").find( "input[name=10040002]" ).change(function() {
+		if( $("#encuesta6").find("input[name=10040002]:checked").val() == "NO" ){  $("#div10050012").hide();	 } else {  $("#div10050012").show();  }
+	});
+	$("#encuesta6").find( "input[name=10040003]" ).change(function() {
+		if( $("#encuesta6").find("input[name=10040003]:checked").val() == "NO" ){  $("#div10050013").hide();	 } else {  $("#div10050013").show();  }
+	});
+
+	$("#encuesta13").find( "input[name=34010110]" ).change(function() {
+		if( $("#encuesta6").find("input[name=34010110]:checked").val() == "NO" ){  $("#div34010130,#div34010170").hide();	 } else {  $("#div34010130,#div34010170").show();  }
+	});
+	$("#encuesta13").find( "input[name=34010120]" ).change(function() {
+		if( $("#encuesta6").find("input[name=34010120]:checked").val() == "NO" ){  $("#div34010150,#div34010180").hide();	 } else {  $("#div34010150,#div34010180").show();  }
+	});
+
+	$("#encuesta13").find( "input[name=34010130]" ).change(function() {
+		if( $("#encuesta6").find("input[name=34010130]:checked").val() == "NO" ){  $("#div34010160").show();	 } else {  }
+	});
+	$("#encuesta13").find( "input[name=34010150]" ).change(function() {
+		if( $("#encuesta6").find("input[name=34010150]:checked").val() == "NO" ){  $("#div34010160").show();	 } else {  }
+	});
+
+	$("#encuesta13").find( "input[name=34010170]" ).change(function() {
+		if( $("#encuesta6").find("input[name=34010170]:checked").val() == "NO" ){  $("#div34010220").show();	 } else {  }
+	});
+	$("#encuesta13").find( "input[name=34010180]" ).change(function() {
+		if( $("#encuesta6").find("input[name=34010180]:checked").val() == "NO" ){  $("#div34010220").show();	 } else {  }
+	});
 	//---------------------------------------------------------
 
 }
@@ -2450,6 +2546,9 @@ function default_hiding(){
 	$("#encuesta11").find(".25010000,.25020000,.25030000,.25040000,.25050000,.25060000,.25070000").hide();
 
 	//------------------------
+	$( "#higienicos" ).hide();
+	$("soportepeda").hide();
+	$("#div34020200").hide();
 	$("#div17300199").hide();
 	//$("#div34220251").hide();
 	$("#div35901011").hide();
@@ -2462,8 +2561,10 @@ function default_hiding(){
 	$( "#div55100200").hide();
 	$( "#div55100100").hide();
 	$( "#div60010001").hide();
-
+$("#div34220250,#div34220350").hide(); 
 	$( "#div_ratificado").hide();
+	$( "#div34010160").hide();
+	$( "#div34010220").hide();
 
 
 	$("#encuesta8").find(".fi_i1").hide();
@@ -2498,6 +2599,9 @@ function default_hiding(){
 	$("#encuesta8").find(".fi_s8").hide();
 	$("#encuesta8").find(".fi_s9").hide();
 	$("#encuesta8").find(".fi_s10").hide();
+
+
+	$("#div00003100").hide();	
 
 	$("#div18110109").hide();	
 	$("#div18110209").hide();	
@@ -4037,7 +4141,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-02 06:29:38</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-04 07:34:38</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -4339,7 +4443,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(2);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -4361,7 +4465,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(3);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -4392,7 +4496,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(4);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -4428,7 +4532,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(5);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -4483,7 +4587,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(6);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -4556,7 +4660,7 @@ function create_panels(){
 <td><div id="div14030403"  class=" ff"  > <label for="14030403"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="14030403" id="14030403" value=""  maxlength='2' min='0' max='24'   /></div></td>
 <td><div id="div14030503"  class=" ff"  > <label for="14030503"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="14030503" id="14030503" value=""   /></div></td>
 <td><div id="div14030603"  class=" ff"  > <label for="14030603"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="14030603" id="14030603" value=""   /></div></td>
-</tr></tbody></table><p>23. ¿Cuál es la duración en minutos de las siguientes actividades?</p><table class='ts1'><thead><tr><th>Actividad</th><th  colspan='3'>Tiempo en Minutos</th></tr><tr><th></th><th>Inicial</th><th>Primaria</th><th>Secundaria</th></tr></thead></tbody><tr class=''><td  >¿Desayuno escolar?</td>
+</tr></tbody></table><p>23. ¿Cuál es la duración en minutos de las siguientes actividades?</p><table class='ts1'><thead><tr><th>Actividad</th><th  colspan='3'>Tiempo en Minutos</th></tr><tr><th></th><th class='efi'>Inicial</th><th class='efp'>Primaria</th><th class='efs'>Secundaria</th></tr></thead></tbody><tr class=''><td  >¿Desayuno escolar?</td>
 <td class='efi' ><div id="div14100101"  class=" ff"  > <label for="14100101"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="14100101" id="14100101" value=""   /></div></td>
 <td class='efp' ><div id="div14100102"  class=" ff"  > <label for="14100102"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="14100102" id="14100102" value=""   /></div></td>
 <td class='efs' ><div id="div14100103"  class=" ff"  > <label for="14100103"  class="ui-hidden-accessible" ></label><input type="number"   pattern="[0-9]*" name="14100103" id="14100103" value=""   /></div></td>
@@ -4576,7 +4680,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(7);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -4676,7 +4780,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(8);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -4938,7 +5042,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(9);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5003,7 +5107,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(10);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5067,7 +5171,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(11);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5110,7 +5214,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(12);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5225,7 +5329,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(13);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5247,7 +5351,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(14);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5269,7 +5373,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(15);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5287,11 +5391,11 @@ function create_panels(){
 					<h3>X. ESTRATEGIA SOPORTE PEDAGOGICO (SOLO NIVEL PRIMARIA) </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div34010310"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>57. ¿Su institución educativa participa de la estrategia de Soporte Pedagógico?</legend><input type="radio" name="34010310" id="3401031001" value="SI"><label for="3401031001">SI</label><input type="radio" name="34010310" id="3401031002" value="NO"><label for="3401031002">NO</label></fieldset></div><div id="div34010320"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>58. ¿En la IE se están llevando a cabo las jornadas con madres y padres de familia?</legend><input type="radio" name="34010320" id="3401032001" value="SI"><label for="3401032001">SI</label><input type="radio" name="34010320" id="3401032002" value="NO"><label for="3401032002">NO</label></fieldset></div><div id="div34010330"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>59. ¿Existen docentes fortaleza en la institución educativa?</legend><input type="radio" name="34010330" id="3401033001" value="SI"><label for="3401033001">SI</label><input type="radio" name="34010330" id="3401033002" value="NO"><label for="3401033002">NO</label></fieldset></div><div id="div34010340"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>60. ¿La Institución educativa ofrece refuerzo escolar a sus estudiantes de 1er a 3er grado?</legend><input type="radio" name="34010340" id="3401034001" value="SI"><label for="3401034001">SI</label><input type="radio" name="34010340" id="3401034002" value="NO"><label for="3401034002">NO</label></fieldset></div><div id="div34010350"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>61. ¿La institución educativa ofrece refuerzo escolar por gestión propia?</legend><input type="radio" name="34010350" id="3401035001" value="SI"><label for="3401035001">SI</label><input type="radio" name="34010350" id="3401035002" value="NO"><label for="3401035002">NO</label></fieldset></div>
+					<div id="div34010310"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>57. ¿Su institución educativa participa de la estrategia de Soporte Pedagógico?</legend><input type="radio" name="34010310" id="3401031001" value="SI"><label for="3401031001">SI</label><input type="radio" name="34010310" id="3401031002" value="NO"><label for="3401031002">NO</label></fieldset></div><div id='soportepeda'><div id="div34010320"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>58. ¿En la IE se están llevando a cabo las jornadas con madres y padres de familia?</legend><input type="radio" name="34010320" id="3401032001" value="SI"><label for="3401032001">SI</label><input type="radio" name="34010320" id="3401032002" value="NO"><label for="3401032002">NO</label></fieldset></div><div id="div34010330"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>59. ¿Existen docentes fortaleza en la institución educativa?</legend><input type="radio" name="34010330" id="3401033001" value="SI"><label for="3401033001">SI</label><input type="radio" name="34010330" id="3401033002" value="NO"><label for="3401033002">NO</label></fieldset></div><div id="div34010340"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>60. ¿La Institución educativa ofrece refuerzo escolar a sus estudiantes de 1er a 3er grado?</legend><input type="radio" name="34010340" id="3401034001" value="SI"><label for="3401034001">SI</label><input type="radio" name="34010340" id="3401034002" value="NO"><label for="3401034002">NO</label></fieldset></div><div id="div34010350"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>61. ¿La institución educativa ofrece refuerzo escolar por gestión propia?</legend><input type="radio" name="34010350" id="3401035001" value="SI"><label for="3401035001">SI</label><input type="radio" name="34010350" id="3401035002" value="NO"><label for="3401035002">NO</label></fieldset></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(16);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5313,7 +5417,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(17);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5431,7 +5535,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(18);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5450,12 +5554,12 @@ function create_panels(){
 				</div>
 				<div class="ui-body ui-body-a">
 					<div id="div40010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>70. En el presente año lectivo, a través del Ministerio de Educación,¿ El local escolar ha recibido la transferencia de dinero para realizar
-		 obras de mantenimiento?</legend><input type="radio" name="40010000" id="4001000001" value="SI"><label for="4001000001">SI</label><input type="radio" name="40010000" id="4001000002" value="NO"><label for="4001000002">NO</label><input type="radio" name="40010000" id="4001000003" value="NO SABE"><label for="4001000003">NO SABE</label></fieldset></div><div id="div39010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>71. ¿Quién es el responsable de la ejecución de las obras de mantenimiento en su local escolar?
-	</legend><input type="radio" name="39010000" id="3901000001" value="Director"><label for="3901000001">Director</label><input type="radio" name="39010000" id="3901000002" value="Docente/Docente encargado"><label for="3901000002">Docente/Docente encargado</label><input type="radio" name="39010000" id="3901000003" value="Personal designado por UGEL/DRE"><label for="3901000003">Personal designado por UGEL/DRE</label><input type="radio" name="39010000" id="3901000004" value="Director UGEL/DRE"><label for="3901000004">Director UGEL/DRE</label></fieldset></div><div id="div41010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>72. ¿Ha registrado la ficha de mantenimiento?</legend><input type="radio" name="41010000" id="4101000001" value="SI"><label for="4101000001">SI</label><input type="radio" name="41010000" id="4101000002" value="NO"><label for="4101000002">NO</label><input type="radio" name="41010000" id="4101000003" value="NO SABE"><label for="4101000003">NO SABE</label></fieldset></div><div id="div42010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>73. ¿Está ejecutando el presupuesto de mantenimiento?</legend><input type="radio" name="42010000" id="4201000001" value="SI"><label for="4201000001">SI</label><input type="radio" name="42010000" id="4201000002" value="NO"><label for="4201000002">NO</label></fieldset></div><div id="div43010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>74. ¿Por qué no lo ha ejecutado?</legend><input type="radio" name="43010000" id="4301000001" value="El local escolar es nuevo y no necesita mantenimiento"><label for="4301000001">El local escolar es nuevo y no necesita mantenimiento</label><input type="radio" name="43010000" id="4301000002" value="Se está reconstruyendo el local escolar"><label for="4301000002">Se está reconstruyendo el local escolar</label><input type="radio" name="43010000" id="4301000003" value="Institución educativa fusionada"><label for="4301000003">Institución educativa fusionada</label><input type="radio" name="43010000" id="4301000004" value="La I.E funciona en un local alquilado/prestado"><label for="4301000004">La I.E funciona en un local alquilado/prestado</label><input type="radio" name="43010000" id="4301000005" value="El dinero no llegó al responsable de las obras de mantenimiento"><label for="4301000005">El dinero no llegó al responsable de las obras de mantenimiento</label><input type="radio" name="43010000" id="4301000006" value="Otros"><label for="4301000006">Otros</label></fieldset></div><div id="div43010100"  class=" ff"  > <div data-role="fieldcontain"><label for="43010100"   >Especificar:</label><input  data-mini="true"   type="text" name="43010100" id="43010100" value=""   ></div></div><div id="div44010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>75. ¿Qué acciones de mantenimiento se han ejecutado o vienen ejecutándose en el local escolar?</legend><input type="checkbox" name="44010001" id="4401000001" value="Reparación de techos"><label for="4401000001" >Reparación de techos</label><input type="checkbox" name="44010002" id="4401000002" value="Reparación de instalaciones sanitarias"><label for="4401000002" >Reparación de instalaciones sanitarias</label><input type="checkbox" name="44010003" id="4401000003" value="Reparación de pisos"><label for="4401000003" >Reparación de pisos</label><input type="checkbox" name="44010004" id="4401000004" value="Reparación de paredes"><label for="4401000004" >Reparación de paredes</label><input type="checkbox" name="44010005" id="4401000005" value="Reparación de puertas"><label for="4401000005" >Reparación de puertas</label><input type="checkbox" name="44010006" id="4401000006" value="Reparación de ventanas"><label for="4401000006" >Reparación de ventanas</label><input type="checkbox" name="44010007" id="4401000007" value="Reparación de instalaciones electricas"><label for="4401000007" >Reparación de instalaciones electricas</label><input type="checkbox" name="44010008" id="4401000008" value="Reparación de mobiliario escolar"><label for="4401000008" >Reparación de mobiliario escolar</label><input type="checkbox" name="44010009" id="4401000009" value="Reposición de mobiliario escolar"><label for="4401000009" >Reposición de mobiliario escolar</label><input type="checkbox" name="44010010" id="4401000010" value="Pintado"><label for="4401000010" >Pintado</label></fieldset></div>
+		 obras de mantenimiento?</legend><input type="radio" name="40010000" id="4001000001" value="SI"><label for="4001000001">SI</label><input type="radio" name="40010000" id="4001000002" value="NO"><label for="4001000002">NO</label><input type="radio" name="40010000" id="4001000003" value="NO SABE"><label for="4001000003">NO SABE</label></fieldset></div><div id='mantenimiento'><div id="div39010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>71. ¿Quién es el responsable de la ejecución de las obras de mantenimiento en su local escolar?
+	</legend><input type="radio" name="39010000" id="3901000001" value="Director"><label for="3901000001">Director</label><input type="radio" name="39010000" id="3901000002" value="Docente/Docente encargado"><label for="3901000002">Docente/Docente encargado</label><input type="radio" name="39010000" id="3901000003" value="Personal designado por UGEL/DRE"><label for="3901000003">Personal designado por UGEL/DRE</label><input type="radio" name="39010000" id="3901000004" value="Director UGEL/DRE"><label for="3901000004">Director UGEL/DRE</label></fieldset></div><div id="div41010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>72. ¿Ha registrado la ficha de mantenimiento?</legend><input type="radio" name="41010000" id="4101000001" value="SI"><label for="4101000001">SI</label><input type="radio" name="41010000" id="4101000002" value="NO"><label for="4101000002">NO</label><input type="radio" name="41010000" id="4101000003" value="NO SABE"><label for="4101000003">NO SABE</label></fieldset></div><div id='mantficha'><div id="div42010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>73. ¿Está ejecutando el presupuesto de mantenimiento?</legend><input type="radio" name="42010000" id="4201000001" value="SI"><label for="4201000001">SI</label><input type="radio" name="42010000" id="4201000002" value="NO"><label for="4201000002">NO</label></fieldset></div><div id="div43010000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>74. ¿Por qué no lo ha ejecutado?</legend><input type="radio" name="43010000" id="4301000001" value="El local escolar es nuevo y no necesita mantenimiento"><label for="4301000001">El local escolar es nuevo y no necesita mantenimiento</label><input type="radio" name="43010000" id="4301000002" value="Se está reconstruyendo el local escolar"><label for="4301000002">Se está reconstruyendo el local escolar</label><input type="radio" name="43010000" id="4301000003" value="Institución educativa fusionada"><label for="4301000003">Institución educativa fusionada</label><input type="radio" name="43010000" id="4301000004" value="La I.E funciona en un local alquilado/prestado"><label for="4301000004">La I.E funciona en un local alquilado/prestado</label><input type="radio" name="43010000" id="4301000005" value="El dinero no llegó al responsable de las obras de mantenimiento"><label for="4301000005">El dinero no llegó al responsable de las obras de mantenimiento</label><input type="radio" name="43010000" id="4301000006" value="Otros"><label for="4301000006">Otros</label></fieldset></div><div id="div43010100"  class=" ff"  > <div data-role="fieldcontain"><label for="43010100"   >Especificar:</label><input  data-mini="true"   type="text" name="43010100" id="43010100" value=""   ></div></div><div id="div44010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>75. ¿Qué acciones de mantenimiento se han ejecutado o vienen ejecutándose en el local escolar?</legend><input type="checkbox" name="44010001" id="4401000001" value="Reparación de techos"><label for="4401000001" >Reparación de techos</label><input type="checkbox" name="44010002" id="4401000002" value="Reparación de instalaciones sanitarias"><label for="4401000002" >Reparación de instalaciones sanitarias</label><input type="checkbox" name="44010003" id="4401000003" value="Reparación de pisos"><label for="4401000003" >Reparación de pisos</label><input type="checkbox" name="44010004" id="4401000004" value="Reparación de paredes"><label for="4401000004" >Reparación de paredes</label><input type="checkbox" name="44010005" id="4401000005" value="Reparación de puertas"><label for="4401000005" >Reparación de puertas</label><input type="checkbox" name="44010006" id="4401000006" value="Reparación de ventanas"><label for="4401000006" >Reparación de ventanas</label><input type="checkbox" name="44010007" id="4401000007" value="Reparación de instalaciones electricas"><label for="4401000007" >Reparación de instalaciones electricas</label><input type="checkbox" name="44010008" id="4401000008" value="Reparación de mobiliario escolar"><label for="4401000008" >Reparación de mobiliario escolar</label><input type="checkbox" name="44010009" id="4401000009" value="Reposición de mobiliario escolar"><label for="4401000009" >Reposición de mobiliario escolar</label><input type="checkbox" name="44010010" id="4401000010" value="Pintado"><label for="4401000010" >Pintado</label></fieldset></div></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(19);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5473,7 +5577,7 @@ function create_panels(){
 					<h3>X. SERVICIOS HIGIENICOS </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div45010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>76. ¿El local escolar cuenta con servicios higiénicos?</legend><input type="radio" name="45010000" id="4501000001" value="SI"><label for="4501000001">SI</label><input type="radio" name="45010000" id="4501000002" value="NO"><label for="4501000002">NO</label></fieldset></div><div id="div45100000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>77. ¿Los servicios higiénicos son de uso exclusivo y diferenciado en cada nivel educativo?</legend><input type="radio" name="45100000" id="4510000001" value="SI"><label for="4510000001">SI</label><input type="radio" name="45100000" id="4510000002" value="NO"><label for="4510000002">NO</label></fieldset></div><p>45210000</p><div id="div45210001"  class=" ff"  > <div data-role="fieldcontain"><label for="45210001"   >SS.HH. para estudiantes:</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="45210001" id="45210001" value=""   /></div></div><div id="div45210002"  class=" ff"  > <div data-role="fieldcontain"><label for="45210002"   >SS.HH. para docentes:</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="45210002" id="45210002" value=""   /></div></div><div id="div46010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>79. ¿Con qué tipo de sistema de saneamiento cuenta el servicio higiénico del local escolar?</legend><input type="checkbox" name="46010001" id="4601000001" value="Red pública"><label for="4601000001" >Red pública</label><input type="checkbox" name="46010002" id="4601000002" value="Pozo séptico"><label for="4601000002" >Pozo séptico</label><input type="checkbox" name="46010003" id="4601000003" value="Pozo ciego"><label for="4601000003" >Pozo ciego</label><input type="checkbox" name="46010004" id="4601000004" value="Río, acequia o canal"><label for="4601000004" >Río, acequia o canal</label><input type="checkbox" name="46010005" id="4601000005" value="No tiene"><label for="4601000005" >No tiene</label></fieldset></div><div id='div47000000'><p>80. ¿Qué tipo de aparatos sanitarios existen en el local escolar?</p><table  class="ts1"><thead><tr><th class=''></th><th class=''></th><th class=''>80.A Cantidad</th></tr></thead><tbody><tr class=''><td>Inodoros</td>
+					<div id="div45010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>76. ¿El local escolar cuenta con servicios higiénicos?</legend><input type="radio" name="45010000" id="4501000001" value="SI"><label for="4501000001">SI</label><input type="radio" name="45010000" id="4501000002" value="NO"><label for="4501000002">NO</label></fieldset></div><div id='higienicos'><div id="div45100000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>77. ¿Los servicios higiénicos son de uso exclusivo y diferenciado en cada nivel educativo?</legend><input type="radio" name="45100000" id="4510000001" value="SI"><label for="4510000001">SI</label><input type="radio" name="45100000" id="4510000002" value="NO"><label for="4510000002">NO</label></fieldset></div><p>45210000</p><div id="div45210001"  class=" ff"  > <div data-role="fieldcontain"><label for="45210001"   >SS.HH. para estudiantes:</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="45210001" id="45210001" value=""   /></div></div><div id="div45210002"  class=" ff"  > <div data-role="fieldcontain"><label for="45210002"   >SS.HH. para docentes:</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="45210002" id="45210002" value=""   /></div></div><div id="div46010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>79. ¿Con qué tipo de sistema de saneamiento cuenta el servicio higiénico del local escolar?</legend><input type="checkbox" name="46010001" id="4601000001" value="Red pública"><label for="4601000001" >Red pública</label><input type="checkbox" name="46010002" id="4601000002" value="Pozo séptico"><label for="4601000002" >Pozo séptico</label><input type="checkbox" name="46010003" id="4601000003" value="Pozo ciego"><label for="4601000003" >Pozo ciego</label><input type="checkbox" name="46010004" id="4601000004" value="Río, acequia o canal"><label for="4601000004" >Río, acequia o canal</label><input type="checkbox" name="46010005" id="4601000005" value="No tiene"><label for="4601000005" >No tiene</label></fieldset></div><div id='div47000000'><p>80. ¿Qué tipo de aparatos sanitarios existen en el local escolar?</p><table  class="ts1"><thead><tr><th class=''></th><th class=''></th><th class=''>80.A Cantidad</th></tr></thead><tbody><tr class=''><td>Inodoros</td>
 <td><div id="div47010100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="47010100" id="4701010001" value="SI"><label for="4701010001">SI</label><input type="radio" name="47010100" id="4701010002" value="NO"><label for="4701010002">NO</label></fieldset></div></td>
 <td><div id="div47010200"  class=" ff"  > <label for="47010200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="47010200" id="47010200" value=""   /></div></td>
 </tr><tr class=''><td>Turco</td>
@@ -5482,11 +5586,11 @@ function create_panels(){
 </tr><tr class=''><td>Hueco en el piso</td>
 <td><div id="div47030100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="47030100" id="4703010001" value="SI"><label for="4703010001">SI</label><input type="radio" name="47030100" id="4703010002" value="NO"><label for="4703010002">NO</label></fieldset></div></td>
 <td><div id="div47030200"  class=" ff"  > <label for="47030200"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="47030200" id="47030200" value=""   /></div></td>
-</tr></tbody></table></div>
+</tr></tbody></table></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(20);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5508,7 +5612,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(21);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5526,11 +5630,11 @@ function create_panels(){
 					<h3>XII. ALUMBRADO E INTERNET </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div51010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>86. ¿Con qué tipo de alumbrado cuenta en el local escolar?</legend><input type="checkbox" name="51010001" id="5101000001" value="Electricidad"><label for="5101000001" >Electricidad</label><input type="checkbox" name="51010002" id="5101000002" value="Petróleo/Gas (Lámpara)"><label for="5101000002" >Petróleo/Gas (Lámpara)</label><input type="checkbox" name="51010003" id="5101000003" value="Otro"><label for="5101000003" >Otro</label><input type="checkbox" name="51010004" id="5101000004" value="No tiene"><label for="5101000004" >No tiene</label></fieldset></div><div id="div51010100"  class=" ff"  > <div data-role="fieldcontain"><label for="51010100"   >Especificar:</label><input  data-mini="true"   type="text" name="51010100" id="51010100" value=""   ></div></div><div id="div52010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>87. ¿De dónde proviene la energía eléctrica del local escolar?</legend><input type="checkbox" name="52010001" id="5201000001" value="Red pública"><label for="5201000001" >Red pública</label><input type="checkbox" name="52010002" id="5201000002" value="Generador o motor"><label for="5201000002" >Generador o motor</label><input type="checkbox" name="52010003" id="5201000003" value="Panel solar"><label for="5201000003" >Panel solar</label><input type="checkbox" name="52010004" id="5201000004" value="Otro"><label for="5201000004" >Otro</label></fieldset></div><div id="div52010100"  class=" ff"  > <div data-role="fieldcontain"><label for="52010100"   >Especificar:</label><input  data-mini="true"   type="text" name="52010100" id="52010100" value=""   ></div></div><div id="div53010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>88. ¿El local escolar cuenta con servicio de internet?</legend><input type="radio" name="53010000" id="5301000001" value="SI"><label for="5301000001">SI</label><input type="radio" name="53010000" id="5301000002" value="NO"><label for="5301000002">NO</label></fieldset></div><p>89. ¿Cuántas horas al dia cuenta con el servicio de internet?</p><div id="div53100000"  class=" ff"  > <div data-role="fieldcontain"><label for="53100000"   >Horas</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="53100000" id="53100000" value=""   /></div></div><div id="div53100100"  class=" ff"  > <div data-role="fieldcontain"><label for="53100100"   >Minutos</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="53100100" id="53100100" value=""   /></div></div>
+					<div id="div51010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>86. ¿Con qué tipo de alumbrado cuenta en el local escolar?</legend><input type="checkbox" name="51010001" id="5101000001" value="Electricidad"><label for="5101000001" >Electricidad</label><input type="checkbox" name="51010002" id="5101000002" value="Petróleo/Gas (Lámpara)"><label for="5101000002" >Petróleo/Gas (Lámpara)</label><input type="checkbox" name="51010003" id="5101000003" value="Otro"><label for="5101000003" >Otro</label><input type="checkbox" name="51010004" id="5101000004" value="No tiene"><label for="5101000004" >No tiene</label></fieldset></div><div id="div51010100"  class=" ff"  > <div data-role="fieldcontain"><label for="51010100"   >Especificar:</label><input  data-mini="true"   type="text" name="51010100" id="51010100" value=""   ></div></div><div id="div52010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>87. ¿De dónde proviene la energía eléctrica del local escolar?</legend><input type="checkbox" name="52010001" id="5201000001" value="Red pública"><label for="5201000001" >Red pública</label><input type="checkbox" name="52010002" id="5201000002" value="Generador o motor"><label for="5201000002" >Generador o motor</label><input type="checkbox" name="52010003" id="5201000003" value="Panel solar"><label for="5201000003" >Panel solar</label><input type="checkbox" name="52010004" id="5201000004" value="Otro"><label for="5201000004" >Otro</label></fieldset></div><div id="div52010100"  class=" ff"  > <div data-role="fieldcontain"><label for="52010100"   >Especificar:</label><input  data-mini="true"   type="text" name="52010100" id="52010100" value=""   ></div></div><div id="div53010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>88. ¿El local escolar cuenta con servicio de internet?</legend><input type="radio" name="53010000" id="5301000001" value="SI"><label for="5301000001">SI</label><input type="radio" name="53010000" id="5301000002" value="NO"><label for="5301000002">NO</label></fieldset></div><p>89. ¿Cuántas horas al dia cuenta con el servicio de internet?</p><div id='internet'><div id="div53100000"  class=" ff"  > <div data-role="fieldcontain"><label for="53100000"   >Horas</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="53100000" id="53100000" value=""   /></div></div><div id="div53100100"  class=" ff"  > <div data-role="fieldcontain"><label for="53100100"   >Minutos</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="53100100" id="53100100" value=""   /></div></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(22);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5560,7 +5664,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(23);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5582,7 +5686,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(24);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5600,7 +5704,7 @@ function create_panels(){
 					<h3>XV. MATERIAL EDUCATIVO </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div60010220"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>98. ¿El local escolar cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010220" id="6001022001" value="SI"><label for="6001022001">SI</label><input type="radio" name="60010220" id="6001022002" value="NO"><label for="6001022002">NO</label></fieldset></div><div id="div60010230"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>99. ¿Los materiales educativos recibidos por el MINEDU corresponden a la lengua en que se imparte la enseñanza en la institución educativa ?</legend><input type="radio" name="60010230" id="6001023001" value="SI"><label for="6001023001">SI</label><input type="radio" name="60010230" id="6001023002" value="NO"><label for="6001023002">NO</label></fieldset></div><div id="div60010250"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>100. Los materiales educativos recibidos corresponden a:</legend><input type="radio" name="60010250" id="6001025001" value="IE MONOLINGUE"><label for="6001025001">IE MONOLINGUE</label><input type="radio" name="60010250" id="6001025002" value="IE-EIB"><label for="6001025002">IE-EIB</label></fieldset></div><div id="div60010240"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>101. ¿Duraten el presente año lectivo ¿ La IE ha recibido material fungible (colores,plumones,tizas,cartulina,etc) entregado directamente por el Ministerio de Educación - MINEDU? </legend><input type="radio" name="60010240" id="6001024001" value="SI"><label for="6001024001">SI</label><input type="radio" name="60010240" id="6001024002" value="NO"><label for="6001024002">NO</label></fieldset></div><div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>102. ¿Cómo llegaron los materiales educativos a la institución educativa?</legend><input type="radio" name="60010000" id="6001000001" value="LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL"><label for="6001000001">LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL</label><input type="radio" name="60010000" id="6001000002" value="LA APAFA SE ENCARGO DEL RECOJO"><label for="6001000002">LA APAFA SE ENCARGO DEL RECOJO</label><input type="radio" name="60010000" id="6001000003" value="UNA EMPRESA DONO EL TRANSPORTE"><label for="6001000003">UNA EMPRESA DONO EL TRANSPORTE</label><input type="radio" name="60010000" id="6001000004" value="LAS FUERZAS ARMADAS LAS TRAJERON"><label for="6001000004">LAS FUERZAS ARMADAS LAS TRAJERON</label><input type="radio" name="60010000" id="6001000005" value="NO SABE"><label for="6001000005">NO SABE</label><input type="radio" name="60010000" id="6001000006" value="OTRO"><label for="6001000006">OTRO</label></fieldset></div><div id="div60010001"  class=" ff"  > <div data-role="fieldcontain"><label for="60010001"   >Otro (especificar):</label><input  data-mini="true"   type="text" name="60010001" id="60010001" value=""   ></div></div><div id='div61000000'><p>103. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='efi'><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
+					<div id="div60010220"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>98. ¿El local escolar cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010220" id="6001022001" value="SI"><label for="6001022001">SI</label><input type="radio" name="60010220" id="6001022002" value="NO"><label for="6001022002">NO</label></fieldset></div><div id='materiale'><div id="div60010230"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>99. ¿Los materiales educativos recibidos por el MINEDU corresponden a la lengua en que se imparte la enseñanza en la institución educativa ?</legend><input type="radio" name="60010230" id="6001023001" value="SI"><label for="6001023001">SI</label><input type="radio" name="60010230" id="6001023002" value="NO"><label for="6001023002">NO</label></fieldset></div><div id="div60010250"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>100. Los materiales educativos recibidos corresponden a:</legend><input type="radio" name="60010250" id="6001025001" value="IE MONOLINGUE"><label for="6001025001">IE MONOLINGUE</label><input type="radio" name="60010250" id="6001025002" value="IE-EIB"><label for="6001025002">IE-EIB</label></fieldset></div><div id="div60010240"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>101. ¿Duraten el presente año lectivo ¿ La IE ha recibido material fungible (colores,plumones,tizas,cartulina,etc) entregado directamente por el Ministerio de Educación - MINEDU? </legend><input type="radio" name="60010240" id="6001024001" value="SI"><label for="6001024001">SI</label><input type="radio" name="60010240" id="6001024002" value="NO"><label for="6001024002">NO</label></fieldset></div><div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>102. ¿Cómo llegaron los materiales educativos a la institución educativa?</legend><input type="radio" name="60010000" id="6001000001" value="LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL"><label for="6001000001">LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL</label><input type="radio" name="60010000" id="6001000002" value="LA APAFA SE ENCARGO DEL RECOJO"><label for="6001000002">LA APAFA SE ENCARGO DEL RECOJO</label><input type="radio" name="60010000" id="6001000003" value="UNA EMPRESA DONO EL TRANSPORTE"><label for="6001000003">UNA EMPRESA DONO EL TRANSPORTE</label><input type="radio" name="60010000" id="6001000004" value="LAS FUERZAS ARMADAS LAS TRAJERON"><label for="6001000004">LAS FUERZAS ARMADAS LAS TRAJERON</label><input type="radio" name="60010000" id="6001000005" value="NO SABE"><label for="6001000005">NO SABE</label><input type="radio" name="60010000" id="6001000006" value="OTRO"><label for="6001000006">OTRO</label></fieldset></div><div id="div60010001"  class=" ff"  > <div data-role="fieldcontain"><label for="60010001"   >Otro (especificar):</label><input  data-mini="true"   type="text" name="60010001" id="60010001" value=""   ></div></div></div><div id='div61000000'><p>103. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='efi'><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
 <td><div id="div61010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010101" id="6101010101" value="SI"><label for="6101010101">SI</label><input type="radio" name="61010101" id="6101010102" value="NO"><label for="6101010102">NO</label></fieldset></div></td>
 <td><div id="div61010401"  class=" ff"  > <label for="61010401"  class="ui-hidden-accessible" ></label><input  data-mini="true"   type="date" name="61010401" id="61010401" value=""   ></div></td>
 <td><div id="div61010501"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010501" id="6101050101" value="SI"><label for="6101050101">SI</label><input type="radio" name="61010501" id="6101050102" value="NO"><label for="6101050102">NO</label></fieldset></div></td>
@@ -5808,7 +5912,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(25);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5870,7 +5974,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(26);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5900,7 +6004,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(27);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5955,7 +6059,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(28);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -5995,7 +6099,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(29);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -6182,7 +6286,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(30);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -6217,7 +6321,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(31);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -6256,11 +6360,11 @@ function create_panels(){
 					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<input type='hidden' name='' value='0'><div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Monitor(a), ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Monitor(a), ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050000" id="9005000001" value="EDUCACION INICIAL"><label for="9005000001">EDUCACION INICIAL</label><input type="radio" name="90050000" id="9005000002" value="EDUCACION PRIMARIA"><label for="9005000002">EDUCACION PRIMARIA</label><input type="radio" name="90050000" id="9005000003" value="EDUCACION SECUNDARIA"><label for="9005000003">EDUCACION SECUNDARIA</label><input type="radio" name="90050000" id="9005000004" value="E.P INTERCULTURAL BILINGUE"><label for="9005000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050000" id="9005000005" value="OTRO"><label for="9005000005">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90050300"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>5.A. Especificar 1era especialidad - Secundaria:</legend><input type="radio" name="90050300" id="9005030001" value="LENGUA Y LITERATURA"><label for="9005030001">LENGUA Y LITERATURA</label><input type="radio" name="90050300" id="9005030002" value="COMUNICACION"><label for="9005030002">COMUNICACION</label><input type="radio" name="90050300" id="9005030003" value="MATEMATICA Y FISICA"><label for="9005030003">MATEMATICA Y FISICA</label><input type="radio" name="90050300" id="9005030004" value="MATEMATICA"><label for="9005030004">MATEMATICA</label><input type="radio" name="90050300" id="9005030005" value="CCSS Y FILOSOFIA"><label for="9005030005">CCSS Y FILOSOFIA</label><input type="radio" name="90050300" id="9005030006" value="CIENCIAS NATURALES"><label for="9005030006">CIENCIAS NATURALES</label><input type="radio" name="90050300" id="9005030007" value="BIOLOGIA Y QUIMICA"><label for="9005030007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90050300" id="9005030008" value="HISTORIA Y GEOGRAFIA"><label for="9005030008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90050300" id="9005030009" value="CCHH SOCIALES"><label for="9005030009">CCHH SOCIALES</label><input type="radio" name="90050300" id="90050300010" value="INGLES"><label for="90050300010">INGLES</label><input type="radio" name="90050300" id="90050300011" value="EDUCACION RELIGIOSA"><label for="90050300011">EDUCACION RELIGIOSA</label><input type="radio" name="90050300" id="90050300012" value="EDUCACION FAMILIAR"><label for="90050300012">EDUCACION FAMILIAR</label><input type="radio" name="90050300" id="90050300013" value="EDUCACION ARTISTICA"><label for="90050300013">EDUCACION ARTISTICA</label><input type="radio" name="90050300" id="90050300014" value="E.P. INTERCULTURAL BILINGUE"><label for="90050300014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90050300" id="90050300015" value="OTRO"><label for="90050300015">OTRO</label></fieldset></div><div id="div90050311"  class=" ff"  > <div data-role="fieldcontain"><label for="90050311"   >Especificar:</label><input  data-mini="true"   type="text" name="90050311" id="90050311" value=""   ></div></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="EDUCACION SECUNDARIA"><label for="9007000003">EDUCACION SECUNDARIA</label><input type="radio" name="90070000" id="9007000004" value="E.P INTERCULTURAL BILINGUE"><label for="9007000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000005" value="OTRO"><label for="9007000005">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90060100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>7.A. Especificar 2da especialidad - Secundaria:</legend><input type="radio" name="90060100" id="9006010001" value="LENGUA Y LITERATURA"><label for="9006010001">LENGUA Y LITERATURA</label><input type="radio" name="90060100" id="9006010002" value="COMUNICACION"><label for="9006010002">COMUNICACION</label><input type="radio" name="90060100" id="9006010003" value="MATEMATICA Y FISICA"><label for="9006010003">MATEMATICA Y FISICA</label><input type="radio" name="90060100" id="9006010004" value="MATEMATICA"><label for="9006010004">MATEMATICA</label><input type="radio" name="90060100" id="9006010005" value="CCSS Y FILOSOFIA"><label for="9006010005">CCSS Y FILOSOFIA</label><input type="radio" name="90060100" id="9006010006" value="CIENCIAS NATURALES"><label for="9006010006">CIENCIAS NATURALES</label><input type="radio" name="90060100" id="9006010007" value="BIOLOGIA Y QUIMICA"><label for="9006010007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90060100" id="9006010008" value="HISTORIA Y GEOGRAFIA"><label for="9006010008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90060100" id="9006010009" value="CCHH SOCIALES"><label for="9006010009">CCHH SOCIALES</label><input type="radio" name="90060100" id="90060100010" value="INGLES"><label for="90060100010">INGLES</label><input type="radio" name="90060100" id="90060100011" value="EDUCACION RELIGIOSA"><label for="90060100011">EDUCACION RELIGIOSA</label><input type="radio" name="90060100" id="90060100012" value="EDUCACION FAMILIAR"><label for="90060100012">EDUCACION FAMILIAR</label><input type="radio" name="90060100" id="90060100013" value="EDUCACION ARTISTICA"><label for="90060100013">EDUCACION ARTISTICA</label><input type="radio" name="90060100" id="90060100014" value="E.P. INTERCULTURAL BILINGUE"><label for="90060100014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90060100" id="90060100015" value="OTRO"><label for="90060100015">OTRO</label></fieldset></div><div id="div90060111"  class=" ff"  > <div data-role="fieldcontain"><label for="90060111"   >Especificar:</label><input  data-mini="true"   type="text" name="90060111" id="90060111" value=""   ></div></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div>
+					<input type='hidden' name='' value='0'><div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Monitor(a), ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id='dopresente1'><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Monitor(a), ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id='dopresente1v2'><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050000" id="9005000001" value="EDUCACION INICIAL"><label for="9005000001">EDUCACION INICIAL</label><input type="radio" name="90050000" id="9005000002" value="EDUCACION PRIMARIA"><label for="9005000002">EDUCACION PRIMARIA</label><input type="radio" name="90050000" id="9005000003" value="EDUCACION SECUNDARIA"><label for="9005000003">EDUCACION SECUNDARIA</label><input type="radio" name="90050000" id="9005000004" value="E.P INTERCULTURAL BILINGUE"><label for="9005000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050000" id="9005000005" value="OTRO"><label for="9005000005">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90050300"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>5.A. Especificar 1era especialidad - Secundaria:</legend><input type="radio" name="90050300" id="9005030001" value="LENGUA Y LITERATURA"><label for="9005030001">LENGUA Y LITERATURA</label><input type="radio" name="90050300" id="9005030002" value="COMUNICACION"><label for="9005030002">COMUNICACION</label><input type="radio" name="90050300" id="9005030003" value="MATEMATICA Y FISICA"><label for="9005030003">MATEMATICA Y FISICA</label><input type="radio" name="90050300" id="9005030004" value="MATEMATICA"><label for="9005030004">MATEMATICA</label><input type="radio" name="90050300" id="9005030005" value="CCSS Y FILOSOFIA"><label for="9005030005">CCSS Y FILOSOFIA</label><input type="radio" name="90050300" id="9005030006" value="CIENCIAS NATURALES"><label for="9005030006">CIENCIAS NATURALES</label><input type="radio" name="90050300" id="9005030007" value="BIOLOGIA Y QUIMICA"><label for="9005030007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90050300" id="9005030008" value="HISTORIA Y GEOGRAFIA"><label for="9005030008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90050300" id="9005030009" value="CCHH SOCIALES"><label for="9005030009">CCHH SOCIALES</label><input type="radio" name="90050300" id="90050300010" value="INGLES"><label for="90050300010">INGLES</label><input type="radio" name="90050300" id="90050300011" value="EDUCACION RELIGIOSA"><label for="90050300011">EDUCACION RELIGIOSA</label><input type="radio" name="90050300" id="90050300012" value="EDUCACION FAMILIAR"><label for="90050300012">EDUCACION FAMILIAR</label><input type="radio" name="90050300" id="90050300013" value="EDUCACION ARTISTICA"><label for="90050300013">EDUCACION ARTISTICA</label><input type="radio" name="90050300" id="90050300014" value="E.P. INTERCULTURAL BILINGUE"><label for="90050300014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90050300" id="90050300015" value="OTRO"><label for="90050300015">OTRO</label></fieldset></div><div id="div90050311"  class=" ff"  > <div data-role="fieldcontain"><label for="90050311"   >Especificar:</label><input  data-mini="true"   type="text" name="90050311" id="90050311" value=""   ></div></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="EDUCACION SECUNDARIA"><label for="9007000003">EDUCACION SECUNDARIA</label><input type="radio" name="90070000" id="9007000004" value="E.P INTERCULTURAL BILINGUE"><label for="9007000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000005" value="OTRO"><label for="9007000005">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90060100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>7.A. Especificar 2da especialidad - Secundaria:</legend><input type="radio" name="90060100" id="9006010001" value="LENGUA Y LITERATURA"><label for="9006010001">LENGUA Y LITERATURA</label><input type="radio" name="90060100" id="9006010002" value="COMUNICACION"><label for="9006010002">COMUNICACION</label><input type="radio" name="90060100" id="9006010003" value="MATEMATICA Y FISICA"><label for="9006010003">MATEMATICA Y FISICA</label><input type="radio" name="90060100" id="9006010004" value="MATEMATICA"><label for="9006010004">MATEMATICA</label><input type="radio" name="90060100" id="9006010005" value="CCSS Y FILOSOFIA"><label for="9006010005">CCSS Y FILOSOFIA</label><input type="radio" name="90060100" id="9006010006" value="CIENCIAS NATURALES"><label for="9006010006">CIENCIAS NATURALES</label><input type="radio" name="90060100" id="9006010007" value="BIOLOGIA Y QUIMICA"><label for="9006010007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90060100" id="9006010008" value="HISTORIA Y GEOGRAFIA"><label for="9006010008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90060100" id="9006010009" value="CCHH SOCIALES"><label for="9006010009">CCHH SOCIALES</label><input type="radio" name="90060100" id="90060100010" value="INGLES"><label for="90060100010">INGLES</label><input type="radio" name="90060100" id="90060100011" value="EDUCACION RELIGIOSA"><label for="90060100011">EDUCACION RELIGIOSA</label><input type="radio" name="90060100" id="90060100012" value="EDUCACION FAMILIAR"><label for="90060100012">EDUCACION FAMILIAR</label><input type="radio" name="90060100" id="90060100013" value="EDUCACION ARTISTICA"><label for="90060100013">EDUCACION ARTISTICA</label><input type="radio" name="90060100" id="90060100014" value="E.P. INTERCULTURAL BILINGUE"><label for="90060100014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90060100" id="90060100015" value="OTRO"><label for="90060100015">OTRO</label></fieldset></div><div id="div90060111"  class=" ff"  > <div data-role="fieldcontain"><label for="90060111"   >Especificar:</label><input  data-mini="true"   type="text" name="90060111" id="90060111" value=""   ></div></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(33);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -6278,11 +6382,11 @@ function create_panels(){
 					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90090000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. ¿Le parece útil la capacitación?</legend><input type="radio" name="90090000" id="9009000001" value="SI"><label for="9009000001">SI</label><input type="radio" name="90090000" id="9009000002" value="NO"><label for="9009000002">NO</label></fieldset></div><div class='nivelp_primaria'><div id="div90101000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>10</span><span class='ncs'>10</span>. ¿Conoce usted las sesiones aprendizaje MINEDU?</legend><input type="radio" name="90101000" id="9010100001" value="SI"><label for="9010100001">SI</label><input type="radio" name="90101000" id="9010100002" value="NO"><label for="9010100002">NO</label></fieldset></div><div id="div90111000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>11</span><span class='ncs'>10</span>. ¿Cuenta usted con una sesión de aprendizaje del MINEDU?</legend><input type="radio" name="90111000" id="9011100001" value="SI"><label for="9011100001">SI</label><input type="radio" name="90111000" id="9011100002" value="NO"><label for="9011100002">NO</label></fieldset></div><div id="div90121000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>12</span><span class='ncs'>10</span>. ¿A través de qué medio obtuvo la sesión de aprendizaje del MINEDU?</legend><input type="radio" name="90121000" id="9012100001" value="DESCARGANDOLO DE LA PAGINA WEB"><label for="9012100001">DESCARGANDOLO DE LA PAGINA WEB</label><input type="radio" name="90121000" id="9012100002" value="ENTREGADO POR EL DIRECTOR DE LA IE"><label for="9012100002">ENTREGADO POR EL DIRECTOR DE LA IE</label><input type="radio" name="90121000" id="9012100003" value="OTRO"><label for="9012100003">OTRO</label></fieldset></div><div id="div90121001"  class=" ff"  > <div data-role="fieldcontain"><label for="90121001"   >Especificar:</label><input  data-mini="true"   type="text" name="90121001" id="90121001" value=""   ></div></div></div><div id="div90100000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>13</span><span class='ncs'>10</span>. ¿Utiliza una sesión de aprendizaje para el desarrollo de la clase?</legend><input type="radio" name="90100000" id="9010000001" value="SI"><label for="9010000001">SI</label><input type="radio" name="90100000" id="9010000002" value="NO"><label for="9010000002">NO</label></fieldset></div><div id="div90110000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend><span class='nci'>11</span><span class='ncp'>14</span><span class='ncs'>11</span>. ¿La sesión(es) de aprendizaje que utiliza usted para el desarrollo de su clase es</legend><input type="checkbox" name="90110001" id="9011000001" value="ENTREGADO POR EL MINEDU"><label for="9011000001" >ENTREGADO POR EL MINEDU</label><input type="checkbox" name="90110002" id="9011000002" value="ELABORADO POR EL DOCENTE"><label for="9011000002" >ELABORADO POR EL DOCENTE</label><input type="checkbox" name="90110003" id="9011000003" value="OTRO"><label for="9011000003" >OTRO</label></fieldset></div><div id="div90110100"  class=" ff"  > <div data-role="fieldcontain"><label for="90110100"   >Especificar:</label><input  data-mini="true"   type="text" name="90110100" id="90110100" value=""   ></div></div><div class='nivelp_primaria'><div id="div90151000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>12</span><span class='ncp'>15</span><span class='ncs'>12</span>. ¿Utiliza los kits de evaluación otorgados por el MINEDU?</legend><input type="radio" name="90151000" id="9015100001" value="SI"><label for="9015100001">SI</label><input type="radio" name="90151000" id="9015100002" value="NO"><label for="9015100002">NO</label></fieldset></div></div><div id="div90120100"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend><span class='nci'>12</span><span class='ncp'>16</span><span class='ncs'>12</span>. En este momento, ¿qué area curricular está desarrollando?</legend><input type="radio" name="90120100" id="9012010001" value="AREA COMUNICACION"><label for="9012010001">AREA COMUNICACION</label><input type="radio" name="90120100" id="9012010002" value="AREA MATEMATICA"><label for="9012010002">AREA MATEMATICA</label><input type="radio" name="90120100" id="9012010003" value="AREA PERSONAL SOCIAL"><label for="9012010003">AREA PERSONAL SOCIAL</label><input type="radio" name="90120100" id="9012010004" value="AREA CIENCIA Y AMBIENTE"><label for="9012010004">AREA CIENCIA Y AMBIENTE</label><input type="radio" name="90120100" id="9012010005" value="AREA ARTE"><label for="9012010005">AREA ARTE</label><input type="radio" name="90120100" id="9012010006" value="AREA EDUCACION RELIGIOSA"><label for="9012010006">AREA EDUCACION RELIGIOSA</label><input type="radio" name="90120100" id="9012010007" value="AREA EDUCACION FISICA"><label for="9012010007">AREA EDUCACION FISICA</label><input type="radio" name="90120100" id="9012010008" value="OTRO"><label for="9012010008">OTRO</label><input type="radio" name="90120100" id="9012010009" value="NINGUNA"><label for="9012010009">NINGUNA</label></fieldset></div><div id="div90120121"  class=" ff"  > <div data-role="fieldcontain"><label for="90120121"   >Especificar:</label><input  data-mini="true"   type="text" name="90120121" id="90120121" value=""   ></div></div><div id="div90130000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>13</span><span class='ncp'>17</span><span class='ncs'>13</span>. En los últimos 6 meses,¿ ha recibido usted, visitas de acompañamiento pedagógico?</legend><input type="radio" name="90130000" id="9013000001" value="SI"><label for="9013000001">SI</label><input type="radio" name="90130000" id="9013000002" value="NO"><label for="9013000002">NO</label></fieldset></div><div id="div90140000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend><span class='nci'>14</span><span class='ncp'>18</span><span class='ncs'>14</span>. ¿A través de que institución ha recibido usted visitas de acompañamiento?</legend><input type="checkbox" name="90140001" id="9014000001" value="MINEDU"><label for="9014000001" >MINEDU</label><input type="checkbox" name="90140002" id="9014000002" value="DRE/UGEL"><label for="9014000002" >DRE/UGEL</label><input type="checkbox" name="90140003" id="9014000003" value="PELA"><label for="9014000003" >PELA</label><input type="checkbox" name="90140004" id="9014000004" value="ONGS O EMPRESA PRIVADA"><label for="9014000004" >ONGS O EMPRESA PRIVADA</label><input type="checkbox" name="90140005" id="9014000005" value="OTROS"><label for="9014000005" >OTROS</label></fieldset></div><div id="div90140100"  class=" ff"  > <div data-role="fieldcontain"><label for="90140100"   >Especificar:</label><input  data-mini="true"   type="text" name="90140100" id="90140100" value=""   ></div></div><div id="div90150000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>15</span><span class='ncp'>19</span><span class='ncs'>15</span>. ¿Le parece útil las visitas de acompañamiento?</legend><input type="radio" name="90150000" id="9015000001" value="SI"><label for="9015000001">SI</label><input type="radio" name="90150000" id="9015000002" value="NO"><label for="9015000002">NO</label></fieldset></div><div id="div90150100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>16</span><span class='ncp'>20</span><span class='ncs'>16</span>. En los últimos 6 meses ¿Ha recibido usted visitas de acompañamiento y monitoreo por parte del equipo directivo de la IE?</legend><input type="radio" name="90150100" id="9015010001" value="SI"><label for="9015010001">SI</label><input type="radio" name="90150100" id="9015010002" value="NO"><label for="9015010002">NO</label></fieldset></div><div id="div90150200"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>17</span><span class='ncp'>21</span><span class='ncs'>17</span>. ¿Le parece útil las visitas de acompañamiento y monitoreo?</legend><input type="radio" name="90150200" id="9015020001" value="SI"><label for="9015020001">SI</label><input type="radio" name="90150200" id="9015020002" value="NO"><label for="9015020002">NO</label></fieldset></div><div id="div90161000"  class=" ff"  > <label for="90161000"   ><span class='nci'>18</span><span class='ncp'>22</span><span class='ncs'>18</span>. ¿Cuántos estudiantes se ausentaron de clases el día de hoy?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="90161000" id="90161000" value=""   /></div><div id="div90171000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>19</span><span class='ncp'>23</span><span class='ncs'>19</span>. ¿Está usted dictando su clase en castellano?</legend><input type="radio" name="90171000" id="9017100001" value="SI"><label for="9017100001">SI</label><input type="radio" name="90171000" id="9017100002" value="NO"><label for="9017100002">NO</label></fieldset></div><div class='nivelp_primaria'><div id="div90221000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>20</span><span class='ncp'>24</span><span class='ncs'>20</span>. ¿Conoce en qué  consiste el Bono de Incentivo al Desempeño Escolar (Bono Escuela)?</legend><input type="radio" name="90221000" id="9022100001" value="SI"><label for="9022100001">SI</label><input type="radio" name="90221000" id="9022100002" value="NO"><label for="9022100002">NO</label></fieldset></div><div id="div90231000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>20</span><span class='ncp'>24</span><span class='ncs'>20</span>.A ¿Cuál es el monto máximo del bono al que usted puede acceder en caso su institución educativa haya sido seleccionada por "Bono Escuela"?</legend><input type="radio" name="90231000" id="9023100001" value="0"><label for="9023100001">S/. 500</label><input type="radio" name="90231000" id="9023100002" value="1"><label for="9023100002">S/. 1500</label><input type="radio" name="90231000" id="9023100003" value="2"><label for="9023100003">S/. 2500</label><input type="radio" name="90231000" id="9023100004" value="3"><label for="9023100004">S/. 3000</label><input type="radio" name="90231000" id="9023100005" value="4"><label for="9023100005">NO SABE</label></fieldset></div><div id="div90241000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend><span class='nci'>20</span><span class='ncp'>25</span><span class='ncs'>20</span>. Dado que en gran medida la selección de la institución educativa para "Bono Escuela" depende de sus resultados de la Evaluación Censal de Estudiantes (ECE), ¿le parece mejor o más justo que el monto del bono por "Bono Escuela" sea mayor para:</legend><input type="radio" name="90241000" id="9024100001" value="LOS DOCENTES DE LOS GRADOS EVALUADOS POR LA ECE"><label for="9024100001">LOS DOCENTES DE LOS GRADOS EVALUADOS POR LA ECE</label><input type="radio" name="90241000" id="9024100002" value="UN MONTO DE BONO IGUAL PARA TODOS LOS DOCENTES"><label for="9024100002">UN MONTO DE BONO IGUAL PARA TODOS LOS DOCENTES</label></fieldset></div><div id="div90251000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>20</span><span class='ncp'>26</span><span class='ncs'>20</span>. En la escala del 1 al 5 ¿Qué tanto considera que "Bono Escuela" lo motiva a usted para mejorar su desempeño como docente en su institución educativa? (Mostrar tarjeta)</legend><input type="radio" name="90251000" id="9025100001" value="1"><label for="9025100001">1</label><input type="radio" name="90251000" id="9025100002" value="2"><label for="9025100002">2</label><input type="radio" name="90251000" id="9025100003" value="3"><label for="9025100003">3</label><input type="radio" name="90251000" id="9025100004" value="4"><label for="9025100004">4</label><input type="radio" name="90251000" id="9025100005" value="5"><label for="9025100005">5</label></fieldset></div></div><div id="div90160000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend><span class='nci'>20</span><span class='ncp'>27</span><span class='ncs'>20</span>. ¿Qué tan satisfecho se encuentra usted con su trabajo como docente?</legend><input type="radio" name="90160000" id="9016000001" value="MUY SATISFECHO"><label for="9016000001">MUY SATISFECHO</label><input type="radio" name="90160000" id="9016000002" value="SATISFECHO"><label for="9016000002">SATISFECHO</label><input type="radio" name="90160000" id="9016000003" value="POCO SATISFECHO"><label for="9016000003">POCO SATISFECHO</label><input type="radio" name="90160000" id="9016000004" value="NADA SATISFECHO"><label for="9016000004">NADA SATISFECHO</label></fieldset></div><div id="div90191000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>21</span><span class='ncp'>28</span><span class='ncs'>21</span>. ¿Considera usted que las condiciones de su trabajon son:</legend><input type="radio" name="90191000" id="9019100001" value="MUY BUENAS"><label for="9019100001">MUY BUENAS</label><input type="radio" name="90191000" id="9019100002" value="BUENAS"><label for="9019100002">BUENAS</label><input type="radio" name="90191000" id="9019100003" value="REGULAR"><label for="9019100003">REGULAR</label><input type="radio" name="90191000" id="9019100004" value="MALO"><label for="9019100004">MALO</label><input type="radio" name="90191000" id="9019100005" value="MUY MALO"><label for="9019100005">MUY MALO</label></fieldset></div>
+					<div id='dopresente2'><div id="div90090000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. ¿Le parece útil la capacitación?</legend><input type="radio" name="90090000" id="9009000001" value="SI"><label for="9009000001">SI</label><input type="radio" name="90090000" id="9009000002" value="NO"><label for="9009000002">NO</label></fieldset></div><div class='nivelp_primaria'><div id="div90101000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>10</span><span class='ncs'>10</span>. ¿Conoce usted las sesiones aprendizaje MINEDU?</legend><input type="radio" name="90101000" id="9010100001" value="SI"><label for="9010100001">SI</label><input type="radio" name="90101000" id="9010100002" value="NO"><label for="9010100002">NO</label></fieldset></div><div id="div90111000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>11</span><span class='ncs'>10</span>. ¿Cuenta usted con una sesión de aprendizaje del MINEDU?</legend><input type="radio" name="90111000" id="9011100001" value="SI"><label for="9011100001">SI</label><input type="radio" name="90111000" id="9011100002" value="NO"><label for="9011100002">NO</label></fieldset></div><div id="div90121000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>12</span><span class='ncs'>10</span>. ¿A través de qué medio obtuvo la sesión de aprendizaje del MINEDU?</legend><input type="radio" name="90121000" id="9012100001" value="DESCARGANDOLO DE LA PAGINA WEB"><label for="9012100001">DESCARGANDOLO DE LA PAGINA WEB</label><input type="radio" name="90121000" id="9012100002" value="ENTREGADO POR EL DIRECTOR DE LA IE"><label for="9012100002">ENTREGADO POR EL DIRECTOR DE LA IE</label><input type="radio" name="90121000" id="9012100003" value="OTRO"><label for="9012100003">OTRO</label></fieldset></div><div id="div90121001"  class=" ff"  > <div data-role="fieldcontain"><label for="90121001"   >Especificar:</label><input  data-mini="true"   type="text" name="90121001" id="90121001" value=""   ></div></div></div><div id="div90100000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>10</span><span class='ncp'>13</span><span class='ncs'>10</span>. ¿Utiliza una sesión de aprendizaje para el desarrollo de la clase?</legend><input type="radio" name="90100000" id="9010000001" value="SI"><label for="9010000001">SI</label><input type="radio" name="90100000" id="9010000002" value="NO"><label for="9010000002">NO</label></fieldset></div><div id="div90110000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend><span class='nci'>11</span><span class='ncp'>14</span><span class='ncs'>11</span>. ¿La sesión(es) de aprendizaje que utiliza usted para el desarrollo de su clase es</legend><input type="checkbox" name="90110001" id="9011000001" value="ENTREGADO POR EL MINEDU"><label for="9011000001" >ENTREGADO POR EL MINEDU</label><input type="checkbox" name="90110002" id="9011000002" value="ELABORADO POR EL DOCENTE"><label for="9011000002" >ELABORADO POR EL DOCENTE</label><input type="checkbox" name="90110003" id="9011000003" value="OTRO"><label for="9011000003" >OTRO</label></fieldset></div><div id="div90110100"  class=" ff"  > <div data-role="fieldcontain"><label for="90110100"   >Especificar:</label><input  data-mini="true"   type="text" name="90110100" id="90110100" value=""   ></div></div><div class='nivelp_primaria'><div id="div90151000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>12</span><span class='ncp'>15</span><span class='ncs'>12</span>. ¿Utiliza los kits de evaluación otorgados por el MINEDU?</legend><input type="radio" name="90151000" id="9015100001" value="SI"><label for="9015100001">SI</label><input type="radio" name="90151000" id="9015100002" value="NO"><label for="9015100002">NO</label></fieldset></div></div><div id="div90120100"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend><span class='nci'>12</span><span class='ncp'>16</span><span class='ncs'>12</span>. En este momento, ¿qué area curricular está desarrollando?</legend><input type="radio" name="90120100" id="9012010001" value="AREA COMUNICACION"><label for="9012010001">AREA COMUNICACION</label><input type="radio" name="90120100" id="9012010002" value="AREA MATEMATICA"><label for="9012010002">AREA MATEMATICA</label><input type="radio" name="90120100" id="9012010003" value="AREA PERSONAL SOCIAL"><label for="9012010003">AREA PERSONAL SOCIAL</label><input type="radio" name="90120100" id="9012010004" value="AREA CIENCIA Y AMBIENTE"><label for="9012010004">AREA CIENCIA Y AMBIENTE</label><input type="radio" name="90120100" id="9012010005" value="AREA ARTE"><label for="9012010005">AREA ARTE</label><input type="radio" name="90120100" id="9012010006" value="AREA EDUCACION RELIGIOSA"><label for="9012010006">AREA EDUCACION RELIGIOSA</label><input type="radio" name="90120100" id="9012010007" value="AREA EDUCACION FISICA"><label for="9012010007">AREA EDUCACION FISICA</label><input type="radio" name="90120100" id="9012010008" value="OTRO"><label for="9012010008">OTRO</label><input type="radio" name="90120100" id="9012010009" value="NINGUNA"><label for="9012010009">NINGUNA</label></fieldset></div><div id="div90120121"  class=" ff"  > <div data-role="fieldcontain"><label for="90120121"   >Especificar:</label><input  data-mini="true"   type="text" name="90120121" id="90120121" value=""   ></div></div><div id="div90130000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>13</span><span class='ncp'>17</span><span class='ncs'>13</span>. En los últimos 6 meses,¿ ha recibido usted, visitas de acompañamiento pedagógico?</legend><input type="radio" name="90130000" id="9013000001" value="SI"><label for="9013000001">SI</label><input type="radio" name="90130000" id="9013000002" value="NO"><label for="9013000002">NO</label></fieldset></div><div id="div90140000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend><span class='nci'>14</span><span class='ncp'>18</span><span class='ncs'>14</span>. ¿A través de que institución ha recibido usted visitas de acompañamiento?</legend><input type="checkbox" name="90140001" id="9014000001" value="MINEDU"><label for="9014000001" >MINEDU</label><input type="checkbox" name="90140002" id="9014000002" value="DRE/UGEL"><label for="9014000002" >DRE/UGEL</label><input type="checkbox" name="90140003" id="9014000003" value="PELA"><label for="9014000003" >PELA</label><input type="checkbox" name="90140004" id="9014000004" value="ONGS O EMPRESA PRIVADA"><label for="9014000004" >ONGS O EMPRESA PRIVADA</label><input type="checkbox" name="90140005" id="9014000005" value="OTROS"><label for="9014000005" >OTROS</label></fieldset></div><div id="div90140100"  class=" ff"  > <div data-role="fieldcontain"><label for="90140100"   >Especificar:</label><input  data-mini="true"   type="text" name="90140100" id="90140100" value=""   ></div></div><div id="div90150000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>15</span><span class='ncp'>19</span><span class='ncs'>15</span>. ¿Le parece útil las visitas de acompañamiento?</legend><input type="radio" name="90150000" id="9015000001" value="SI"><label for="9015000001">SI</label><input type="radio" name="90150000" id="9015000002" value="NO"><label for="9015000002">NO</label></fieldset></div><div id="div90150100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>16</span><span class='ncp'>20</span><span class='ncs'>16</span>. En los últimos 6 meses ¿Ha recibido usted visitas de acompañamiento y monitoreo por parte del equipo directivo de la IE?</legend><input type="radio" name="90150100" id="9015010001" value="SI"><label for="9015010001">SI</label><input type="radio" name="90150100" id="9015010002" value="NO"><label for="9015010002">NO</label></fieldset></div><div id="div90150200"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>17</span><span class='ncp'>21</span><span class='ncs'>17</span>. ¿Le parece útil las visitas de acompañamiento y monitoreo?</legend><input type="radio" name="90150200" id="9015020001" value="SI"><label for="9015020001">SI</label><input type="radio" name="90150200" id="9015020002" value="NO"><label for="9015020002">NO</label></fieldset></div></div><div id="div90161000"  class=" ff"  > <label for="90161000"   ><span class='nci'>18</span><span class='ncp'>22</span><span class='ncs'>18</span>. ¿Cuántos estudiantes se ausentaron de clases el día de hoy?</label><input type="number"   data-mini="true"   pattern="[0-9]*" name="90161000" id="90161000" value=""   /></div><div id="div90171000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>19</span><span class='ncp'>23</span><span class='ncs'>19</span>. ¿Está usted dictando su clase en castellano?</legend><input type="radio" name="90171000" id="9017100001" value="SI"><label for="9017100001">SI</label><input type="radio" name="90171000" id="9017100002" value="NO"><label for="9017100002">NO</label></fieldset></div><div class='nivelp_primaria'><div id="div90221000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>20</span><span class='ncp'>24</span><span class='ncs'>20</span>. ¿Conoce en qué  consiste el Bono de Incentivo al Desempeño Escolar (Bono Escuela)?</legend><input type="radio" name="90221000" id="9022100001" value="SI"><label for="9022100001">SI</label><input type="radio" name="90221000" id="9022100002" value="NO"><label for="9022100002">NO</label></fieldset></div><div id="div90231000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>20</span><span class='ncp'>24</span><span class='ncs'>20</span>.A ¿Cuál es el monto máximo del bono al que usted puede acceder en caso su institución educativa haya sido seleccionada por "Bono Escuela"?</legend><input type="radio" name="90231000" id="9023100001" value="0"><label for="9023100001">S/. 500</label><input type="radio" name="90231000" id="9023100002" value="1"><label for="9023100002">S/. 1500</label><input type="radio" name="90231000" id="9023100003" value="2"><label for="9023100003">S/. 2500</label><input type="radio" name="90231000" id="9023100004" value="3"><label for="9023100004">S/. 3000</label><input type="radio" name="90231000" id="9023100005" value="4"><label for="9023100005">NO SABE</label></fieldset></div><div id="div90241000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend><span class='nci'>20</span><span class='ncp'>25</span><span class='ncs'>20</span>. Dado que en gran medida la selección de la institución educativa para "Bono Escuela" depende de sus resultados de la Evaluación Censal de Estudiantes (ECE), ¿le parece mejor o más justo que el monto del bono por "Bono Escuela" sea mayor para:</legend><input type="radio" name="90241000" id="9024100001" value="LOS DOCENTES DE LOS GRADOS EVALUADOS POR LA ECE"><label for="9024100001">LOS DOCENTES DE LOS GRADOS EVALUADOS POR LA ECE</label><input type="radio" name="90241000" id="9024100002" value="UN MONTO DE BONO IGUAL PARA TODOS LOS DOCENTES"><label for="9024100002">UN MONTO DE BONO IGUAL PARA TODOS LOS DOCENTES</label></fieldset></div><div id="div90251000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>20</span><span class='ncp'>26</span><span class='ncs'>20</span>. En la escala del 1 al 5 ¿Qué tanto considera que "Bono Escuela" lo motiva a usted para mejorar su desempeño como docente en su institución educativa? (Mostrar tarjeta)</legend><input type="radio" name="90251000" id="9025100001" value="1"><label for="9025100001">1</label><input type="radio" name="90251000" id="9025100002" value="2"><label for="9025100002">2</label><input type="radio" name="90251000" id="9025100003" value="3"><label for="9025100003">3</label><input type="radio" name="90251000" id="9025100004" value="4"><label for="9025100004">4</label><input type="radio" name="90251000" id="9025100005" value="5"><label for="9025100005">5</label></fieldset></div></div><div id="div90160000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend><span class='nci'>20</span><span class='ncp'>27</span><span class='ncs'>20</span>. ¿Qué tan satisfecho se encuentra usted con su trabajo como docente?</legend><input type="radio" name="90160000" id="9016000001" value="MUY SATISFECHO"><label for="9016000001">MUY SATISFECHO</label><input type="radio" name="90160000" id="9016000002" value="SATISFECHO"><label for="9016000002">SATISFECHO</label><input type="radio" name="90160000" id="9016000003" value="POCO SATISFECHO"><label for="9016000003">POCO SATISFECHO</label><input type="radio" name="90160000" id="9016000004" value="NADA SATISFECHO"><label for="9016000004">NADA SATISFECHO</label></fieldset></div><div id="div90191000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>21</span><span class='ncp'>28</span><span class='ncs'>21</span>. ¿Considera usted que las condiciones de su trabajon son:</legend><input type="radio" name="90191000" id="9019100001" value="MUY BUENAS"><label for="9019100001">MUY BUENAS</label><input type="radio" name="90191000" id="9019100002" value="BUENAS"><label for="9019100002">BUENAS</label><input type="radio" name="90191000" id="9019100003" value="REGULAR"><label for="9019100003">REGULAR</label><input type="radio" name="90191000" id="9019100004" value="MALO"><label for="9019100004">MALO</label><input type="radio" name="90191000" id="9019100005" value="MUY MALO"><label for="9019100005">MUY MALO</label></fieldset></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(34);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -6360,7 +6464,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(35);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
@@ -6382,7 +6486,7 @@ function create_panels(){
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(36);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
-			<p>&nbsp;</p>
+			<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 		</div>
 		</form>
 	</div>
