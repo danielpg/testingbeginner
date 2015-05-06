@@ -71,11 +71,15 @@ jQuery.fn.unserialize = function(parm){
 							var val = ""+parts[1][i2];
 							if (coso.attr("value") == decodeURIComponent(val.replace(/\+/g," "))){
 								coso.prop("checked",true);
-								if(form_refresh)coso.checkboxradio( "refresh" );
+								if(form_refresh){
+									try {
+										coso.checkboxradio( "refresh" );
+									} catch (ex) {}
+								}
 							} else {
 								if (!$.inArray(coso.val(),parts[1])){
 									coso.prop("checked",false);
-									if(form_refresh)coso.checkboxradio( "refresh" );
+									if(form_refresh) try { coso.checkboxradio( "refresh" ); } catch (ex) {}
 								}
 							}
 						}
@@ -86,13 +90,13 @@ jQuery.fn.unserialize = function(parm){
 						} else {
 							coso.prop("checked",false);
 						}
-						if(form_refresh)coso.checkboxradio( "refresh" );
+						if(form_refresh) try {coso.checkboxradio( "refresh" );} catch (ex) {}
 					}
 				 });
 			} else if (obj.length > 0 && obj[0].tagName == "SELECT" && parts[1] instanceof Array && obj.prop("multiple")){
 				//Here, i have an array for a multi-select.
 				obj.val(parts[1]);
-				if(form_refresh)obj.selectmenu( "refresh" );			
+				if(form_refresh) try { obj.selectmenu( "refresh" );		} catch (ex) {}	
 			} else {
 				//When the value is an array, we join without delimiter
 				var val = (parts[1] instanceof Array) ? parts[1].join("") : parts[1];
@@ -103,7 +107,7 @@ jQuery.fn.unserialize = function(parm){
 				force_select_option( obj.attr("id") , val );	
 
 				if(parts[1] == "overnight"){
-					if(form_refresh)obj.selectmenu( "refresh" );			
+					if(form_refresh) try { obj.selectmenu( "refresh" );		} catch (ex) {}	
 				}
 				//alert(parts[1]);
 
@@ -138,7 +142,15 @@ function rebuild_arbol(){
 			$( "#div11030000" ).show();
 
 			$( "#div62000000" ).hide();			
-			$( "#div63000000" ).show();			
+			$( "#div63000000" ).show();	
+
+			$( "#div12020110" ).show();
+			$( "#div12020200" ).hide();			
+			$( "#div12020120" ).show();
+
+			$( "#div07010200" ).hide();		
+			$( "#div07020300" ).hide();		
+		
 		} else {
 			$( "#div05010000" ).show();
 			$( "#div06010000" ).show();
@@ -154,7 +166,15 @@ function rebuild_arbol(){
 			$( "#div11030000" ).hide();
 
 			$( "#div62000000" ).show();			
-			$( "#div63000000" ).hide();			
+			$( "#div63000000" ).hide();	
+
+			$( "#div12020100" ).show();			
+			$( "#div12020110" ).hide();
+			$( "#div12020200" ).show();			
+			$( "#div12020120" ).hide();
+
+			$( "#div07010200" ).show();		
+			$( "#div07020300" ).show();			
 		}
 
 		if( $("#encuesta5").find("input[name=08010000]:checked" ).val() == "SI"){
@@ -395,20 +415,20 @@ function rebuild_arbol(){
 
 
 
-
-		if( $("#encuesta12").find("input[name=26010000]:checked").val() == "NO"){
+		if( $( "#encuesta12").find("input[name=26010000]:checked").val() == "NO"){
 			$( "#div27010000,#div28010000,#div31010000,#div32010000" ).hide();
 		} else {
 			$( "#div27010000,#div28010000,#div31010000,#div32010000" ).show();
 		}
+	
 
-
-
-		if( ($("#encuesta12").find("input[name=27010000]:checked").val() == "NO") || ($("#encuesta11 input[name=27010000]:checked").val() == "NO SABE") ){
+	
+		if( ($( "#encuesta12").find("input[name=27010000]:checked").val() == "NO") || ($( "#encuesta12").find("input[name=27010000]:checked").val() == "NO SABE") ){
 			$( "#div28010000,#div31010000,#div32010000" ).hide();
 		} else {
 			$( "#div28010000,#div31010000,#div32010000" ).show();
 		}
+
 
 		/*if( ($("#encuesta11").find("input[name=29010000]:checked").val() == "NO") || ($("#encuesta11 input[name=29010000]:checked").val() == "NO SABE") ){
 			$( "#div31010000" ).hide();
@@ -513,13 +533,13 @@ function rebuild_arbol(){
 			$( "#32010100").val("");
 		}*/
 
-		if( ($("#encuesta12").find("input[name=34010000]:checked").val() == "NO") ){
+		if( ($("#encuesta17").find("input[name=34010000]:checked").val() == "NO") ){
 			$( "#div35000000,#div36010000,#div37010000,#div38000000" ).hide();
 		} else {
 			$( "#div35000000,#div36010000,#div37010000,#div38000000" ).show();
 		}
 
-		if( ($("#encuesta12").find("input[name=35010105]:checked").val() == "SI") ){
+		if( ($("#encuesta17").find("input[name=35010105]:checked").val() == "SI") ){
 			$("#div70000000").show();
 		} else {
 			$("#div70000000").hide();
@@ -614,13 +634,33 @@ function rebuild_arbol(){
 			$( "#div38010000" ).show();
 		}
 
+		if( ($("#encuesta18").find("input[name=40010000]:checked").val() == "NO") || ($("#encuesta18").find("input[name=40010000]:checked").val() == "NO SABE") ){
+			$( "#mantenimiento" ).hide();
+		} else {
+			$( "#mantenimiento" ).show();
+		}
+
+
+
+		if( ($("#encuesta18").find("input[name=41010000]:checked").val() == "NO") || ($("#encuesta18").find("input[name=41010000]:checked").val() == "NO SABE") ){
+			$( "#mantficha" ).hide();
+		} else {
+			$( "#mantficha" ).show();
+		}
 
 
 		if( ($("#encuesta18").find("input[name=42010000]:checked").val() == "SI")  ){
 			$( "#div43010000" ).hide();
+			$("#encuesta18").find("input[name=43010000]:checked").attr("checked", false);
+			//$("#encuesta18").find("input[name=43010000]").checkboxradio("refresh");
+			$( "#div44010000").show();
 		} else {
+			$("#encuesta18").find("input[name=43010000]:checked").attr("checked", false);
+			//$("#encuesta18").find("input[name=43010000]").checkboxradio("refresh");
 			$( "#div43010000" ).show();
+			$( "#div44010000").hide();
 		}
+
 
 		if( $("#encuesta18").find("input[name=43010000]:checked").val() == "Otros" ){
 			$( "#div43010100" ).show();
@@ -630,11 +670,13 @@ function rebuild_arbol(){
 		}
 		$( "#div44010000").hide();
 
+
 		if( ($("#encuesta19").find("input[name=45010000]:checked").val() == "NO")  ){
-			$( "#div46010000,#div47000000" ).hide();
+			$( "#higienicos" ).hide();
 		} else {
-			$( "#div46010000,#div47000000" ).show();
+			$( "#higienicos" ).show();
 		}
+
 
 		if( ($("#encuesta19").find("input[name=47010100]:checked").val() == "NO")  ){	$(".finodoro,#div47010200").hide();	} else {$(".finodoro,#div47010200").show();	}
 
@@ -642,11 +684,14 @@ function rebuild_arbol(){
 
 		if( ($("#encuesta19").find("input[name=47030100]:checked").val() == "NO")  ){	$(".fhueco,#div47030200").hide();	} else {$(".fhueco,#div47030200").show();	}
 
+
+
 		if( ($("#encuesta20").find("input[name=48010000]:checked").val() == "NO") ){
-			$( "#div49010000,#div50010000,#div86000000" ).hide();
+			$("#encuesta20").find("#div49010000,#div50010000,#div50110000,#div86000000" ).hide();
 		} else {
-			$( "#div49010000,#div50010000,#div86000000" ).show();
+			$("#encuesta20").find("#div49010000,#div50010000,#div50110000,#div86000000" ).show();
 		}
+
 
 		if( $("#4901000005" ).is(":checked") ){
 			$( "#div49010100" ).show();
@@ -755,17 +800,27 @@ function rebuild_arbol(){
 	if( $("#encuesta24").find("input[name=61200101]:checked").val() == "SI"){  $( "#div61200201,#div61200301" ).show();  } else {  $( "#div61200201,#div61200301" ).hide();   }
 
 	
+
+
 		if( $("#encuesta28").find("input[name=79010000]:checked").val() == "NO"){
-			$( "#div80010000,#div81010000" ).hide();
+			$("#encuesta28").find( "#div79020000,#div80020000,#div81030000,#div80010000,#div80010100" ).hide();
 		} else {
-			$( "#div80010000,#div81010000" ).show();
+			$("#encuesta28").find( "#div79020000,#div80020000,#div81030000,#div80010000,#div80010100" ).show();
+		}
+
+
+		if( $("#encuesta28").find("input[name=80010000]:checked").val() == "OTRO"){
+			$("#encuesta28").find( "#div80010100" ).show();
+		} else {
+			$("#encuesta28").find( "#div80010100" ).hide();
 		}
 
 		if( $("#encuesta28").find("input[name=80010000]:checked").val() == "CERCO VIVO"){
-			$( "#div81010000" ).hide();
+			$("#encuesta28").find( "#div80010100,#div80020000,81030000" ).hide();
 		} else {
-			$( "#div81010000" ).show();
+			$("#encuesta28").find( "#div80010100,#div80020000,#div81030000" ).show();
 		}
+
 
 		if( $("#8701000004").is(":checked") ){
 			$( "#div87010100" ).show();
@@ -801,10 +856,10 @@ function rebuild_arbol(){
 	if($("#4401000010").is(":checked") ){ $("#div78010000").show();} else{ $("#div78010000").hide();  }
 
 
-		if( $("input[name=17300100]:checked").val() == "Otra fuente"){
-			$("#div17300101").show();
+		if( $("#encuesta7").find("#1730010006").is(":checked")){
+			$("#div17300199").show();
 		} else {
-			$("#div17300101").hide();
+			$("#div17300199").hide();
 		}
 
 	/*	if( $("input[name=34220250]:checked").val() == "OTRO"){
@@ -852,7 +907,7 @@ function rebuild_arbol(){
 
 
 	
-		if( $("input[name=60010000]:checked").val() == "OTRO"){
+		if( $("#encuesta24").find("input[name=60010000]:checked").val() == "OTRO"){
 			$("#div60010001").show();
 		} else {
 			$("#div60010001").hide();
@@ -979,6 +1034,79 @@ function rebuild_arbol(){
 		if($("#18120904").val() == "Otro"){ 	$("#div18120909").show();	} else { $("#div18120909").hide(); }
 
 		if($("#18121004").val() == "Otro"){ 	$("#div18121009").show();	} else { $("#div18121009").hide(); }
+
+		if($("#encuesta9").find("input[name=19100000]:checked").val() == "Otro"){ 	$("#div19110000").show();} else { $("#div19110000").hide(); }
+
+		if($("#encuesta10").find("input[name=21130100]:checked").val() == "SI"){ 	$("#div21130200").show();} else { $("#div21130200").hide(); }
+
+		if($("#encuesta10").find("input[name=21140100]:checked").val() == "SI"){ 	$("#div21140200,#div21200100").show();} else { $("#div21140200,#div21200100").hide(); }
+
+		if($("#encuesta5").find("input[name=02010000]:checked").val() == "Otro"){ 	$("#div02010100").show();} else { $("#div02010100").hide(); }
+
+		if($("#encuesta5").find("input[name=07010200]:checked").val() == "Otro"){ 	$("#div07010100").show();} else { $("#div07010100").hide(); }
+
+		if($("#encuesta7").find("input[name=15100000]:checked").val() == "SI"){ 	$("#div15111100").show();} else { $("#div15111100").hide(); }
+
+		if( $("#encuesta7").find("#1730010001").is(":checked") ){  $("#encuesta7").find(".f29b1").show();	} else { $("#encuesta7").find(".f29b1").hide();}
+
+		if( $("#encuesta7").find("#1730010002").is(":checked") ){  $("#encuesta7").find(".f29b2").show();	} else { $("#encuesta7").find(".f29b2").hide();}
+
+		if( $("#encuesta7").find("#1730010003").is(":checked") ){  $("#encuesta7").find(".f29b3").show();	} else { $("#encuesta7").find(".f29b3").hide();}
+
+		if( $("#encuesta7").find("#1730010004").is(":checked") ){  $("#encuesta7").find(".f29b4").show();	} else { $("#encuesta7").find(".f29b4").hide();}
+
+		if( $("#encuesta7").find("#1730010005").is(":checked") ){  $("#encuesta7").find(".f29b5").show();	} else { $("#encuesta7").find(".f29b5").hide();}
+
+		if( $("#encuesta7").find("#1730010006").is(":checked") ){  $("#encuesta7").find(".f29b6").show();	} else { $("#encuesta7").find(".f29b6").hide();}
+
+		if( $("#encuesta14").find("input[name=34010230]:checked").val() == "NO" ){ 
+			 $("#div34010250,#div34010270,#div34010280,#div70110100,#div70110200").hide();	
+		} else { 
+			 $("#div34010250,#div34010270,#div34010280,#div70110100,#div70110200").show(); 
+		}
+
+
+
+		if( $("#encuesta5").find("input[name=07010200]:checked").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();	} else {  $("#div_ratificado").hide();  }
+		if( $("#encuesta5").find("input[name=07010200]:checked").val() == "Asignado por evaluación de acceso 2014" ){      $("#div_ratificado").show();	} else {  $("#div_ratificado").hide();  }
+
+
+
+		if( $("#encuesta9").find("input[name=20010001]:checked").val() == "SI" ){  $("#div66020100").show();	} else {  $("#div66020100").hide();  }
+
+		if( $("#encuesta9").find("input[name=20010002]:checked").val() == "SI" ){  $("#div66020200").show();	} else {  $("#div66020200").hide();  }
+
+		if( $("#encuesta9").find("input[name=20010003]:checked").val() == "SI" ){  $("#div66020300").show();	} else {  $("#div66020300").hide();  }
+
+		if( $("#encuesta4").find("input[name=00003101]:checked").val() == "SI" ){  $("#div00003100").show();	} else {  $("#div00003100").hide();  }
+
+		if( $("#encuesta13").find("input[name=34020100]:checked").val() == "SI" ){  $("#div34020200").show();	} else {  $("#div34020200").hide();  }
+
+		if( $("#encuesta15").find("input[name=34010310]:checked").val() == "SI" ){  $("#soportepeda").show();	} else {  $("#soportepeda").hide();  }
+
+		if( $("#encuesta16").find("input[name=34220150]:checked").val() == "SI" ){  $("#div34220250,#div34220350").show();	} else {  $("#div34220250,#div34220350").hide();  }
+
+		if( $("#encuesta21").find("input[name=53010000]:checked").val() == "SI" ){  $("#internet").show();	} else {  $("#internet").hide();  }
+
+		if( $("#encuesta24").find("input[name=60010220]:checked").val() == "SI" ){  $("#materiale").show();	} else {  $("#materiale").hide();  }
+
+		if( $("#encuesta28").find("input[name=79100000]:checked").val() == "SI" ){  $("#div79110000").show();	} else {  $("#div79110000").hide();  }
+
+
+		if( $("#encuesta6").find("input[name=10040001]:checked").val() == "NO" ){  $("#div10050011").hide();	 } else {  $("#div10050011").show();  }
+
+		if( $("#encuesta6").find("input[name=10040002]:checked").val() == "NO" ){  $("#div10050012").hide();	 } else {  $("#div10050012").show();  }
+
+		if( $("#encuesta6").find("input[name=10040003]:checked").val() == "NO" ){  $("#div10050013").hide();	 } else {  $("#div10050013").show();  }
+
+		if( $("#encuesta6").find("input[name=34010110]:checked").val() == "NO" ){  $("#div34010130,#div34010170").hide();	 } else {  $("#div34010130,#div34010170").show();  }
+
+		if( $("#encuesta6").find("input[name=34010120]:checked").val() == "NO" ){  $("#div34010150,#div34010180").hide();	 } else {  $("#div34010150,#div34010180").show();  }
+
+	
+		if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010150]:checked").val() == "NO") ){  $("#div34010160").show();	 } else { $("#div34010160").hide(); }
+		if( ($("#encuesta13").find("input[name=34010170]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010180]:checked").val() == "NO") ){  $("#div34010220").show();	 } else { $("#div34010220").hide(); }
+
 
 
 }

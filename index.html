@@ -72,9 +72,14 @@ function onDeviceReady() {
 	$(document).on('pagecontainershow', function(e, ui) {
 		//$.mobile.loading("hide");
 		pageId = $('body').pagecontainer('getActivePage').prop('id');
+
 		if(pageId == ( "#encuesta" + nivelespage_start ) ){
 			draw_niveles_estados();
 		}
+	
+	
+
+
 	});
 	/*$(document).on( "pagebeforechange", function( event ) { 
 		//$.mobile.loading("show");
@@ -188,11 +193,11 @@ function onDeviceReady() {
 	//--DIA
 	$("#00000500").change(function(){
 	 	db.transaction(function(tx) {
-			sql = "SELECT DISTINCT(codigo_local) as local FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '"+$("#00000500").val()+"' ORDER BY local ASC";
+			sql = "SELECT DISTINCT(codigo_local) as local,nombre FROM tablon WHERE departamento = '" + $("#00000101").val() + "' AND mes = '"+ $("#00000200").val() + "' AND encuestador = '" + $("#00000100").val() + "' AND periodo = '" + $("#00000300").val() + "' AND dia = '"+$("#00000500").val()+"' ORDER BY local ASC";
 			tx.executeSql(sql, [], function(tx, res) {
 				options = "<option value='0'>--SELECCIONAR--</option>";
 				for(i = 0; i < res.rows.length; i++ ){
-					options += "<option value='" + res.rows.item(i).local + "'>" + res.rows.item(i).local + "</option>";
+					options += "<option value='" + res.rows.item(i).local + "'>" + res.rows.item(i).local + ": " + nombre +  "</option>";
 				}
 				$("#00000400").html(options);
 			});
@@ -218,6 +223,7 @@ function onDeviceReady() {
 		}*/
 
 		current_enc.local = $("#00000400").val();
+		current_enc.nombre = $("#00000400 option:selected").text();
 
 		if(desktop == 1){
 					newvar = [{codigo_modular:"999",nivel:"Inicial",nivel_id : 1, nombre : "Colegio Gamma"}	];
@@ -380,7 +386,6 @@ function onDeviceReady() {
 			$( "#div62000000" ).show();			
 			$( "#div63000000" ).hide();	
 
-
 			$( "#div12020100" ).show();			
 			$( "#div12020110" ).hide();
 			$( "#div12020200" ).show();			
@@ -489,7 +494,7 @@ function onDeviceReady() {
 	$("#1402010301").change(function(){ if($("#1402010301").is(":checked") ) { $("#div14020203,#div14020303,#div14020403,#div14020503,#div14020603").show();  } else { $("#div14020203,#div14020303,#div14020403,#div14020503,#div14020603").hide(); } });
 	$("#1403010301").change(function(){ if($("#1403010301").is(":checked") ) { $("#div14030203,#div14030303,#div14030403,#div14030503,#div14030603").show();  } else { $("#div14030203,#div14030303,#div14030403,#div14030503,#div14030603").hide(); } });
 
-	$( "#14010301,#14010302,#14010303" ).blur(function() {
+	/*$( "#14010301,#14010302,#14010303" ).blur(function() {
 		manana_hora_start($(this).attr('id'));
 	});
 
@@ -503,7 +508,60 @@ function onDeviceReady() {
 
 	$( "#14020501,#14020502,#14020503" ).blur(function() {
 		tarde_hora_end($(this).attr('id'));
+	});*/
+
+	$( "#14010301" ).blur(function() {
+		hora_start_end($(this).attr('id'),7,10);
 	});
+	$( "#14010501" ).blur(function() {
+		hora_start_end($(this).attr('id'),11,14);
+	});
+	$( "#14020301" ).blur(function() {
+		hora_start_end($(this).attr('id'),12,13);
+	});
+	$( "#14020501" ).blur(function() {
+		hora_start_end($(this).attr('id'),15,16);
+	});
+
+
+	$( "#14010302" ).blur(function() {
+		hora_start_end($(this).attr('id'),7,10);
+	});
+	$( "#14010502" ).blur(function() {
+		hora_start_end($(this).attr('id'),12,16);
+	});
+	$( "#14020302" ).blur(function() {
+		hora_start_end($(this).attr('id'),12,13);
+	});
+	$( "#14020502" ).blur(function() {
+		hora_start_end($(this).attr('id'),15,18);
+	});
+	$( "#14030302" ).blur(function() {
+		hora_start_end($(this).attr('id'),16,16);
+	});
+	$( "#14030502" ).blur(function() {
+		hora_start_end($(this).attr('id'),21,22);
+	});
+
+	$( "#14010303" ).blur(function() {
+		hora_start_end($(this).attr('id'),7,10);
+	});
+	$( "#14010503" ).blur(function() {
+		hora_start_end($(this).attr('id'),12,16);
+	});
+	$( "#14020303" ).blur(function() {
+		hora_start_end($(this).attr('id'),12,13);
+	});
+	$( "#14020503" ).blur(function() {
+		hora_start_end($(this).attr('id'),15,18);
+	});
+	$( "#14030303" ).blur(function() {
+		hora_start_end($(this).attr('id'),16,16);
+	});
+	$( "#14030503" ).blur(function() {
+		hora_start_end($(this).attr('id'),21,22);
+	});
+
 
 	$( "#14010401,#14020401,#14010402,#14020402,#14030402,#14010403,#14020403,#14030403" ).blur(function() {
 		turno_minuto($(this).attr('id'));
@@ -949,16 +1007,16 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}
 	});*/
 
-	$( "input[name=34010000]" ).change(function() {
-		if( ($("input[name=34010000]:checked").val() == "NO") ){
+	$("#encuesta17").find( "input[name=34010000]" ).change(function() {
+		if( ($("#encuesta17").find("input[name=34010000]:checked").val() == "NO") ){
 			$( "#div35000000,#div36010000,#div37010000,#div38000000" ).hide();
 		} else {
 			$( "#div35000000,#div36010000,#div37010000,#div38000000" ).show();
 		}
 	});
 
-	$( "input[name=35010105]" ).change(function() {
-		if( ($("input[name=35010105]:checked").val() == "SI") ){
+	$("#encuesta17").find( "input[name=35010105]" ).change(function() {
+		if( ( $("#encuesta17").find("input[name=35010105]:checked").val() == "SI") ){
 			$("#div70000000").show();
 		} else {
 			$("#div70000000").hide();
@@ -1064,8 +1122,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}	
 	});
 
-	$( "input[name=36010000]" ).change(function() {
-		if( ($("input[name=36010000]:checked").val() == "NO") ){
+	$("#encuesta17").find ("input[name=36010000]" ).change(function() {
+		if( ($("#encuesta17").find("input[name=36010000]:checked").val() == "NO") ){
 			$( "#div37010000,#div38000000" ).hide();
 		} else {
 			$( "#div37010000,#div38000000" ).show();
@@ -1189,8 +1247,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=54010000]" ).change(function() {
-		if( $("input[name=54010000]:checked").val() == "NO"){
+	$("#encuesta22").find( "input[name=54010000]" ).change(function() {
+		if( $("#encuesta22").find("input[name=54010000]:checked").val() == "NO"){
 			$("#div55000000").hide();
 			$("#div66010000").hide();	
 		} else {
@@ -1199,8 +1257,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=56010000]" ).change(function() {
-		if( $("input[name=56010000]:checked" ).val() == "NO"){
+	$("#encuesta23").find( "input[name=56010000]" ).change(function() {
+		if( $("#encuesta23").find("input[name=56010000]:checked" ).val() == "NO"){
 			$( "#div57010000" ).hide();
 			$( "#div58010000" ).hide();
 			$( "#div59010000" ).hide();
@@ -1210,8 +1268,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 			$( "#div59010000" ).show();
 		}
 	});
-	$( "input[name=57010000]" ).change(function() {
-		if( $("input[name=57010000]:checked").val() == "NO"){
+	$("#encuesta23").find( "input[name=57010000]" ).change(function() {
+		if( $("#encuesta23").find("input[name=57010000]:checked").val() == "NO"){
 			$( "#div58010000" ).hide();
 			$( "#div59010000" ).show();
 		} else {
@@ -1228,8 +1286,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}
 	});*/
 
-	$( "input[name=60010000]" ).change(function() {
-		if( $("input[name=60010000]:checked").val() == "NO"){
+	$("#encuesta24").find( "input[name=60010000]" ).change(function() {
+		if( $("#encuesta24").find("input[name=60010000]:checked").val() == "NO"){
 			$( "#div61000000" ).hide();
 		} else {
 			$( "#div61000000" ).show();
@@ -1673,8 +1731,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}
 	});
 
-	$( "input[name=60010000]" ).change(function() {
-		if( $("input[name=60010000]:checked").val() == "OTRO"){
+	$("#encuesta24").find( "input[name=60010000]" ).change(function() {
+		if( $("#encuesta24").find("input[name=60010000]:checked").val() == "OTRO"){
 			$("#div60010001").show();
 		} else {
 			$("#div60010001").hide();
@@ -2048,25 +2106,33 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 	});
 
 	$("#encuesta13").find( "input[name=34010110]" ).change(function() {
-		if( $("#encuesta6").find("input[name=34010110]:checked").val() == "NO" ){  $("#div34010130,#div34010170").hide();	 } else {  $("#div34010130,#div34010170").show();  }
+		if( $("#encuesta13").find("input[name=34010110]:checked").val() == "NO" ){  $("#div34010130,#div34010170").hide();	 } else {  $("#div34010130,#div34010170").show();  }
 	});
 	$("#encuesta13").find( "input[name=34010120]" ).change(function() {
-		if( $("#encuesta6").find("input[name=34010120]:checked").val() == "NO" ){  $("#div34010150,#div34010180").hide();	 } else {  $("#div34010150,#div34010180").show();  }
+		if( $("#encuesta13").find("input[name=34010120]:checked").val() == "NO" ){  $("#div34010150,#div34010180").hide();	 } else {  $("#div34010150,#div34010180").show();  }
 	});
 
+
 	$("#encuesta13").find( "input[name=34010130]" ).change(function() {
-		if( $("#encuesta6").find("input[name=34010130]:checked").val() == "NO" ){  $("#div34010160").show();	 } else {  }
+		//if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "SI") && ($("#encuesta13").find("input[name=34010150]:checked").val() == "SI") ){  $("#div34010160").hide();	 } else { $("#div34010160").show(); }
+		if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010150]:checked").val() == "NO") ){  $("#div34010160").show();	 } else { $("#div34010160").hide(); }
 	});
 	$("#encuesta13").find( "input[name=34010150]" ).change(function() {
-		if( $("#encuesta6").find("input[name=34010150]:checked").val() == "NO" ){  $("#div34010160").show();	 } else {  }
+		//if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "SI") && ($("#encuesta13").find("input[name=34010150]:checked").val() == "SI") ){  $("#div34010160").hide();	 } else { $("#div34010160").show(); }
+		if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010150]:checked").val() == "NO") ){  $("#div34010160").show();	 } else { $("#div34010160").hide(); }
+
 	});
 
 	$("#encuesta13").find( "input[name=34010170]" ).change(function() {
-		if( $("#encuesta6").find("input[name=34010170]:checked").val() == "NO" ){  $("#div34010220").show();	 } else {  }
+		//if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "SI") && ($("#encuesta13").find("input[name=34010150]:checked").val() == "SI") ){  $("#div34010160").hide();	 } else { $("#div34010160").show(); }
+		if( ($("#encuesta13").find("input[name=34010170]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010180]:checked").val() == "NO") ){  $("#div34010220").show();	 } else { $("#div34010220").hide(); }
 	});
 	$("#encuesta13").find( "input[name=34010180]" ).change(function() {
-		if( $("#encuesta6").find("input[name=34010180]:checked").val() == "NO" ){  $("#div34010220").show();	 } else {  }
+		//if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "SI") && ($("#encuesta13").find("input[name=34010150]:checked").val() == "SI") ){  $("#div34010160").hide();	 } else { $("#div34010160").show(); }
+		if( ($("#encuesta13").find("input[name=34010170]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010180]:checked").val() == "NO") ){  $("#div34010220").show();	 } else { $("#div34010220").hide(); }
 	});
+
+
 	//---------------------------------------------------------
 
 }
@@ -2076,17 +2142,17 @@ function ocultar16(){
 	$("#div64000000").show();
 
 	if( ($("#activenivel_1").val() == 1) && ($("#activenivel_2").val() == 0) && ($("#activenivel_3").val() == 0) ){
-		if( $("input[name=15010000]:checked").val() == "NO"){ 
+		if( $("#encuesta7").find("input[name=15010000]:checked").val() == "NO"){ 
 			$("#div16000000,#div64000000").hide(); 
 		}	
 	}
 	if( ($("#activenivel_1").val() == 1) && ($("#activenivel_2").val() == 1) && ($("#activenivel_3").val() == 0) ){
-		if( ($("input[name=15010000]:checked").val() == "NO") && ($("input[name=15020000]:checked").val() == "NO")   ){ 
+		if( ($("#encuesta7").find("input[name=15010000]:checked").val() == "NO") && ($("#encuesta7").find("input[name=15020000]:checked").val() == "NO")   ){ 
 			$("#div16000000,#div64000000").hide(); 
 		 }	
 	}
 	if( ($("#activenivel_1").val() == 1) && ($("#activenivel_2").val() == 1) && ($("#activenivel_3").val() == 1) ){
-		if( ($("input[name=15010000]:checked").val() == "NO") && ($("input[name=15020000]:checked").val() == "NO") && ($("input[name=15030000]:checked").val() == "NO")   ){ 
+		if( ($("#encuesta7").find("input[name=15010000]:checked").val() == "NO") && ($("#encuesta7").find("input[name=15020000]:checked").val() == "NO") && ($("#encuesta7").find("input[name=15030000]:checked").val() == "NO")   ){ 
 			$("#div16000000,#div64000000").hide();   
 		}	
 	}
@@ -2109,16 +2175,21 @@ function save_encuesta(){
 }
 
 function load_encuesta( id ){
-	$("#espereload").show();
-	setTimeout(function(){ $("#espereload").hide(); }, 15000);
-
-	freeze_open();
+	$("#encuesta_select").find("#espereload").show();
+	setTimeout(function(){ $("#encuesta_select").find("#espereload").hide(); }, 15000);
 
 	default_encuesta();
 	clear_form();// DANIELFIX
 	clear_niveles(); //DANIELFIX
 
 	current_enc = get_obj( id );
+	if (typeof current_enc["pversion"] === "undefined"){
+		alert("Las encuestas de la version 1.0 no se pueden continuar.");		
+		return false;
+	}	
+
+	freeze_open();
+
 	data = current_enc.formdata;
 	for(i = 1; i < nivelespage_start; i++){
 		if(i <= ultimate_page){
@@ -2126,17 +2197,17 @@ function load_encuesta( id ){
 		} else {
 			form_refresh = 0;
 		}
-		//console.log(form_refresh);
-
+		//console.log(i + ":" + form_refresh);
+		//$("#encuesta_select").find("#espereload").show();
 		$( "#encuesta" + i + " form").unserialize(data);
 	}
 	//$("#form1").unserialize(data);
 
 	draw_niveles_estados();
 		
-	if($("#activenivel_1").val()==1){ $(".efi").show(); } else { $(".efi").hide();}
+	/*if($("#activenivel_1").val()==1){ $(".efi").show(); } else { $(".efi").hide();}
 	if($("#activenivel_2").val()==1){ $(".efp").show(); } else { $(".efp").hide(); }
-	if($("#activenivel_3").val()==1){ $(".efs").show(); } else { $(".efs").hide(); }
+	if($("#activenivel_3").val()==1){ $(".efs").show(); } else { $(".efs").hide(); }*/
 
 	if($("#00210101").val()==0)$("#00210101").html( res0 + res1 + res2 );
 	if($("#00210201").val()==0)$("#00210201").html( res0 + res1 + res2 );
@@ -2148,7 +2219,7 @@ function load_encuesta( id ){
 
 	if(current_enc.page > nivelespage_start){
 		changepage("#encuesta" + nivelespage_start);
-		current_enc_page = current_enc.page;
+		current_enc_page = nivelespage_start;
 	} else if(current_enc.page > 0){
 		changepage("#encuesta" + current_enc.page);
 		current_enc_page = current_enc.page;
@@ -2156,6 +2227,10 @@ function load_encuesta( id ){
 		changepage("#encuesta1");
 		current_enc_page = 1;
 	}
+
+	if($("#encuesta1").find("#activenivel_1").val()==1){ $("#encuesta"+current_enc_page).find(".efi").show(); } else { $("#encuesta"+current_enc_page).find(".efi").hide();}
+	if($("#encuesta1").find("#activenivel_2").val()==1){ $("#encuesta"+current_enc_page).find(".efp").show(); } else { $("#encuesta"+current_enc_page).find(".efp").hide(); }
+	if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta"+current_enc_page).find(".efs").show(); } else { $("#encuesta"+current_enc_page).find(".efs").hide(); }
 
 	freeze_close();
 	return false;
@@ -2188,7 +2263,11 @@ function new_encuesta(){
 	enc.upload = 0;
 	enc.time = getDateTime();
 	enc.local = 0;
+	enc.nombre = "";
+	enc.pversion = 2;
 	$("#form_enc_id").val(tmpid);
+	$("#00001942").val(getDateTime());
+	$("#00001943").val(Math.floor(Date.now() / 1000));
 
 	for(j = 0; j < fotoname_ids.length; j++){
 		enc["foto" + fotoname_ids[j] ] = {status : 1, url : "", id : fotoname_ids[j] };
@@ -2306,6 +2385,33 @@ function upload_encuesta(id){
 	return false;
 }
 
+function upload_encuesta_reenvio(id){
+	//$.mobile.changePage("#finish_encuesta");
+	$("#aftersendmsg").html("");
+	changepage("#aftersend");
+	$.mobile.loading("show");
+
+	current_enc = get_obj(id);
+	if(current_enc.formenviado == 0)	{
+		$.ajax({ url: localStorage.getItem("ws_post"),
+				 type: "POST",
+				 data: { "formdata" : JSON.stringify(current_enc)  , "tablet" : device.uuid },
+				 crossDomain: true,
+				 cache: false,
+				 contentType: "application/x-www-form-urlencoded; charset=utf-8"
+		}).done(function(html) {
+			$("#aftersendmsg").append("<div class='box_success'>Se enviaron los datos de la encuesta con exito!</div>");
+			$.mobile.loading("hide");
+		}).fail(function( jqXHR, textStatus ) {
+			$("#aftersendmsg").append("<div class='box_error'>No se pudo enviar los datos de la encuesta.</div>");
+			$.mobile.loading("hide");
+		});
+	} else {
+		$.mobile.loading("hide");
+	}
+	return false;
+}
+
 function nextpage_encuesta( i ){
 	var tmpflagp = true;
 	if(i == (nivelespage_start + 1)){
@@ -2314,6 +2420,8 @@ function nextpage_encuesta( i ){
 		filter_niveles();
 		if(validate_niveles() == false){
 			return false;
+		} else {
+			new_nivel();
 		}
 
 
@@ -2363,23 +2471,31 @@ function nextpage_encuesta( i ){
 
 	if(tmpflagp == false)return false;
 
-	if($("#encuesta1").find("input[name=00000401]:checked").val() == "SI"){
-		$("#00002411").val( $("#00004011").val());
-	}
-	if($("#encuesta1").find("input[name=00000402]:checked").val() == "SI"){
-		$("#00002412").val( $("#00004012").val());
-	}
-	if($("#encuesta1").find("input[name=00000403]:checked").val() == "SI"){
-		$("#00002413").val( $("#00004013").val());
-	}
+	if(i == 2){
+		if( ($("#encuesta1").find("#activenivel_1").val()==1 ) && (  $("#encuesta1").find("#nativo_1").val() == 1) ) $("#00002411").val( $("#encuesta1").find("input[name=cod_mod_1]").val()  );
+		if( ($("#encuesta1").find("#activenivel_2").val()==1 ) && (  $("#encuesta1").find("#nativo_2").val() == 1) ) $("#00002412").val( $("#encuesta1").find("input[name=cod_mod_2]").val()  );
+		if( ($("#encuesta1").find("#activenivel_3").val()==1 ) && (  $("#encuesta1").find("#nativo_3").val() == 1) ) $("#00002413").val( $("#encuesta1").find("input[name=cod_mod_3]").val()  );
 
-	if($("#nativo_1").val() == 1 ) $("#00002411").val( $("input[name=cod_mod_1]").val()  );
-	if($("#nativo_2").val() == 1 ) $("#00002412").val( $("input[name=cod_mod_2]").val()  );
-	if($("#nativo_3").val() == 1 ) $("#00002413").val( $("input[name=cod_mod_3]").val()  );
-
-	if($("#activenivel_1").val()==0)$(".efi").hide();
+		if($("#encuesta1").find("input[name=00000401]:checked").val() == "SI"){
+			$("#00002411").val( $("#00004011").val());
+		}
+		if($("#encuesta1").find("input[name=00000402]:checked").val() == "SI"){
+			$("#00002412").val( $("#00004012").val());
+		}
+		if($("#encuesta1").find("input[name=00000403]:checked").val() == "SI"){
+			$("#00002413").val( $("#00004013").val());
+		}
+	}
+	/*if($("#activenivel_1").val()==0)$(".efi").hide();
 	if($("#activenivel_2").val()==0)$(".efp").hide();
-	if($("#activenivel_3").val()==0)$(".efs").hide();
+	if($("#activenivel_3").val()==0)$(".efs").hide();*/
+
+
+	if($("#encuesta1").find("#activenivel_1").val()==1){ $("#encuesta"+i).find(".efi").show(); } else { $("#encuesta"+i).find(".efi").hide();}
+	if($("#encuesta1").find("#activenivel_2").val()==1){ $("#encuesta"+i).find(".efp").show(); } else { $("#encuesta"+i).find(".efp").hide(); }
+	if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta"+i).find(".efs").show(); } else { $("#encuesta"+i).find(".efs").hide(); }
+
+
 
 	if( $('#35010105').val() == "SI")$("#div70000000").show();
 
@@ -2410,7 +2526,14 @@ function nextpage_encuesta( i ){
 
 	current_enc_page = i;
 	if( i > ultimate_page )ultimate_page = i;
-	save_encuesta();
+
+
+	if((i >= (nivelespage_start + 2)) &&  (i <= nivelespage_end )){
+		new_save_nivel();
+	} else {
+		save_encuesta();
+	}
+
 	changepage("#encuesta" + i);	
 
 	return false;
@@ -2721,7 +2844,7 @@ function default_hiding_niveles(){
 	$( "#div90120121").hide();
 	$("#div90050300,#div90200300").hide();
 	$("#div90060100").hide();
-
+	$("#90010021").val(0);
 	$("#div90060111,#div90050311").hide();
 
 		$("#nivelt_inicial").show();
@@ -2794,6 +2917,14 @@ function confirm_upload_encuesta(i){
 	return false;
 }
 
+function confirm_upload_reenvio(i){
+	var ask = window.confirm("Está seguro de querer enviar los datos?");
+    if (ask) {
+		upload_encuesta_reenvio( i );
+	}
+	return false;
+}
+
 function list_encuestas(){
 	tmp = localStorage.getItem("list_ids");
 	html = "";
@@ -2809,7 +2940,10 @@ function list_encuestas(){
 			if (typeof tmpobj["local"] === "undefined") tmpobj.local = "ID:" + list_ids[i];
 			if (typeof tmpobj["time"] === "undefined") tmpobj.time = "-";
 
-			html += " <tr>" + "<td>"+  tmpobj.local + "</td>";
+			newname = tmpobj.local;
+			if (typeof tmpobj["nombre"] === "undefined") { } else { newname += ": " + tmpobj.nombre; }
+
+			html += " <tr>" + "<td width='200px'>"+  newname + "</td>";
 			html +=  "<td>"+  tmpobj.time + "</td>";
 			if(tmpobj.upload == 1){
 				html += "<td>"
@@ -2830,6 +2964,42 @@ function list_encuestas(){
 	//console.log(html);
 	 $("#html_table_enc tbody").html( html );
 	changepage("#listado1");
+	//list files directory
+	//compare filenames(ids) to localstorage array status saved
+	return false;
+}
+
+function list_encuestas_reenviar(){
+	tmp = localStorage.getItem("list_ids");
+	html = "";
+	
+	if(tmp != null){
+		list_ids = JSON.parse(tmp);
+		len = list_ids.length;
+		for( i = 0; i < len ; i++ ){
+			id = list_ids[i];
+			//console.log(id);
+			tmpobj = get_obj(list_ids[i]);
+			if(tmpobj.upload != 1)continue;
+
+			if (typeof tmpobj["local"] === "undefined") tmpobj.local = "ID:" + list_ids[i];
+			if (typeof tmpobj["time"] === "undefined") tmpobj.time = "-";
+
+			newname = tmpobj.local;
+			if (typeof tmpobj["nombre"] === "undefined") { } else { newname += ": " + tmpobj.nombre; }
+
+			html += " <tr>" + "<td width='200px'>"+  newname + "</td>";
+			html +=  "<td>"+  tmpobj.time + "</td>";
+			html += "<td>"
+			html += " <i class='fa fa-check-circle fa-lg' ></i> Enviado</td>";
+
+			html += '<td><a href="#" onclick="return confirm_upload_reenvio(' +list_ids[i] + ');" class="ui-btn ui-btn-inline" data-mini="true">Volver a Enviar datos</a></td>';
+			html += "</tr>";
+		}
+	}
+	//console.log(html);
+	 $("#html_table_reenvio tbody").html( html );
+	changepage("#reenvio1");
 	//list files directory
 	//compare filenames(ids) to localstorage array status saved
 	return false;
@@ -3058,7 +3228,7 @@ function filter_niveles(){
 	} else {
 		$(".nivelp_primaria").hide();
 	}
-	$("#90010021").val(0);
+
 
 	if(tmp1 == "INICIAL"){
 		$("#nivelt_primaria").hide();
@@ -3135,7 +3305,7 @@ function filter_niveles(){
 
 function load_nivel(i){
 	default_hiding_niveles();
-
+	current_nivel_id = i;
 	data = current_enc.nivelesdata[i].data;
 	for(i = nivelespage_start; i <= nivelespage_end; i++){
 		form_refresh = 1;
@@ -3144,10 +3314,12 @@ function load_nivel(i){
 	arbol_nivel();
 
 	if($("#90010021").val() == 1){
-		if(current_enc.nivelesdata[i][i].nivel == "INICIAL")$("#nivelt_inicial").hide();
+		if(current_enc.nivelesdata[i].nivel == "INICIAL")$("#nivelt_inicial").hide();
 		if(current_enc.nivelesdata[i].nivel == "PRIMARIA")$("#nivelt_primaria").hide();
 		if(current_enc.nivelesdata[i].nivel == "SECUNDARIA")$("#nivelt_secundaria").hide();
 	}
+
+	filter_niveles();
 
 	changepage("#encuesta32");
 }
@@ -3157,16 +3329,16 @@ function arbol_nivel(){
 		if( tmpval == "INICIAL"){
 			//$("#90000003").val("");
 			$("#div90000300").hide();
-			$('#9000030001').attr('checked', false).checkboxradio( "refresh" );
-			$('#9000030002').attr('checked', false).checkboxradio( "refresh" );
-			$('#9000030003').attr('checked', false).checkboxradio( "refresh" );
-			$('#9000030004').attr('checked', false).checkboxradio( "refresh" );
-			$('#9000030005').attr('checked', false).checkboxradio( "refresh" );
-			$('#9000030006').attr('checked', false).checkboxradio( "refresh" );
+			$('#9000030001').attr('checked', false);//.checkboxradio( "refresh" );
+			$('#9000030002').attr('checked', false);//.checkboxradio( "refresh" );
+			$('#9000030003').attr('checked', false);//.checkboxradio( "refresh" );
+			$('#9000030004').attr('checked', false);//.checkboxradio( "refresh" );
+			$('#9000030005').attr('checked', false);//.checkboxradio( "refresh" );
+			$('#9000030006').attr('checked', false);//.checkboxradio( "refresh" );
 		} else {
 			if(tmpval == "SECUNDARIA"){
 				$('#9000030006').parent().hide();
-				$('#9000030006').attr('checked', false).checkboxradio( "refresh" );
+				$('#9000030006').attr('checked', false);//.checkboxradio( "refresh" );
 			} else {
 				$('#9000030006').parent().show();
 			}
@@ -3175,26 +3347,21 @@ function arbol_nivel(){
 			$("#div90000300").show();
 		}
 
+
 		if( $("#encuesta32").find("input[name=90010000]:checked").val() == "NO"){
-			$("#div90020000,#div90030000").hide();
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
-			$("#div90160000").hide();
+			$("#dopresente1").hide();
+			$("#dopresente2").hide();
 		} else {
-			$("#div90020000,#div90030000").show();
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").show();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").show();
-			$("#div90160000").show();
+			$("#dopresente1").show();
+			$("#dopresente2").show();
 		}
 
 		if( $("#encuesta32").find("input[name=90030000]:checked").val() == "NO"){
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").hide();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").hide();
-			$("#div90160000").hide();
+			$("#dopresente1v2").hide();
+			$("#dopresente2").hide();
 		} else {
-			$("#div90040000,#div90050000,#div90060000,#div90070000,#div90080000,#div90090000").show();
-			$("#div90100000,#div90110000,#div90120000,#div90130000,#div90140000,#div90150000").show();
-			$("#div90160000").show();
+			$("#dopresente1v2").show();
+			$("#dopresente2").show();
 		}
 
 		if($("#encuesta32").find("input[name=90050000]:checked" ).val() == "EDUCACION SECUNDARIA"){ 	$("#div90050300").show();	} else { $("#div90050300").hide(); }
@@ -3295,6 +3462,32 @@ function arbol_nivel(){
 		}
 
 
+		if( $("#encuesta32").find("input[name=90150100]:checked").val() == "SI" ){  $("#div90150200").hide();	} else {  $("#div90150200").show();  }
+
+		if( $("#encuesta34").find("input[name=90200100]:checked").val() == "SI" ){  $("#div90200200").hide();	} else {  $("#div90200200").show();  }
+
+		if( $("#encuesta36").find("input[name=90270100]:checked").val() == "NO TIENE PAREDES" ){  $("#div90280100").hide();	} else {  $("#div90280100").show();  }
+
+		if( $("#encuesta36").find("input[name=90290100]:checked").val() == "NO TIENE TECHO" ){  $("#div90300100").hide();	} else {  $("#div90300100").show();  }
+
+		if( $("#encuesta36").find("input[name=90320100]:checked").val() == "NO TIENE PUERTAS" ){  $("#div90330100").hide();	} else {  $("#div90330100").show();  }
+
+		if( $("#encuesta33").find("input[name=90101000]:checked").val() == "NO" ){  $("#div90111000,#div90121001,#div90121000").hide();	 } else {  $("#div90111000,#div90121001,#div90121000").show();  }
+
+		if( $("#encuesta33").find("input[name=90111000]:checked").val() == "NO" ){  $("#div90121001,#div90121000").hide();	 } else {  $("#div90121001,#div90121000").show();  }
+
+		if( $("#encuesta33").find("input[name=90150100]:checked").val() == "NO" ){  $("#div90150200").hide();	 } else {  $("#div90150200").show();  }
+
+		if( $("#encuesta33").find("input[name=90221000]:checked").val() == "NO" ){  $("#div90231000,#div90241000,#div90251000,#div90160000").hide();	 } else { $("#div90231000,#div90241000,#div90251000,#div90160000").show();  }
+	
+
+		if( $("#encuesta32").find("input[name=90050300]:checked").val() == "OTRO" ){  $("#div90050311").show();	} else {  $("#div90050311").hide();  }
+
+		if( $("#encuesta32").find("input[name=90060100]:checked").val() == "OTRO" ){  $("#div90060111").show();	} else {  $("#div90060111").hide();  }
+
+		if($("#encuesta34").find("input[name=90200200]").val() == "Otro"){ 	$("#div90200300").show();	} else { $("#div90200300").hide(); }
+
+		if($("#encuesta34").find("input[name=90200200]").val() == "OTRO"){ 	$("#div90120121").show();	} else { $("#div90120121").hide(); }
 }
 
 function validate_niveles(){
@@ -3373,11 +3566,15 @@ function draw_niveles_estados(){
 		html += "<td>" + current_enc.nivelesdata[i].nivel + "</td>";
 		html += "<td>" + current_enc.nivelesdata[i].turno + "</td>";
 		html += "<td>" + current_enc.nivelesdata[i].grado + "</td>";
-		html += "<td>" + current_enc.nivelesdata[i].seccion + "</td>";
-
-		html += "<td> <i class='fa fa-check-circle fa-lg cgreen' ></i> Completado </td>";
+		html += "<td width='100px;' style='font-size:11px'>" + current_enc.nivelesdata[i].seccion + "</td>";
+		if(current_enc.nivelesdata[i].finalizado == 1){
+			html += "<td> <i class='fa fa-check-circle fa-lg cgreen' ></i>Completado</td>";
+		} else{
+			html += "<td> Incompleto </td>";
+		}
 		html +='<td>';
-		//html +=' &nbsp; <a href="#" onclick="return load_nivel(' + i + ')" class="ui-btn-corner-all ui-btn ui-btn-icon-notext ui-icon-edit ui-btn-inline  ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Borrar </a>';
+		html +='<a href="#" onclick="return load_nivel(' + i + ');" class="ui-btn ui-btn-inline" data-mini="true">Revisar</a>';
+		///html +=' &nbsp; <a href="#" onclick="return load_nivel(' + i + ')" class="ui-btn-corner-all ui-btn ui-btn-icon-notext ui-icon-edit ui-btn-inline  ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Continuar </a>';
 		html +=' &nbsp; <a href="#" onclick="return delete_nivel(' + i + ')" class="ui-btn-corner-all ui-btn ui-btn-icon-notext ui-icon-delete ui-btn-inline  ui-shadow" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Borrar </a>';
 		html += "</td></tr>";
 	}
@@ -3439,6 +3636,60 @@ function end_ausentes(){
 	save_obj(current_enc.id,current_enc);
 	changepage("#encuesta" + nivelespage_start);
 	return false;
+}
+
+function new_nivel(){
+	tmpre = "-";
+	tmp3d = "";//$("#90000003").val() ;
+	if($('#9000030001').is(':checked'))tmp3d += "1,";
+	if($('#9000030002').is(':checked'))tmp3d += "2,";
+	if($('#9000030003').is(':checked'))tmp3d += "3,";
+	if($('#9000030004').is(':checked'))tmp3d += "4,";
+	if($('#9000030005').is(':checked'))tmp3d += "5,";
+	if($('#9000030006').is(':checked'))tmp3d += "6,";
+	tmp3 = tmp3d.substring(0,(tmp3d.length - 1));
+
+	newnivel = {
+		nivel : $("input[name=90000001]:checked").val() ,
+		turno : $("input[name=90000002]:checked").val() ,
+		grado : tmp3 , 
+		seccion    : $("#90000004").val() ,
+		presentes  : tmpre ,
+		finalizado : 0 ,
+		data : ""
+	};
+
+	current_enc.nivelesdata.push(newnivel);
+	current_nivel_id = (current_enc.nivelesdata.length - 1);
+	current_enc.page = current_enc_page;
+	save_obj(current_enc.id,current_enc);
+}
+
+function new_save_nivel(npage){
+	serial = "";
+	for(i = nivelespage_start; i <= nivelespage_end; i++){
+		serial += $( "#encuesta" + i + " form" ).serialize();	
+		serial += "&";
+	}
+	serial = serial.slice(0,-1);
+
+	current_enc.nivelesdata[current_nivel_id].data = serial;
+	if(npage == 1000){
+		current_enc.nivelesdata[current_nivel_id].finalizado = 1;
+	}
+	current_enc.page = current_enc_page;
+	save_obj(current_enc.id,current_enc);
+
+	//changepage("#encuesta" + npage);
+	return false;
+}
+
+function end_save_nivel(){
+	new_save_nivel(1000);
+	clear_niveles();
+	draw_niveles_estados();
+
+	changepage("#encuesta" + nivelespage_start);
 }
 
 function save_niveles(){
@@ -3620,6 +3871,7 @@ function onSuccess_gps(position) {
                         'Longitude: '  + position.coords.longitude + '<br >' +
                         'Timestamp: '  + position.timestamp        + '<br >');*/
 	$("#00001900").val( myround(position.coords.latitude,6) + "," + myround(position.coords.longitude,6)  );
+	$("#00001941").val( position.timestamp );
 	$.mobile.loading("hide");
 }
 
@@ -3634,6 +3886,7 @@ function get_second_gps(){
 	navigator.geolocation.getCurrentPosition(
 	function (position) {
 		$("#00001902").val( myround(position.coords.latitude,6) + "," + myround(position.coords.longitude,6)  );
+		$("#00001951").val( position.timestamp );
 		$.mobile.loading("hide");
 	}, 
 	function (error) {
@@ -3834,6 +4087,16 @@ function tarde_hora_end(id){
 	}
 }
 
+function hora_start_end(id,start,end){
+	if($("#" + id).val() == "" )return false;
+	nn = int(id);
+	if((nn >= start) && (nn <= end) ){
+
+	} else {
+		alert("Hora debe ser entre " + start + " y " +  end);
+		$("#" + id).val("");
+	}
+}
 
 
 
@@ -4010,6 +4273,7 @@ function check_encuesta(){
 function draw_continuar_encuestas(){
 	tmp = localStorage.getItem("list_ids");
 	html = "";
+	todelete = [];
 	
 	if(tmp != null){
 		list_ids = JSON.parse(tmp);
@@ -4018,18 +4282,39 @@ function draw_continuar_encuestas(){
 			id = list_ids[i];
 			//console.log(id);
 			tmpobj = get_obj(list_ids[i]);
+			if (typeof tmpobj["upload"] === "undefined"){
+				continue;
+			}
 			if(tmpobj.upload != 1){
 
-				if (typeof tmpobj["local"] === "undefined") tmpobj.local = "ID:" + list_ids[i];
+				if (typeof tmpobj["local"] === "undefined"){
+					// tmpobj.local = "ID:" + list_ids[i];
+					todelete.push(list_ids[i]);	
+					continue;
+				} else {
+					if( tmpobj.local == 0 ){ 
+						todelete.push(list_ids[i]);
+						continue;
+					}
+				}
 				if (typeof tmpobj["time"] === "undefined") tmpobj.time = "-";
 
-				html += " <tr>" + "<td>"+  tmpobj.local + "</td>";
+				newname = tmpobj.local;
+				if (typeof tmpobj["nombre"] === "undefined") { } else { newname += ": " + tmpobj.nombre; }
+
+				html += " <tr>" + "<td  width='200px'>"+  newname + "</td>";
 				html +=  "<td>"+  tmpobj.time + "</td>";
 				html += '<td><a href="#" onclick="return load_encuesta(' +list_ids[i] + ');" class="ui-btn ui-btn-inline" data-mini="true">Continuar Encuesta</a></td>';
 				html += "</tr>";
 			}
 		}
 	}
+
+	len = todelete.length;
+	for( i = 0; i < len ; i++ ){	
+		delete_obj(todelete[i]);
+	}
+
 	 $("#listcontinuar tbody").html( html );
 	return false;
 }
@@ -4041,17 +4326,17 @@ function current_upload_encuesta(){
 }
 
 function show_pre_end_encuesta(){
-	len = current_enc.nivelesdata.length;
+	/*len = current_enc.nivelesdata.length;
 	for(i = 0; i < len; i++){
 		if( current_enc.nivelesdata[i].finalizado == 0 ){ 
 			alert("Debe completar el formulario de Ausentes");
 			return false;
 		}
-	}
+	}*/
 
 	//mostrar completo e incompleto
 	//$("#div00220100").show();
-	$("#encuesta3 .sgte").hide();
+	$("#encuesta3").find(".sgte").hide();
 	$("#encaso").hide();
 	$("#final_link,#primer_link").show();
 	changepage("#encuesta3");
@@ -4141,7 +4426,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-04 07:43:30</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-06 06:21:34</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -4400,6 +4685,51 @@ function create_panels(){
 					</table>
 				</div>
 			</div>
+
+			<a href="#" onclick="return list_encuestas_reenviar();"  class="ui-btn ui-icon-carat-r ui-btn-icon-right">Estado de Envios</a>
+		</div>
+	</div>
+
+<div data-role="page" id="reenvio1">
+		<div data-role="header" class="hpage1"  data-theme="b">
+
+<h1 role="heading"> </h1>
+<a href="#rightpanel1" class="ui-btn-right ui-btn-corner-all ui-btn ui-icon-bars ui-btn-icon-notext ui-shadow bw" title=" Navigation " data-form="ui-icon" data-role="button" role="button"> Navigation </a>
+
+		</div>
+
+		<div data-role="content">
+
+			<div class="ui-corner-all custom-corners">
+				<div class="ui-bar ui-bar-a">
+					<h3>Estado de Encuestas</h3>
+				</div>
+
+				<div class="ui-body ui-body-a">
+
+					<table class="ts1" id="html_table_reenvio" width="100%">
+					      <thead>
+					        <tr>
+					          <th >Local Educativo</th>
+					          <th >Fecha</th>
+					          <th>Estado</th>
+					          <th></th>
+					        </tr>
+					      </thead>
+					      <tbody>
+					        <!--tr>
+					          <th class="ui-table-priority-2">I.E Abelino Caceres</th>
+					          <td>80%</td>
+					          <td class="ui-table-priority-3 ui-table-cell-visible"><i class="fa fa-check-circle fa-lg cgreen" ></i> </td>
+					          <td class="ui-table-priority-1"><i class="fa fa-times-circle fa-lg cred"></i></td>
+					        </tr-->
+
+						   </tbody>
+					</table>
+				</div>
+			</div>
+
+			<a href="#jqm-home" class="ui-btn ui-icon-carat-r ui-btn-icon-left">Página de Inicio</a>
 		</div>
 	</div>
 
@@ -4421,7 +4751,7 @@ function create_panels(){
 			<label for="00001900" >GPS</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true">
 				<button onclick="return get_gps();">Obtener Coordenadas</button>
-				<input id="00001900"  type="text" name="" value="" readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
+				<input id="00001900"  type="text" name="00001900" value="" readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
 			</div>
 		</div><div id="div00001901" >
 			<div style="float:left;width:20%;margin: .5em 2% 0 0;">Fotos</div>
@@ -4430,7 +4760,7 @@ function create_panels(){
 				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('2');">Tomar foto del frontis de L.E. con el Monitor(a)   </button> <img id="fotoimage2" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
-		</div><div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Departamento</label><select name='00000101' id='00000101'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Monitor(a)</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000500" > <div data-role="fieldcontain"><label for='00000500'   >Día</label><select name='00000500' id='00000500'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''>El nivel esta activo?</th></tr></thead><tbody></tbody></table><input type="hidden" id="form_enc_id" name="" value="0"/><input type="hidden" id="nativo_1" name="" value="0"/><input type="hidden"  id="nativo_2" name="" value="0"/><input type="hidden"  id="nativo_3" name="" value="0"/><input type="hidden" id="activenivel_1" name="" value="0"/><input type="hidden" id="activenivel_2" name="" value="0"/><input type="hidden" id="activenivel_3" name="" value="0"/><input type="hidden" id="nivelcheck_1" name="" value="0"/><input type="hidden" id="nivelcheck_2" name="" value="0"/><input type="hidden" id="nivelcheck_3" name="" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><div id='testr'></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
+		</div><div class="ff" id="div00000101" > <div data-role="fieldcontain"><label for='00000101'   >Departamento</label><select name='00000101' id='00000101'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000200" > <div data-role="fieldcontain"><label for='00000200'   >Mes</label><select name='00000200' id='00000200'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000100" > <div data-role="fieldcontain"><label for='00000100'   >Monitor(a)</label><select name='00000100' id='00000100'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000300" > <div data-role="fieldcontain"><label for='00000300'   >Periodo</label><select name='00000300' id='00000300'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000500" > <div data-role="fieldcontain"><label for='00000500'   >Día</label><select name='00000500' id='00000500'  ><option value='0'>--SELECCIONAR--</option></select></div></div><div class="ff" id="div00000400" > <div data-role="fieldcontain"><label for='00000400'   >Codigo de Local</label><select name='00000400' id='00000400'  ><option value='0'>--SELECCIONAR--</option></select></div></div><table id="tniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th><th class=''>El nivel esta activo?</th></tr></thead><tbody></tbody></table><input type="hidden" id="form_enc_id" name="00000001" value="0"/><input type="hidden"  id="00001941"   name="00001941" value="0"/><input type="hidden"  id="00001942"   name="00001942" value="0"/><input type="hidden"  id="00001943"   name="00001943" value="0"/><input type="hidden"  id="00001951"  name="00001951" value="0"/><input type="hidden"  id="00001952"  name="00001952" value="0"/><input type="hidden"  id="00001953"  name="00001953" value="0"/><input type="hidden"  id="00001970"  name="00001970" value="2" /><input type="hidden" id="nativo_1" name="00000041" value="0"/><input type="hidden"  id="nativo_2" name="00000042" value="0"/><input type="hidden"  id="nativo_3" name="00000043" value="0"/><input type="hidden" id="activenivel_1" name="00000051" value="0"/><input type="hidden" id="activenivel_2" name="00000052" value="0"/><input type="hidden" id="activenivel_3" name="00000053" value="0"/><input type="hidden" id="nivelcheck_1" name="00000291" value="0"/><input type="hidden" id="nivelcheck_2" name="00000292" value="0"/><input type="hidden" id="nivelcheck_3" name="00000293" value="0"/><div id="div00000401"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Inicial?</legend><input type="radio" name="00000401" id="0000040101" value="SI"><label for="0000040101">SI</label><input type="radio" name="00000401" id="0000040102" value="NO"><label for="0000040102">NO</label></fieldset></div></div><div id="div00000402"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Primaria?</legend><input type="radio" name="00000402" id="0000040201" value="SI"><label for="0000040201">SI</label><input type="radio" name="00000402" id="0000040202" value="NO"><label for="0000040202">NO</label></fieldset></div></div><div id="div00000403"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>¿Existe un nivel Secundaria?</legend><input type="radio" name="00000403" id="0000040301" value="SI"><label for="0000040301">SI</label><input type="radio" name="00000403" id="0000040302" value="NO"><label for="0000040302">NO</label></fieldset></div></div><div id='testr'></div><table id="tnewniveles" class="ts1"><thead><tr><th class=''>Codigo Modular</th><th class=''>Nivel</th></tr></thead><tbody><tr class='tnewnivel1'><td><div id="div00004011"  class=" ff"  > <label for="00004011"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004011" id="00004011" value=""   /></div></td>
 <td>Inicial</td>
 <td></td>
 </tr><tr class='tnewnivel2'><td><div id="div00004012"  class=" ff"  > <label for="00004012"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004012" id="00004012" value=""   /></div></td>
@@ -4439,7 +4769,7 @@ function create_panels(){
 </tr><tr class='tnewnivel3'><td><div id="div00004013"  class=" ff"  > <label for="00004013"  class="ui-hidden-accessible" ></label><input type="number"   data-mini="true"   pattern="[0-9]*" name="00004013" id="00004013" value=""   /></div></td>
 <td>Secundaria</td>
 <td></td>
-</tr></tbody></table>
+</tr></tbody></table><input type="hidden" name="00000801" id="foto1" value=""><input type="hidden" name="00000802" id="foto2"  value="">
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(2);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -4461,7 +4791,7 @@ function create_panels(){
 					<h3>I. UBICACION GEOGRAFICA </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div00001000"  class=" ff"  > <div data-role="fieldcontain"><label for="00001000"   >1. Departamento</label><input  data-mini="true"   type="text" name="00001000" id="00001000" value=""   readonly='readonly'  ></div></div><div id="div00001100"  class=" ff"  > <div data-role="fieldcontain"><label for="00001100"   >2. Provincia</label><input  data-mini="true"   type="text" name="00001100" id="00001100" value=""   readonly='readonly'  ></div></div><div id="div00001200"  class=" ff"  > <div data-role="fieldcontain"><label for="00001200"   >3. Distrito</label><input  data-mini="true"   type="text" name="00001200" id="00001200" value=""   readonly='readonly'  ></div></div><div id="div00001300"  class=" ff"  > <div data-role="fieldcontain"><label for="00001300"   >4. Centro Poblado</label><input  data-mini="true"   type="text" name="00001300" id="00001300" value=""   ></div></div><div id="div00001400"  class=" ff"  > <div data-role="fieldcontain"><label for="00001400"   >5. DRE</label><input  data-mini="true"   type="text" name="00001400" id="00001400" value=""   ></div></div><div id="div00001500"  class=" ff"  > <div data-role="fieldcontain"><label for="00001500"   >6. UGEL</label><input  data-mini="true"   type="text" name="00001500" id="00001500" value=""   ></div></div><div id="div00001600"  class=" ff"  > <div data-role="fieldcontain"><label for="00001600"   >7. Area</label><input  data-mini="true"   type="text" name="00001600" id="00001600" value="URBANO"   readonly='readonly'  ></div></div><div id="div00001700"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. Region</legend><input type="radio" name="00001700" id="0000170001" value="COSTA"><label for="0000170001">COSTA</label><input type="radio" name="00001700" id="0000170002" value="SIERRA"><label for="0000170002">SIERRA</label><input type="radio" name="00001700" id="0000170003" value="SELVA"><label for="0000170003">SELVA</label></fieldset></div></div><div id="div00001800"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. Zona Priorizada</legend><input type="radio" name="00001800" id="0000180001" value="FRONTERA"><label for="0000180001">FRONTERA</label><input type="radio" name="00001800" id="0000180002" value="VRAEM"><label for="0000180002">VRAEM</label><input type="radio" name="00001800" id="0000180003" value="NINGUNO"><label for="0000180003">NINGUNO</label></fieldset></div></div><input type="hidden" name="" id="foto1" value=""><input type="hidden" name="" id="foto2"  value="">
+					<div id="div00001000"  class=" ff"  > <div data-role="fieldcontain"><label for="00001000"   >1. Departamento</label><input  data-mini="true"   type="text" name="00001000" id="00001000" value=""   readonly='readonly'  ></div></div><div id="div00001100"  class=" ff"  > <div data-role="fieldcontain"><label for="00001100"   >2. Provincia</label><input  data-mini="true"   type="text" name="00001100" id="00001100" value=""   readonly='readonly'  ></div></div><div id="div00001200"  class=" ff"  > <div data-role="fieldcontain"><label for="00001200"   >3. Distrito</label><input  data-mini="true"   type="text" name="00001200" id="00001200" value=""   readonly='readonly'  ></div></div><div id="div00001300"  class=" ff"  > <div data-role="fieldcontain"><label for="00001300"   >4. Centro Poblado</label><input  data-mini="true"   type="text" name="00001300" id="00001300" value=""   ></div></div><div id="div00001400"  class=" ff"  > <div data-role="fieldcontain"><label for="00001400"   >5. DRE</label><input  data-mini="true"   type="text" name="00001400" id="00001400" value=""   ></div></div><div id="div00001500"  class=" ff"  > <div data-role="fieldcontain"><label for="00001500"   >6. UGEL</label><input  data-mini="true"   type="text" name="00001500" id="00001500" value=""   ></div></div><div id="div00001600"  class=" ff"  > <div data-role="fieldcontain"><label for="00001600"   >7. Area</label><input  data-mini="true"   type="text" name="00001600" id="00001600" value="URBANO"   readonly='readonly'  ></div></div><div id="div00001700"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. Region</legend><input type="radio" name="00001700" id="0000170001" value="COSTA"><label for="0000170001">COSTA</label><input type="radio" name="00001700" id="0000170002" value="SIERRA"><label for="0000170002">SIERRA</label><input type="radio" name="00001700" id="0000170003" value="SELVA"><label for="0000170003">SELVA</label></fieldset></div></div><div id="div00001800"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>9. Zona Priorizada</legend><input type="radio" name="00001800" id="0000180001" value="FRONTERA"><label for="0000180001">FRONTERA</label><input type="radio" name="00001800" id="0000180002" value="VRAEM"><label for="0000180002">VRAEM</label><input type="radio" name="00001800" id="0000180003" value="NINGUNO"><label for="0000180003">NINGUNO</label></fieldset></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(3);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -6000,7 +6330,7 @@ function create_panels(){
 				<button class="ui-btn ui-btn-inline" onclick="return capturePhotoWithFile('12');">Foto Interior   </button> <img id="fotoimage12" src="" style="width:60px;height:60px;"  align="absmiddle"  />    
 			</div>
 			<div style="clear:both"></div>
-		</div><input type="hidden" name="" id="foto10" value=""><input type="hidden" name="" id="foto11"  value=""><input type="hidden" name="" id="foto12"  value="">
+		</div><input type="hidden" name="00000810" id="foto10" value=""><input type="hidden" name="00000811" id="foto11"  value=""><input type="hidden" name="00000812" id="foto12"  value="">
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(27);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -6311,11 +6641,11 @@ function create_panels(){
 				<button class="ui-btn ui-btn-inline ui-mini" onclick="return capturePhotoWithFile('23');">  Tomar foto al lavadero o lavatorio de algún servicio higiénico</button> <img id="fotoimage23" src="" style="width:60px;height:60px;"  align="absmiddle"  />  
 			</div>
 			<div style="clear:both"></div>
-		</div><input type="hidden" name="" id="foto21" value=""><input type="hidden" name="" id="foto22"  value=""><input type="hidden" name="" id="foto23"  value=""><div id="div87010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>134. Qué señales de seguridad presenta el local escolar en sus instalaciones?</legend><input type="checkbox" name="87010001" id="8701000001" value="Zonas de seguridad en caso de terremotos"><label for="8701000001" >Zonas de seguridad en caso de terremotos</label><input type="checkbox" name="87010002" id="8701000002" value="Señales contra incendios"><label for="8701000002" >Señales contra incendios</label><input type="checkbox" name="87010003" id="8701000003" value="Estado de instalaciones eléctricas"><label for="8701000003" >Estado de instalaciones eléctricas</label><input type="checkbox" name="87010004" id="8701000004" value="Otros"><label for="8701000004" >Otros</label><input type="checkbox" name="87010005" id="8701000005" value="Ninguno"><label for="8701000005" >Ninguno</label></fieldset></div><div id="div87010100"  class=" ff"  > <div data-role="fieldcontain"><label for="87010100"   >(Otros) Especificar:</label><input  data-mini="true"   type="text" name="87010100" id="87010100" value=""   ></div></div><div id="div88010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>135. Confirmar si el local escolar cuenta con abastecimiento de agua</legend><input type="radio" name="88010000" id="8801000001" value="SI"><label for="8801000001">SI</label><input type="radio" name="88010000" id="8801000002" value="NO"><label for="8801000002">NO</label></fieldset></div><div id="div89010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>136. Confirmar con qué tipo de alumbrado cuenta el local escolar.</legend><input type="checkbox" name="89010001" id="8901000001" value="Electricidad"><label for="8901000001" >Electricidad</label><input type="checkbox" name="89010002" id="8901000002" value="Petróleo/Gas"><label for="8901000002" >Petróleo/Gas</label><input type="checkbox" name="89010003" id="8901000003" value="Otro"><label for="8901000003" >Otro</label><input type="checkbox" name="89010004" id="8901000004" value="No tiene"><label for="8901000004" >No tiene</label></fieldset></div><div id="div89010100"  class=" ff"  > <div data-role="fieldcontain"><label for="89010100"   >Especificar:</label><input  data-mini="true"   type="text" name="89010100" id="89010100" value=""   ></div></div><div id="div00001902" data-role="fieldcontain">
+		</div><input type="hidden" name="00000821" id="foto21" value=""><input type="hidden" name="00000822" id="foto22"  value=""><input type="hidden" name="00000823" id="foto23"  value=""><div id="div87010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>134. Qué señales de seguridad presenta el local escolar en sus instalaciones?</legend><input type="checkbox" name="87010001" id="8701000001" value="Zonas de seguridad en caso de terremotos"><label for="8701000001" >Zonas de seguridad en caso de terremotos</label><input type="checkbox" name="87010002" id="8701000002" value="Señales contra incendios"><label for="8701000002" >Señales contra incendios</label><input type="checkbox" name="87010003" id="8701000003" value="Estado de instalaciones eléctricas"><label for="8701000003" >Estado de instalaciones eléctricas</label><input type="checkbox" name="87010004" id="8701000004" value="Otros"><label for="8701000004" >Otros</label><input type="checkbox" name="87010005" id="8701000005" value="Ninguno"><label for="8701000005" >Ninguno</label></fieldset></div><div id="div87010100"  class=" ff"  > <div data-role="fieldcontain"><label for="87010100"   >(Otros) Especificar:</label><input  data-mini="true"   type="text" name="87010100" id="87010100" value=""   ></div></div><div id="div88010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>135. Confirmar si el local escolar cuenta con abastecimiento de agua</legend><input type="radio" name="88010000" id="8801000001" value="SI"><label for="8801000001">SI</label><input type="radio" name="88010000" id="8801000002" value="NO"><label for="8801000002">NO</label></fieldset></div><div id="div89010000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend>136. Confirmar con qué tipo de alumbrado cuenta el local escolar.</legend><input type="checkbox" name="89010001" id="8901000001" value="Electricidad"><label for="8901000001" >Electricidad</label><input type="checkbox" name="89010002" id="8901000002" value="Petróleo/Gas"><label for="8901000002" >Petróleo/Gas</label><input type="checkbox" name="89010003" id="8901000003" value="Otro"><label for="8901000003" >Otro</label><input type="checkbox" name="89010004" id="8901000004" value="No tiene"><label for="8901000004" >No tiene</label></fieldset></div><div id="div89010100"  class=" ff"  > <div data-role="fieldcontain"><label for="89010100"   >Especificar:</label><input  data-mini="true"   type="text" name="89010100" id="89010100" value=""   ></div></div><div id="div00001902" data-role="fieldcontain">
 			<label for="00001902" >GPS</label>
 			<div data-role="controlgroup" data-type="horizontal" data-mini="true"  >
 				<button onclick="return get_second_gps();">Obtener Coordenadas        </button>
-				<input id="00001902"  type="text" name=""  readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
+				<input id="00001902"  type="text" name="00001902"  readonly="readonly" data-wrapper-class="textgroup ui-btn" style="width:250px" >
 			</div>
 		</div>
 				</div>				
@@ -6360,7 +6690,7 @@ function create_panels(){
 					<h3>I. PREGUNTAS AL DOCENTE </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<input type='hidden' name='' value='0'><div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Monitor(a), ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id='dopresente1'><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Monitor(a), ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id='dopresente1v2'><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050000" id="9005000001" value="EDUCACION INICIAL"><label for="9005000001">EDUCACION INICIAL</label><input type="radio" name="90050000" id="9005000002" value="EDUCACION PRIMARIA"><label for="9005000002">EDUCACION PRIMARIA</label><input type="radio" name="90050000" id="9005000003" value="EDUCACION SECUNDARIA"><label for="9005000003">EDUCACION SECUNDARIA</label><input type="radio" name="90050000" id="9005000004" value="E.P INTERCULTURAL BILINGUE"><label for="9005000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050000" id="9005000005" value="OTRO"><label for="9005000005">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90050300"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>5.A. Especificar 1era especialidad - Secundaria:</legend><input type="radio" name="90050300" id="9005030001" value="LENGUA Y LITERATURA"><label for="9005030001">LENGUA Y LITERATURA</label><input type="radio" name="90050300" id="9005030002" value="COMUNICACION"><label for="9005030002">COMUNICACION</label><input type="radio" name="90050300" id="9005030003" value="MATEMATICA Y FISICA"><label for="9005030003">MATEMATICA Y FISICA</label><input type="radio" name="90050300" id="9005030004" value="MATEMATICA"><label for="9005030004">MATEMATICA</label><input type="radio" name="90050300" id="9005030005" value="CCSS Y FILOSOFIA"><label for="9005030005">CCSS Y FILOSOFIA</label><input type="radio" name="90050300" id="9005030006" value="CIENCIAS NATURALES"><label for="9005030006">CIENCIAS NATURALES</label><input type="radio" name="90050300" id="9005030007" value="BIOLOGIA Y QUIMICA"><label for="9005030007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90050300" id="9005030008" value="HISTORIA Y GEOGRAFIA"><label for="9005030008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90050300" id="9005030009" value="CCHH SOCIALES"><label for="9005030009">CCHH SOCIALES</label><input type="radio" name="90050300" id="90050300010" value="INGLES"><label for="90050300010">INGLES</label><input type="radio" name="90050300" id="90050300011" value="EDUCACION RELIGIOSA"><label for="90050300011">EDUCACION RELIGIOSA</label><input type="radio" name="90050300" id="90050300012" value="EDUCACION FAMILIAR"><label for="90050300012">EDUCACION FAMILIAR</label><input type="radio" name="90050300" id="90050300013" value="EDUCACION ARTISTICA"><label for="90050300013">EDUCACION ARTISTICA</label><input type="radio" name="90050300" id="90050300014" value="E.P. INTERCULTURAL BILINGUE"><label for="90050300014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90050300" id="90050300015" value="OTRO"><label for="90050300015">OTRO</label></fieldset></div><div id="div90050311"  class=" ff"  > <div data-role="fieldcontain"><label for="90050311"   >Especificar:</label><input  data-mini="true"   type="text" name="90050311" id="90050311" value=""   ></div></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="EDUCACION SECUNDARIA"><label for="9007000003">EDUCACION SECUNDARIA</label><input type="radio" name="90070000" id="9007000004" value="E.P INTERCULTURAL BILINGUE"><label for="9007000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000005" value="OTRO"><label for="9007000005">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90060100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>7.A. Especificar 2da especialidad - Secundaria:</legend><input type="radio" name="90060100" id="9006010001" value="LENGUA Y LITERATURA"><label for="9006010001">LENGUA Y LITERATURA</label><input type="radio" name="90060100" id="9006010002" value="COMUNICACION"><label for="9006010002">COMUNICACION</label><input type="radio" name="90060100" id="9006010003" value="MATEMATICA Y FISICA"><label for="9006010003">MATEMATICA Y FISICA</label><input type="radio" name="90060100" id="9006010004" value="MATEMATICA"><label for="9006010004">MATEMATICA</label><input type="radio" name="90060100" id="9006010005" value="CCSS Y FILOSOFIA"><label for="9006010005">CCSS Y FILOSOFIA</label><input type="radio" name="90060100" id="9006010006" value="CIENCIAS NATURALES"><label for="9006010006">CIENCIAS NATURALES</label><input type="radio" name="90060100" id="9006010007" value="BIOLOGIA Y QUIMICA"><label for="9006010007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90060100" id="9006010008" value="HISTORIA Y GEOGRAFIA"><label for="9006010008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90060100" id="9006010009" value="CCHH SOCIALES"><label for="9006010009">CCHH SOCIALES</label><input type="radio" name="90060100" id="90060100010" value="INGLES"><label for="90060100010">INGLES</label><input type="radio" name="90060100" id="90060100011" value="EDUCACION RELIGIOSA"><label for="90060100011">EDUCACION RELIGIOSA</label><input type="radio" name="90060100" id="90060100012" value="EDUCACION FAMILIAR"><label for="90060100012">EDUCACION FAMILIAR</label><input type="radio" name="90060100" id="90060100013" value="EDUCACION ARTISTICA"><label for="90060100013">EDUCACION ARTISTICA</label><input type="radio" name="90060100" id="90060100014" value="E.P. INTERCULTURAL BILINGUE"><label for="90060100014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90060100" id="90060100015" value="OTRO"><label for="90060100015">OTRO</label></fieldset></div><div id="div90060111"  class=" ff"  > <div data-role="fieldcontain"><label for="90060111"   >Especificar:</label><input  data-mini="true"   type="text" name="90060111" id="90060111" value=""   ></div></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div></div></div>
+					<input type='hidden' name='90010021' value='0'><div id="div90010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>1. Monitor(a), ¿el docente está presente en el aula?</legend><input type="radio" name="90010000" id="9001000001" value="SI"><label for="9001000001">SI</label><input type="radio" name="90010000" id="9001000002" value="NO"><label for="9001000002">NO</label></fieldset></div><div id='dopresente1'><div id="div90020000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>2. Género del docente</legend><input type="radio" name="90020000" id="9002000001" value="MASCULINO"><label for="9002000001">MASCULINO</label><input type="radio" name="90020000" id="9002000002" value="FEMENINO"><label for="9002000002">FEMENINO</label></fieldset></div><div id="div90030000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>3. Monitor(a), ¿el docente está dispuesto a responder las preguntas?</legend><input type="radio" name="90030000" id="9003000001" value="SI"><label for="9003000001">SI</label><input type="radio" name="90030000" id="9003000002" value="NO"><label for="9003000002">NO</label></fieldset></div><div id='dopresente1v2'><div id="div90040000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>4. ¿Cuál es su condición laboral?</legend><input type="radio" name="90040000" id="9004000001" value="NOMBRADO"><label for="9004000001">NOMBRADO</label><input type="radio" name="90040000" id="9004000002" value="CONTRATADO"><label for="9004000002">CONTRATADO</label><input type="radio" name="90040000" id="9004000003" value="CAS"><label for="9004000003">CAS</label></fieldset></div><div id="div90050000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>5. ¿Cuál es su especialidad?</legend><input type="radio" name="90050000" id="9005000001" value="EDUCACION INICIAL"><label for="9005000001">EDUCACION INICIAL</label><input type="radio" name="90050000" id="9005000002" value="EDUCACION PRIMARIA"><label for="9005000002">EDUCACION PRIMARIA</label><input type="radio" name="90050000" id="9005000003" value="EDUCACION SECUNDARIA"><label for="9005000003">EDUCACION SECUNDARIA</label><input type="radio" name="90050000" id="9005000004" value="E.P INTERCULTURAL BILINGUE"><label for="9005000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90050000" id="9005000005" value="OTRO"><label for="9005000005">OTRO</label></fieldset></div><div id="div90050100"  class=" ff"  > <div data-role="fieldcontain"><label for="90050100"   >Especificar:</label><input  data-mini="true"   type="text" name="90050100" id="90050100" value=""   ></div></div><div id="div90050300"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>5.A. Especificar 1era especialidad - Secundaria:</legend><input type="radio" name="90050300" id="9005030001" value="LENGUA Y LITERATURA"><label for="9005030001">LENGUA Y LITERATURA</label><input type="radio" name="90050300" id="9005030002" value="COMUNICACION"><label for="9005030002">COMUNICACION</label><input type="radio" name="90050300" id="9005030003" value="MATEMATICA Y FISICA"><label for="9005030003">MATEMATICA Y FISICA</label><input type="radio" name="90050300" id="9005030004" value="MATEMATICA"><label for="9005030004">MATEMATICA</label><input type="radio" name="90050300" id="9005030005" value="CCSS Y FILOSOFIA"><label for="9005030005">CCSS Y FILOSOFIA</label><input type="radio" name="90050300" id="9005030006" value="CIENCIAS NATURALES"><label for="9005030006">CIENCIAS NATURALES</label><input type="radio" name="90050300" id="9005030007" value="BIOLOGIA Y QUIMICA"><label for="9005030007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90050300" id="9005030008" value="HISTORIA Y GEOGRAFIA"><label for="9005030008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90050300" id="9005030009" value="CCHH SOCIALES"><label for="9005030009">CCHH SOCIALES</label><input type="radio" name="90050300" id="90050300010" value="INGLES"><label for="90050300010">INGLES</label><input type="radio" name="90050300" id="90050300011" value="EDUCACION RELIGIOSA"><label for="90050300011">EDUCACION RELIGIOSA</label><input type="radio" name="90050300" id="90050300012" value="EDUCACION FAMILIAR"><label for="90050300012">EDUCACION FAMILIAR</label><input type="radio" name="90050300" id="90050300013" value="EDUCACION ARTISTICA"><label for="90050300013">EDUCACION ARTISTICA</label><input type="radio" name="90050300" id="90050300014" value="E.P. INTERCULTURAL BILINGUE"><label for="90050300014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90050300" id="90050300015" value="OTRO"><label for="90050300015">OTRO</label></fieldset></div><div id="div90050311"  class=" ff"  > <div data-role="fieldcontain"><label for="90050311"   >Especificar:</label><input  data-mini="true"   type="text" name="90050311" id="90050311" value=""   ></div></div><div id="div90060000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>6. ¿Tiene usted segunda especialidad profesional?</legend><input type="radio" name="90060000" id="9006000001" value="SI"><label for="9006000001">SI</label><input type="radio" name="90060000" id="9006000002" value="NO"><label for="9006000002">NO</label></fieldset></div><div id="div90070000"  class=" ff"  > <fieldset data-role="controlgroup"  ><legend>7. ¿Cuál es su segunda especialidad?</legend><input type="radio" name="90070000" id="9007000001" value="EDUCACION INICIAL"><label for="9007000001">EDUCACION INICIAL</label><input type="radio" name="90070000" id="9007000002" value="EDUCACION PRIMARIA"><label for="9007000002">EDUCACION PRIMARIA</label><input type="radio" name="90070000" id="9007000003" value="EDUCACION SECUNDARIA"><label for="9007000003">EDUCACION SECUNDARIA</label><input type="radio" name="90070000" id="9007000004" value="E.P INTERCULTURAL BILINGUE"><label for="9007000004">E.P INTERCULTURAL BILINGUE</label><input type="radio" name="90070000" id="9007000005" value="OTRO"><label for="9007000005">OTRO</label></fieldset></div><div id="div90070100"  class=" ff"  > <div data-role="fieldcontain"><label for="90070100"   >Especificar:</label><input  data-mini="true"   type="text" name="90070100" id="90070100" value=""   ></div></div><div id="div90060100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>7.A. Especificar 2da especialidad - Secundaria:</legend><input type="radio" name="90060100" id="9006010001" value="LENGUA Y LITERATURA"><label for="9006010001">LENGUA Y LITERATURA</label><input type="radio" name="90060100" id="9006010002" value="COMUNICACION"><label for="9006010002">COMUNICACION</label><input type="radio" name="90060100" id="9006010003" value="MATEMATICA Y FISICA"><label for="9006010003">MATEMATICA Y FISICA</label><input type="radio" name="90060100" id="9006010004" value="MATEMATICA"><label for="9006010004">MATEMATICA</label><input type="radio" name="90060100" id="9006010005" value="CCSS Y FILOSOFIA"><label for="9006010005">CCSS Y FILOSOFIA</label><input type="radio" name="90060100" id="9006010006" value="CIENCIAS NATURALES"><label for="9006010006">CIENCIAS NATURALES</label><input type="radio" name="90060100" id="9006010007" value="BIOLOGIA Y QUIMICA"><label for="9006010007">BIOLOGIA Y QUIMICA</label><input type="radio" name="90060100" id="9006010008" value="HISTORIA Y GEOGRAFIA"><label for="9006010008">HISTORIA Y GEOGRAFIA</label><input type="radio" name="90060100" id="9006010009" value="CCHH SOCIALES"><label for="9006010009">CCHH SOCIALES</label><input type="radio" name="90060100" id="90060100010" value="INGLES"><label for="90060100010">INGLES</label><input type="radio" name="90060100" id="90060100011" value="EDUCACION RELIGIOSA"><label for="90060100011">EDUCACION RELIGIOSA</label><input type="radio" name="90060100" id="90060100012" value="EDUCACION FAMILIAR"><label for="90060100012">EDUCACION FAMILIAR</label><input type="radio" name="90060100" id="90060100013" value="EDUCACION ARTISTICA"><label for="90060100013">EDUCACION ARTISTICA</label><input type="radio" name="90060100" id="90060100014" value="E.P. INTERCULTURAL BILINGUE"><label for="90060100014">E.P. INTERCULTURAL BILINGUE</label><input type="radio" name="90060100" id="90060100015" value="OTRO"><label for="90060100015">OTRO</label></fieldset></div><div id="div90060111"  class=" ff"  > <div data-role="fieldcontain"><label for="90060111"   >Especificar:</label><input  data-mini="true"   type="text" name="90060111" id="90060111" value=""   ></div></div><div id="div90080000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>8. ¿ los útimos 6 meses, participa o ha participado usted en algún programa de capacitación organizado por el MINEDU?</legend><input type="radio" name="90080000" id="9008000001" value="SI"><label for="9008000001">SI</label><input type="radio" name="90080000" id="9008000002" value="NO"><label for="9008000002">NO</label></fieldset></div></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(33);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -6507,7 +6837,7 @@ function create_panels(){
 					<div id="div90270100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>32</span><span class='ncp'>39</span><span class='ncs'>32</span>. Las paredes del aula se encuentran en:</legend><input type="radio" name="90270100" id="9027010001" value="BUEN ESTADO"><label for="9027010001">BUEN ESTADO</label><input type="radio" name="90270100" id="9027010002" value="ESTADO REGULAR"><label for="9027010002">ESTADO REGULAR</label><input type="radio" name="90270100" id="9027010003" value="MAL ESTADO"><label for="9027010003">MAL ESTADO</label><input type="radio" name="90270100" id="9027010004" value="NO TIENE PAREDES"><label for="9027010004">NO TIENE PAREDES</label></fieldset></div><div id="div90280100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>33</span><span class='ncp'>40</span><span class='ncs'>33</span>. Respecto a la pintura, las paredes del aula están:</legend><input type="radio" name="90280100" id="9028010001" value="PINTADAS Y LIMPIAS"><label for="9028010001">PINTADAS Y LIMPIAS</label><input type="radio" name="90280100" id="9028010002" value="PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS"><label for="9028010002">PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS</label><input type="radio" name="90280100" id="9028010003" value="NO ESTAN PINTADAS"><label for="9028010003">NO ESTAN PINTADAS</label></fieldset></div><div id="div90290100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>34</span><span class='ncp'>41</span><span class='ncs'>34</span>. El techo del aula se encuentra en:</legend><input type="radio" name="90290100" id="9029010001" value="BUEN ESTADO"><label for="9029010001">BUEN ESTADO</label><input type="radio" name="90290100" id="9029010002" value="ESTADO REGULAR"><label for="9029010002">ESTADO REGULAR</label><input type="radio" name="90290100" id="9029010003" value="MAL ESTADO"><label for="9029010003">MAL ESTADO</label><input type="radio" name="90290100" id="9029010004" value="NO TIENE TECHO"><label for="9029010004">NO TIENE TECHO</label></fieldset></div><div id="div90300100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>35</span><span class='ncp'>42</span><span class='ncs'>35</span>. Respecto a la pintura, el techo del aula está:</legend><input type="radio" name="90300100" id="9030010001" value="PINTADAS Y LIMPIAS"><label for="9030010001">PINTADAS Y LIMPIAS</label><input type="radio" name="90300100" id="9030010002" value="PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS"><label for="9030010002">PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS</label><input type="radio" name="90300100" id="9030010003" value="NO ESTAN PINTADAS"><label for="9030010003">NO ESTAN PINTADAS</label></fieldset></div><div id="div90310100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>36</span><span class='ncp'>43</span><span class='ncs'>36</span>. Las ventanas del aula se encuentra en:</legend><input type="radio" name="90310100" id="9031010001" value="BUEN ESTADO"><label for="9031010001">BUEN ESTADO</label><input type="radio" name="90310100" id="9031010002" value="ESTADO REGULAR"><label for="9031010002">ESTADO REGULAR</label><input type="radio" name="90310100" id="9031010003" value="MAL ESTADO"><label for="9031010003">MAL ESTADO</label><input type="radio" name="90310100" id="9031010004" value="NO TIENE VENTANAS"><label for="9031010004">NO TIENE VENTANAS</label></fieldset></div><div id="div90320100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>37</span><span class='ncp'>44</span><span class='ncs'>37</span>. La(s) puerta(s) del aula se encuentran en:</legend><input type="radio" name="90320100" id="9032010001" value="BUEN ESTADO"><label for="9032010001">BUEN ESTADO</label><input type="radio" name="90320100" id="9032010002" value="ESTADO REGULAR"><label for="9032010002">ESTADO REGULAR</label><input type="radio" name="90320100" id="9032010003" value="MAL ESTADO"><label for="9032010003">MAL ESTADO</label><input type="radio" name="90320100" id="9032010004" value="NO TIENE PUERTAS"><label for="9032010004">NO TIENE PUERTAS</label></fieldset></div><div id="div90330100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>38</span><span class='ncp'>45</span><span class='ncs'>38</span>. Respecto a la pintura, la(s) puertas está(n):</legend><input type="radio" name="90330100" id="9033010001" value="PINTADAS Y LIMPIAS"><label for="9033010001">PINTADAS Y LIMPIAS</label><input type="radio" name="90330100" id="9033010002" value="PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS"><label for="9033010002">PINTADAS Y MANCHADOS Y/O SUCIAS Y/O DESCASCARADAS</label><input type="radio" name="90330100" id="9033010003" value="NO ESTAN PINTADAS"><label for="9033010003">NO ESTAN PINTADAS</label></fieldset></div><div id="div90340100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend><span class='nci'>39</span><span class='ncp'>46</span><span class='ncs'>39</span>. El piso del aula se encuentran en:</legend><input type="radio" name="90340100" id="9034010001" value="BUEN ESTADO"><label for="9034010001">BUEN ESTADO</label><input type="radio" name="90340100" id="9034010002" value="ESTADO REGULAR"><label for="9034010002">ESTADO REGULAR</label><input type="radio" name="90340100" id="9034010003" value="MAL ESTADO"><label for="9034010003">MAL ESTADO</label></fieldset></div>
 				</div>				
 			</div>
-			<a href="#" onclick="return save_niveles();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
+			<a href="#" onclick="return end_save_nivel();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
 		</div>
 		</form>
 	</div>
