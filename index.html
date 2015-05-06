@@ -197,7 +197,7 @@ function onDeviceReady() {
 			tx.executeSql(sql, [], function(tx, res) {
 				options = "<option value='0'>--SELECCIONAR--</option>";
 				for(i = 0; i < res.rows.length; i++ ){
-					options += "<option value='" + res.rows.item(i).local + "'>" + res.rows.item(i).local + ": " + nombre +  "</option>";
+					options += "<option value='" + res.rows.item(i).local + "'>" + res.rows.item(i).local + ": " + res.rows.item(i).nombre +  "</option>";
 				}
 				$("#00000400").html(options);
 			});
@@ -4426,7 +4426,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-06 06:21:34</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-06 06:35:52</div>';
 	html += '</div>';
 	$("body").append(html);
 }
