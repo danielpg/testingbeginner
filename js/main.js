@@ -59,7 +59,7 @@ jQuery.fn.unserialize = function(parm){
 			obj = this.find('[name=\''+ parts[0] +'\']');
 			if (obj.length == 0){
 				try{
-					obj = this.parent().find('[name=\''+ parts[0] +'\']');
+					//obj = this.parent().find('[name=\''+ parts[0] +'\']'); DANIEL: commented for performance improvement
 				} catch(e){}
 			}
 			if (typeof obj.attr("type") == "string" && ( obj.attr("type").toLowerCase() == "radio" || obj.attr("type").toLowerCase() == "checkbox")){
@@ -133,15 +133,20 @@ function rebuild_arbol(){
 			$( "#div07010000" ).hide();
 			$( "#div08010000" ).hide();
 
-			$( "#div11000000" ).hide();//11
-			$( "#div11020000" ).hide();//1.b
+
 
 			$( "#div09000000" ).show();
 			$( "#div10000000" ).show();
-			$( "#div11010000" ).show();
-			$( "#div11030000" ).show();
 
-			$( "#div62000000" ).hide();			
+			$( "#div11000000" ).hide();//11
+			$( "#div11020000" ).hide();//1.b
+			if( $("#encuesta5").find( "input[name=01010000]:checked").val() == "SI"){
+				$( "#div11010000" ).show();
+				$( "#div11030000" ).show();
+			}
+
+			$( "#div62000000" ).hide();	
+		
 			$( "#div63000000" ).show();	
 
 			$( "#div12020110" ).show();
@@ -157,13 +162,16 @@ function rebuild_arbol(){
 			$( "#div07010000" ).show();
 			$( "#div08010000" ).show();
 
-			$( "#div11000000" ).show();//11
-			$( "#div11020000" ).show();//1.
-
-			$( "#div09000000" ).hide();
-			$( "#div10000000" ).hide();
+			if( $("#encuesta5").find( "input[name=01010000]:checked").val() == "SI"){
+				$( "#div11000000" ).show();//11
+				$( "#div11020000" ).show();//1.
+			}
 			$( "#div11010000" ).hide();
 			$( "#div11030000" ).hide();
+			$( "#div09000000" ).hide();
+			$( "#div10000000" ).hide();
+
+
 
 			$( "#div62000000" ).show();			
 			$( "#div63000000" ).hide();	
@@ -562,7 +570,7 @@ function rebuild_arbol(){
 	
 	//if( $("#encuesta17").find("input[name=35010108]:checked").val() == "SI"){  $( "#div35010208,#div35010308" ).show();  } else {   $( "#div35010208,#div35010308" ).hide();  }
 
-	if( $("#encuesta17").find("input[name=35010109]:checked").val() == "SI"){  $( "#div35010209,#div35010309" ).show();  } else {   $( "#div35010209,#div35010309" ).hide();  }
+	//if( $("#encuesta17").find("input[name=35010109]:checked").val() == "SI"){  $( "#div35010209,#div35010309" ).show();  } else {   $( "#div35010209,#div35010309" ).hide();  }
 
 
 
@@ -582,7 +590,7 @@ function rebuild_arbol(){
 
 //	if( $("#encuesta17").find("input[name=35020108]:checked").val() == "SI"){  $( "#div35020208,#div35020308" ).show();  } else {   $( "#div35020208,#div35020308" ).hide();  }
 
-	if( $("#encuesta17").find("input[name=35020109]:checked").val() == "SI"){  $( "#div35020209,#div35020309" ).show();  } else {   $( "#div35020209,#div35020309" ).hide();  }
+	//if( $("#encuesta17").find("input[name=35020109]:checked").val() == "SI"){  $( "#div35020209,#div35020309" ).show();  } else {   $( "#div35020209,#div35020309" ).hide();  }
 
 
 
@@ -602,7 +610,7 @@ function rebuild_arbol(){
 
 //	if( $("#encuesta17").find("input[name=35030108]:checked").val() == "SI"){  $( "#div35030208,#div35030308" ).show();  } else {  $( "#div35030208,#div35030308" ).hide();    }
 
-	if( $("#encuesta17").find("input[name=35030109]:checked").val() == "SI"){  $( "#div35030209,#div35030309" ).show();  } else {  $( "#div35030209,#div35030309" ).hide();    }
+	//if( $("#encuesta17").find("input[name=35030109]:checked").val() == "SI"){  $( "#div35030209,#div35030309" ).show();  } else {  $( "#div35030209,#div35030309" ).hide();    }
 
 
 	 special37(); 
@@ -687,9 +695,9 @@ function rebuild_arbol(){
 
 
 		if( ($("#encuesta20").find("input[name=48010000]:checked").val() == "NO") ){
-			$("#encuesta20").find("#div49010000,#div50010000,#div50110000,#div86000000" ).hide();
+			$("#encuesta20").find("#div49010000,#div50010000,#horasagua,#div86000000" ).hide();
 		} else {
-			$("#encuesta20").find("#div49010000,#div50010000,#div50110000,#div86000000" ).show();
+			$("#encuesta20").find("#div49010000,#div50010000,#horasagua,#div86000000" ).show();
 		}
 
 
@@ -699,6 +707,15 @@ function rebuild_arbol(){
 			$( "#div49010100").hide();
 			$( "#49010100").val("");
 		}
+
+
+	$( "#4901000001" ).change(function() {
+		if( $(this).is(":checked") ){
+			$( "#div50010000,#horasagua" ).show();
+		} else {
+			$( "#div50010000,#horasagua").hide();
+		}
+	});
 
 		if( $("#5101000003").is(":checked") ){
 			$( "#div51010100" ).show();
@@ -1141,6 +1158,19 @@ function rebuild_arbol(){
 	
 		if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010150]:checked").val() == "NO") ){  $("#div34010160").show();	 } else { $("#div34010160").hide(); }
 		if( ($("#encuesta13").find("input[name=34010170]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010180]:checked").val() == "NO") ){  $("#div34010220").show();	 } else { $("#div34010220").hide(); }
+
+
+
+		if( $("#encuesta5").find("input[name=07020200]:checked").val() == "SI" ){  $("#div07020300").show(); } else { $("#div07020300").hide(); }
+
+
+		if( $("#encuesta5").find("input[name=07020100]:checked").val() == "SI" ){  $("#div07020200,#div07020300").hide(); } else { $("#div07020200,#div07020300").show(); }
+
+		if( $("#encuesta24").find("input[name=60010220]:checked").val() == "NO" ){  $("#div60010000,#div61000000").hide(); } else { $("#div60010000,#div61000000").show(); }
+
+		if( $("#encuesta18").find("input[name=39010000]:checked").val() == "Otro" ){  $("#39011100").show(); } else { $("#39011100").hide(); }
+
+
 
 
 
