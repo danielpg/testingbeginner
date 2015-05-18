@@ -1179,6 +1179,21 @@ function rebuild_arbol(){
 		if( $("#encuesta27").find("input[name=70110100]:checked").val() == "SI" ){  $("#div70110200").show(); } else { $("#div70110200").hide(); }
 	
 
+		if( $("#encuesta6").find("input[name=12020100]:checked").val() == "SI" ){  $("#div12020200").show(); } else { $("#div12020200").hide(); }
+
+		if( $("#encuesta6").find("input[name=12020101]:checked").val() == "SI" ){  $("#div12020201").show(); } else { $("#div12020201").hide(); }
+
+		if( $("#encuesta6").find("input[name=12020102]:checked").val() == "SI" ){  $("#div12020202").show(); } else { $("#div12020202").hide(); }
+
+		if( $("#encuesta6").find("input[name=12020103]:checked").val() == "SI" ){  $("#div12020203").show(); } else { $("#div12020203").hide(); }
+
+		if( $("#09040001").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();$("#div12020101").show(); } else { $("#div12020101").hide(); }
+
+		if( $("#09040002").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();$("#div12020102").show(); } else { $("#div12020102").hide(); }
+
+		if( $("#09040003").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();$("#div12020103").show(); } else { $("#div12020103").hide(); }
+	
+
 
 }
 
