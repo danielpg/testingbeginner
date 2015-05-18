@@ -381,7 +381,7 @@ function rebuild_arbol(){
 			$( "#24010100").val("");
 		}
 
-		if( $("#2401000007").is(":checked") ){
+	/*	if( $("#2401000007").is(":checked") ){
 			$( "#2401000001" ).parent().hide();
 			$( "#2401000002" ).parent().hide();
 			$( "#2401000003" ).parent().hide();
@@ -395,7 +395,7 @@ function rebuild_arbol(){
 			$( "#2401000004" ).parent().show();
 			$( "#2401000005" ).parent().show();
 			$( "#2401000006" ).parent().show();		
-		}
+		}*/
 
 		if( $("#24010100").val() != "" ){
 			$("#div67070000 legend").html( $( "#24010100" ).val()  );
