@@ -5,7 +5,7 @@
 		versionCode = "1" 
 		version     = "1.0.0" >
 
-	<!-- versionCode is optional and Android only -->
+	<!-- versionCode is optional and Android onlyxzccc -->
 
 	<name>MINEDU Sistema de Monitoreo</name>
 
