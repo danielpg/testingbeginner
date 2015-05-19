@@ -43,7 +43,7 @@ var imageid = "";
 var res0 = "<option value='0'>--Seleccionar--</option>";
 var res1 = "<option value='1'>Completo</option><option value='2'>Incompleto</option>";
 var res2 = "<option value='3'>Rechazo</option><option value='4'>Local Cerrado</option><option value='5'>Local escolar inactivo sin justificación</option><option value='6'>Local escolar inactivo con justificación</option><option value='7'>Otro</option>";
-var desktop = 1;
+var desktop = 0;
 var codeversion = 2;
 var tmpload_data;
 var paso_counter = 0;
@@ -4787,7 +4787,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-19 13:30:11</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-19 15:36:08</div>';
 	html += '</div>';
 	$("body").append(html);
 }
