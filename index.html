@@ -2337,6 +2337,11 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		if( $("#encuesta6").find("input[name=09080003]").val() == "SI" ){ $("#div11010003,#div11030003").show(); } else { $("#div11010003,#div11030003").hide(); }
 	});
 	
+	
+	$("#encuesta5").find("input[name=09060003]").change(function() {
+		if( $("#encuesta5").find("input[name=09060003]").val() == "SI" ){ $("#div09070003").show(); } else { $("#div09070003").hide(); }
+	});	
+	
 }
 
 function validate_mes_number(id){
@@ -4934,7 +4939,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-20 17:58:41</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-20 18:16:34</div>';
 	html += '</div>';
 	$("body").append(html);
 }
