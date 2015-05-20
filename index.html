@@ -1306,13 +1306,33 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		}
 	});*/
 
-	$("#encuesta24").find( "input[name=60010000]" ).change(function() {
+/*	$("#encuesta24").find( "input[name=60010000]" ).change(function() {
 		if( $("#encuesta24").find("input[name=60010000]:checked").val() == "NO"){
 			$( "#div61000000" ).hide();
 		} else {
 			$( "#div61000000" ).show();
+			
+			if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
+				$("#encuesta24").find(".noeib .efi").hide();
+				$("#encuesta24").find(".eib .efi").show();
+			} else {
+				$("#encuesta24").find(".noeib .efi").show();
+				$("#encuesta24").find(".eib .efi").hide();
+			}
+
+			if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
+				$("#encuesta24").find(".noeib .efp").hide();
+				$("#encuesta24").find(".eib .efp").show();
+			} else {
+				$("#encuesta24").find(".noeib .efp").show();
+				$("#encuesta24").find(".eib .efp").hide();
+			}		
+			
+			if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta24").find(".efs").show(); } else { $("#encuesta24").find(".efs").hide(); }	
+			
+			
 		}
-	});
+	});*/
 
 
 
@@ -2174,7 +2194,30 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 	});
 
 	$("#encuesta24").find( "input[name=60010240]" ).change(function() {
-		if( $("#encuesta24").find("input[name=60010220]:checked").val() == "NO" ){  $("#div60010000,#div61000000").hide(); } else { $("#div60010000,#div61000000").show(); }
+		if( $("#encuesta24").find("input[name=60010220]:checked").val() == "NO" ){ 
+			$("#div60010000,#div61000000").hide(); 
+		} else { 
+			$("#div60010000,#div61000000").show();
+			
+			if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
+				$("#encuesta24").find(".noeib .efi").hide();
+				$("#encuesta24").find(".eib .efi").show();
+			} else {
+				$("#encuesta24").find(".noeib .efi").show();
+				$("#encuesta24").find(".eib .efi").hide();
+			}
+
+			if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
+				$("#encuesta24").find(".noeib .efp").hide();
+				$("#encuesta24").find(".eib .efp").show();
+			} else {
+				$("#encuesta24").find(".noeib .efp").show();
+				$("#encuesta24").find(".eib .efp").hide();
+			}		
+			
+			if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta24").find(".efs").show(); } else { $("#encuesta24").find(".efs").hide(); }	
+			
+		}
 	});
 
 	$("#encuesta18").find( "input[name=39010000]" ).change(function() {
@@ -4839,7 +4882,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-20 21:22:09</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-20 21:57:24</div>';
 	html += '</div>';
 	$("body").append(html);
 }

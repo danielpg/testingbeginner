@@ -219,21 +219,31 @@ function rebuild_arbol(){
 			$( "#12010100").val("");
 		}
 
-		if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
-			$(".noeib .efi").hide();
-			$(".eib .efi").show();
-		} else {
-			$(".noeib .efi").show();
-			$(".eib .efi").hide();
-		}
+		if( $("#encuesta24").find("input[name=60010220]:checked").val() == "NO" ){ 
+			$("#div60010000,#div61000000").hide(); 
+		} else { 
+			$("#div60010000,#div61000000").show();
+			
+			if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
+				$("#encuesta24").find(".noeib .efi").hide();
+				$("#encuesta24").find(".eib .efi").show();
+			} else {
+				$("#encuesta24").find(".noeib .efi").show();
+				$("#encuesta24").find(".eib .efi").hide();
+			}
 
-		if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
-			$(".noeib .efp").hide();
-			$(".eib .efp").show();
-		} else {
-			$(".noeib .efp").show();
-			$(".eib .efp").hide();
+			if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
+				$("#encuesta24").find(".noeib .efp").hide();
+				$("#encuesta24").find(".eib .efp").show();
+			} else {
+				$("#encuesta24").find(".noeib .efp").show();
+				$("#encuesta24").find(".eib .efp").hide();
+			}		
+			
+			if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta24").find(".efs").show(); } else { $("#encuesta24").find(".efs").hide(); }	
+			
 		}
+	
 	
 
 	if($("#1401010101").is(":checked") ) { $("#div14010201,#div14010301,#div14010401,#div14010501,#div14010601").show();  } else { $("#div14010201,#div14010301,#div14010401,#div14010501,#div14010601").hide(); } 
@@ -765,14 +775,15 @@ function rebuild_arbol(){
 		}
 	
 
-
+/*
 		if( $("#encuesta24").find("input[name=60010000]:checked").val() == "NO"){
 			$( "#div61000000" ).hide();
 		} else {
 			$( "#div61000000" ).show();
-		}
-
-
+		}-
+		
+		*/
+	
 
 	if( $("#encuesta24").find("input[name=61010101]:checked").val() == "SI"){  $( "#div61010201,#div61010301" ).show();  } else { $( "#div61010201,#div61010301" ).hide();     }
 
