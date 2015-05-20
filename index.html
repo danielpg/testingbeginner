@@ -2052,8 +2052,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 
 	//"Ratificado por evaluación excepcional 2014","Asignado por evaluación de acceso 2014"
 	$("#encuesta5").find( "input[name=07010200]" ).change(function() {
-		if( $("#encuesta5").find("input[name=07010200]:checked").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();	} else {  $("#div_ratificado").hide();  }
-		if( $("#encuesta5").find("input[name=07010200]:checked").val() == "Asignado por evaluación de acceso 2014" ){      $("#div_ratificado").show();	} else {  $("#div_ratificado").hide();  }
+		if( ($("#encuesta5").find("input[name=07010200]:checked").val() == "Ratificado por evaluación excepcional 2014") ||  ($("#encuesta5").find("input[name=07010200]:checked").val() == "Asignado por evaluación de acceso 2014")    ){  $("#div_ratificado").show();	} else {  $("#div_ratificado").hide();  }
+		//if( $("#encuesta5").find("input[name=07010200]:checked").val() == "Asignado por evaluación de acceso 2014" ){      $("#div_ratificado").show();	} else {  $("#div_ratificado").hide();  }
 	});
 
 	$("#encuesta9").find( "input[name=20010001]" ).change(function() {
@@ -2234,15 +2234,14 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		if( $("#encuesta6").find("input[name=12020103]:checked").val() == "SI" ){  $("#div12020203").show(); } else { $("#div12020203").hide(); }
 	});
 
-
 	$("#09040001").change(function() {
-		if( $("#09040001").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();$("#div12020101").show(); } else { $("#div12020101").hide(); }
+		if( ( $("#09040001").val() == "Ratificado por evaluación excepcional 2014"  )   || (   $("#09040001").val() == "Asignado por evaluación de acceso 2014"    )  ){  $("#div_ratificado").show();$("#div12020101").show(); } else { $("#div12020101").hide(); }
 	});
 	$("#09040002").change(function() {
-		if( $("#09040002").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();$("#div12020102").show(); } else { $("#div12020102").hide(); }
+		if( ( $("#09040002").val() == "Ratificado por evaluación excepcional 2014" )   || (   $("#09040002").val() == "Asignado por evaluación de acceso 2014"    )  ){  $("#div_ratificado").show();$("#div12020102").show(); } else { $("#div12020102").hide(); }
 	});
 	$("#09040003").change(function() {
-		if( $("#09040003").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();$("#div12020103").show(); } else { $("#div12020103").hide(); }
+		if( ( $("#09040003").val() == "Ratificado por evaluación excepcional 2014" )   || (   $("#09040003").val() == "Asignado por evaluación de acceso 2014"   )    ){  $("#div_ratificado").show();$("#div12020103").show(); } else { $("#div12020103").hide(); }
 	});
 
 	$("#encuesta34").find("input[name=90239999]").change(function() {
@@ -4549,10 +4548,10 @@ function validate_modular(id){
 function validate_fono(id){
 	if( $("#" + id).val() == "" )return false;
 	nn = int(id);
-	if( ( $("#" + id).val().length <= 9 ) && ( $("#" + id).val().length <= 7 ) ){
+	if( ( $("#" + id).val().length <= 9 ) ){
 		return true;
 	} else {
-		alert("Teléfono  debe contener entre 5 y 9 digitos.");
+		alert("Teléfono  debe contener  menos de 10 digitos.");
 		$("#" + id).val("");
 		return false;
 	}
@@ -4840,7 +4839,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-20 19:58:36</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-20 21:22:09</div>';
 	html += '</div>';
 	$("body").append(html);
 }
