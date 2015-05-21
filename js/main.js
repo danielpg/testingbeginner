@@ -1238,7 +1238,10 @@ function rebuild_arbol(){
 
 		if( $("#09040003").val() == "Ratificado por evaluación excepcional 2014" ){  $("#div_ratificado").show();$("#div12020103").show(); } else { $("#div12020103").hide(); }
 	
+		if( $("#encuesta6").find("input[name=09080003]:checked").val() == "SI" ){ $("#div11010003,#div11030003").show(); } else { $("#div11010003,#div11030003").hide(); }
 
+		if( $("#encuesta5").find("input[name=09060003]:checked").val() == "SI" ){ $("#div09070003").show(); } else { $("#div09070003").hide(); }
+	
 
 }
 
