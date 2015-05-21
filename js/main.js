@@ -224,21 +224,27 @@ function rebuild_arbol(){
 		} else { 
 			$("#div60010000,#div61000000").show();
 			
-			if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
-				$("#encuesta24").find(".noeib .efi").hide();
-				$("#encuesta24").find(".eib .efi").show();
-			} else {
-				$("#encuesta24").find(".noeib .efi").show();
-				$("#encuesta24").find(".eib .efi").hide();
-			}
+		if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
+			$("#encuesta24").find(".noeib .efp").hide();
+			$("#encuesta24").find(".eib .efp").show();
+		} else if (   $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-MONOLINGUE"     ) {
+			$("#encuesta24").find(".noeib .efp").show();
+			$("#encuesta24").find(".eib .efp").hide();
+		} else {
+			$("#encuesta24").find(".eib .efp").hide();
+			$("#encuesta24").find(".noeib .efp").hide();
+		}	
 
-			if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
-				$("#encuesta24").find(".noeib .efp").hide();
-				$("#encuesta24").find(".eib .efp").show();
-			} else {
-				$("#encuesta24").find(".noeib .efp").show();
-				$("#encuesta24").find(".eib .efp").hide();
-			}		
+		if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
+			$("#encuesta24").find(".noeib .efi").hide();
+			$("#encuesta24").find(".eib .efi").show();
+		} else if  ( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-MONOLINGUE") {
+			$("#encuesta24").find(".noeib .efi").show();
+			$("#encuesta24").find(".eib .efi").hide();
+		}else {
+			$("#encuesta24").find(".noeib .efi").hide();
+			$("#encuesta24").find(".eib .efi").hide();
+		}
 			
 			if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta24").find(".efs").show(); } else { $("#encuesta24").find(".efs").hide(); }	
 			

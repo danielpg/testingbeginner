@@ -467,7 +467,6 @@ function onDeviceReady() {
 		}
 	});
 
-
 	$("#encuesta6").find( "input[name=12010000]" ).change(function() {
 		if( $("#encuesta6").find("input[name=12010000]:checked" ).val() == "OTRO"){
 			$( "#div12010100" ).show();
@@ -481,8 +480,11 @@ function onDeviceReady() {
 		if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
 			$("#encuesta24").find(".noeib .efi").hide();
 			$("#encuesta24").find(".eib .efi").show();
-		} else {
+		} else if  ( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-MONOLINGUE") {
 			$("#encuesta24").find(".noeib .efi").show();
+			$("#encuesta24").find(".eib .efi").hide();
+		}else {
+			$("#encuesta24").find(".noeib .efi").hide();
 			$("#encuesta24").find(".eib .efi").hide();
 		}
 	});
@@ -491,11 +493,15 @@ function onDeviceReady() {
 		if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
 			$("#encuesta24").find(".noeib .efp").hide();
 			$("#encuesta24").find(".eib .efp").show();
-		} else {
+		} else if (   $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-MONOLINGUE"     ) {
 			$("#encuesta24").find(".noeib .efp").show();
 			$("#encuesta24").find(".eib .efp").hide();
+		} else {
+			$("#encuesta24").find(".eib .efp").hide();
+			$("#encuesta24").find(".noeib .efp").hide();
 		}
 	});
+
 
 	$("#1401010101").change(function(){ if($("#1401010101").is(":checked") ) { $("#div14010201,#div14010301,#div14010401,#div14010501,#div14010601").show();  } else { $("#div14010201,#div14010301,#div14010401,#div14010501,#div14010601").hide(); } });
 	$("#1402010101").change(function(){ if($("#1402010101").is(":checked") ) { $("#div14020201,#div14020301,#div14020401,#div14020501,#div14020601").show();  } else { $("#div14020201,#div14020301,#div14020401,#div14020501,#div14020601").hide(); } });
@@ -2205,18 +2211,26 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 			if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
 				$("#encuesta24").find(".noeib .efi").hide();
 				$("#encuesta24").find(".eib .efi").show();
-			} else {
+			} else if  ( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-MONOLINGUE") {
 				$("#encuesta24").find(".noeib .efi").show();
+				$("#encuesta24").find(".eib .efi").hide();
+			}else {
+				$("#encuesta24").find(".noeib .efi").hide();
 				$("#encuesta24").find(".eib .efi").hide();
 			}
 
 			if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
 				$("#encuesta24").find(".noeib .efp").hide();
 				$("#encuesta24").find(".eib .efp").show();
-			} else {
+			} else if (   $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-MONOLINGUE"     ) {
 				$("#encuesta24").find(".noeib .efp").show();
 				$("#encuesta24").find(".eib .efp").hide();
-			}		
+			} else {
+				$("#encuesta24").find(".eib .efp").hide();
+				$("#encuesta24").find(".noeib .efp").hide();
+			}
+
+		
 			
 			if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta24").find(".efs").show(); } else { $("#encuesta24").find(".efs").hide(); }	
 			
@@ -2760,6 +2774,7 @@ function nextpage_encuesta( i ){
 			return false;
 		} else {
 			new_nivel();
+			clear_niveles();
 		}
 
 
@@ -3827,27 +3842,30 @@ function load_nivel(i){
 }
 
 function reiniciar_eib(){
+	if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
+		$("#encuesta24").find(".noeib .efi").hide();
+		$("#encuesta24").find(".eib .efi").show();
+	} else if  ( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-MONOLINGUE") {
+		$("#encuesta24").find(".noeib .efi").show();
+		$("#encuesta24").find(".eib .efi").hide();
+	}else {
+		$("#encuesta24").find(".noeib .efi").hide();
+		$("#encuesta24").find(".eib .efi").hide();
+	}
 
-		if( $("#encuesta6").find("input[name=13010001]:checked").val() == "IE-EIB"){
-			$("#encuesta24").find(".noeib .efi").hide();
-			$("#encuesta24").find(".eib .efi").show();
-		} else {
-			$("#encuesta24").find(".noeib .efi").show();
-			$("#encuesta24").find(".eib .efi").hide();
-		}
-	
-
-
-		if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
-			$("#encuesta24").find(".noeib .efp").hide();
-			$("#encuesta24").find(".eib .efp").show();
-		} else {
-			$("#encuesta24").find(".noeib .efp").show();
-			$("#encuesta24").find(".eib .efp").hide();
-		}
+	if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"){
+		$("#encuesta24").find(".noeib .efp").hide();
+		$("#encuesta24").find(".eib .efp").show();
+	} else if (   $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-MONOLINGUE"     ) {
+		$("#encuesta24").find(".noeib .efp").show();
+		$("#encuesta24").find(".eib .efp").hide();
+	} else {
+		$("#encuesta24").find(".eib .efp").hide();
+		$("#encuesta24").find(".noeib .efp").hide();
+	}
 		
-		if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta24").find(".efs").show(); } else { $("#encuesta24").find(".efs").hide(); }	
-			
+	if($("#encuesta1").find("#activenivel_3").val()==1){ $("#encuesta24").find(".efs").show(); } else { $("#encuesta24").find(".efs").hide(); }	
+
 
 }
 
@@ -3875,20 +3893,28 @@ function arbol_nivel(){
 			$("#div90000300").show();
 		}
 
-		if(   ($("#encuesta32").find("input[name=90010000]:checked").val() == "SI") && ( $("#encuesta32").find("input[name=90030000]:checked").val() == "NO") ){
+	/*	if(   ($("#encuesta32").find("input[name=90010000]:checked").val() == "SI") && ( $("#encuesta32").find("input[name=90030000]:checked").val() == "NO") ){
 			$("#dopresente1v2").hide();
 			$("#dopresente2").hide();
 		} else {
 			$("#dopresente1v2").show();
 			$("#dopresente2").show();
-		}
+		}*/
 
 		if( $("#encuesta32").find("input[name=90010000]:checked").val() == "NO"){
 			$("#dopresente1").hide();
 			$("#dopresente2").hide();
 		} else {
-			$("#dopresente1").show();
-			$("#dopresente2").show();
+		//	$("#dopresente1").show();
+		//	$("#dopresente2").show();
+		}
+
+		if( ($("#encuesta32").find("input[name=90030000]:checked").val() == "NO") ){
+			$("#dopresente1v2").hide();
+			$("#dopresente2").hide();
+		} else {
+		//	$("#dopresente1v2").show();
+		//	$("#dopresente2").show();
 		}
 
 
@@ -4045,6 +4071,7 @@ function validate_niveles(){
 		( current_enc.nivelesdata[i].turno == tmp2 ) &&
 		( current_enc.nivelesdata[i].grado ==  tmp3 ) &&
 		( current_enc.nivelesdata[i].seccion == tmp4 ) ){
+			draw_niveles_estados();
 			alert("No se puede repetir los mismos parametros de encuesta");
 			return false;
 		}
@@ -4116,6 +4143,7 @@ function draw_niveles_estados(){
 	
 	$("#nivelestable tbody").html(html);
 	$("#div90000003").show();
+	return false;
 }
 
 
@@ -4965,7 +4993,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-20 19:01:35</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-21 12:25:46</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -6644,7 +6672,7 @@ input[type=text]{width:100%}
 					<h3>XXIII. MATERIAL EDUCATIVO </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div60010220"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>98. ¿El local escolar cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010220" id="6001022001" value="SI"><label for="6001022001">SI</label><input type="radio" name="60010220" id="6001022002" value="NO"><label for="6001022002">NO</label></fieldset></div><div id='materiale'><div id="div60010230"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>99. ¿Los materiales educativos recibidos por el MINEDU corresponden a la lengua en que se imparte la enseñanza en la institución educativa ?</legend><input type="radio" name="60010230" id="6001023001" value="SI"><label for="6001023001">SI</label><input type="radio" name="60010230" id="6001023002" value="NO"><label for="6001023002">NO</label></fieldset></div><div id="div60010250"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>100. Los materiales educativos recibidos corresponden a:</legend><input type="radio" name="60010250" id="6001025001" value="IE MONOLINGUE"><label for="6001025001">IE MONOLINGUE</label><input type="radio" name="60010250" id="6001025002" value="IE-EIB"><label for="6001025002">IE-EIB</label></fieldset></div></div><div id="div60010240"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>101. ¿Durante el presente año lectivo ¿ La IE ha recibido material fungible (colores,plumones,tizas,cartulina,etc) entregado directamente por el Ministerio de Educación - MINEDU? </legend><input type="radio" name="60010240" id="6001024001" value="SI"><label for="6001024001">SI</label><input type="radio" name="60010240" id="6001024002" value="NO"><label for="6001024002">NO</label></fieldset></div><div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>102. ¿Cómo llegaron los materiales educativos a la institución educativa?</legend><input type="radio" name="60010000" id="6001000001" value="LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL"><label for="6001000001">LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL</label><input type="radio" name="60010000" id="6001000002" value="LA APAFA SE ENCARGO DEL RECOJO"><label for="6001000002">LA APAFA SE ENCARGO DEL RECOJO</label><input type="radio" name="60010000" id="6001000003" value="UNA EMPRESA DONO EL TRANSPORTE"><label for="6001000003">UNA EMPRESA DONO EL TRANSPORTE</label><input type="radio" name="60010000" id="6001000004" value="LAS FUERZAS ARMADAS LAS TRAJERON"><label for="6001000004">LAS FUERZAS ARMADAS LAS TRAJERON</label><input type="radio" name="60010000" id="6001000005" value="NO SABE"><label for="6001000005">NO SABE</label><input type="radio" name="60010000" id="6001000006" value="OTRO"><label for="6001000006">OTRO</label></fieldset></div><div id="div60010001"  class=" ff"  > <div data-role="fieldcontain"><label for="60010001"   >Otro (especificar):</label><input   data-mini="true"   type="text" name="60010001" id="60010001" value=""   ></div></div><a href="#" onclick="return reiniciar_eib();" class="ui-btn ui-icon-arrow-l ui-btn-icon-right">Si la tabla de materiales no se muestra correctamente, presionar este boton</a><div id='div61000000'><p>103. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='efi'><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
+					<div id="div60010220"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>98. ¿El local escolar cuenta con material educativo (cuadernos de trabajo y textos escolares) provisto por el Ministerio de Educación ?</legend><input type="radio" name="60010220" id="6001022001" value="SI"><label for="6001022001">SI</label><input type="radio" name="60010220" id="6001022002" value="NO"><label for="6001022002">NO</label></fieldset></div><div id='materiale'><div id="div60010230"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>99. ¿Los materiales educativos recibidos por el MINEDU corresponden a la lengua en que se imparte la enseñanza en la institución educativa ?</legend><input type="radio" name="60010230" id="6001023001" value="SI"><label for="6001023001">SI</label><input type="radio" name="60010230" id="6001023002" value="NO"><label for="6001023002">NO</label></fieldset></div><div id="div60010250"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>100. Los materiales educativos recibidos corresponden a:</legend><input type="radio" name="60010250" id="6001025001" value="IE MONOLINGUE"><label for="6001025001">IE MONOLINGUE</label><input type="radio" name="60010250" id="6001025002" value="IE-EIB"><label for="6001025002">IE-EIB</label></fieldset></div></div><div id="div60010240"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>101. ¿Durante el presente año lectivo ¿ La IE ha recibido material fungible (colores,plumones,tizas,cartulina,etc) entregado directamente por el Ministerio de Educación - MINEDU? </legend><input type="radio" name="60010240" id="6001024001" value="SI"><label for="6001024001">SI</label><input type="radio" name="60010240" id="6001024002" value="NO"><label for="6001024002">NO</label></fieldset></div><div id="div60010000"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>102. ¿Cómo llegaron los materiales educativos a la institución educativa?</legend><input type="radio" name="60010000" id="6001000001" value="LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL"><label for="6001000001">LA INSTITUCION EDUCATIVA LOS RECOGIO DE LA UGEL</label><input type="radio" name="60010000" id="6001000002" value="LA APAFA SE ENCARGO DEL RECOJO"><label for="6001000002">LA APAFA SE ENCARGO DEL RECOJO</label><input type="radio" name="60010000" id="6001000003" value="UNA EMPRESA DONO EL TRANSPORTE"><label for="6001000003">UNA EMPRESA DONO EL TRANSPORTE</label><input type="radio" name="60010000" id="6001000004" value="LAS FUERZAS ARMADAS LAS TRAJERON"><label for="6001000004">LAS FUERZAS ARMADAS LAS TRAJERON</label><input type="radio" name="60010000" id="6001000005" value="NO SABE"><label for="6001000005">NO SABE</label><input type="radio" name="60010000" id="6001000006" value="OTRO"><label for="6001000006">OTRO</label></fieldset></div><div id="div60010001"  class=" ff"  > <div data-role="fieldcontain"><label for="60010001"   >Otro (especificar):</label><input   data-mini="true"   type="text" name="60010001" id="60010001" value=""   ></div></div><a href="#" onclick="return reiniciar_eib();" class="ui-btn ui-icon-arrow-l ui-btn-icon-right">Si la tabla de materiales no se muestra correctamente, presionar este boton</a><div id='div61000000'><p>103. Por nivel educativo, indicar la siguiente información:</p><div class='noeib'><div class='efi'><div class='cs1'>Inicial - MONOLINGUE</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: castellano</td>
 <td><div id="div61010101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010101" id="6101010101" value="SI"><label for="6101010101">SI</label><input type="radio" name="61010101" id="6101010102" value="NO"><label for="6101010102">NO</label></fieldset></div></td>
 <td><div id="div61010401"  class=" ff"  > <label for="61010401"  class="ui-hidden-accessible" ></label><input   data-mini="true"   type="date" name="61010401" id="61010401" value=""   ></div><div id="div61013400"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend></legend><input type="checkbox" name="61013401" id="6101340001" value="No Sabe"><label for="6101340001" >No Sabe</label></fieldset></div></td>
 <td><div id="div61010501"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61010501" id="6101050101" value="SI"><label for="6101050101">SI</label><input type="radio" name="61010501" id="6101050102" value="NO"><label for="6101050102">NO</label></fieldset></div></td>
@@ -6668,7 +6696,7 @@ input[type=text]{width:100%}
 <td><div id="div61101305"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61101305" id="6110130501" value="SI"><label for="6110130501">SI</label><input type="radio" name="61101305" id="6110130502" value="NO"><label for="6110130502">NO</label></fieldset></div></td>
 <td><div id="div61100302"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61100302" id="6110030201" value="SI"><label for="6110030201">SI</label><input type="radio" name="61100302" id="6110030202" value="NO"><label for="6110030202">NO</label></fieldset></div></td>
 <td><div id="div61100303"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61100303" id="6110030301" value="SI"><label for="6110030301">SI</label><input type="radio" name="61100303" id="6110030302" value="NO"><label for="6110030302">NO</label></fieldset></div></td>
-</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div><div class='efp'><div class='cs1'>Primaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación (Para 1er y 2do grado)</td>
+</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div><div class='efp'><div class='cs1'>Primaria - MONOLINGUE</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación (Para 1er y 2do grado)</td>
 <td><div id="div61020101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61020101" id="6102010101" value="SI"><label for="6102010101">SI</label><input type="radio" name="61020101" id="6102010102" value="NO"><label for="6102010102">NO</label></fieldset></div></td>
 <td><div id="div61020401"  class=" ff"  > <label for="61020401"  class="ui-hidden-accessible" ></label><input   data-mini="true"   type="date" name="61020401" id="61020401" value=""   ></div><div id="div61013800"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend></legend><input type="checkbox" name="61013801" id="6101380001" value="No Sabe"><label for="6101380001" >No Sabe</label></fieldset></div></td>
 <td><div id="div61020501"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61020501" id="6102050101" value="SI"><label for="6102050101">SI</label><input type="radio" name="61020501" id="6102050102" value="NO"><label for="6102050102">NO</label></fieldset></div></td>
@@ -6734,7 +6762,7 @@ input[type=text]{width:100%}
 <td><div id="div61070501"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61070501" id="6107050101" value="SI"><label for="6107050101">SI</label><input type="radio" name="61070501" id="6107050102" value="NO"><label for="6107050102">NO</label></fieldset></div></td>
 <td><div id="div61070201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61070201" id="6107020101" value="SI"><label for="6107020101">SI</label><input type="radio" name="61070201" id="6107020102" value="NO"><label for="6107020102">NO</label></fieldset></div></td>
 <td><div id="div61070301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61070301" id="6107030101" value="SI"><label for="6107030101">SI</label><input type="radio" name="61070301" id="6107030102" value="NO"><label for="6107030102">NO</label></fieldset></div></td>
-</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div><div class='efs'><div class='cs1'>Secundaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efs'><td>Cuadernos de trabajo de Matemática (Para 1er y 2do año)</td>
+</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div><div class='efs'><div class='cs1'>Secundaria - MONOLINGUE</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efs'><td>Cuadernos de trabajo de Matemática (Para 1er y 2do año)</td>
 <td><div id="div61080101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61080101" id="6108010101" value="SI"><label for="6108010101">SI</label><input type="radio" name="61080101" id="6108010102" value="NO"><label for="6108010102">NO</label></fieldset></div></td>
 <td><div id="div61080401"  class=" ff"  > <label for="61080401"  class="ui-hidden-accessible" ></label><input   data-mini="true"   type="date" name="61080401" id="61080401" value=""   ></div><div id="div61014800"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend></legend><input type="checkbox" name="61014801" id="6101480001" value="No Sabe"><label for="6101480001" >No Sabe</label></fieldset></div></td>
 <td><div id="div61080501"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61080501" id="6108050101" value="SI"><label for="6108050101">SI</label><input type="radio" name="61080501" id="6108050102" value="NO"><label for="6108050102">NO</label></fieldset></div></td>
@@ -6806,13 +6834,13 @@ input[type=text]{width:100%}
 <td><div id="div61530502"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61530502" id="6153050201" value="SI"><label for="6153050201">SI</label><input type="radio" name="61530502" id="6153050202" value="NO"><label for="6153050202">NO</label></fieldset></div></td>
 <td><div id="div61530202"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61530202" id="6153020201" value="SI"><label for="6153020201">SI</label><input type="radio" name="61530202" id="6153020202" value="NO"><label for="6153020202">NO</label></fieldset></div></td>
 <td><div id="div61530303"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61530303" id="6153030301" value="SI"><label for="6153030301">SI</label><input type="radio" name="61530303" id="6153030302" value="NO"><label for="6153030302">NO</label></fieldset></div></td>
-</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div></div><div class='eib'><div class='efi '><div class='cs1'>Inicial</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: lengua originaria</td>
+</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div></div><div class='eib'><div class='efi '><div class='cs1'>Inicial - EIB</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efi'><td>Cuaderno de trabajo: lengua originaria</td>
 <td><div id="div61210101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61210101" id="6121010101" value="SI"><label for="6121010101">SI</label><input type="radio" name="61210101" id="6121010102" value="NO"><label for="6121010102">NO</label></fieldset></div></td>
 <td><div id="div61210401"  class=" ff"  > <label for="61210401"  class="ui-hidden-accessible" ></label><input   data-mini="true"   type="date" name="61210401" id="61210401" value=""   ></div><div id="div61019900"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend></legend><input type="checkbox" name="61019901" id="6101990001" value="No Sabe"><label for="6101990001" >No Sabe</label></fieldset></div></td>
 <td><div id="div61210501"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61210501" id="6121050101" value="SI"><label for="6121050101">SI</label><input type="radio" name="61210501" id="6121050102" value="NO"><label for="6121050102">NO</label></fieldset></div></td>
 <td><div id="div61210201"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61210201" id="6121020101" value="SI"><label for="6121020101">SI</label><input type="radio" name="61210201" id="6121020102" value="NO"><label for="6121020102">NO</label></fieldset></div></td>
 <td><div id="div61210301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61210301" id="6121030101" value="SI"><label for="6121030101">SI</label><input type="radio" name="61210301" id="6121030102" value="NO"><label for="6121030102">NO</label></fieldset></div></td>
-</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div><div class='efp '><div class='cs1'>Primaria</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación: lengua originaria y castellano como segunda lengua</td>
+</tr></tbody><colgroup><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'><col style='width:100px'></colgroup></table></div><div class='efp '><div class='cs1'>Primaria - EIB</div><table  class="ts1"><thead><tr><th class=''></th><th class=''>103A. ¿Qué material llegó a la IE?</th><th class=''>103B. ¿En qué fecha llegó?</th><th class=''>103C. ¿El material llegó en buen estado?</th><th class=''>103D. ¿El material es suficiente?</th><th class=''>103E. ¿El material se encuentra en las aulas?</th></tr></thead><tbody><tr class='efp'><td>Cuaderno de trabajo de Comunicación: lengua originaria y castellano como segunda lengua</td>
 <td><div id="div61180101"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61180101" id="6118010101" value="SI"><label for="6118010101">SI</label><input type="radio" name="61180101" id="6118010102" value="NO"><label for="6118010102">NO</label></fieldset></div></td>
 <td><div id="div61180401"  class=" ff"  > <label for="61180401"  class="ui-hidden-accessible" ></label><input   data-mini="true"   type="date" name="61180401" id="61180401" value=""   ></div><div id="div61016000"  class=" ff"  > <fieldset data-role="controlgroup"    ><legend></legend><input type="checkbox" name="61016001" id="6101600001" value="No Sabe"><label for="6101600001" >No Sabe</label></fieldset></div></td>
 <td><div id="div61180501"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="61180501" id="6118050101" value="SI"><label for="6118050101">SI</label><input type="radio" name="61180501" id="6118050102" value="NO"><label for="6118050102">NO</label></fieldset></div></td>
@@ -7280,7 +7308,7 @@ input[type=text]{width:100%}
 					<h3>ENCUESTAS POR NIVELES </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000300"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup"   data-type="horizontal" ><legend>Grado/Año</legend><input type="checkbox" name="90000301" id="9000030001" value="1"><label for="9000030001" >1</label><input type="checkbox" name="90000302" id="9000030002" value="2"><label for="9000030002" >2</label><input type="checkbox" name="90000303" id="9000030003" value="3"><label for="9000030003" >3</label><input type="checkbox" name="90000304" id="9000030004" value="4"><label for="9000030004" >4</label><input type="checkbox" name="90000305" id="9000030005" value="5"><label for="9000030005" >5</label><input type="checkbox" name="90000306" id="9000030006" value="6"><label for="9000030006" >6</label></fieldset></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input   data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(32);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
+					<div id="div90000001"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Nivel</legend><input type="radio" name="90000001" id="9000000101" value="INICIAL"><label for="9000000101">INICIAL</label><input type="radio" name="90000001" id="9000000102" value="PRIMARIA"><label for="9000000102">PRIMARIA</label><input type="radio" name="90000001" id="9000000103" value="SECUNDARIA"><label for="9000000103">SECUNDARIA</label></fieldset></div></div><div id="div90000002"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Turno</legend><input type="radio" name="90000002" id="9000000201" value="MAÑANA"><label for="9000000201">MAÑANA</label><input type="radio" name="90000002" id="9000000202" value="TARDE"><label for="9000000202">TARDE</label><input type="radio" name="90000002" id="9000000203" value="NOCHE"><label for="9000000203">NOCHE</label></fieldset></div></div><div id="div90000300"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup"   data-type="horizontal" ><legend>Grado/Año</legend><input type="checkbox" name="90000301" id="9000030001" value="1"><label for="9000030001" >1</label><input type="checkbox" name="90000302" id="9000030002" value="2"><label for="9000030002" >2</label><input type="checkbox" name="90000303" id="9000030003" value="3"><label for="9000030003" >3</label><input type="checkbox" name="90000304" id="9000030004" value="4"><label for="9000030004" >4</label><input type="checkbox" name="90000305" id="9000030005" value="5"><label for="9000030005" >5</label><input type="checkbox" name="90000306" id="9000030006" value="6"><label for="9000030006" >6</label></fieldset></div></div><div id="div90000004"  class=" ff"  > <div data-role="fieldcontain"><label for="90000004"   >Sección</label><input   data-mini="true"   type="text" name="90000004" id="90000004" value=""   ></div></div><a href="#" onclick="return nextpage_encuesta(32);" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Iniciar encuesta por nivel</a><h3  class='ui-bar ui-bar-a ui-corner-all'> Listado de encuestas realizadas</h3><a href="#" onclick="return draw_niveles_estados();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Actualizar tabla de estados</a><table id="nivelestable" class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>Turno</th><th class=''>Grado/Año</th><th class=''>Sección</th><th class=''></th><th class=''></th></tr></thead><tbody><tr><td colspan='5'> El listado esta vació </td></tr></tbody></table>
 				</div>				
 			</div>
 			<a href="#" onclick="return show_pre_end_encuesta();" class="ui-btn ui-icon-carat-r ui-btn-icon-right">Finalizar encuesta</a>
