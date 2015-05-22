@@ -1206,11 +1206,18 @@ function rebuild_arbol(){
 
 		if( $("#encuesta6").find("input[name=34010120]:checked").val() == "NO" ){  $("#div34010150,#div34010180").hide();	 } else {  $("#div34010150,#div34010180").show();  }
 
+
+
 	
 		if( ($("#encuesta13").find("input[name=34010130]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010150]:checked").val() == "NO") ){  $("#div34010160").show();	 } else { $("#div34010160").hide(); }
 		if( ($("#encuesta13").find("input[name=34010170]:checked").val() == "NO") || ($("#encuesta13").find("input[name=34010180]:checked").val() == "NO") ){  $("#div34010220").show();	 } else { $("#div34010220").hide(); }
 
 
+		if( ($("#encuesta13").find("input[name=34010110]:checked").val() == "NO") && ( $("#encuesta13").find("input[name=34010120]:checked").val() == "NO" )  ){
+			$("#div34020100,#div34020200").hide();
+		} else {
+			$("#div34020100,#div34020200").show();
+		}
 
 		if( $("#encuesta5").find("input[name=07020200]:checked").val() == "SI" ){  $("#div07020300").show(); } else { $("#div07020300").hide(); }
 

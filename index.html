@@ -1640,7 +1640,8 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 			$("#div90230000").hide();
 			$("#div90240100").hide();
 			$("#nivelt_primaria").hide();
-				$("#nivelt_secundaria").hide();
+			$("#nivelt_primaria_eib").hide();
+			$("#nivelt_secundaria").hide();
 
 		} else {
 			$("#div90210100").show();
@@ -2015,6 +2016,10 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		if($(this).val() == "OTRO"){ 	$("#div90120122").show();	} else { $("#div90120122").hide(); }
 	});
 
+	$("#encuesta33").find("input[name=90129800]").change(function() {
+		if($(this).val() == "OTRO"){ 	$("#div90120123").show();	} else { $("#div90120123").hide(); }
+	});
+
 	$("#encuesta22").find("input[name=56020100]").change(function() {
 		if($("#encuesta22").find("input[name=56020100]:checked").val() == "NO"){ 	$("#div56020200").hide();} else { $("#div56020200").show(); }
 	});
@@ -2167,9 +2172,24 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 
 	$("#encuesta13").find( "input[name=34010110]" ).change(function() {
 		if( $("#encuesta13").find("input[name=34010110]:checked").val() == "NO" ){  $("#div34010130,#div34010170").hide();	 } else {  $("#div34010130,#div34010170").show();  }
+
+
+		if( ($("#encuesta13").find("input[name=34010110]:checked").val() == "NO") && ( $("#encuesta13").find("input[name=34010120]:checked").val() == "NO" )  ){
+			$("#div34020100,#div34020200").hide();
+		} else {
+			$("#div34020100,#div34020200").show();
+		}
+
 	});
 	$("#encuesta13").find( "input[name=34010120]" ).change(function() {
 		if( $("#encuesta13").find("input[name=34010120]:checked").val() == "NO" ){  $("#div34010150,#div34010180").hide();	 } else {  $("#div34010150,#div34010180").show();  }
+
+		if( ($("#encuesta13").find("input[name=34010110]:checked").val() == "NO") && ( $("#encuesta13").find("input[name=34010120]:checked").val() == "NO" )  ){
+			$("#div34020100,#div34020200").hide();
+		} else {
+			$("#div34020100,#div34020200").show();
+		}
+
 	});
 
 
@@ -2238,7 +2258,7 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 	});
 
 	$("#encuesta18").find( "input[name=39010000]" ).change(function() {
-		if( $("#encuesta18").find("input[name=39010000]:checked").val() == "Otro" ){  $("#39011100").show(); } else { $("#39011100").hide(); }
+		if( $("#encuesta18").find("input[name=39010000]:checked").val() == "Otro" ){  $("#div39011100").show(); } else { $("#div39011100").hide(); }
 	});
 
 	$("#encuesta29").find( "input[name=85010000]" ).change(function() {
@@ -2314,9 +2334,14 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 			$("#90010021").val(0);
 		} 
 		if((current_enc.nivelesdata[current_nivel_id].nivel == "PRIMARIA")  && ( $("#encuesta34").find("input[name=90239999]:checked").val() == "SI"  ) ){
-			$("#nivelt_primaria").show();$("#90010021").val(1);
+			if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"  ){
+				$("#nivelt_primaria_eib").show(); $("#90010021").val(1);
+			} else {
+				$("#nivelt_primaria").show(); $("#90010021").val(1);
+			} 
 		} else {			
 			$("#nivelt_primaria").hide();$("#90010021").val(0);
+			$("#nivelt_primaria_eib").show(); $("#90010021").val(0);
 		} 
 		if((current_enc.nivelesdata[current_nivel_id].nivel == "SECUNDARIA")  && ( $("#encuesta34").find("input[name=90239999]:checked").val() == "SI"  ) ){
 			$("#nivelt_secundaria").show();$("#90010021").val(1);
@@ -2355,7 +2380,23 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 	$("#encuesta5").find("input[name=09060003]").change(function() {
 		if( $("#encuesta5").find("input[name=09060003]:checked").val() == "SI" ){ $("#div09070003").show(); } else { $("#div09070003").hide(); }
 	});	
+
+	if( ( int('17200101') + int('17200102') + int('17200103') + int('17200104') + int('17200105') + int('17200106')  )  == ( int('17100101') + int('17100102') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL INICIAL");      }
+ 
+	if( ( int('17200301') + int('17200302') + int('17200303') + int('17200304') + int('17200305') + int('17200306')  )  == ( int('17100201') + int('17100202') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL PRIMARIA");      }
 	
+	if( ( int('17200501') + int('17200502') + int('17200503') + int('17200504') + int('17200505') + int('17100302')  )  == ( int('17100301') + int('17100502') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL SECUNDARIA");      }
+	
+	
+	$( "#34010270" ).blur(function() {	
+		if(  int( "34010270") > int( "34010250") ){  alert("EL NUMERO DE BICICLETAS RECIBIDAS NO PUEDE MENOR AL NUMERO DE BICICLETAS QUE FUNCIONAN.");  }  
+	});
+
+	$( "#34010280" ).blur(function() {	
+		if(  int( "34010280") > int( "34010270") ){  alert("EL NUMERO DE BICICLETAS QUE UTILIZAN LOS ESTUDIANTES NO PUEDE SER MAYOR AL NUMERO DE BICICLETAS QUE FUNCIONAN.");  }  
+	});
+
+
 }
 
 function validate_mes_number(id){
@@ -2995,7 +3036,7 @@ function default_hiding(){
 	$( "#div12020100" ).hide();
 	$( "#div61000000" ).hide();
 	$( "#div80010100" ).hide();
-	$("#39011100").hide();
+	$("#div39011100").hide();
 	$( "#div50010000,#horasagua").hide();
 	$("#div00000401").hide();
 	$("#div00000402").hide();
@@ -3293,24 +3334,28 @@ $( "#div61520504,#div61520505,#div61520502,#div61520503" ).hide();
 }
 
 function default_hiding_niveles(){
-$("#div90120122").hide();
-		$("#area_ini").hide();
-		$("#area_pri").hide();
-		$("#area_sec").hide();
+	$( "#div90120121").hide();
+	$("#div90120122").hide();
+	$("#div90120123").hide();
+
+	$("#area_ini").hide();
+	$("#area_pri").hide();
+	$("#area_sec").hide();
 	$( "#div90050100" ).hide();
 	$( "#div90070100" ).hide();
 	$( "#div90110100").hide();
 	$( "#div90140100").hide();
 	$( "#div90260200").hide();
-	$( "#div90120121").hide();
+
 	$("#div90050300,#div90200300").hide();
 	$("#div90060100").hide();
 	$("#90010021").val(0);
 	$("#div90060111,#div90050311").hide();
 
-		$("#nivelt_inicial").show();
-		$("#nivelt_primaria").show();
-		$("#nivelt_secundaria").show();
+		$("#nivelt_inicial").hide();
+		$("#nivelt_primaria").hide();
+		$("#nivelt_primaria_eib").hide();
+		$("#nivelt_secundaria").hide();
 
 	$("#div90180100,#div90180200,#div90180300,#div90180400,#div90180500,#div90180600").hide()
 	//$("#div90190100,#div90190200,#div90190300,#div90190400,#div90190500,#div90190600").hide();
@@ -3629,7 +3674,7 @@ function validate_pages(){
 	}*/
 
 
-	/*if(tmp_page == "encuesta29"){
+	if(tmp_page == "encuesta29"){
 		tmp = "EL N° DE APARATOS SANITARIOS NO COINCIDE CON LA CANTIDAD DECLARADA POR EL DIRECTOR";
 		if( int("47010200") != int("83010000") ){alert(tmp);	}
 		if( int("47020200") != int("83020000") ){alert(tmp);	}
@@ -3637,22 +3682,22 @@ function validate_pages(){
 
 		if( ( int("84010100") + int("84010200") + int("84010300") ) != int(83010000)  ){
 			tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN  DE INODOROS NO COINCIDE CON EL NUMERO TOTAL DE INODOROS OBSERVADOS";
-			alert(tmp);	return false; 
+			alert(tmp);	//return false; 
 		}
 		if( ( int("84020100") + int("84020200") + int("84020300") ) != int(83020000)  ){
 			tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN DE TURCOS NO COINCIDE CON EL NUMERO TOTAL DE TURCOS OBSERVADOS";
-			alert(tmp);	return false; 
+			alert(tmp);	//return false; 
 		}
 		if( ( int("84030100") + int("84030200") + int("84030300") ) != int(83030000)  ){
 			tmp = "LA SUMA DEL ESTADO DE CONSERVACIÓN DE HUECOS EN EL PISO NO COINCIDE CON EL NUMERO TOTAL DE HUECOS EN EL PISO OBSERVADOS";
-			alert(tmp);	return false; 
+			alert(tmp);	//return false; 
 		}
 
 		tmp = "EL Nro DE LAVADEROS O LAVATORIOS CON AGUA DISPONIBLE NO DEBE SER MAYOR AL Nro TOTAL DE LAVADEROS O LAVATORIOS";
-		if( int("86010200") > int("86010100")  ){alert(tmp);	return false; } 
-		if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
-		if( int("86020200") > int("86020100")  ){alert(tmp);	return false; } 
-	}*/
+		if( int("86010200") > int("86010100")  ){alert(tmp);	 } 
+		if( int("86020200") > int("86020100")  ){alert(tmp);	 } 
+		if( int("86020200") > int("86020100")  ){alert(tmp);	} 
+	}
 
 
 
@@ -3696,6 +3741,7 @@ function filter_niveles(){
 		$(".nivelp_primaria").hide();
 	}
 
+		$("#nivelt_primaria_eib").hide();
 		$("#nivelt_primaria").hide();
 		$("#nivelt_secundaria").hide();
 		$("#nivelt_inicial").hide();
@@ -3788,6 +3834,7 @@ function toggle_materiales(){
 		$("#nivelt_inicial").hide();
 	} 
  	if((current_enc.nivelesdata[current_nivel_id].nivel == "PRIMARIA")  && ( $("#encuesta34").find("input[name=90239999]:checked").val() == "SI"  ) ){
+
 		$("#nivelt_primaria").show();
 	} else {			
 		$("#nivelt_primaria").hide();
@@ -3827,9 +3874,14 @@ function load_nivel(i){
 			$("#90010021").val(0);
 		} 
 		if((current_enc.nivelesdata[current_nivel_id].nivel == "PRIMARIA")  && ( $("#encuesta34").find("input[name=90239999]:checked").val() == "SI"  ) ){
-			$("#nivelt_primaria").show();$("#90010021").val(1);
+			if( $("#encuesta6").find("input[name=13010002]:checked").val() == "IE-EIB"  ){
+				$("#nivelt_primaria_eib").show(); $("#90010021").val(1);
+			} else {
+				$("#nivelt_primaria").show(); $("#90010021").val(1);
+			} 
+
 		} else {			
-			$("#nivelt_primaria").hide();$("#90010021").val(0);
+			$("#nivelt_primaria").hide();	$("#nivelt_primaria_eib").hide();$("#90010021").val(0);
 		} 
 		if((current_enc.nivelesdata[current_nivel_id].nivel == "SECUNDARIA")  && ( $("#encuesta34").find("input[name=90239999]:checked").val() == "SI"  ) ){
 			$("#nivelt_secundaria").show();$("#90010021").val(1);
@@ -4048,7 +4100,15 @@ function arbol_nivel(){
 
 		if($("#encuesta34").find("input[name=90200200]").val() == "Otro"){ 	$("#div90200300").show();	} else { $("#div90200300").hide(); }
 
-		if($("#encuesta34").find("input[name=90200200]").val() == "OTRO"){ 	$("#div90120121").show();	} else { $("#div90120121").hide(); }
+		if($("#encuesta33").find("input[name=90120100]").val() == "OTRO"){ 	$("#div90120121").show();	} else { $("#div90120121").hide(); }
+
+		if($("#encuesta33").find("input[name=90129900]").val() == "OTRO"){ 	$("#div90120122").show();	} else { $("#div90120122").hide(); }
+
+		if($("#encuesta33").find("input[name=90129800]").val() == "OTRO"){ 	$("#div90120123").show();	} else { $("#div90120123").hide(); }
+
+
+
+
 }
 
 function validate_niveles(){
@@ -4153,7 +4213,7 @@ function form_ausentes(i){
 	content += current_enc.nivelesdata[i].grado + ", ";
 	content += current_enc.nivelesdata[i].seccion;
 	$("#enivelestitle").html(content);
-	clear_ausentes();
+	//clear_ausentes();
 	current_nivel_id = i;
 	current_nivel = current_enc.nivelesdata[i];
 	changepage("#ausentes");
@@ -4175,7 +4235,7 @@ function delete_nivel(j){
 		current_enc.nivelesdata = newstack;
 
 		draw_niveles_estados();
-		clear_ausentes();
+		//clear_ausentes();
 		changepage("#encuesta" + nivelespage_start);
 	}
 	return false;
@@ -4993,7 +5053,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-21 12:31:47</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-21 22:05:30</div>';
 	html += '</div>';
 	$("body").append(html);
 }
@@ -5051,7 +5111,7 @@ input[type=text]{width:100%}
 		</div>
 		<div data-role="content">
 			<div class="right">
-				<div class="box_success"> V2.2</div>
+				<div class="box_success"> V3.0</div>
 				<div id="espere" class="box_notice">Procesando datos, espere un momento por favor...</div>
 
 				<ul data-role="listview" data-inset="true">
@@ -5548,7 +5608,13 @@ input[type=text]{width:100%}
 <td><div class="ff" id="div09040003" > <label for='09040003'  class="ui-hidden-accessible" ></label><select name='09040003' id='09040003'  data-mini="true"   ><option value='--SELECCIONAR--'>--SELECCIONAR--</option><option value='Ratificado por evaluación excepcional 2014'>Ratificado por evaluación excepcional 2014</option><option value='Asignado por evaluación de acceso 2014'>Asignado por evaluación de acceso 2014</option><option value='Encargado en la función'>Encargado en la función</option><option value='Otro'>Otro</option></select></div></td>
 <td></td>
 <td><div id="div09060003"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal"  data-mini="true"  ><legend></legend><input type="radio" name="09060003" id="0906000301" value="SI"><label for="0906000301">SI</label><input type="radio" name="09060003" id="0906000302" value="NO"><label for="0906000302">NO</label></fieldset></div></td>
-</tr></tbody></table><table  class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>11.G ¿Cuántas horas de dictado tiene bajo su responsabilidad?</th><th class=''>11.H ¿El Director esta presente?</th></tr></thead><tbody><tr class='efs'><td>Secundaria</td>
+</tr></tbody></table><table  class="ts1"><thead><tr><th class=''>Nivel</th><th class=''>11.G ¿Cuántas horas de dictado tiene bajo su responsabilidad?</th><th class=''>11.H ¿El Director esta presente?</th></tr></thead><tbody><tr class='efi'><td>Inicial</td>
+<td></td>
+<td><div id="div09080001"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="09080001" id="0908000101" value="SI"><label for="0908000101">SI</label><input type="radio" name="09080001" id="0908000102" value="NO"><label for="0908000102">NO</label></fieldset></div></td>
+</tr><tr class='efp'><td>Primaria</td>
+<td></td>
+<td><div id="div09080002"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="09080002" id="0908000201" value="SI"><label for="0908000201">SI</label><input type="radio" name="09080002" id="0908000202" value="NO"><label for="0908000202">NO</label></fieldset></div></td>
+</tr><tr class='efs'><td>Secundaria</td>
 <td><div id="div09070003"  class=" ff"  > <label for="09070003"  class="ui-hidden-accessible" ></label><input  type="number"   data-mini="true"   pattern="[0-9]*" name="09070003" id="09070003" value=""   /></div></td>
 <td><div id="div09080003"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="09080003" id="0908000301" value="SI"><label for="0908000301">SI</label><input type="radio" name="09080003" id="0908000302" value="NO"><label for="0908000302">NO</label></fieldset></div></td>
 </tr></tbody></table></div>
@@ -6315,7 +6381,7 @@ input[type=text]{width:100%}
 					<h3>XI. PROGRAMA QALI WARMA (SOLO NIVEL INICIAL Y PRIMARIA) </h3>
 				</div>
 				<div class="ui-body ui-body-a">
-					<div class='efi efp'><div id="div34020100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>46. ¿En la IE, se ha conformado el Comité de Alimentación?</legend><input type="radio" name="34020100" id="3402010001" value="SI"><label for="3402010001">SI</label><input type="radio" name="34020100" id="3402010002" value="NO"><label for="3402010002">NO</label></fieldset></div><div id="div34020200"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>47. ¿Se encuentra en funcionamiento?</legend><input type="radio" name="34020200" id="3402020001" value="Permanentemente"><label for="3402020001">Permanentemente</label><input type="radio" name="34020200" id="3402020002" value="A veces"><label for="3402020002">A veces</label><input type="radio" name="34020200" id="3402020003" value="Nunca"><label for="3402020003">Nunca</label></fieldset></div><p>48. En esta IE, ¿Opera el programa Qali Warma?</p><div class='efi'><div id="div34010110"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="34010110" id="3401011001" value="SI"><label for="3401011001">SI</label><input type="radio" name="34010110" id="3401011002" value="NO"><label for="3401011002">NO</label></fieldset></div></div></div><div class='efp'><div id="div34010120"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="34010120" id="3401012001" value="SI"><label for="3401012001">SI</label><input type="radio" name="34010120" id="3401012002" value="NO"><label for="3401012002">NO</label></fieldset></div></div></div><p>49. A través del programa, ¿Se ha entregado HOY desayuno a los estudiantes de inicial y primaria?</p><div class='efi'><div id="div34010130"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="34010130" id="3401013001" value="SI"><label for="3401013001">SI</label><input type="radio" name="34010130" id="3401013002" value="NO"><label for="3401013002">NO</label></fieldset></div></div></div><div class='efp'><div id="div34010150"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="34010150" id="3401015001" value="SI"><label for="3401015001">SI</label><input type="radio" name="34010150" id="3401015002" value="NO"><label for="3401015002">NO</label></fieldset></div></div></div><div id="div34010160"  class=" ff"  > <label for="34010160"   >50. ¿Por qué motivo no se entregó desayuno hoy?</label><input   data-mini="true"   type="text" name="34010160" id="34010160" value=""   ></div><p>51. A través del programa, ¿Se ha entregado HOY almuerzo a los estudiantes de inicial y primaria?</p><div class='efi'><div id="div34010170"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="34010170" id="3401017001" value="SI"><label for="3401017001">SI</label><input type="radio" name="34010170" id="3401017002" value="NO"><label for="3401017002">NO</label></fieldset></div></div></div><div class='efp'><div id="div34010180"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="34010180" id="3401018001" value="SI"><label for="3401018001">SI</label><input type="radio" name="34010180" id="3401018002" value="NO"><label for="3401018002">NO</label></fieldset></div></div></div><div id="div34010220"  class=" ff"  > <label for="34010220"   >52. ¿Por qué motivo no se entregó almuerzo hoy?</label><input   data-mini="true"   type="text" name="34010220" id="34010220" value=""   ></div></div>
+					<div class='efi efp'><p>46. En esta IE, ¿Opera el programa Qali Warma?</p><div class='efi'><div id="div34010110"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="34010110" id="3401011001" value="SI"><label for="3401011001">SI</label><input type="radio" name="34010110" id="3401011002" value="NO"><label for="3401011002">NO</label></fieldset></div></div></div><div class='efp'><div id="div34010120"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="34010120" id="3401012001" value="SI"><label for="3401012001">SI</label><input type="radio" name="34010120" id="3401012002" value="NO"><label for="3401012002">NO</label></fieldset></div></div></div><div id="div34020100"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>47. ¿En la IE, se ha conformado el Comité de Alimentación?</legend><input type="radio" name="34020100" id="3402010001" value="SI"><label for="3402010001">SI</label><input type="radio" name="34020100" id="3402010002" value="NO"><label for="3402010002">NO</label></fieldset></div><div id="div34020200"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend>48. ¿Se encuentra en funcionamiento?</legend><input type="radio" name="34020200" id="3402020001" value="Permanentemente"><label for="3402020001">Permanentemente</label><input type="radio" name="34020200" id="3402020002" value="A veces"><label for="3402020002">A veces</label><input type="radio" name="34020200" id="3402020003" value="Nunca"><label for="3402020003">Nunca</label></fieldset></div><p>49. A través del programa, ¿Se ha entregado HOY desayuno a los estudiantes de inicial y primaria?</p><div class='efi'><div id="div34010130"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="34010130" id="3401013001" value="SI"><label for="3401013001">SI</label><input type="radio" name="34010130" id="3401013002" value="NO"><label for="3401013002">NO</label></fieldset></div></div></div><div class='efp'><div id="div34010150"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="34010150" id="3401015001" value="SI"><label for="3401015001">SI</label><input type="radio" name="34010150" id="3401015002" value="NO"><label for="3401015002">NO</label></fieldset></div></div></div><div id="div34010160"  class=" ff"  > <label for="34010160"   >50. ¿Por qué motivo no se entregó desayuno hoy?</label><input   data-mini="true"   type="text" name="34010160" id="34010160" value=""   ></div><p>51. A través del programa, ¿Se ha entregado HOY almuerzo a los estudiantes de inicial y primaria?</p><div class='efi'><div id="div34010170"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Inicial</legend><input type="radio" name="34010170" id="3401017001" value="SI"><label for="3401017001">SI</label><input type="radio" name="34010170" id="3401017002" value="NO"><label for="3401017002">NO</label></fieldset></div></div></div><div class='efp'><div id="div34010180"  class=" ff"  > <div data-role="fieldcontain"><fieldset data-role="controlgroup" data-type="horizontal" ><legend>Primaria</legend><input type="radio" name="34010180" id="3401018001" value="SI"><label for="3401018001">SI</label><input type="radio" name="34010180" id="3401018002" value="NO"><label for="3401018002">NO</label></fieldset></div></div></div><div id="div34010220"  class=" ff"  > <label for="34010220"   >52. ¿Por qué motivo no se entregó almuerzo hoy?</label><input   data-mini="true"   type="text" name="34010220" id="34010220" value=""   ></div></div>
 				</div>				
 			</div>
 			<a href="#" onclick="return nextpage_encuesta(14);"  class="sgte ui-btn ui-icon-carat-r ui-btn-icon-right">Siguiente</a>
@@ -7405,6 +7471,18 @@ input[type=text]{width:100%}
 <td><div id="div90230210"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230210" id="9023021001" value="SI"><label for="9023021001">SI</label><input type="radio" name="90230210" id="9023021002" value="NO"><label for="9023021002">NO</label></fieldset></div></td>
 </tr><tr class=''><td>Texto escolar de Ciencia y Ambiente</td>
 <td><div id="div90230211"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230211" id="9023021101" value="SI"><label for="9023021101">SI</label><input type="radio" name="90230211" id="9023021102" value="NO"><label for="9023021102">NO</label></fieldset></div></td>
+</tr></tbody></table></div><div  id='nivelt_primaria_eib'><p><span class='nci'>29</span><span class='ncp'>36</span><span class='ncs'>29</span>. De los siguientes materiales educativos ¿Cuáles observa en el aula?</p><table  class="ts1"><thead><tr><th class=''></th><th class=''></th></tr></thead><tbody><tr class=''><td>Cuaderno de trabajo de Comunicación (1er a 6to grado:Lengua originaria)</td>
+<td><div id="div90230401"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230401" id="9023040101" value="SI"><label for="9023040101">SI</label><input type="radio" name="90230401" id="9023040102" value="NO"><label for="9023040102">NO</label></fieldset></div></td>
+</tr><tr class=''><td>Cuaderno de trabajo de Matématica (1er a 4to grado:Lengua originaria)</td>
+<td><div id="div90230402"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230402" id="9023040201" value="SI"><label for="9023040201">SI</label><input type="radio" name="90230402" id="9023040202" value="NO"><label for="9023040202">NO</label></fieldset></div></td>
+</tr><tr class=''><td>Cuaderno de trabajo de Ciencia y Ciudadania (1er a 6to grado:Lengua originaria)</td>
+<td><div id="div90230403"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230403" id="9023040301" value="SI"><label for="9023040301">SI</label><input type="radio" name="90230403" id="9023040302" value="NO"><label for="9023040302">NO</label></fieldset></div></td>
+</tr><tr class=''><td>Cuaderno de trabajo integrado (Persona Social y Ciencia y Ambiente:Lengua originaria)</td>
+<td><div id="div90230404"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230404" id="9023040401" value="SI"><label for="9023040401">SI</label><input type="radio" name="90230404" id="9023040402" value="NO"><label for="9023040402">NO</label></fieldset></div></td>
+</tr><tr class=''><td>Cuaderno de trabajo de Castellano como segunda Lengua (nivel de 1 a 5) </td>
+<td><div id="div90230405"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230405" id="9023040501" value="SI"><label for="9023040501">SI</label><input type="radio" name="90230405" id="9023040502" value="NO"><label for="9023040502">NO</label></fieldset></div></td>
+</tr><tr class=''><td>Módulos de Biblioteca de aula EIB</td>
+<td><div id="div90230406"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230406" id="9023040601" value="SI"><label for="9023040601">SI</label><input type="radio" name="90230406" id="9023040602" value="NO"><label for="9023040602">NO</label></fieldset></div></td>
 </tr></tbody></table></div><div  id='nivelt_secundaria'><p><span class='nci'>29</span><span class='ncp'>36</span><span class='ncs'>29</span>. De los siguientes materiales educativos ¿Cuáles observa en el aula?</p><table  class="ts1"><thead><tr><th class=''></th><th class=''></th></tr></thead><tbody><tr class=''><td>Cuadernos de trabajo de Matemática (Para 1er y 2do año)</td>
 <td><div id="div90230301"  class=" ff"  > <fieldset data-role="controlgroup" data-type="horizontal" ><legend></legend><input type="radio" name="90230301" id="9023030101" value="SI"><label for="9023030101">SI</label><input type="radio" name="90230301" id="9023030102" value="NO"><label for="9023030102">NO</label></fieldset></div></td>
 </tr><tr class=''><td>Cuaderno de trabajo de Comprensión Lectora (Para 1er y 2do año)</td>
