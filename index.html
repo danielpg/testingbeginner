@@ -1305,6 +1305,9 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 			$( "#div58010000" ).show();
 			$( "#div59010000" ).hide();
 		}
+		if( $("#encuesta23").find("input[name=57010000]:checked").val() == "NO SABE"){
+			$( "#div58010000,#div59010000" ).hide();
+		}
 	});
 
 	/*$( "#58010000" ).blur(function() {
@@ -2171,7 +2174,7 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 	});
 
 	$("#encuesta13").find( "input[name=34010110]" ).change(function() {
-		if( $("#encuesta13").find("input[name=34010110]:checked").val() == "NO" ){  $("#div34010130,#div34010170").hide();	 } else {  $("#div34010130,#div34010170").show();  }
+		if( $("#encuesta13").find("input[name=34010110]:checked").val() == "NO" ){  $("#div34020100,#div34020200,#div34010130,#div34010170").hide();	 } else {  $("#div34020100,#div34020200,#div34010130,#div34010170").show();  }
 
 
 		if( ($("#encuesta13").find("input[name=34010110]:checked").val() == "NO") && ( $("#encuesta13").find("input[name=34010120]:checked").val() == "NO" )  ){
@@ -2387,12 +2390,7 @@ $("#encuesta12").find("input[name=33040603]").change(function(){
 		if( $("#encuesta5").find("input[name=09060003]:checked").val() == "SI" ){ $("#div09070003").show(); } else { $("#div09070003").hide(); }
 	});	
 
-	if( ( int('17200101') + int('17200102') + int('17200103') + int('17200104') + int('17200105') + int('17200106')  )  == ( int('17100101') + int('17100102') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL INICIAL");      }
- 
-	if( ( int('17200301') + int('17200302') + int('17200303') + int('17200304') + int('17200305') + int('17200306')  )  == ( int('17100201') + int('17100202') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL PRIMARIA");      }
-	
-	if( ( int('17200501') + int('17200502') + int('17200503') + int('17200504') + int('17200505') + int('17100302')  )  == ( int('17100301') + int('17100502') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL SECUNDARIA");      }
-	
+
 	
 	$( "#34010270" ).blur(function() {	
 		if(  int( "34010270") > int( "34010250") ){  alert("EL NUMERO DE BICICLETAS RECIBIDAS NO PUEDE MENOR AL NUMERO DE BICICLETAS QUE FUNCIONAN.");  }  
@@ -3706,8 +3704,13 @@ function validate_pages(){
 	}
 
 
-
-
+	if(tmp_page == "encuesta7"){
+		if( ( int('17200101') + int('17200102') + int('17200103') + int('17200104') + int('17200105') + int('17200106')  )  == ( int('17100101') + int('17100102') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL INICIAL");      }
+ 
+		if( ( int('17200301') + int('17200302') + int('17200303') + int('17200304') + int('17200305') + int('17200306')  )  == ( int('17100201') + int('17100202') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL PRIMARIA");      }
+	
+		if( ( int('17200501') + int('17200502') + int('17200503') + int('17200504') + int('17200505') + int('17100302')  )  == ( int('17100301') + int('17100502') )  ){    }   else  {  alert("EL NúMERO TOTAL DE DOCENTES NO COINCIDE CON LA SUMA DEL NúMERO DE DOCENTES SEGúN FUENTE DE FINANCIAMIENTO PARA EL NIVEL SECUNDARIA");      }
+	}	
 
 
 	return tmpvflag;
@@ -5070,7 +5073,7 @@ function create_panels(){
 	html += '       <a href="#" onclick="return resetpagevars();" id="botonvaciar" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left bline">Vaciar el formulario de esta página</a><br><br>';
 	html += '       <a href="#"  onclick="return init_home();"  class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-action ui-btn-icon-left ">Ir al menu principal</a><br ><br>';
 	html += '       <a href="#" onclick="return logout();" class="ui-btn ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-left ">Cerrar Sesión</a>';
-	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-22 18:46:53</div>';
+	html += '	<div style="color:#CACACA;">Ultima version: 2015-05-23 11:16:22</div>';
 	html += '</div>';
 	$("body").append(html);
 }
